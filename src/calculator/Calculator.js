@@ -1,27 +1,29 @@
-import React from 'react';
-import {AppRegistry, StyleSheet, View} from 'react-native';
+import React, {Component} from 'react';
+import {View} from 'react-native';
+import { JS_STYLES } from '../static/styles';
+import Feedback from './feedback/Feedback';
+import Header from './header/Header';
+import Countdown from './countdown/Countdown';
+import Operation from './operation/Operation';
+import Input from './input/Input';
 
-const Calculator = props =>
-    <View style={styles.screen}>
-        <View style={styles.calculator}>
-            <Feedback {...props} />
-            <Header {...props} />
-            <Countdown {...props} />
-            <Operation {...props} />
-            <Input {...props} />
-        </View>
-    </View>;
+export default class Calculator extends Component {
+    constructor(props) {
+        super(props);
+    }
 
-const styles = StyleSheet.create({
-    screen: {
-        margin: '0 auto',
-        maxWidth: '500px',
-    },
-    calculator: {
-        width: '100%',
-        flexDirection: 'column',
-        position: 'relative',
-    },
-});
+    render() {
+        return (
+            <View style={JS_STYLES.screen}>
+                <View style={JS_STYLES.calculator}>
+                    <Feedback {...this.props} />
+                    <Header {...this.props} />
+                    <Countdown {...this.props} />
+                    <Operation {...this.props} />
+                    <Input {...this.props} />
+                </View>
+            </View>
+        )
+    }
+}
 
-AppRegistry.registerComponent('moravec', () => Calculator);

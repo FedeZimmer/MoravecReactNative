@@ -1,11 +1,16 @@
 import React, {Component} from 'react'
 import Calculator from './Calculator'
+import { connect } from 'react-redux'
+import * as actions from './actions'
 
-
-class CalculatorContainer extends Component {
+export class CalculatorContainer extends Component {
     constructor(props) {
         super(props);
-        this.state = {time: 0, timer: null, startTime: 0}
+        this.state = {
+            time: 0,
+            timer: null,
+            startTime: 0,
+        }
     }
 
     componentDidMount() {
@@ -50,9 +55,9 @@ class CalculatorContainer extends Component {
         return <Calculator
             submit={this.submit}
             time={this.state.time}
-            countdown={this.state.countdown}
             {...this.props}
         />
     }
-
 }
+
+export default connect(state => state.calculator, actions)(CalculatorContainer);
