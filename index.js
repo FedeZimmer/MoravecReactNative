@@ -1,24 +1,16 @@
 import React, {Component} from "react";
-import {createStore, applyMiddleware, compose} from "redux";
-import {Provider} from "react-redux";
-import thunkMiddleware from "redux-thunk";
-import {createLogger} from "redux-logger";
-import reducer from "./src/reducers";
-import {Platform, AppRegistry, AsyncStorage, StyleSheet, Text, TextInput, View, Alert, Button} from "react-native";
+import {AppRegistry, Button, Text, View} from "react-native";
 import {StackNavigator} from "react-navigation";
-import CalculatorContainer from "./src/calculator";
+import {createStore} from "redux";
+import {Provider} from "react-redux";
 
-const loggerMiddleware = createLogger({ predicate: (getState, action) => __DEV__});
+import appReducers from "./src/reducers";
+import LevelContainer from "./src/level/LevelContainer";
 
-function configureStore(initialState) {
-    const enhancer = compose(
-        applyMiddleware(thunkMiddleware, loggerMiddleware),
-    );
 
-    return createStore(reducer, initialState, enhancer)
-}
+// const loggerMiddleware = createLogger({predicate: (getState, action) => true});
 
-const store = configureStore({});
+const store = createStore(appReducers);
 
 class Home extends Component {
     static navigationOptions = {
@@ -26,7 +18,7 @@ class Home extends Component {
     };
 
     render() {
-        const { navigate } = this.props.navigation;
+        const {navigate} = this.props.navigation;
         return (
             <View>
                 <Text>Moravec!</Text>
@@ -37,8 +29,8 @@ class Home extends Component {
 }
 
 export const App = StackNavigator({
-    Home: { screen: Home },
-    Arcade: { screen: CalculatorContainer },
+    Home: {screen: Home},
+    Arcade: {screen: LevelContainer},
 });
 
 const Moravec = () => (

@@ -1,6 +1,6 @@
-import { CREATE_TRIAL, ARCADE_TYPE_INPUT, ARCADE_ERASE_INPUT, SHOW_FEEDBACK, HIDE_FEEDBACK } from './actions'
+import {CREATE_TRIAL, ARCADE_TYPE_INPUT, ARCADE_ERASE_INPUT, SHOW_FEEDBACK, HIDE_FEEDBACK} from './actions'
 
-const defaultState = {
+const initialState = {
     trial: {
         input: null,
         operation: {
@@ -19,9 +19,8 @@ const defaultState = {
 };
 
 
-export default (state = defaultState, action) => {
+export function calculatorReducer(state = initialState, action) {
     switch (action.type) {
-
         case CREATE_TRIAL:
             return {
                 ...state,
@@ -67,7 +66,6 @@ export default (state = defaultState, action) => {
                     input: null,
                 },
             };
-
 
         default:
             return state

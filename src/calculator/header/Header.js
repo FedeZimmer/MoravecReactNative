@@ -14,19 +14,19 @@ const timeToString = time => {
 
 const Time = ({time}) =>
     <View>
-        { timeToString(time) }
+        <Text>{ timeToString(time) }</Text>
     </View>;
 
 
 const Hints = () =>
     <View>
-        pistas: 3/3
+        <Text>pistas: 3/3</Text>
     </View>;
 
 
 const LevelState = ({totalTrials, trials}) =>
     <View>
-        {trials.length + 1} / {totalTrials}
+        <Text>{trials.length + 1} / {totalTrials}</Text>
     </View>;
 
 

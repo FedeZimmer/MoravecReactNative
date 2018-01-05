@@ -9,7 +9,7 @@ const SubmitButton = ({submit, trial, time}) =>
 
 const EraseButton = ({eraseInput}) =>
     <View onClick={eraseInput}>
-        { String.fromCharCode('8592') }
+        <Text>{ String.fromCharCode('8592') }</Text>
     </View>;
 
 

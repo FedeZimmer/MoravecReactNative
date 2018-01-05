@@ -8,38 +8,49 @@ export const SHOW_FEEDBACK = 'SHOW_FEEDBACK';
 export const HIDE_FEEDBACK = 'HIDE_FEEDBACK';
 
 
-export const createTrial = (level) => ({
-    type: CREATE_TRIAL,
-    trial: {
-        input: null,
-        operation: createOperation(level),
-        time: 0,
+export function createTrial(level) {
+    return {
+        type: CREATE_TRIAL,
+        trial: {
+            input: null,
+            operation: createOperation(level),
+            time: 0,
+        }
     }
-});
+}
+
+export function typeInput(input) {
+    return {
+        type: ARCADE_TYPE_INPUT,
+        input: input
+    }
+}
+
+export function eraseInput() {
+    return {
+        type: ARCADE_ERASE_INPUT,
+    }
+}
 
 
-export const typeInput = input => ({
-    type: ARCADE_TYPE_INPUT,
-    input
-});
-
-export const eraseInput = () => ({
-    type: ARCADE_ERASE_INPUT,
-});
+export function submitTrial(trial) {
+    return {
+        type: SUBMIT_TRIAL,
+        trial: trial
+    }
+}
 
 
-export const submitTrial = trial => ({
-    type: SUBMIT_TRIAL,
-    trial
-});
+export function showFeedback(trial) {
+    return {
+        type: SHOW_FEEDBACK,
+        trial: trial
+    }
+}
 
 
-export const showFeedback = trial => ({
-    type: SHOW_FEEDBACK,
-    trial
-});
-
-
-export const hideFeedback = () => ({
-    type: HIDE_FEEDBACK
-});
+export function hideFeedback() {
+    return {
+        type: HIDE_FEEDBACK
+    }
+}

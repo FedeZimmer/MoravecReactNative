@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {View} from 'react-native';
-import { JS_STYLES } from '../static/styles';
+
+import {JS_STYLES} from '../static/styles';
 import Feedback from './feedback/Feedback';
 import Header from './header/Header';
 import Countdown from './countdown/Countdown';

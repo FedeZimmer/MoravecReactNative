@@ -1,11 +1,13 @@
 import React from 'react'
-import {View} from "react-native";
+import {Text, View} from "react-native";
 
 const Operation = ({trial}) =>
     <View>
-        {trial.operation.operand1 + ' ' +  trial.operation.operator + ' ' + trial.operation.operand2}
-        {' = '}
-        {trial.input ? trial.input : '?'}
+        <Text>
+            {trial.operation.operand1 + ' ' + trial.operation.operator + ' ' + trial.operation.operand2}
+            {' = '}
+            {trial.input ? trial.input : '?'}
+        </Text>
     </View>;
 
 export default Operation;

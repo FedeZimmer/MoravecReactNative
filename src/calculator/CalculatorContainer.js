@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
-import Calculator from './Calculator'
 import { connect } from 'react-redux'
+
+import Calculator from './Calculator'
 import * as actions from './actions'
 
 export class CalculatorContainer extends Component {
@@ -60,4 +61,4 @@ export class CalculatorContainer extends Component {
     }
 }
 
-export default connect(state => state.calculator, actions)(CalculatorContainer);
+export default CalculatorContainer = connect(state => state.calculator, actions)(CalculatorContainer);
