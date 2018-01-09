@@ -1,41 +1,73 @@
 import React from 'react';
 import {View, Text} from "react-native";
-
-const fillZeroes = string =>
-    string.length < 2 ? '0' + string : string;
+import {HEADER_STYLES} from "./styles";
 
 
-const timeToString = time => {
-    let minutes = Math.floor(time / (1000 * 60)).toString();
-    let seconds = Math.floor(time / 1000 % 60 ).toString();
-    return fillZeroes(minutes) + ':' + fillZeroes(seconds)
-};
+class Time extends React.Component {
+    constructor(props) {
+        super(props);
 
+        this.timeString = this.timeString.bind(this);
+        this.fillZeroes = this.fillZeroes.bind(this);
+    }
 
-const Time = ({time}) =>
-    <View>
-        <Text>{ timeToString(time) }</Text>
-    </View>;
+    fillZeroes(string) {
+        return string.length < 2 ? '0' + string : string;
+    }
 
+    timeString() {
+        let minutes = Math.floor(this.props.time / (1000 * 60)).toString();
+        let seconds = Math.floor(this.props.time / 1000 % 60 ).toString();
+        return this.fillZeroes(minutes) + ':' + this.fillZeroes(seconds);
+    }
 
-const Hints = () =>
-    <View>
-        <Text>pistas: 3/3</Text>
-    </View>;
+    render() {
+        return (
+            <View>
+                <Text style={HEADER_STYLES.time}>{this.timeString()}</Text>
+            </View>
+        )
+    }
+}
 
+class Hints extends React.Component {
+    render() {
+        return (
+            <View>
+                <Text style={HEADER_STYLES.hints}>pistas: 3/3</Text>
+            </View>
+        )
+    }
+}
 
-const LevelState = ({totalTrials, trials}) =>
-    <View>
-        <Text>{trials.length + 1} / {totalTrials}</Text>
-    </View>;
+class LevelState extends React.Component {
+    constructor(props) {
+        super(props);
+    }
 
+    render() {
+        return (
+            <View>
+                <Text style={HEADER_STYLES.remainingTrials}>
+                    {this.props.trials.length + 1} / {this.props.totalTrials}
+                </Text>
+            </View>
+        )
+    }
+}
 
-const Typing = props =>
-    <View>
-        <Time time={props.time} />
-        <Hints />
-        <LevelState totalTrials={props.totalTrials} trials={props.trials} />
-    </View>;
+export default class Header extends React.Component {
+    constructor(props) {
+        super(props);
+    }
 
-
-export default Typing;
+    render() {
+        return (
+            <View style={HEADER_STYLES.header}>
+                <Time time={this.props.time} />
+                <Hints />
+                <LevelState totalTrials={this.props.totalTrials} trials={this.props.trials} />
+            </View>
+        )
+    }
+}

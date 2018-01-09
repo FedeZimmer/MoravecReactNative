@@ -1,13 +1,41 @@
 import React from 'react'
 import {Text, View} from "react-native";
+import {OPERATION_STYLES} from "./styles";
 
-const Operation = ({trial}) =>
-    <View>
-        <Text>
-            {trial.operation.operand1 + ' ' + trial.operation.operator + ' ' + trial.operation.operand2}
-            {' = '}
-            {trial.input ? trial.input : '?'}
-        </Text>
-    </View>;
+export default class Operation extends React.Component {
+    constructor(props) {
+        super(props);
+    }
 
-export default Operation;
+    showFirstOperand() {
+        return this.props.trial.operation.operand1;
+    }
+
+    showOperator() {
+        return this.props.trial.operation.operator;
+    }
+
+    showSecondOperand() {
+        return this.props.trial.operation.operand2;
+    }
+
+    showResult() {
+        if (this.props.trial.input) {
+            return this.props.trial.input
+        } else {
+            return '?';
+        }
+    }
+
+    render() {
+        return (
+            <View style={OPERATION_STYLES.operationContainer}>
+                <Text style={OPERATION_STYLES.operation}>
+                    {this.showFirstOperand() + ' ' + this.showOperator() + ' ' + this.showSecondOperand()}
+                    {' = '}
+                    {this.showResult()}
+                </Text>
+            </View>
+        )
+    }
+}

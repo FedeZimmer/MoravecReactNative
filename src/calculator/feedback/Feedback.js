@@ -1,31 +1,53 @@
 import React from "react";
 import {View, Text} from "react-native";
-import {JS_STYLES} from "../../static/styles";
+import {FEEDBACK_STYLES} from "./styles";
 
 
-const IncorrectFeedback = ({result}) =>
-    <View style={JS_STYLES.arcadeFeedbackIncorrect}>
-        <Text>
-            La respuesta era
-        </Text>
-        <Text style={JS_STYLES.arcadeFeedbackIncorrectNumber}>
-            {result}
-        </Text>
-    </View>;
+class Feedback extends React.Component {
+    constructor(props) {
+        super(props);
 
+        this.feedbackIsCorrect = this.feedbackIsCorrect.bind(this);
+    }
 
-const CorrectFeedback = () =>
-    <Text>
-        ¡Correcto!
-    </Text>;
+    feedbackIsCorrect() {
+        return this.props.feedback.input == this.props.feedback.result;
+    }
 
+    render() {
+        if (this.feedbackIsCorrect()) {
+            return (
+                <Text style={FEEDBACK_STYLES.arcadeFeedbackCorrect}>
+                    ¡Correcto!
+                </Text>
+            )
+        } else {
+            return (
+                <View style={FEEDBACK_STYLES.arcadeFeedbackIncorrect}>
+                    <Text>
+                        La respuesta era
+                    </Text>
+                    <Text style={FEEDBACK_STYLES.arcadeFeedbackIncorrectNumber}>
+                        {this.props.feedback.result}
+                    </Text>
+                </View>
+            )
+        }
+    }
+}
 
-const Feedback = ({feedback}) =>
-    feedback.input === feedback.result ? <CorrectFeedback /> : <IncorrectFeedback result={feedback.result} />;
+export default class FeedbackWrapper extends React.Component {
+    constructor(props) {
+        super(props);
+    }
 
-
-const FeedbackWrapper = ({feedback}) =>
-    feedback.visible ? <Feedback feedback={feedback} /> : null;
-
-
-export default FeedbackWrapper;
+    render() {
+        if (this.props.feedback.visible) {
+            return (
+                <Feedback feedback={this.props.feedback}/>
+            )
+        } else {
+            return null;
+        }
+    }
+}

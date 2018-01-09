@@ -13,7 +13,7 @@ export default class Level extends Component {
         return (
             this.props.levelFinished
                 ? <View/>
-                : <CalculatorContainer {...this.props} />
+                : <CalculatorContainer {...this.props}/>
         );
     }
 }
