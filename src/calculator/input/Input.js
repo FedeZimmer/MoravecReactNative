@@ -1,6 +1,5 @@
 import React from 'react'
-import {View, Text} from "react-native";
-import {Button} from "native-base";
+import {View, Text, TouchableOpacity} from "react-native";
 import {INPUT_STYLES} from "./styles";
 
 class SubmitButton extends React.Component {
@@ -17,9 +16,9 @@ class SubmitButton extends React.Component {
 
     render() {
         return (
-            <Button style={INPUT_STYLES.submitButton} onPress={this.handleSubmit}>
+            <TouchableOpacity style={INPUT_STYLES.submitButton} onPress={this.handleSubmit}>
                 <Text style={INPUT_STYLES.submitButtonText}>{String.fromCharCode('8629')}</Text>
-            </Button>
+            </TouchableOpacity>
         )
     }
 }
@@ -40,9 +39,9 @@ class EraseButton extends React.Component {
 
     render() {
         return (
-            <Button style={INPUT_STYLES.eraseButton} onPress={this.handleErase}>
+            <TouchableOpacity style={INPUT_STYLES.eraseButton} onPress={this.handleErase}>
                 <Text style={INPUT_STYLES.eraseButtonText}>{String.fromCharCode('8592')}</Text>
-            </Button>
+            </TouchableOpacity>
         )
     }
 }
@@ -63,9 +62,9 @@ class InputButton extends React.Component {
 
     render() {
         return (
-            <Button style={INPUT_STYLES.inputButton} onPress={this.handleInput}>
+            <TouchableOpacity style={INPUT_STYLES.inputButton} onPress={this.handleInput}>
                 <Text style={INPUT_STYLES.inputButtonText}>{this.props.value}</Text>
-            </Button>
+            </TouchableOpacity>
         )
     }
 }
