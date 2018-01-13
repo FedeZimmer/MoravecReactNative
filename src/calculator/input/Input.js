@@ -11,7 +11,7 @@ class SubmitButton extends React.Component {
     handleSubmit(event) {
         event.preventDefault();
 
-        this.props.submit({...this.props.trial, ...this.props.time});
+        this.props.submit(this.props.trial);
     }
 
     render() {
@@ -142,11 +142,13 @@ export default class Input extends React.Component {
 
     render() {
         return(
-            <View style={INPUT_STYLES.input}>
-                <Row1 typeInput={this.props.typeInput}/>
-                <Row2 typeInput={this.props.typeInput}/>
-                <Row3 typeInput={this.props.typeInput}/>
-                <Row4 {...this.props}/>
+            <View style={INPUT_STYLES.inputContainer}>
+                <View style={INPUT_STYLES.input}>
+                    <Row1 typeInput={this.props.typeInput}/>
+                    <Row2 typeInput={this.props.typeInput}/>
+                    <Row3 typeInput={this.props.typeInput}/>
+                    <Row4 {...this.props}/>
+                </View>
             </View>
         )
     }

@@ -15,6 +15,7 @@ const store = createStore(appReducers);
 class Home extends Component {
     static navigationOptions = {
         title: 'Home',
+        header: null
     };
 
     render() {
@@ -28,10 +29,15 @@ class Home extends Component {
     }
 }
 
-export const App = StackNavigator({
-    Home: {screen: Home},
-    Arcade: {screen: LevelContainer},
-});
+export const App = StackNavigator(
+    {
+        Home: {screen: Home},
+        Arcade: {screen: LevelContainer},
+    },
+    {
+        headerMode: 'screen'
+    }
+);
 
 const Moravec = () => (
     <Provider store={store}>

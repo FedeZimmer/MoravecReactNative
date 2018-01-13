@@ -23,7 +23,7 @@ class Time extends React.Component {
 
     render() {
         return (
-            <View>
+            <View style={HEADER_STYLES.timeContainer}>
                 <Text style={HEADER_STYLES.time}>{this.timeString()}</Text>
             </View>
         )
@@ -33,8 +33,9 @@ class Time extends React.Component {
 class Hints extends React.Component {
     render() {
         return (
-            <View>
-                <Text style={HEADER_STYLES.hints}>pistas: 3/3</Text>
+            <View style={HEADER_STYLES.hintsContainer}>
+                <Text style={HEADER_STYLES.hintsText}>Pistas: </Text>
+                <Text style={HEADER_STYLES.hintsNumber}>3/3</Text>
             </View>
         )
     }
@@ -47,7 +48,7 @@ class LevelState extends React.Component {
 
     render() {
         return (
-            <View>
+            <View style={HEADER_STYLES.remainingTrialsContainer}>
                 <Text style={HEADER_STYLES.remainingTrials}>
                     {this.props.trials.length + 1} / {this.props.totalTrials}
                 </Text>
@@ -62,12 +63,16 @@ export default class Header extends React.Component {
     }
 
     render() {
-        return (
-            <View style={HEADER_STYLES.header}>
-                <Time time={this.props.time} />
-                <Hints />
-                <LevelState totalTrials={this.props.totalTrials} trials={this.props.trials} />
-            </View>
-        )
+        if (this.props.header.visible) {
+            return (
+                <View style={HEADER_STYLES.header}>
+                    <Time time={this.props.time} />
+                    <Hints />
+                    <LevelState totalTrials={this.props.totalTrials} trials={this.props.trials} />
+                </View>
+            )
+        } else {
+            return null;
+        }
     }
 }

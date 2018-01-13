@@ -1,4 +1,4 @@
-import {CREATE_TRIAL, ARCADE_TYPE_INPUT, ARCADE_ERASE_INPUT, SHOW_FEEDBACK, HIDE_FEEDBACK} from './actions'
+import {CREATE_TRIAL, ARCADE_TYPE_INPUT, ARCADE_ERASE_INPUT, SHOW_FEEDBACK, HIDE_FEEDBACK, SHOW_HEADER, HIDE_HEADER} from './actions'
 
 const initialState = {
     trial: {
@@ -15,6 +15,9 @@ const initialState = {
         visible: false,
         input: null,
         result: null,
+    },
+    header: {
+        visible: true,
     }
 };
 
@@ -64,6 +67,21 @@ export function calculatorReducer(state = initialState, action) {
                     visible: false,
                     result: null,
                     input: null,
+                },
+            };
+        case SHOW_HEADER:
+            return {
+                ...state,
+                header: {
+                    visible: true,
+                }
+            };
+
+        case HIDE_HEADER:
+            return {
+                ...state,
+                header: {
+                    visible: false,
                 },
             };
 

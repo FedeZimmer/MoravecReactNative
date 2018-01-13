@@ -17,18 +17,17 @@ class Feedback extends React.Component {
     render() {
         if (this.feedbackIsCorrect()) {
             return (
-                <Text style={FEEDBACK_STYLES.arcadeFeedbackCorrect}>
-                    ¡Correcto!
-                </Text>
+                <View style={FEEDBACK_STYLES.feedbackCorrectContainer}>
+                    <Text style={FEEDBACK_STYLES.feedbackCorrectText}>
+                        ¡Correcto!
+                    </Text>
+                </View>
             )
         } else {
             return (
-                <View style={FEEDBACK_STYLES.arcadeFeedbackIncorrect}>
-                    <Text>
-                        La respuesta era
-                    </Text>
-                    <Text style={FEEDBACK_STYLES.arcadeFeedbackIncorrectNumber}>
-                        {this.props.feedback.result}
+                <View style={FEEDBACK_STYLES.feedbackIncorrectContainer}>
+                    <Text style={FEEDBACK_STYLES.feedbackIncorrectText}>
+                        LA RESPUESTA ERA {this.props.feedback.result}, NO {this.props.feedback.input}
                     </Text>
                 </View>
             )

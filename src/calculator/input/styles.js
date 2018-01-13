@@ -1,33 +1,57 @@
-import {greenColor, whiteColor, grayColor} from "../../static/styles";
+import {whiteColor, superLightGrayColor, grayColor, greenColor} from "../../static/styles";
 
 export const INPUT_STYLES = {
     submitButton: {
         flex: 1,
         justifyContent: 'center',
         backgroundColor: greenColor,
+        borderTopWidth: 1,
+        borderTopColor: superLightGrayColor,
+        borderBottomWidth: 1,
+        borderBottomColor: superLightGrayColor,
+        borderLeftWidth: 1,
+        borderLeftColor: superLightGrayColor,
+        borderRightWidth: 1,
+        borderRightColor: superLightGrayColor,
     },
     submitButtonText: {
-        fontSize: 40,
+        fontSize: 70,
+        textAlign: 'center',
         color: whiteColor,
+        marginBottom: 20,
     },
     eraseButton: {
         flex: 1,
         justifyContent: 'center',
         backgroundColor: whiteColor,
+        borderTopWidth: 1,
+        borderTopColor: superLightGrayColor,
+        borderBottomWidth: 1,
+        borderBottomColor: superLightGrayColor,
+        borderLeftWidth: 1,
+        borderLeftColor: superLightGrayColor,
+        borderRightWidth: 1,
+        borderRightColor: superLightGrayColor,
     },
     eraseButtonText: {
-        fontSize: 30,
+        fontSize: 50,
         textAlign: 'center',
         color: grayColor,
+        marginBottom: 20,
     },
     inputButton: {
         flex: 1,
         justifyContent: 'center',
         backgroundColor: whiteColor,
-        marginTop: 0,
-        marginBottom: 0,
-        paddingTop: 0,
-        paddingBottom: 0,
+        borderStyle: 'solid',
+        borderTopWidth: 1,
+        borderTopColor: superLightGrayColor,
+        borderBottomWidth: 1,
+        borderBottomColor: superLightGrayColor,
+        borderLeftWidth: 1,
+        borderLeftColor: superLightGrayColor,
+        borderRightWidth: 1,
+        borderRightColor: superLightGrayColor,
     },
     inputButtonText: {
         fontSize: 30,
@@ -58,5 +82,8 @@ export const INPUT_STYLES = {
         flex: 4,
         flexDirection: 'column',
         justifyContent: 'space-between',
+    },
+    inputContainer: {
+        height: 400,
     },
 };

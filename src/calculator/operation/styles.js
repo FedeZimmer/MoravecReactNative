@@ -1,16 +1,19 @@
-import {whiteColor, grayColor} from "../../static/styles";
+import {whiteColor, darkGrayColor} from "../../static/styles";
 
 export const OPERATION_STYLES = {
-    operation: {
-        textAlign: 'center',
-        color: grayColor,
-        fontSize: 40,
-    },
     operationContainer: {
         backgroundColor: whiteColor,
-        marginTop: 2,
-        marginBottom: 2,
-        paddingTop: 1,
-        paddingBottom: 1,
+        height: 175,
+    },
+    operation: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    operationText: {
+        textAlign: 'center',
+        color: darkGrayColor,
+        fontSize: 40,
     },
 };

@@ -1,19 +1,28 @@
 import {pinkColor, whiteColor, greenColor} from "../../static/styles";
 
 export const FEEDBACK_STYLES = {
-    arcadeFeedbackIncorrect: {
+    feedbackIncorrectContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
         backgroundColor: pinkColor,
+    },
+    feedbackIncorrectText: {
         color: whiteColor,
-        fontSize: 10,
+        fontSize: 20,
         textAlign: 'center',
-        paddingLeft: 4,
     },
-    arcadeFeedbackIncorrectNumber: {
-        fontWeight: 'bold',
-        marginLeft: 4,
-    },
-    arcadeFeedbackCorrect: {
+    feedbackCorrectContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
         backgroundColor: greenColor,
+    },
+    feedbackCorrectText: {
         color: whiteColor,
+        fontSize: 20,
+        textAlign: 'center',
     },
 };

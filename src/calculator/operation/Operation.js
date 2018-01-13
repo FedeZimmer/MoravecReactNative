@@ -30,11 +30,13 @@ export default class Operation extends React.Component {
     render() {
         return (
             <View style={OPERATION_STYLES.operationContainer}>
-                <Text style={OPERATION_STYLES.operation}>
-                    {this.showFirstOperand() + ' ' + this.showOperator() + ' ' + this.showSecondOperand()}
-                    {' = '}
-                    {this.showResult()}
-                </Text>
+                <View style={OPERATION_STYLES.operation}>
+                    <Text style={OPERATION_STYLES.operationText}>
+                        {this.showFirstOperand() + ' ' + this.showOperator() + ' ' + this.showSecondOperand()}
+                        {' = '}
+                        {this.showResult()}
+                    </Text>
+                </View>
             </View>
         )
     }

@@ -6,6 +6,11 @@ import * as actions from './actions'
 
 
 class LevelContainer extends Component {
+    static navigationOptions = {
+        title: 'Arcade',
+        header: null
+    };
+
     render() {
         return <Level {...this.props} />
     }

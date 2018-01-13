@@ -6,6 +6,8 @@ export const CREATE_TRIAL = 'CREATE_TRIAL';
 export const SUBMIT_TRIAL = 'SUBMIT_TRIAL';
 export const SHOW_FEEDBACK = 'SHOW_FEEDBACK';
 export const HIDE_FEEDBACK = 'HIDE_FEEDBACK';
+export const SHOW_HEADER = 'SHOW_HEADER';
+export const HIDE_HEADER = 'HIDE_HEADER';
 
 
 export function createTrial(level) {
@@ -52,5 +54,19 @@ export function showFeedback(trial) {
 export function hideFeedback() {
     return {
         type: HIDE_FEEDBACK
+    }
+}
+
+export function showHeader(trial) {
+    return {
+        type: SHOW_HEADER,
+        trial: trial,
+    }
+}
+
+
+export function hideHeader() {
+    return {
+        type: HIDE_HEADER
     }
 }
