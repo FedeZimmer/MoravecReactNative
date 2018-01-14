@@ -1,17 +1,17 @@
 import React from "react";
-import {AppRegistry, Button, Text, View} from "react-native";
+import {AppRegistry} from "react-native";
 import {StackNavigator} from "react-navigation";
 import {createStore} from "redux";
 import {Provider} from "react-redux";
 
-import appReducers from "./src/reducers";
-import LevelContainer from "./src/level/LevelContainer";
-import {Home} from "./src/home/Home"
+import appReducers from "./src/reducers/appReducers";
+import LevelContainer from "./src/containers/LevelContainer";
+import {Home} from "./src/components/home/Home"
 
 
 const store = createStore(appReducers);
 
-export const App = StackNavigator(
+export const Navigator = StackNavigator(
     {
         Home: {screen: Home},
         Arcade: {screen: LevelContainer},
@@ -23,7 +23,7 @@ export const App = StackNavigator(
 
 const Moravec = () => (
     <Provider store={store}>
-        <App/>
+        <Navigator/>
     </Provider>
 );
 
