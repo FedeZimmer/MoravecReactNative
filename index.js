@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React from "react";
 import {AppRegistry, Button, Text, View} from "react-native";
 import {StackNavigator} from "react-navigation";
 import {createStore} from "redux";
@@ -6,28 +6,10 @@ import {Provider} from "react-redux";
 
 import appReducers from "./src/reducers";
 import LevelContainer from "./src/level/LevelContainer";
+import {Home} from "./src/home/Home"
 
-
-// const loggerMiddleware = createLogger({predicate: (getState, action) => true});
 
 const store = createStore(appReducers);
-
-class Home extends Component {
-    static navigationOptions = {
-        title: 'Home',
-        header: null
-    };
-
-    render() {
-        const {navigate} = this.props.navigation;
-        return (
-            <View>
-                <Text>Moravec!</Text>
-                <Button onPress={() => navigate('Arcade')} title="Jugar"/>
-            </View>
-        );
-    }
-}
 
 export const App = StackNavigator(
     {
