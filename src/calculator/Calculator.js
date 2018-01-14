@@ -1,11 +1,11 @@
 import React from 'react';
 import {View} from 'react-native';
 
-import Feedback from './feedback/Feedback';
+import UserAnswerFeedback from './feedback/UserAnswerFeedback';
 import Header from './header/Header';
-import Countdown from './countdown/Countdown';
-import Operation from './operation/Operation';
-import Input from './input/Input';
+import CountdownBar from './countdown/CountdownBar';
+import OperationDisplay from './operation/OperationDisplay';
+import CalculatorKeyboard from './keyboard/CalculatorKeyboard';
 
 import {CALCULATOR_STYLES} from "./styles";
 
@@ -17,11 +17,11 @@ export default class Calculator extends React.Component {
     render() {
         return (
             <View style={CALCULATOR_STYLES.calculator}>
-                <Feedback {...this.props}/>
+                <UserAnswerFeedback {...this.props}/>
                 <Header {...this.props}/>
-                <Countdown {...this.props}/>
-                <Operation {...this.props}/>
-                <Input {...this.props}/>
+                <CountdownBar {...this.props}/>
+                <OperationDisplay {...this.props}/>
+                <CalculatorKeyboard {...this.props}/>
             </View>
         )
     }

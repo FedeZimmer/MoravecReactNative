@@ -13,10 +13,7 @@ class CalculatorContainer extends Component {
             startTime: 0,
         };
 
-        this.createTrial = this.createTrial.bind(this);
-        this.startTimer = this.startTimer.bind(this);
         this.updateTimer = this.updateTimer.bind(this);
-        this.stopTimer = this.stopTimer.bind(this);
         this.submit = this.submit.bind(this);
     }
 
@@ -50,10 +47,12 @@ class CalculatorContainer extends Component {
     submit(trial) {
         this.stopTimer();
         this.props.submitTrial(trial);
+
         this.props.hideHeader();
         this.props.showFeedback(trial);
         setTimeout(this.props.hideFeedback, 3000);
         setTimeout(this.props.showHeader, 3000, trial);
+
         if (this.props.trials.length + 1 < this.props.totalTrials) {
             this.createTrial();
         } else {

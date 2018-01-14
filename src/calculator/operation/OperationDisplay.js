@@ -1,25 +1,22 @@
 import React from 'react'
 import {Text, View} from "react-native";
+
 import {OPERATION_STYLES} from "./styles";
 
-export default class Operation extends React.Component {
+export default class OperationDisplay extends React.Component {
     constructor(props) {
         super(props);
     }
 
-    showFirstOperand() {
-        return this.props.trial.operation.operand1;
+    operation() {
+        const firstOperand = this.props.trial.operation.operand1;
+        const secondOperand = this.props.trial.operation.operand2;
+        const operator = this.props.trial.operation.operator;
+
+        return firstOperand + ' ' + operator + ' ' + secondOperand;
     }
 
-    showOperator() {
-        return this.props.trial.operation.operator;
-    }
-
-    showSecondOperand() {
-        return this.props.trial.operation.operand2;
-    }
-
-    showResult() {
+    resultValue() {
         if (this.props.trial.input) {
             return this.props.trial.input
         } else {
@@ -32,9 +29,7 @@ export default class Operation extends React.Component {
             <View style={OPERATION_STYLES.operationContainer}>
                 <View style={OPERATION_STYLES.operation}>
                     <Text style={OPERATION_STYLES.operationText}>
-                        {this.showFirstOperand() + ' ' + this.showOperator() + ' ' + this.showSecondOperand()}
-                        {' = '}
-                        {this.showResult()}
+                        {this.operation()}{' = '}{this.resultValue()}
                     </Text>
                 </View>
             </View>
