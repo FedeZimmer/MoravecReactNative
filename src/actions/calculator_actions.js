@@ -1,4 +1,4 @@
-import createOperation from '../utils/operations/index'
+import {createOperation} from './operations/index'
 
 export const ARCADE_TYPE_INPUT = 'ARCADE_TYPE_INPUT';
 export const ARCADE_ERASE_INPUT = 'ARCADE_ERASE_INPUT';

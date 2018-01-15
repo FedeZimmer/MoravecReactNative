@@ -1,5 +1,5 @@
 import {greenColor, whiteColor, pinkColor} from "../global";
-import {getWindowWidth} from "../../utils/utils";
+import {getWindowWidth} from "../../utils";
 
 export const HOME_STYLES = {
     logoContainer: {
