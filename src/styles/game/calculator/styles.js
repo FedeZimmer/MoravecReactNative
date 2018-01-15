@@ -1,4 +1,5 @@
 import {darkGrayColor, greenColor, pinkColor, whiteColor} from "../../global";
+import {getWindowHeight} from '../../../utils';
 
 export const CALCULATOR_STYLES = {
     calculator: {
@@ -18,7 +19,7 @@ export const COUNTDOWN_STYLES = {
 export const OPERATION_STYLES = {
     operationContainer: {
         backgroundColor: whiteColor,
-        height: 175,
+        height: getWindowHeight() * 0.15,
     },
     operation: {
         flex: 1,
