@@ -15,6 +15,7 @@ class CalculatorContainer extends Component {
 
         this.updateTimer = this.updateTimer.bind(this);
         this.submit = this.submit.bind(this);
+        this.userEnteredResult = this.userEnteredResult.bind(this);
     }
 
     componentDidMount() {
@@ -44,19 +45,25 @@ class CalculatorContainer extends Component {
         this.stopTimer();
     }
 
+    userEnteredResult(trial) {
+        return trial.input != null;
+    }
+
     submit(trial) {
-        this.stopTimer();
-        this.props.submitTrial(trial);
+        if (this.userEnteredResult(trial)) {
+            this.stopTimer();
+            this.props.submitTrial(trial);
 
-        this.props.hideHeader();
-        this.props.showFeedback(trial);
-        setTimeout(this.props.hideFeedback, 3000);
-        setTimeout(this.props.showHeader, 3000, trial);
+            this.props.hideHeader();
+            this.props.showFeedback(trial);
+            setTimeout(this.props.hideFeedback, 3000);
+            setTimeout(this.props.showHeader, 3000, trial);
 
-        if (this.props.trials.length + 1 < this.props.totalTrials) {
-            this.createTrial();
-        } else {
-            setTimeout(this.props.finishLevel, 3000)
+            if (this.props.trials.length + 1 < this.props.totalTrials) {
+                this.createTrial();
+            } else {
+                setTimeout(this.props.finishLevel, 3000)
+            }
         }
     };
 

@@ -1,5 +1,6 @@
 import React from 'react'
 import {Text, TouchableOpacity} from "react-native";
+import {Icon} from 'native-base';
 
 import {INPUT_STYLES} from "../../../../styles/game/calculator/keyboard/styles";
 
@@ -17,14 +18,10 @@ export default class EraseKey extends React.Component {
         this.props.eraseInput();
     }
 
-    static eraseKeySymbol() {
-        return String.fromCharCode('8592');
-    }
-
     render() {
         return (
             <TouchableOpacity style={INPUT_STYLES.eraseButton} onPress={this.handleErase}>
-                <Text style={INPUT_STYLES.eraseButtonText}>{EraseKey.eraseKeySymbol()}</Text>
+                <Icon name="md-arrow-round-back" style={INPUT_STYLES.eraseButtonText}/>
             </TouchableOpacity>
         )
     }

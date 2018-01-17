@@ -1,5 +1,6 @@
 import React from 'react'
 import {Text, TouchableOpacity} from "react-native";
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {INPUT_STYLES} from "../../../../styles/game/calculator/keyboard/styles";
 
@@ -17,14 +18,10 @@ export default class EnterKey extends React.Component {
         this.props.submit(this.props.trial);
     }
 
-    static enterKeySymbol() {
-        return String.fromCharCode('8629');
-    }
-
     render() {
         return (
             <TouchableOpacity style={INPUT_STYLES.submitButton} onPress={this.handleSubmit}>
-                <Text style={INPUT_STYLES.submitButtonText}>{EnterKey.enterKeySymbol()}</Text>
+                <Icon name="subdirectory-arrow-left" style={INPUT_STYLES.submitButtonText}/>
             </TouchableOpacity>
         )
     }

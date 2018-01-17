@@ -15,10 +15,9 @@ export const INPUT_STYLES = {
         borderRightColor: superLightGrayColor,
     },
     submitButtonText: {
-        fontSize: 70,
+        fontSize: 40,
         textAlign: 'center',
         color: whiteColor,
-        marginBottom: 20,
     },
     eraseButton: {
         flex: 1,
@@ -34,10 +33,9 @@ export const INPUT_STYLES = {
         borderRightColor: superLightGrayColor,
     },
     eraseButtonText: {
-        fontSize: 50,
+        fontSize: 40,
         textAlign: 'center',
         color: grayColor,
-        marginBottom: 20,
     },
     inputButton: {
         flex: 1,
