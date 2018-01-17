@@ -1,4 +1,4 @@
-import {greenColor, whiteColor, pinkColor} from "../global";
+import {greenColor, whiteColor, pinkColor, lightGrayColor} from "../global";
 import {getWindowWidth} from "../../utils";
 
 export const HOME_STYLES = {
@@ -14,19 +14,16 @@ export const HOME_STYLES = {
         fontWeight: 'bold'
     },
     optionsContainer: {
-        flex: 1,
+        flex: 2,
         flexDirection: "column",
-        justifyContent: "center"
-    },
-    playContainer: {
-        flex: 1,
-        flexDirection: "row",
         justifyContent: "center",
+        alignItems: "center"
     },
     playButton: {
         width: getWindowWidth() * 0.9,
         backgroundColor: greenColor,
         justifyContent: "center",
+        borderRadius: 0,
     },
     playButtonText: {
         color: whiteColor,
@@ -35,13 +32,15 @@ export const HOME_STYLES = {
         fontWeight: 'bold'
     },
     practiceOrTutorialContainer: {
-        flex: 2,
         flexDirection: "row",
-        justifyContent: "space-around",
+        width: getWindowWidth() * 0.9,
     },
     practiceButton: {
-        width: getWindowWidth() * 0.4,
+        flexGrow: 1,
         backgroundColor: pinkColor,
+        borderRadius: 0,
+        marginTop: 4,
+        marginRight: 2,
         justifyContent: "center",
     },
     practiceButtonText: {
@@ -51,8 +50,11 @@ export const HOME_STYLES = {
         fontWeight: 'bold'
     },
     tutorialButton: {
-        width: getWindowWidth() * 0.4,
+        flexGrow: 1,
         backgroundColor: pinkColor,
+        borderRadius: 0,
+        marginTop: 4,
+        marginLeft: 2,
         justifyContent: "center",
     },
     tutorialButtonText: {
@@ -69,5 +71,6 @@ export const HOME_STYLES = {
         flex: 3,
         flexDirection: "column",
         justifyContent: "space-between",
+        backgroundColor: lightGrayColor
     },
 };

@@ -6,7 +6,7 @@ const initialState = {
     level: 1,
     trials: [],
     levelFinished: false,
-    totalTrials: 5,
+    totalTrials: 1,
     totalCorrect: 0,
     efficacy: 0,
     maxTimeForCountdownInMs: 8000,
@@ -21,7 +21,7 @@ export function levelReducer(state = initialState, action) {
                 trials: [],
                 levelFinished: false,
                 level: action.level,
-                totalTrials: 2,
+                totalTrials: initialState.totalTrials,
                 totalCorrect: 0,
                 efficacy: 0,
             };

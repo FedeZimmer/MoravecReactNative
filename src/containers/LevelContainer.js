@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 
-import Level from '../components/game/Level'
+import Level from '../components/game/level/Level'
 import * as actions from '../actions/level_actions'
 
 

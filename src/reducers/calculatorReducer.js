@@ -18,6 +18,7 @@ const initialState = {
         visible: false,
         input: null,
         result: null,
+        duration: 3000
     },
     header: {
         visible: true,
