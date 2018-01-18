@@ -82,9 +82,6 @@ export class LevelFinished extends React.Component {
                     <View>
                         <Text style={LEVEL_FINISHED_STYLES.headerLevelText}>Nivel {this.props.level}</Text>
                     </View>
-                    {/*<View style={LEVEL_FINISHED_STYLES.headerLevelEfficacy}>
-
-                    </View>*/}
                     <LevelEfficacyStars efficacy={this.props.efficacy} />
                     <View>
                         <Text>{this.props.totalCorrect + ' / ' + this.props.totalTrials + ' correctas'}</Text>
