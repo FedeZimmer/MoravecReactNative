@@ -1,6 +1,5 @@
 import {
-    ARCADE_ERASE_INPUT, ARCADE_TYPE_INPUT, CREATE_TRIAL, HIDE_FEEDBACK, HIDE_HEADER, SHOW_FEEDBACK,
-    SHOW_HEADER
+    ARCADE_ERASE_INPUT, ARCADE_TYPE_INPUT, CREATE_TRIAL, HIDE_FEEDBACK, SHOW_FEEDBACK
 } from '../actions/calculator_actions'
 
 const initialState = {
@@ -57,11 +56,15 @@ export function calculatorReducer(state = initialState, action) {
         case SHOW_FEEDBACK:
             return {
                 ...state,
+                header: {
+                    visible: false,
+                },
                 feedback: {
                     visible: true,
                     input: action.trial.input,
                     result: action.trial.operation.result,
-                }
+                    duration: initialState.feedback.duration,
+                },
             };
 
         case HIDE_FEEDBACK:
@@ -71,24 +74,12 @@ export function calculatorReducer(state = initialState, action) {
                     visible: false,
                     result: null,
                     input: null,
+                    duration: initialState.feedback.duration,
                 },
-            };
-        case SHOW_HEADER:
-            return {
-                ...state,
                 header: {
                     visible: true,
-                }
-            };
-
-        case HIDE_HEADER:
-            return {
-                ...state,
-                header: {
-                    visible: false,
                 },
             };
-
         default:
             return state
     }

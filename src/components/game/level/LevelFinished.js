@@ -4,6 +4,58 @@ import {Button, Icon} from "native-base";
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import {LEVEL_FINISHED_STYLES} from "../../../styles/game/level/styles";
 
+class StarEmpty extends React.Component {
+    render() {
+        return <FontAwesomeIcon name="star-o" style={LEVEL_FINISHED_STYLES.levelEfficacyStarEmpty}/>
+    }
+}
+
+class StarFull extends React.Component {
+    render() {
+        return <FontAwesomeIcon name="star" style={LEVEL_FINISHED_STYLES.levelEfficacyStarFull}/>
+    }
+}
+
+class LevelEfficacyStars extends React.Component {
+    render() {
+        if (this.props.efficacy < 33) {
+            return (
+                <View style={LEVEL_FINISHED_STYLES.headerLevelEfficacy}>
+                    <StarEmpty/>
+                    <StarEmpty/>
+                    <StarEmpty/>
+                </View>
+            )
+        }
+        if (this.props.efficacy < 66) {
+            return (
+                <View style={LEVEL_FINISHED_STYLES.headerLevelEfficacy}>
+                    <StarFull/>
+                    <StarEmpty/>
+                    <StarEmpty/>
+                </View>
+            )
+        }
+        if (this.props.efficacy < 100) {
+            return (
+                <View style={LEVEL_FINISHED_STYLES.headerLevelEfficacy}>
+                    <StarFull/>
+                    <StarFull/>
+                    <StarEmpty/>
+                </View>
+            )
+        }
+
+        return (
+            <View style={LEVEL_FINISHED_STYLES.headerLevelEfficacy}>
+                <StarFull/>
+                <StarFull/>
+                <StarFull/>
+            </View>
+        )
+    }
+}
+
 export class LevelFinished extends React.Component {
     constructor(props) {
         super(props);
@@ -30,11 +82,10 @@ export class LevelFinished extends React.Component {
                     <View>
                         <Text style={LEVEL_FINISHED_STYLES.headerLevelText}>Nivel {this.props.level}</Text>
                     </View>
-                    <View style={LEVEL_FINISHED_STYLES.headerLevelEfficacy}>
-                        <FontAwesomeIcon name="star" style={LEVEL_FINISHED_STYLES.headerLevelEfficacyStar}/>
-                        <FontAwesomeIcon name="star" style={LEVEL_FINISHED_STYLES.headerLevelEfficacyStar}/>
-                        <FontAwesomeIcon name="star" style={LEVEL_FINISHED_STYLES.headerLevelEfficacyStar}/>
-                    </View>
+                    {/*<View style={LEVEL_FINISHED_STYLES.headerLevelEfficacy}>
+
+                    </View>*/}
+                    <LevelEfficacyStars efficacy={this.props.efficacy} />
                     <View>
                         <Text>{this.props.totalCorrect + ' / ' + this.props.totalTrials + ' correctas'}</Text>
                     </View>

@@ -37,9 +37,12 @@ export const LEVEL_FINISHED_STYLES = {
         flexDirection: "row",
         justifyContent: 'center',
     },
-    headerLevelEfficacyStar: {
+    levelEfficacyStarFull: {
         fontSize: 35,
         color: pinkColor,
+    },
+    levelEfficacyStarEmpty: {
+        fontSize: 35,
     },
     options: {
         flex: 2,
