@@ -1,4 +1,5 @@
 import {grayColor, greenColor, superLightGrayColor, whiteColor} from "../../../global";
+import {getWindowHeight} from "../../../../utils";
 
 export const INPUT_STYLES = {
     submitButton: {
@@ -82,6 +83,6 @@ export const INPUT_STYLES = {
         justifyContent: 'space-between',
     },
     inputContainer: {
-        height: 400,
+        height: getWindowHeight() * 0.6,
     },
 };

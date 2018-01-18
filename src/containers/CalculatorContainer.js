@@ -52,17 +52,17 @@ class CalculatorContainer extends Component {
     submit(trial) {
         if (this.userEnteredResult(trial)) {
             this.stopTimer();
-            this.props.submitTrial(trial);
 
             this.props.hideHeader();
             this.props.showFeedback(trial);
-            setTimeout(this.props.hideFeedback, 3000);
-            setTimeout(this.props.showHeader, 3000, trial);
+            setTimeout(this.props.hideFeedback, this.props.feedback.duration);
+            setTimeout(this.props.showHeader, this.props.feedback.duration, trial);
 
+            this.props.submitTrial(trial);
             if (this.props.trials.length + 1 < this.props.totalTrials) {
                 this.createTrial();
             } else {
-                setTimeout(this.props.finishLevel, 3000)
+                setTimeout(this.props.finishLevel, this.props.feedback.duration)
             }
         }
     };
