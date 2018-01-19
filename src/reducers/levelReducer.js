@@ -6,7 +6,7 @@ const initialState = {
     level: 1,
     trials: [],
     levelFinished: false,
-    totalTrials: 3,
+    totalTrials: 20,
     totalCorrect: 0,
     efficacy: 0,
     maxTimeForCountdownInMs: 8000,

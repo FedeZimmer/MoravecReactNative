@@ -18,7 +18,7 @@ class StarFull extends React.Component {
 
 class LevelEfficacyStars extends React.Component {
     render() {
-        if (this.props.efficacy < 33) {
+        if (this.props.totalCorrect < 15) {
             return (
                 <View style={LEVEL_FINISHED_STYLES.headerLevelEfficacy}>
                     <StarEmpty/>
@@ -27,7 +27,7 @@ class LevelEfficacyStars extends React.Component {
                 </View>
             )
         }
-        if (this.props.efficacy < 66) {
+        if (this.props.totalCorrect < 17) {
             return (
                 <View style={LEVEL_FINISHED_STYLES.headerLevelEfficacy}>
                     <StarFull/>
@@ -36,7 +36,7 @@ class LevelEfficacyStars extends React.Component {
                 </View>
             )
         }
-        if (this.props.efficacy < 100) {
+        if (this.props.totalCorrect < 20) {
             return (
                 <View style={LEVEL_FINISHED_STYLES.headerLevelEfficacy}>
                     <StarFull/>
@@ -46,13 +46,15 @@ class LevelEfficacyStars extends React.Component {
             )
         }
 
-        return (
-            <View style={LEVEL_FINISHED_STYLES.headerLevelEfficacy}>
-                <StarFull/>
-                <StarFull/>
-                <StarFull/>
-            </View>
-        )
+        if (this.props.totalCorrect == 20) {
+            return (
+                <View style={LEVEL_FINISHED_STYLES.headerLevelEfficacy}>
+                    <StarFull/>
+                    <StarFull/>
+                    <StarFull/>
+                </View>
+            )
+        }
     }
 }
 
@@ -82,7 +84,7 @@ export class LevelFinished extends React.Component {
                     <View>
                         <Text style={LEVEL_FINISHED_STYLES.headerLevelText}>Nivel {this.props.level}</Text>
                     </View>
-                    <LevelEfficacyStars efficacy={this.props.efficacy} />
+                    <LevelEfficacyStars totalCorrect={this.props.totalCorrect} />
                     <View>
                         <Text>{this.props.totalCorrect + ' / ' + this.props.totalTrials + ' correctas'}</Text>
                     </View>
