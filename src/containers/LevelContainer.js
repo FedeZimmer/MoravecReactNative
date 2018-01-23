@@ -8,7 +8,7 @@ import * as actions from '../actions/level_actions'
 class LevelContainer extends Component {
     static navigationOptions = {
         title: 'Arcade',
-        header: null
+        // header: null
     };
 
     render() {
