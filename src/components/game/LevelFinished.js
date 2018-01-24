@@ -1,62 +1,8 @@
 import React from 'react'
 import {View, Text} from "react-native";
 import {Button, Icon} from "native-base";
-import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
-import {LEVEL_FINISHED_STYLES} from "../../../styles/game/level/styles";
-
-class StarEmpty extends React.Component {
-    render() {
-        return <FontAwesomeIcon name="star-o" style={LEVEL_FINISHED_STYLES.levelEfficacyStarEmpty}/>
-    }
-}
-
-class StarFull extends React.Component {
-    render() {
-        return <FontAwesomeIcon name="star" style={LEVEL_FINISHED_STYLES.levelEfficacyStarFull}/>
-    }
-}
-
-class LevelEfficacyStars extends React.Component {
-    render() {
-        if (this.props.totalCorrect < 15) {
-            return (
-                <View style={LEVEL_FINISHED_STYLES.headerLevelEfficacy}>
-                    <StarEmpty/>
-                    <StarEmpty/>
-                    <StarEmpty/>
-                </View>
-            )
-        }
-        if (this.props.totalCorrect < 17) {
-            return (
-                <View style={LEVEL_FINISHED_STYLES.headerLevelEfficacy}>
-                    <StarFull/>
-                    <StarEmpty/>
-                    <StarEmpty/>
-                </View>
-            )
-        }
-        if (this.props.totalCorrect < 20) {
-            return (
-                <View style={LEVEL_FINISHED_STYLES.headerLevelEfficacy}>
-                    <StarFull/>
-                    <StarFull/>
-                    <StarEmpty/>
-                </View>
-            )
-        }
-
-        if (this.props.totalCorrect == 20) {
-            return (
-                <View style={LEVEL_FINISHED_STYLES.headerLevelEfficacy}>
-                    <StarFull/>
-                    <StarFull/>
-                    <StarFull/>
-                </View>
-            )
-        }
-    }
-}
+import {LevelEfficacyStars} from "../common/LevelEfficacyStars";
+import {LEVEL_FINISHED_STYLES} from "../../styles/game/styles";
 
 export class LevelFinished extends React.Component {
     constructor(props) {
@@ -75,16 +21,16 @@ export class LevelFinished extends React.Component {
     renderHeader() {
         return (
             <View style={LEVEL_FINISHED_STYLES.header}>
-                <View style={LEVEL_FINISHED_STYLES.headerCongratulations}>
+                <View>
                     <Text style={LEVEL_FINISHED_STYLES.headerCongratulationsText}>
                         Felicitaciones. Nivel completado.
                     </Text>
                 </View>
-                <View style={LEVEL_FINISHED_STYLES.headerLevelInfo}>
+                <View>
                     <View>
                         <Text style={LEVEL_FINISHED_STYLES.headerLevelText}>Nivel {this.props.level}</Text>
                     </View>
-                    <LevelEfficacyStars totalCorrect={this.props.totalCorrect} />
+                    <LevelEfficacyStars correctAnswers={this.props.totalCorrect} />
                     <View>
                         <Text>{this.props.totalCorrect + ' / ' + this.props.totalTrials + ' correctas'}</Text>
                     </View>
@@ -96,7 +42,7 @@ export class LevelFinished extends React.Component {
     renderOptions() {
         return (
             <View style={LEVEL_FINISHED_STYLES.options}>
-                <View style={LEVEL_FINISHED_STYLES.shareButtonContainer}>
+                <View>
                     <Button style={LEVEL_FINISHED_STYLES.shareButton} onPress={this.shareLevelResult}>
                         <Text style={LEVEL_FINISHED_STYLES.shareButtonText}>COMPARTIR</Text>
                     </Button>

@@ -5,6 +5,7 @@ import {createStore} from "redux";
 import {Provider} from "react-redux";
 
 import appReducers from "./src/reducers/appReducers";
+import LevelSelectionContainer from "./src/containers/LevelSelectionContainer";
 import LevelContainer from "./src/containers/LevelContainer";
 import {Home} from "./src/components/home/Home"
 
@@ -14,7 +15,8 @@ const store = createStore(appReducers);
 export const Navigator = StackNavigator(
     {
         Home: {screen: Home},
-        Arcade: {screen: LevelContainer},
+        Arcade: {screen: LevelSelectionContainer},
+        Level: {screen: LevelContainer},
     },
     {
         headerMode: 'screen'

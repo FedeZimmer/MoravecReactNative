@@ -1,5 +1,5 @@
-import {greenColor, lightGrayColor, whiteColor, darkGrayColor, pinkColor, grayColor} from '../../global';
-import {getWindowHeight, getWindowWidth} from "../../../utils";
+import {greenColor, lightGrayColor, whiteColor, darkGrayColor, pinkColor, superLightGrayColor, grayColor} from '../global';
+import {getWindowHeight, getWindowWidth} from "../../utils";
 
 export const LEVEL_FINISHED_STYLES = {
     background: {
@@ -32,17 +32,6 @@ export const LEVEL_FINISHED_STYLES = {
         fontSize: 35,
         color: darkGrayColor,
         textAlign: 'center',
-    },
-    headerLevelEfficacy: {
-        flexDirection: "row",
-        justifyContent: 'center',
-    },
-    levelEfficacyStarFull: {
-        fontSize: 35,
-        color: pinkColor,
-    },
-    levelEfficacyStarEmpty: {
-        fontSize: 35,
     },
     options: {
         flex: 2,
@@ -100,4 +89,60 @@ export const LEVEL_FINISHED_STYLES = {
         backgroundColor: lightGrayColor,
         height: getWindowHeight(),
     }
+};
+
+export const LEVEL_SELECTION_STYLES = {
+    list: {
+        flex: 1,
+        backgroundColor: lightGrayColor,
+    },
+    listItem: {
+        backgroundColor: whiteColor,
+        height: getWindowHeight() * 0.1,
+        borderBottomWidth: 4,
+        borderBottomColor: superLightGrayColor,
+    },
+    playItem: {
+        backgroundColor: pinkColor,
+        height: getWindowHeight() * 0.1,
+        borderBottomWidth: 4,
+        borderBottomColor: superLightGrayColor,
+    },
+    listItemContainer: {
+        flex: 2,
+        flexDirection: "row",
+        justifyContent: 'space-between',
+        alignItems: "center",
+        // paddingLeft: 20,
+        paddingRight: 20,
+    },
+    levelNumber: {
+        fontSize: 23,
+        color: grayColor,
+        textAlign: 'right',
+        fontWeight: 'bold',
+        width: 50,
+    },
+    playItemLevelNumber: {
+        fontSize: 23,
+        color: whiteColor,
+        textAlign: 'right',
+        fontWeight: 'bold',
+        width: 50,
+    },
+    levelResultContainer: {
+        flex: 2,
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+        marginLeft: 60
+    },
+    levelTime: {
+        fontSize: 17,
+        color: greenColor,
+    },
+    playText: {
+        fontSize: 25,
+        color: whiteColor,
+    },
 };

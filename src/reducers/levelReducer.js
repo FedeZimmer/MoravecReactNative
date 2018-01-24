@@ -5,7 +5,7 @@ import {FINISH_LEVEL, START_LEVEL} from '../actions/level_actions'
 const initialState = {
     level: 1,
     trials: [],
-    levelFinished: false,
+    levelFinished: true,
     totalTrials: 20,
     totalCorrect: 0,
     efficacy: 0,
