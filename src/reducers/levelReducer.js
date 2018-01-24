@@ -9,7 +9,7 @@ const initialState = {
     totalTrials: 20,
     totalCorrect: 0,
     efficacy: 0,
-    maxTimeForCountdownInMs: 8000,
+    maxTimeForCountdownInMs: 30000,
 };
 
 
