@@ -4,6 +4,8 @@ import { connect } from 'react-redux'
 import Calculator from '../components/game/calculator/Calculator'
 import * as actions from '../actions/calculator_actions'
 
+import KeepAwake from 'react-native-keep-awake';
+
 class CalculatorContainer extends Component {
     constructor(props) {
         super(props);
@@ -20,7 +22,12 @@ class CalculatorContainer extends Component {
     }
 
     componentDidMount() {
+        KeepAwake.activate();
         this.createTrial();
+    }
+
+    componentWillUnmount(){
+        KeepAwake.deactivate();
     }
 
     createTrial() {
