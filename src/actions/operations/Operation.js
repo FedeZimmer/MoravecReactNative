@@ -16,6 +16,10 @@ export class Operation {
         throw "Subclass responsibility";
     }
 
+    operatorHumanRepresentation() {
+        throw "Subclass responsibility";
+    }
+
     leftOperand() {
         return this._leftOperand;
     }

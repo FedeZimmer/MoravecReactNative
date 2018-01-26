@@ -15,4 +15,8 @@ export class Multiplication extends Operation {
     operator() {
         return '*';
     }
+
+    operatorHumanRepresentation() {
+        return 'x';
+    }
 }

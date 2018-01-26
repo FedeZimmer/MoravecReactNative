@@ -15,4 +15,8 @@ export class ToSquare extends Operation {
     operator() {
         return '^';
     }
+
+    operatorHumanRepresentation() {
+        this.operator();
+    }
 }

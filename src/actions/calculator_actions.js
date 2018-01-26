@@ -26,7 +26,7 @@ function createOperationForLevel(level) {
 
     return {
         opType: operation.category(),
-        operator: operation.operator(),
+        operator: operation.operatorHumanRepresentation(),
         operand1: operation.leftOperand().value(),
         operand2: operation.rightOperand().value(),
         result: operation.result(),

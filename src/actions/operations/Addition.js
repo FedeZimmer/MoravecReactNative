@@ -15,4 +15,8 @@ export class Addition extends Operation {
     operator() {
         return '+';
     }
+
+    operatorHumanRepresentation() {
+        return this.operator();
+    }
 }
