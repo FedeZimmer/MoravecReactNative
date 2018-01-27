@@ -2,6 +2,8 @@ import React from "react";
 import {Text, View, Image} from "react-native";
 import {Button} from "native-base";
 import {HOME_STYLES} from "../../styles/home/styles";
+import {getLanguages} from "react-native-i18n";
+import I18n from '../../../i18n/i18n';
 
 export class Home extends React.Component {
     static navigationOptions = {
@@ -14,6 +16,9 @@ export class Home extends React.Component {
     }
 
     renderLogo() {
+        const languages = getLanguages();
+        console.log(languages);
+
         return (
             <View style={HOME_STYLES.logoContainer}>
                 <Image/>
@@ -28,7 +33,7 @@ export class Home extends React.Component {
             <View style={HOME_STYLES.optionsContainer}>
                 <View style={HOME_STYLES.playContainer}>
                     <Button style={HOME_STYLES.playButton} onPress={() => navigate('Arcade')}>
-                        <Text style={HOME_STYLES.playButtonText}>JUGAR</Text>
+                        <Text style={HOME_STYLES.playButtonText}>{I18n.t('play').toUpperCase()}</Text>
                     </Button>
                 </View>
                 <View style={HOME_STYLES.practiceOrTutorialContainer}>
