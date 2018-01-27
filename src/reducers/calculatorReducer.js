@@ -2,6 +2,8 @@ import {
     ARCADE_ERASE_INPUT, ARCADE_TYPE_INPUT, CREATE_TRIAL, HIDE_FEEDBACK, SHOW_FEEDBACK
 } from '../actions/calculator_actions'
 
+const MAX_NUMBER_OF_DIGITS = 8;
+
 const initialState = {
     trial: {
         input: null,
@@ -24,6 +26,21 @@ const initialState = {
     }
 };
 
+const updateUserInput = function (actualInput, newInput) {
+    if (!actualInput) {
+        return newInput;
+    }
+
+    let updatedInput;
+    const exceedsMaxNumberOfDigits = actualInput.toString().length >= MAX_NUMBER_OF_DIGITS;
+    if (exceedsMaxNumberOfDigits) {
+        updatedInput = actualInput;
+    } else {
+        updatedInput = Number('' + actualInput + newInput);
+    }
+
+    return updatedInput;
+};
 
 export function calculatorReducer(state = initialState, action) {
     switch (action.type) {
@@ -38,9 +55,7 @@ export function calculatorReducer(state = initialState, action) {
                 ...state,
                 trial: {
                     ...state.trial,
-                    input: state.trial.input
-                        ? Number('' + state.trial.input + action.input)
-                        : action.input
+                    input: updateUserInput(state.trial.input, action.input)
                 }
             };
 
