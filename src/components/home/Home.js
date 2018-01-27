@@ -16,9 +16,6 @@ export class Home extends React.Component {
     }
 
     renderLogo() {
-        const languages = getLanguages();
-        console.log(languages);
-
         return (
             <View style={HOME_STYLES.logoContainer}>
                 <Image/>
