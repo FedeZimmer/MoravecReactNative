@@ -1,35 +1,46 @@
-import {greenColor, whiteColor, pinkColor, lightGrayColor} from "../global";
-import {getWindowWidth} from "../../utils";
+import {greenColor, whiteColor, pinkColor, lightGrayColor, grayColor} from "../global";
+import {getWindowWidth, getWindowHeight} from "../../utils";
 
 export const HOME_STYLES = {
     logoContainer: {
         flex: 1,
-        flexDirection: "column",
+        flexDirection: "row",
         justifyContent: "center",
+        marginTop: getWindowHeight() * 0.1,
     },
-    logoFooter: {
+    logo: {
+        width: getWindowWidth() * 0.8,
+        height: getWindowHeight() * 0.4,
+        resizeMode: 'contain',
+    },
+    appNameContainer: {
+        marginTop: getWindowHeight() * 0.3,
+    },
+    appName: {
+        fontFamily: 'GothamBlack',
         color: '#152939',
-        fontSize: 70,
+        fontSize: 50,
         textAlign: 'center',
-        fontWeight: 'bold'
     },
     optionsContainer: {
-        flex: 2,
+        flex: 3,
         flexDirection: "column",
         justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
+        marginTop: getWindowHeight() * 0.1,
     },
     playButton: {
         width: getWindowWidth() * 0.9,
         backgroundColor: greenColor,
         justifyContent: "center",
         borderRadius: 0,
+        marginBottom: 8,
     },
     playButtonText: {
+        fontFamily: 'GothamBold',
         color: whiteColor,
         fontSize: 15,
         textAlign: 'center',
-        fontWeight: 'bold'
     },
     practiceOrTutorialContainer: {
         flexDirection: "row",
@@ -39,38 +50,48 @@ export const HOME_STYLES = {
         flexGrow: 1,
         backgroundColor: pinkColor,
         borderRadius: 0,
-        marginTop: 4,
-        marginRight: 2,
+        marginRight: 4,
         justifyContent: "center",
     },
     practiceButtonText: {
+        fontFamily: 'GothamBold',
         color: whiteColor,
         fontSize: 15,
         textAlign: 'center',
-        fontWeight: 'bold'
     },
     tutorialButton: {
         flexGrow: 1,
         backgroundColor: pinkColor,
         borderRadius: 0,
-        marginTop: 4,
-        marginLeft: 2,
+        marginLeft: 4,
         justifyContent: "center",
     },
     tutorialButtonText: {
+        fontFamily: 'GothamBold',
         color: whiteColor,
         fontSize: 15,
         textAlign: 'center',
-        fontWeight: 'bold'
+    },
+    statsButtonText: {
+        fontFamily: 'GothamBold',
+        fontSize: 15,
+        textAlign: 'center',
+        color: grayColor
     },
     footerContainer: {
         flex: 1,
-        flexDirection: "row"
+        flexDirection: "row",
+        justifyContent: "center",
+        marginBottom: getWindowHeight() * 0.15,
+    },
+    logoFooter: {
+        width: getWindowWidth() * 0.5,
+        height: getWindowHeight() * 0.2,
+        resizeMode: 'contain'
     },
     home: {
-        flex: 3,
+        flex: 4,
         flexDirection: "column",
-        justifyContent: "space-between",
         backgroundColor: lightGrayColor
     },
 };
