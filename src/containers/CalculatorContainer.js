@@ -28,6 +28,7 @@ class CalculatorContainer extends Component {
 
     componentWillUnmount(){
         KeepAwake.deactivate();
+        this.stopTimer();
     }
 
     createTrial() {
@@ -47,10 +48,6 @@ class CalculatorContainer extends Component {
 
     stopTimer() {
         clearInterval(this.state.timer);
-    }
-
-    componentWillUnmount() {
-        this.stopTimer();
     }
 
     userEnteredResult(trial) {
