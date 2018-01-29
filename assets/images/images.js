@@ -1,6 +1,7 @@
 const images = {
-    mainLogo: require("./logoMain.png"),
+    mainLogo: require("./mainLogo.png"),
     homeFooterLogos: require("./splashLogos.png"),
+    mainLogoGray: require("./mainLogoGray.png"),
 };
 
 export default images;

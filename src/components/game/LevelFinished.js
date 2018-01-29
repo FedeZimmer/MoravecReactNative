@@ -1,21 +1,38 @@
 import React from 'react'
-import {View, Text} from "react-native";
+import {View, Text, Image} from "react-native";
 import {Button, Icon} from "native-base";
 import {LevelEfficacyStars} from "../common/LevelEfficacyStars";
 import {LEVEL_FINISHED_STYLES} from "../../styles/game/styles";
+import Images from "../../../assets/images/images";
 
 export class LevelFinished extends React.Component {
     constructor(props) {
         super(props);
 
+        this.goToNextLevel = this.goToNextLevel.bind(this);
+        this.replayLevel = this.replayLevel.bind(this);
+        this.goToMainPage = this.goToMainPage.bind(this);
+
         this.renderHeader = this.renderHeader.bind(this);
         this.renderOptions = this.renderOptions.bind(this);
 
-        this.goToNextLevel = this.goToNextLevel.bind(this);
-        this.replayLevel = this.replayLevel.bind(this);
         this.shareLevelResult = this.shareLevelResult.bind(this);
+    }
 
-        this.goToMainPage = this.goToMainPage.bind(this);
+    goToNextLevel() {
+        const actualLevel = this.props.level;
+        const nextLevel = actualLevel + 1;
+        this.props.startLevel(nextLevel);
+    }
+
+    replayLevel() {
+        const actualLevel = this.props.level;
+        this.props.startLevel(actualLevel);
+    }
+
+    goToMainPage() {
+        alert('asdas');
+        this.props.navigation.navigate('Home');
     }
 
     renderHeader() {
@@ -59,27 +76,12 @@ export class LevelFinished extends React.Component {
         )
     }
 
-    goToNextLevel() {
-        const actualLevel = this.props.level;
-        const nextLevel = actualLevel + 1;
-        this.props.startLevel(nextLevel);
-    }
-
-    replayLevel() {
-        const actualLevel = this.props.level;
-        this.props.startLevel(actualLevel);
-    }
-
     shareLevelResult() {
 
     }
 
-    goToMainPage() {
-        const {navigate} = this.props.navigation;
-        navigate('Home');
-    }
-
     render() {
+        const {navigate} = this.props.navigation;
         return (
             <View style={LEVEL_FINISHED_STYLES.levelFinished}>
                 <View style={LEVEL_FINISHED_STYLES.background}/>
@@ -87,11 +89,14 @@ export class LevelFinished extends React.Component {
                     {this.renderHeader()}
                     {this.renderOptions()}
                 </View>
-                {/*<View >
-                    <Button onPress={this.props.goToMainPage}>
-                        <Text>MENU PRINCIPAL </Text>
+                <View>
+                    <Button transparent style={LEVEL_FINISHED_STYLES.mainPageButtonContainer} onPress={() => navigate('Home')}>
+                        <Text style={LEVEL_FINISHED_STYLES.mainPageButtonText}>MENÚ PRINCIPAL</Text>
                     </Button>
-                </View>*/}
+                </View>
+                <View style={LEVEL_FINISHED_STYLES.logoContainer}>
+                    <Image source={Images.mainLogoGray} style={LEVEL_FINISHED_STYLES.logo}/>
+                </View>
             </View>
         )
     }
