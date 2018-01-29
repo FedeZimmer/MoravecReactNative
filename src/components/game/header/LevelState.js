@@ -1,7 +1,7 @@
 import React from 'react';
 import {Text, View} from "react-native";
 
-import {HEADER_STYLES} from "../../../../styles/game/calculator/header/styles";
+import {HEADER_STYLES} from "../../../styles/game/calculator/header/styles";
 
 
 export default class LevelState extends React.Component {

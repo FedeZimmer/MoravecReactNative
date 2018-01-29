@@ -29,7 +29,7 @@ export class Home extends React.Component {
         return (
             <View style={HOME_STYLES.optionsContainer}>
                 <View style={HOME_STYLES.playContainer}>
-                    <Button style={HOME_STYLES.playButton} onPress={() => navigate('Arcade')}>
+                    <Button style={HOME_STYLES.playButton} onPress={() => navigate('LevelSelection')}>
                         <Text style={HOME_STYLES.playButtonText}>{I18n.t('play').toUpperCase()}</Text>
                     </Button>
                 </View>

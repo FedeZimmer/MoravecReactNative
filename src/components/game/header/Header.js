@@ -1,7 +1,7 @@
 import React from 'react';
 import {View} from "react-native";
 
-import {HEADER_STYLES} from "../../../../styles/game/calculator/header/styles";
+import {HEADER_STYLES} from "../../../styles/game/calculator/header/styles";
 import CalculationTimer from "./CalculationTimer";
 import Hints from "./Hints";
 import LevelState from "./LevelState";

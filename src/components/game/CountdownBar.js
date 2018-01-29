@@ -1,8 +1,8 @@
 import React from 'react'
 import {View} from "react-native";
 
-import {getWindowWidth} from "../../../utils";
-import {COUNTDOWN_STYLES} from "../../../styles/game/calculator/styles";
+import {getWindowWidth} from "../../utils";
+import {COUNTDOWN_STYLES} from "../../styles/game/calculator/styles";
 
 
 export default class CountdownBar extends React.Component {

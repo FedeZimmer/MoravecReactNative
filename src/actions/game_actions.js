@@ -10,6 +10,8 @@ export const CREATE_TRIAL = 'CREATE_TRIAL';
 export const SUBMIT_TRIAL = 'SUBMIT_TRIAL';
 export const SHOW_FEEDBACK = 'SHOW_FEEDBACK';
 export const HIDE_FEEDBACK = 'HIDE_FEEDBACK';
+export const START_LEVEL = 'START_LEVEL';
+export const FINISH_LEVEL = 'FINISH_LEVEL';
 
 function createOperationForLevel(level) {
     const operationCategoriesPerLevel = {
@@ -57,14 +59,12 @@ export function eraseInput() {
     }
 }
 
-
 export function submitTrial(trial) {
     return {
         type: SUBMIT_TRIAL,
         trial: trial
     }
 }
-
 
 export function showFeedback(trial) {
     return {
@@ -73,9 +73,21 @@ export function showFeedback(trial) {
     }
 }
 
-
 export function hideFeedback() {
     return {
         type: HIDE_FEEDBACK
+    }
+}
+
+export function startLevel(level) {
+    return {
+        type: START_LEVEL,
+        level: level
+    }
+}
+
+export function finishLevel() {
+    return {
+        type: FINISH_LEVEL
     }
 }

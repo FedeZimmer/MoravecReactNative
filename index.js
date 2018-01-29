@@ -1,27 +1,17 @@
 import React from "react";
 import {AppRegistry} from "react-native";
-import {StackNavigator} from "react-navigation";
 import {createStore} from "redux";
 import {Provider} from "react-redux";
-
-import appReducers from "./src/reducers/appReducers";
-import LevelSelectionContainer from "./src/containers/LevelSelectionContainer";
-import LevelContainer from "./src/containers/LevelContainer";
-import {Home} from "./src/components/home/Home"
+import {combineReducers} from 'redux';
+import {gameReducer} from "./src/reducers/game_reducer";
+import {Navigator} from "./src/navigator";
 
 
-const store = createStore(appReducers);
+const reducer = combineReducers({
+    game: gameReducer,
+});
 
-export const Navigator = StackNavigator(
-    {
-        Home: {screen: Home},
-        Arcade: {screen: LevelSelectionContainer},
-        Level: {screen: LevelContainer},
-    },
-    {
-        headerMode: 'screen'
-    }
-);
+const store = createStore(reducer);
 
 const Moravec = () => (
     <Provider store={store}>

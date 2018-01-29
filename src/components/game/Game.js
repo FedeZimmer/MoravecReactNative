@@ -1,12 +1,19 @@
+import KeepAwake from "react-native-keep-awake";
+import Calculator from "./calculator/Calculator";
 import React, {Component} from 'react'
-import { connect } from 'react-redux'
+import {GAME_STYLES} from "../../styles/game/calculator/styles";
+import UserAnswerFeedback from "./UserAnswerFeedback";
+import Header from "./header/Header";
+import CountdownBar from "./CountdownBar";
+import {LevelFinished} from "./LevelFinished";
+import {View} from "react-native";
 
-import Calculator from '../components/game/calculator/Calculator'
-import * as actions from '../actions/calculator_actions'
+export class Game extends Component {
+    static navigationOptions = {
+        title: 'Game',
+        header: null
+    };
 
-import KeepAwake from 'react-native-keep-awake';
-
-class CalculatorContainer extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -21,12 +28,18 @@ class CalculatorContainer extends Component {
         this.levelFinished = this.levelFinished.bind(this);
     }
 
+    componentWillMount() {
+        const params = this.props.navigation.state.params;
+        const levelNumber = params.levelNumber;
+        this.props.startLevel(levelNumber);
+    }
+
     componentDidMount() {
         KeepAwake.activate();
         this.createTrial();
     }
 
-    componentWillUnmount(){
+    componentWillUnmount() {
         KeepAwake.deactivate();
         this.stopTimer();
     }
@@ -75,11 +88,17 @@ class CalculatorContainer extends Component {
     };
 
     render() {
-        return <Calculator
-            submit={this.submit}
-            time={this.state.time}
-            {...this.props}/>
+        if (this.props.levelFinished) {
+            return <LevelFinished {...this.props}/>;
+        } else {
+            return (
+                <View style={GAME_STYLES.game}>
+                    <UserAnswerFeedback {...this.props}/>
+                    <Header {...this.props} time={this.state.time}/>
+                    <CountdownBar {...this.props} time={this.state.time}/>
+                    <Calculator {...this.props} submit={this.submit}/>
+                </View>
+            );
+        }
     }
 }
-
-export default CalculatorContainer = connect(state => state.calculator, actions)(CalculatorContainer);
