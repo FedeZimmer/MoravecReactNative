@@ -3,6 +3,7 @@ import math from "mathjs";
 import {ToSquare} from "./operations/ToSquare";
 import {Multiplication} from "./operations/Multiplication";
 import {Addition} from "./operations/Addition";
+import {ApiClient} from "../api_client/ApiClient";
 
 export const ARCADE_TYPE_INPUT = 'ARCADE_TYPE_INPUT';
 export const ARCADE_ERASE_INPUT = 'ARCADE_ERASE_INPUT';
@@ -106,5 +107,14 @@ export function startLevel(level) {
 export function finishLevel() {
     return {
         type: FINISH_LEVEL
+    }
+}
+
+export function sendStoredTrials() {
+    return (dispatch, getState) => {
+        const allTrials = getState().game.trials;
+        new ApiClient().call('POST', "/api/v2/trials", allTrials, (data) => {
+            console.warn("Se han guardado los datos correctamente.");
+        });
     }
 }

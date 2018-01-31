@@ -1,20 +1,22 @@
-import Config from 'react-native-config';
+import Config from "react-native-config"
 
 export class ApiClient {
-    domain() {
+    static baseUrl() {
         return Config.API_URL;
     }
 
-    apiCall(method, url, body, callback) {
+    call(method = 'GET', url, body, callback) {
         const headers = {'Accept': 'application/json', 'Content-Type': 'application/json'};
-        const options = {method: method, dataType: 'json', headers: headers};
+        const fetchOptions = {method: method, headers: headers};
 
-        if(method !== 'GET') {
-            Object.assign(options, {body: JSON.stringify(body)});
+        if (method !== 'GET') {
+            Object.assign(fetchOptions, {body: JSON.stringify(body)});
         }
 
-        fetch(this.domain() + url, options).then((response) => {
+        fetch(ApiClient.baseUrl() + url, fetchOptions).then((response) => {
             response.json().then(callback).done();
+        }, (error) => {
+            console.error('Ocurrió un error al conectar servidor ' + ApiClient.baseUrl());
         });
     }
 

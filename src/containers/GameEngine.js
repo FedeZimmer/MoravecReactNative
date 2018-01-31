@@ -5,6 +5,7 @@ import {
     eraseInput,
     finishLevel,
     hideFeedback,
+    sendStoredTrials,
     showFeedback,
     startLevel,
     submitTrial,
@@ -42,6 +43,9 @@ const mapDispatchToProps = dispatch => {
         },
         finishLevel: () => {
             dispatch(finishLevel())
+        },
+        sendStoredTrials: () => {
+            dispatch(sendStoredTrials())
         },
     }
 };
@@ -112,6 +116,7 @@ class GameEngine extends Component {
                     this.props.hideFeedback();
                 }
                 this.props.finishLevel();
+                this.props.sendStoredTrials();
             } else {
                 this.createTrial();
             }
