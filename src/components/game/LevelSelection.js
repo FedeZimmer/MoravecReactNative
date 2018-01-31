@@ -45,7 +45,7 @@ export class LevelSelection extends React.Component {
                                 <Text style={LEVEL_SELECTION_STYLES.levelNumber}>1.</Text>
                             </View>
                             <View style={LEVEL_SELECTION_STYLES.levelResultContainer}>
-                                <Text style={LEVEL_SELECTION_STYLES.levelTime}>asdas</Text>
+                                <Text style={LEVEL_SELECTION_STYLES.levelTime}>20:56:654s</Text>
                                 <LevelEfficacyStars correctAnswers={16}/>
                             </View>
                         </View>
