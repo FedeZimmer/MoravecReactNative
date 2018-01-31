@@ -1,9 +1,14 @@
 import {
-    ARCADE_ERASE_INPUT, ARCADE_TYPE_INPUT, CREATE_TRIAL, FINISH_LEVEL, HIDE_FEEDBACK, SHOW_FEEDBACK, START_LEVEL,
+    ARCADE_ERASE_INPUT,
+    ARCADE_TYPE_INPUT,
+    CREATE_TRIAL,
+    FINISH_LEVEL,
+    HIDE_FEEDBACK,
+    SHOW_FEEDBACK,
+    START_LEVEL,
     SUBMIT_TRIAL
 } from '../actions/game_actions'
 
-const MAX_NUMBER_OF_DIGITS = 8;
 
 const initialState = {
     trial: {
@@ -34,22 +39,6 @@ const initialState = {
     maxTimeForCountdownInMs: 30000,
 };
 
-const updateUserInput = function (actualInput, newInput) {
-    if (!actualInput) {
-        return newInput;
-    }
-
-    let updatedInput;
-    const exceedsMaxNumberOfDigits = actualInput.toString().length >= MAX_NUMBER_OF_DIGITS;
-    if (exceedsMaxNumberOfDigits) {
-        updatedInput = actualInput;
-    } else {
-        updatedInput = Number('' + actualInput + newInput);
-    }
-
-    return updatedInput;
-};
-
 export function gameReducer(state = initialState, action) {
     switch (action.type) {
         case CREATE_TRIAL:
@@ -63,7 +52,7 @@ export function gameReducer(state = initialState, action) {
                 ...state,
                 trial: {
                     ...state.trial,
-                    input: updateUserInput(state.trial.input, action.input)
+                    input: action.updateUserInput(state.trial.input, action.input)
                 }
             };
 
@@ -84,8 +73,8 @@ export function gameReducer(state = initialState, action) {
                 },
                 feedback: {
                     visible: true,
-                    input: action.trial.input,
-                    result: action.trial.operation.result,
+                    input: state.trial.input,
+                    result: state.trial.operation.result,
                     duration: initialState.feedback.duration,
                 },
             };
@@ -119,8 +108,8 @@ export function gameReducer(state = initialState, action) {
         case SUBMIT_TRIAL:
             return {
                 ...state,
-                trials: state.trials.concat(action.trial),
-                totalCorrect: action.trial.input === action.trial.operation.result
+                trials: state.trials.concat(state.trial),
+                totalCorrect: state.trial.input === state.trial.operation.result
                     ? state.totalCorrect + 1
                     : state.totalCorrect
             };

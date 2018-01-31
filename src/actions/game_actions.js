@@ -13,6 +13,8 @@ export const HIDE_FEEDBACK = 'HIDE_FEEDBACK';
 export const START_LEVEL = 'START_LEVEL';
 export const FINISH_LEVEL = 'FINISH_LEVEL';
 
+const MAX_NUMBER_OF_DIGITS = 8;
+
 function createOperationForLevel(level) {
     const operationCategoriesPerLevel = {
         1: [Addition.createRandom(1, 1), Multiplication.createRandom(1, 1)],
@@ -35,6 +37,22 @@ function createOperationForLevel(level) {
     }
 }
 
+const updateUserInput = function (actualInput, newInput) {
+    if (!actualInput) {
+        return newInput;
+    }
+
+    let updatedInput;
+    const exceedsMaxNumberOfDigits = actualInput.toString().length >= MAX_NUMBER_OF_DIGITS;
+    if (exceedsMaxNumberOfDigits) {
+        updatedInput = actualInput;
+    } else {
+        updatedInput = Number('' + actualInput + newInput);
+    }
+
+    return updatedInput;
+};
+
 export function createTrial(level) {
     return {
         type: CREATE_TRIAL,
@@ -49,7 +67,8 @@ export function createTrial(level) {
 export function typeInput(input) {
     return {
         type: ARCADE_TYPE_INPUT,
-        input: input
+        input: input,
+        updateUserInput: updateUserInput,
     }
 }
 
@@ -59,17 +78,15 @@ export function eraseInput() {
     }
 }
 
-export function submitTrial(trial) {
+export function submitTrial() {
     return {
         type: SUBMIT_TRIAL,
-        trial: trial
     }
 }
 
-export function showFeedback(trial) {
+export function showFeedback() {
     return {
         type: SHOW_FEEDBACK,
-        trial: trial
     }
 }
 

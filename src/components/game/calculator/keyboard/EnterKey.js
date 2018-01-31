@@ -14,8 +14,7 @@ export default class EnterKey extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
-
-        this.props.submit(this.props.trial);
+        this.props.onSubmit();
     }
 
     render() {
