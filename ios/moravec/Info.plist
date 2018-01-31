@@ -81,6 +81,8 @@
 		<string>GothamUltraItalic.ttf</string>
 		<string>GothamXLight.ttf</string>
 		<string>GothamXLightItalic.ttf</string>
+		<string>GothamBook.ttf</string>
+		<string>GothamBookItalic.ttf</string>
 	</array>
 </dict>
 </plist>

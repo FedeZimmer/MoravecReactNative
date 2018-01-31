@@ -30,6 +30,7 @@ export const OPERATION_STYLES = {
         alignItems: 'center'
     },
     operationText: {
+        fontFamily: 'GothamBook',
         textAlign: 'center',
         color: darkGrayColor,
         fontSize: 40,

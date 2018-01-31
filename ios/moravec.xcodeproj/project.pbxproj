@@ -68,6 +68,8 @@
 		6F69E166F25B4ED8AF123740 /* GothamUltraItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B0FD6DF9A63449DD80C456D9 /* GothamUltraItalic.ttf */; };
 		D5CD0FCF54074333A6DA0D01 /* GothamXLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FCA5E8803E514E23BB597938 /* GothamXLight.ttf */; };
 		B35F518E0C9C464C9D206E2A /* GothamXLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 292667096AB1407AA83BE77C /* GothamXLightItalic.ttf */; };
+		CC0AF25B776E4D5688C7D511 /* GothamBook.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DDE836513A764624B388CE15 /* GothamBook.ttf */; };
+		17A44266102945E695624137 /* GothamBookItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E21A4D61C67D4DB5A342E2DA /* GothamBookItalic.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -415,6 +417,8 @@
 		B0FD6DF9A63449DD80C456D9 /* GothamUltraItalic.ttf */ = {isa = PBXFileReference; name = "GothamUltraItalic.ttf"; path = "../assets/fonts/GothamUltraItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		FCA5E8803E514E23BB597938 /* GothamXLight.ttf */ = {isa = PBXFileReference; name = "GothamXLight.ttf"; path = "../assets/fonts/GothamXLight.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		292667096AB1407AA83BE77C /* GothamXLightItalic.ttf */ = {isa = PBXFileReference; name = "GothamXLightItalic.ttf"; path = "../assets/fonts/GothamXLightItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		DDE836513A764624B388CE15 /* GothamBook.ttf */ = {isa = PBXFileReference; name = "GothamBook.ttf"; path = "../assets/fonts/GothamBook.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		E21A4D61C67D4DB5A342E2DA /* GothamBookItalic.ttf */ = {isa = PBXFileReference; name = "GothamBookItalic.ttf"; path = "../assets/fonts/GothamBookItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -565,6 +569,8 @@
 				B0FD6DF9A63449DD80C456D9 /* GothamUltraItalic.ttf */,
 				FCA5E8803E514E23BB597938 /* GothamXLight.ttf */,
 				292667096AB1407AA83BE77C /* GothamXLightItalic.ttf */,
+				DDE836513A764624B388CE15 /* GothamBook.ttf */,
+				E21A4D61C67D4DB5A342E2DA /* GothamBookItalic.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1240,6 +1246,8 @@
 				6F69E166F25B4ED8AF123740 /* GothamUltraItalic.ttf in Resources */,
 				D5CD0FCF54074333A6DA0D01 /* GothamXLight.ttf in Resources */,
 				B35F518E0C9C464C9D206E2A /* GothamXLightItalic.ttf in Resources */,
+				CC0AF25B776E4D5688C7D511 /* GothamBook.ttf in Resources */,
+				17A44266102945E695624137 /* GothamBookItalic.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
