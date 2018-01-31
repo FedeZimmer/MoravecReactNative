@@ -21,7 +21,7 @@ export default class LevelState extends React.Component {
         return (
             <View style={HEADER_STYLES.remainingTrialsContainer}>
                 <Text style={HEADER_STYLES.remainingTrials}>
-                    {this.remainingTrials()} / {this.totalTrials()}
+                    {this.remainingTrials()}/{this.totalTrials()}
                 </Text>
             </View>
         )
