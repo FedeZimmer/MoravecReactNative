@@ -1,4 +1,5 @@
 import math from "mathjs";
+import {AsyncStorage} from "react-native";
 
 import {ToSquare} from "./operations/ToSquare";
 import {Multiplication} from "./operations/Multiplication";
@@ -11,7 +12,7 @@ export const SUBMIT_TRIAL = 'SUBMIT_TRIAL';
 export const SHOW_FEEDBACK = 'SHOW_FEEDBACK';
 export const HIDE_FEEDBACK = 'HIDE_FEEDBACK';
 export const START_LEVEL = 'START_LEVEL';
-export const FINISH_LEVEL = 'FINISH_LEVEL';
+export const SHOW_LEVEL_RESUME = 'SHOW_LEVEL_RESUME';
 
 const MAX_NUMBER_OF_DIGITS = 8;
 
@@ -78,9 +79,13 @@ export function eraseInput() {
     }
 }
 
-export function submitTrial() {
+export function submitTrial(trialTime) {
     return {
         type: SUBMIT_TRIAL,
+        submittedTrial: (trial) => {
+            trial['time'] = trialTime;
+            return trial;
+        }
     }
 }
 
@@ -103,8 +108,34 @@ export function startLevel(level) {
     }
 }
 
-export function finishLevel() {
+function showLevelResume() {
     return {
-        type: FINISH_LEVEL
+        type: SHOW_LEVEL_RESUME
+    }
+}
+
+export function finishLevel() {
+    return (dispatch, getState) => {
+        dispatch(showLevelResume());
+
+        const state = getState().game;
+
+        const totalTimeOfLevel = state.trials.map((trial) => {return trial.time}).reduce((a, b) => { return a + b});
+        const levelNumber = state.level;
+        const levelInfo = {
+            totalTime: totalTimeOfLevel,
+            efficacy: state.efficacy,
+            trials: state.trials
+        };
+
+        AsyncStorage.getItem('@Moravec:levels').then((result) => {
+            if (result) {
+                const levels = JSON.parse(result);
+                levels[levelNumber] = levelInfo;
+                AsyncStorage.setItem('@Moravec:levels', JSON.stringify(levels));
+            } else {
+                AsyncStorage.setItem('@Moravec:levels', JSON.stringify({levelNumber: levelInfo}));
+            }
+        });
     }
 }

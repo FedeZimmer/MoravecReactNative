@@ -31,7 +31,6 @@ export class LevelFinished extends React.Component {
     }
 
     goToMainPage() {
-        alert('asdas');
         this.props.navigation.navigate('Home');
     }
 
@@ -89,8 +88,8 @@ export class LevelFinished extends React.Component {
                     {this.renderHeader()}
                     {this.renderOptions()}
                 </View>
-                <View>
-                    <Button transparent style={LEVEL_FINISHED_STYLES.mainPageButtonContainer} onPress={() => navigate('Home')}>
+                <View style={LEVEL_FINISHED_STYLES.mainPageButtonContainer}>
+                    <Button transparent style={LEVEL_FINISHED_STYLES.mainPageButton} onPress={() => navigate('Home')}>
                         <Text style={LEVEL_FINISHED_STYLES.mainPageButtonText}>MENÚ PRINCIPAL</Text>
                     </Button>
                 </View>

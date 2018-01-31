@@ -1,12 +1,12 @@
 import {Home} from "./components/home/Home";
 import {StackNavigator} from "react-navigation";
-import LevelSelection from "./components/game/LevelSelection";
+import LevelSelectionContainer from "./containers/LevelSelectionContainer";
 import GameEngine from "./containers/GameEngine";
 
 export const Navigator = StackNavigator(
     {
         Home: {screen: Home},
-        LevelSelection: {screen: LevelSelection},
+        LevelSelection: {screen: LevelSelectionContainer},
         PlayLevel: {screen: GameEngine},
     },
     {

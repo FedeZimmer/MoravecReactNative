@@ -5,11 +5,13 @@ import {Provider} from "react-redux";
 import {combineReducers} from 'redux';
 import thunkMiddleware from 'redux-thunk'
 import {gameReducer} from "./src/reducers/game_reducer";
+import {levelSelectionReducer} from "./src/reducers/level_selection_reducer";
 import {Navigator} from "./src/navigator";
 
 
 const rootReducer = combineReducers({
     game: gameReducer,
+    levelSelection: levelSelectionReducer,
 });
 
 const store = createStore(rootReducer, undefined, applyMiddleware(thunkMiddleware));

@@ -2,7 +2,7 @@ import {
     ARCADE_ERASE_INPUT,
     ARCADE_TYPE_INPUT,
     CREATE_TRIAL,
-    FINISH_LEVEL,
+    SHOW_LEVEL_RESUME,
     HIDE_FEEDBACK,
     SHOW_FEEDBACK,
     START_LEVEL,
@@ -33,7 +33,7 @@ const initialState = {
     level: 1,
     trials: [],
     levelFinished: true,
-    totalTrials: 20,
+    totalTrials: 4,
     totalCorrect: 0,
     efficacy: 0,
     maxTimeForCountdownInMs: 30000,
@@ -108,13 +108,13 @@ export function gameReducer(state = initialState, action) {
         case SUBMIT_TRIAL:
             return {
                 ...state,
-                trials: state.trials.concat(state.trial),
+                trials: state.trials.concat(action.submittedTrial(state.trial)),
                 totalCorrect: state.trial.input === state.trial.operation.result
                     ? state.totalCorrect + 1
                     : state.totalCorrect
             };
 
-        case FINISH_LEVEL:
+        case SHOW_LEVEL_RESUME:
             return {
                 ...state,
                 levelFinished: true,

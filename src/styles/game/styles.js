@@ -91,7 +91,9 @@ export const LEVEL_FINISHED_STYLES = {
     mainPageButtonContainer: {
         flex: 1,
         flexDirection: "row",
-        alignSelf: "center",
+        justifyContent: "center",
+    },
+    mainPageButton: {
         marginTop: windowHeight * 0.3,
     },
     mainPageButtonText: {
@@ -104,10 +106,10 @@ export const LEVEL_FINISHED_STYLES = {
         flex: 1,
         flexDirection: "row",
         justifyContent: "center",
-        paddingBottom: windowHeight * 0.05,
+        /*paddingBottom: windowHeight * 0.05,*/
     },
     logo: {
-        alignSelf: "center",
+        alignSelf: "flex-end",
         width: windowWidth * 0.25,
         height: windowHeight * 0.2,
         resizeMode: 'contain',
