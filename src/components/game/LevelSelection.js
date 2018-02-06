@@ -5,7 +5,7 @@ import {LevelEfficacyStars} from "../common/LevelEfficacyStars";
 import {LEVEL_SELECTION_STYLES} from "../../styles/game/styles"
 import {HEADER_STYLES, LEVEL_EFFICACY_STARS_STYLES} from "../../styles/common/styles"
 import {BackButton} from "../common/BackButton";
-import * as moment from 'moment'
+import {formatTime} from "../../utils";
 
 export class LevelSelection extends React.Component {
     static navigationOptions = ({navigation, screenProps}) => ({
@@ -31,38 +31,47 @@ export class LevelSelection extends React.Component {
         });
     }
 
+    renderLevelToPlay() {
+        const numberOfPlayedLevels = Object.keys(this.props.levels).length;
+        const levelToPlay = numberOfPlayedLevels + 1;
+
+        return (
+            <TouchableOpacity style={LEVEL_SELECTION_STYLES.playItem} onPress={() => this.goToLevel(levelToPlay)}>
+                <View style={LEVEL_SELECTION_STYLES.listItemContainer}>
+                    <View>
+                        <Text style={LEVEL_SELECTION_STYLES.playItemLevelNumber}>{levelToPlay}.</Text>
+                    </View>
+                    <View style={LEVEL_SELECTION_STYLES.levelResultContainer}>
+                        <Text style={LEVEL_SELECTION_STYLES.playText}>Jugar</Text>
+                        <LevelEfficacyStars emptyStarColor={LEVEL_EFFICACY_STARS_STYLES.emptyStarWhiteColor}/>
+                    </View>
+                </View>
+            </TouchableOpacity>
+        )
+    }
+
     render() {
-        /*let d =  moment.duration(this.props.levels["2"].totalTime);
-        const formatD = d.minutes() + ":" + d.seconds() + ":" + d.milliseconds();*/
-        if (this.props.loading) {
-            return null;
-        } else {
-            return (
-                <Content style={LEVEL_SELECTION_STYLES.list}>
-                    <TouchableOpacity style={LEVEL_SELECTION_STYLES.listItem}>
+        const levels = this.props.levels;
+        return (
+            <Content style={LEVEL_SELECTION_STYLES.list}>
+                {Object.keys(levels).map(levelNumber => (
+                    <TouchableOpacity key={levelNumber} style={LEVEL_SELECTION_STYLES.listItem}
+                                      onPress={() => this.goToLevel(levelNumber)}>
                         <View style={LEVEL_SELECTION_STYLES.listItemContainer}>
                             <View>
-                                <Text style={LEVEL_SELECTION_STYLES.levelNumber}>1.</Text>
+                                <Text style={LEVEL_SELECTION_STYLES.levelNumber}>{levelNumber}.</Text>
                             </View>
                             <View style={LEVEL_SELECTION_STYLES.levelResultContainer}>
-                                <Text style={LEVEL_SELECTION_STYLES.levelTime}>20:56:654s</Text>
-                                <LevelEfficacyStars correctAnswers={16}/>
+                                <Text style={LEVEL_SELECTION_STYLES.levelTime}>
+                                    {formatTime(levels[levelNumber].totalTime)}
+                                </Text>
+                                <LevelEfficacyStars correctAnswers={levels[levelNumber].correctAnswers}/>
                             </View>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity style={LEVEL_SELECTION_STYLES.playItem} onPress={() => this.goToLevel(2)}>
-                        <View style={LEVEL_SELECTION_STYLES.listItemContainer}>
-                            <View>
-                                <Text style={LEVEL_SELECTION_STYLES.playItemLevelNumber}>2.</Text>
-                            </View>
-                            <View style={LEVEL_SELECTION_STYLES.levelResultContainer}>
-                                <Text style={LEVEL_SELECTION_STYLES.playText}>Jugar</Text>
-                                <LevelEfficacyStars emptyStarColor={LEVEL_EFFICACY_STARS_STYLES.emptyStarWhiteColor}/>
-                            </View>
-                        </View>
-                    </TouchableOpacity>
-                </Content>
-            )
-        }
+                ))}
+                {this.renderLevelToPlay()}
+            </Content>
+        )
     }
 }

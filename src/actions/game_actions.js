@@ -120,22 +120,24 @@ export function finishLevel() {
 
         const state = getState().game;
 
-        const totalTimeOfLevel = state.trials.map((trial) => {return trial.time}).reduce((a, b) => { return a + b});
+        const totalTimeOfLevel = state.trials.map((trial) => {return trial.time}).reduce((a, b) => {return a + b});
         const levelNumber = state.level;
         const levelInfo = {
             totalTime: totalTimeOfLevel,
-            efficacy: state.efficacy,
+            correctAnswers: state.totalCorrect,
             trials: state.trials
         };
 
-        AsyncStorage.getItem('@Moravec:levels').then((result) => {
-            if (result) {
-                const levels = JSON.parse(result);
-                levels[levelNumber] = levelInfo;
-                AsyncStorage.setItem('@Moravec:levels', JSON.stringify(levels));
-            } else {
-                AsyncStorage.setItem('@Moravec:levels', JSON.stringify({levelNumber: levelInfo}));
+        AsyncStorage.getItem('@moravec:levels').then((result) => {
+            let levels = {};
+
+            const thereAreSavedLevels = result !== null;
+            if (thereAreSavedLevels) {
+                levels = JSON.parse(result);
             }
+
+            levels[levelNumber] = levelInfo;
+            AsyncStorage.setItem('@moravec:levels', JSON.stringify(levels));
         });
     }
 }

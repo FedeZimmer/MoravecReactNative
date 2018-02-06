@@ -106,7 +106,6 @@ export const LEVEL_FINISHED_STYLES = {
         flex: 1,
         flexDirection: "row",
         justifyContent: "center",
-        /*paddingBottom: windowHeight * 0.05,*/
     },
     logo: {
         alignSelf: "flex-end",
@@ -142,7 +141,6 @@ export const LEVEL_SELECTION_STYLES = {
         flexDirection: "row",
         justifyContent: 'space-between',
         alignItems: "center",
-        // paddingLeft: 20,
         paddingRight: 20,
     },
     levelNumber: {
@@ -167,11 +165,13 @@ export const LEVEL_SELECTION_STYLES = {
         marginLeft: 60
     },
     levelTime: {
+        fontFamily: 'GothamMedium',
         fontSize: 17,
         color: greenColor,
     },
     playText: {
-        fontSize: 25,
+        fontFamily: 'GothamMedium',
+        fontSize: 23,
         color: whiteColor,
     },
 };

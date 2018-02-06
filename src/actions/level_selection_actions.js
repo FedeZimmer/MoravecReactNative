@@ -11,8 +11,9 @@ export function receivePlayedLevelsInfo(levels) {
 
 export function getPlayedLevelsInfo() {
     return (dispatch) => {
-        AsyncStorage.getItem('@Moravec:levels').then((result) => {
-            if (result) {
+        AsyncStorage.getItem('@moravec:levels').then((result) => {
+            const thereAreSavedLevels = result !== null;
+            if (thereAreSavedLevels) {
                 const levels = JSON.parse(result);
                 dispatch(receivePlayedLevelsInfo(levels));
             }
