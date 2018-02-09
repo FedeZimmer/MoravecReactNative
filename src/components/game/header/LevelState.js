@@ -9,7 +9,7 @@ export default class LevelState extends React.Component {
         super(props);
     }
 
-    remainingTrials() {
+    currentTrial() {
         return this.props.trials.length + 1;
     }
 
@@ -21,7 +21,7 @@ export default class LevelState extends React.Component {
         return (
             <View style={HEADER_STYLES.remainingTrialsContainer}>
                 <Text style={HEADER_STYLES.remainingTrials}>
-                    {this.remainingTrials()} / {this.totalTrials()}
+                    {this.currentTrial()} / {this.totalTrials()}
                 </Text>
             </View>
         )

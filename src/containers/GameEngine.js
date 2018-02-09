@@ -96,7 +96,7 @@ class GameEngine extends Component {
     }
 
     levelFinished() {
-        return this.props.trials.length > this.props.totalTrials;
+        return this.props.trials.length === this.props.totalTrials;
     }
 
     onSubmit() {
@@ -108,9 +108,6 @@ class GameEngine extends Component {
 
             this.props.submitTrial();
             if (this.levelFinished()) {
-                if (this.props.feedback.visible) {
-                    this.props.hideFeedback();
-                }
                 this.props.finishLevel();
             } else {
                 this.createTrial();
