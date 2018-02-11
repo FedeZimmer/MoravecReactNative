@@ -1,10 +1,10 @@
 import {
-    ARCADE_ERASE_INPUT,
-    ARCADE_TYPE_INPUT,
-    CREATE_TRIAL,
+    CALCULATOR_ERASE_INPUT,
+    CALCULATOR_TYPE_INPUT,
     FINISH_LEVEL,
     HIDE_FEEDBACK,
-    SHOW_FEEDBACK,
+    NEW_TRIAL,
+    SHOW_FEEDBACK, START_GAME,
     START_LEVEL,
     SUBMIT_TRIAL
 } from '../actions/game_actions'
@@ -19,7 +19,7 @@ const initialState = {
             operator: null,
             result: null,
         },
-        time: null
+        startTime: null
     },
     feedback: {
         visible: false,
@@ -30,38 +30,70 @@ const initialState = {
     header: {
         visible: true,
     },
-    level: 1,
+    level: null,
     trials: [],
-    levelFinished: true,
+    levelFinished: null,
     totalTrials: 20,
     totalCorrect: 0,
     efficacy: 0,
     maxTimeForCountdownInMs: 30000,
 };
 
+const MAX_NUMBER_OF_DIGITS = 8;
+
+function appendNewUserInput(currentInput, newInput) {
+    if (!currentInput) {
+        return newInput;
+    }
+
+    const exceedsMaxNumberOfDigits = currentInput.toString().length >= MAX_NUMBER_OF_DIGITS;
+    if (exceedsMaxNumberOfDigits) {
+        return currentInput;
+    } else {
+        return Number('' + currentInput + newInput);
+    }
+}
+
+function removeLastNumberEntered(currentInput) {
+    return Number(String(currentInput).slice(0, -1));
+}
+
+function updateTotalCorrect(currentInput, operationResult, previousTotalCorrectValue) {
+    return currentInput === operationResult
+        ? previousTotalCorrectValue + 1
+        : previousTotalCorrectValue;
+}
+
+function calculateEfficacy(totalCorrect, totalTrials) {
+    return (totalCorrect / totalTrials) * 100;
+}
+
 export function gameReducer(state = initialState, action) {
     switch (action.type) {
-        case CREATE_TRIAL:
+        case START_GAME:
+            return initialState;
+
+        case NEW_TRIAL:
             return {
                 ...state,
                 trial: action.trial,
             };
 
-        case ARCADE_TYPE_INPUT:
+        case CALCULATOR_TYPE_INPUT:
             return {
                 ...state,
                 trial: {
                     ...state.trial,
-                    input: action.updateUserInput(state.trial.input, action.input)
+                    input: appendNewUserInput(state.trial.input, action.input)
                 }
             };
 
-        case ARCADE_ERASE_INPUT:
+        case CALCULATOR_ERASE_INPUT:
             return {
                 ...state,
                 trial: {
                     ...state.trial,
-                    input: Number(String(state.trial.input).slice(0, -1))
+                    input: removeLastNumberEntered(state.trial.input)
                 }
             };
 
@@ -109,17 +141,16 @@ export function gameReducer(state = initialState, action) {
             return {
                 ...state,
                 trials: state.trials.concat(state.trial),
-                totalCorrect: state.trial.input === state.trial.operation.result
-                    ? state.totalCorrect + 1
-                    : state.totalCorrect
+                totalCorrect: updateTotalCorrect(state.trial.input, state.trial.operation.result, state.totalCorrect)
             };
 
         case FINISH_LEVEL:
             return {
                 ...state,
                 levelFinished: true,
-                efficacy: (state.totalCorrect / state.totalTrials) * 100
+                efficacy: calculateEfficacy(state.totalCorrect, state.totalTrials)
             };
+
         default:
             return state
     }

@@ -1,5 +1,5 @@
 import React from 'react'
-import {Text, TouchableOpacity} from "react-native";
+import {TouchableOpacity} from "react-native";
 import {Icon} from 'native-base';
 
 import {INPUT_STYLES} from "../../../../styles/game/calculator/keyboard/styles";
@@ -15,7 +15,7 @@ export default class EraseKey extends React.Component {
     handleErase(event) {
         event.preventDefault();
 
-        this.props.eraseInput();
+        this.props.onEraseInput();
     }
 
     render() {

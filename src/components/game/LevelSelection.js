@@ -17,13 +17,11 @@ export default class LevelSelection extends React.Component {
     constructor(props) {
         super(props);
 
-        this.goToLevel = this.goToLevel.bind(this);
+        this.handleLevelSelected = this.handleLevelSelected.bind(this);
     }
 
-    goToLevel(levelNumber) {
-        this.props.navigation.navigate('PlayLevel', {
-            levelNumber: levelNumber
-        });
+    handleLevelSelected(levelNumber) {
+        this.props.onSelectLevel(levelNumber);
     }
 
     render() {
@@ -40,7 +38,7 @@ export default class LevelSelection extends React.Component {
                         </View>
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity style={LEVEL_SELECTION_STYLES.playItem} onPress={() => this.goToLevel(2)}>
+                <TouchableOpacity style={LEVEL_SELECTION_STYLES.playItem} onPress={() => this.handleLevelSelected(2)}>
                     <View style={LEVEL_SELECTION_STYLES.listItemContainer}>
                         <View>
                             <Text style={LEVEL_SELECTION_STYLES.playItemLevelNumber}>2.</Text>

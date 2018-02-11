@@ -10,16 +10,16 @@ export default class OperationDisplay extends React.Component {
     }
 
     operation() {
-        const firstOperand = this.props.trial.operation.operand1;
-        const secondOperand = this.props.trial.operation.operand2;
-        const operator = this.props.trial.operation.operator;
+        const firstOperand = this.props.operation.operand1;
+        const secondOperand = this.props.operation.operand2;
+        const operator = this.props.operation.operator;
 
         return firstOperand + ' ' + operator + ' ' + secondOperand;
     }
 
-    resultValue() {
-        if (this.props.trial.input) {
-            return this.props.trial.input
+    operationResult() {
+        if (this.props.input) {
+            return this.props.input
         } else {
             return '?';
         }
@@ -30,7 +30,7 @@ export default class OperationDisplay extends React.Component {
             <View style={OPERATION_STYLES.operationContainer}>
                 <View style={OPERATION_STYLES.operation}>
                     <Text style={OPERATION_STYLES.operationText}>
-                        {this.operation()}{' = '}{this.resultValue()}
+                        {this.operation()}{' = '}{this.operationResult()}
                     </Text>
                 </View>
             </View>

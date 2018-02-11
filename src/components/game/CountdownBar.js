@@ -10,8 +10,17 @@ export default class CountdownBar extends React.Component {
         super(props);
     }
 
+    componentDidMount() {
+        this.interval = setInterval(this.forceUpdate.bind(this), 50);
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.interval);
+    }
+
     remainingCountdownPercentage() {
-        let remainingTime = this.props.maxTimeForCountdownInMs - this.props.time;
+        const elapsedTimeInMs = new Date().getTime() - this.props.startTime;
+        let remainingTime = this.props.maxTimeForCountdownInMs - elapsedTimeInMs;
         let percentageRemaining = remainingTime / this.props.maxTimeForCountdownInMs;
 
         if (percentageRemaining < 0) {
