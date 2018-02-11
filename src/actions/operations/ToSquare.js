@@ -5,7 +5,7 @@ import {Operand} from "./Operand";
 export class ToSquare extends Operation {
     static createRandom(numDigitsOperand) {
         const leftOperand = Operand.createRandom(numDigitsOperand);
-        const rightOperand = 2;
+        const rightOperand = new Operand(2);
 
         const category = `${numDigitsOperand.toString()}^2`;
 
@@ -17,6 +17,6 @@ export class ToSquare extends Operation {
     }
 
     operatorHumanRepresentation() {
-        this.operator();
+        return this.operator();
     }
 }
