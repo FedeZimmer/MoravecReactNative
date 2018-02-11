@@ -19,30 +19,32 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        createTrial: (level) => {
-            dispatch(createTrial(level))
-        },
-        typeInput: (input) => {
-            dispatch(typeInput(input))
-        },
-        eraseInput: () => {
-            dispatch(eraseInput())
-        },
-        submitTrial: () => {
-            dispatch(submitTrial())
-        },
-        showFeedback: () => {
-            dispatch(showFeedback())
-        },
-        hideFeedback: () => {
-            dispatch(hideFeedback())
-        },
-        startLevel: (level) => {
-            dispatch(startLevel(level))
-        },
-        finishLevel: () => {
-            dispatch(finishLevel())
-        },
+        actions: {
+            createTrial: (level) => {
+                dispatch(createTrial(level))
+            },
+            typeInput: (input) => {
+                dispatch(typeInput(input))
+            },
+            eraseInput: () => {
+                dispatch(eraseInput())
+            },
+            submitTrial: () => {
+                dispatch(submitTrial())
+            },
+            showFeedback: () => {
+                dispatch(showFeedback())
+            },
+            hideFeedback: () => {
+                dispatch(hideFeedback())
+            },
+            startLevel: (level) => {
+                dispatch(startLevel(level))
+            },
+            finishLevel: () => {
+                dispatch(finishLevel())
+            },
+        }
     }
 };
 
@@ -54,41 +56,13 @@ class GameEngine extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            time: 0,
-            timer: null,
-            startTime: 0,
-        };
-
-        this.updateTimer = this.updateTimer.bind(this);
-        this.onSubmit = this.onSubmit.bind(this);
-        this.userEnteredResult = this.userEnteredResult.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     componentWillMount() {
-        const params = this.props.navigation.state.params;
-        const levelNumber = params.levelNumber;
-        this.props.startLevel(levelNumber);
-        this.createTrial();
-    }
-
-    createTrial() {
-        this.props.createTrial(this.props.level);
-        this.startTimer();
-    };
-
-    startTimer() {
-        this.setState({time: 0, startTime: Date.now()});
-        const timer = setInterval(this.updateTimer, 50);
-        this.setState({timer: timer});
-    };
-
-    updateTimer() {
-        this.setState({time: Date.now() - this.state.startTime});
-    }
-
-    stopTimer() {
-        clearInterval(this.state.timer);
+        const navigatorParams = this.props.navigation.state.params;
+        this.props.actions.startLevel(navigatorParams.levelNumber);
+        this.props.actions.createTrial(this.props.level);
     }
 
     userEnteredResult() {
@@ -99,18 +73,16 @@ class GameEngine extends Component {
         return this.props.trials.length === this.props.totalTrials;
     }
 
-    onSubmit() {
+    handleSubmit() {
         if (this.userEnteredResult()) {
-            this.stopTimer();
+            this.props.actions.showFeedback();
+            setTimeout(this.props.actions.hideFeedback, this.props.feedback.duration);
 
-            this.props.showFeedback();
-            setTimeout(this.props.hideFeedback, this.props.feedback.duration);
-
-            this.props.submitTrial();
+            this.props.actions.submitTrial();
             if (this.levelFinished()) {
-                this.props.finishLevel();
+                this.props.actions.finishLevel();
             } else {
-                this.createTrial();
+                this.props.actions.createTrial(this.props.level);
             }
         }
     };
@@ -120,7 +92,7 @@ class GameEngine extends Component {
             return <LevelFinished {...this.props}/>;
         } else {
             return (
-                <Game {...this.props} time={this.state.time} onSubmit={this.onSubmit}/>
+                <Game {...this.props} onSubmit={this.handleSubmit}/>
             );
         }
     }

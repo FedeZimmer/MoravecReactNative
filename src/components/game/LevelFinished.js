@@ -8,13 +8,9 @@ export class LevelFinished extends React.Component {
     constructor(props) {
         super(props);
 
-        this.renderHeader = this.renderHeader.bind(this);
-        this.renderOptions = this.renderOptions.bind(this);
-
         this.goToNextLevel = this.goToNextLevel.bind(this);
         this.replayLevel = this.replayLevel.bind(this);
         this.shareLevelResult = this.shareLevelResult.bind(this);
-
         this.goToMainPage = this.goToMainPage.bind(this);
     }
 
@@ -62,12 +58,12 @@ export class LevelFinished extends React.Component {
     goToNextLevel() {
         const actualLevel = this.props.level;
         const nextLevel = actualLevel + 1;
-        this.props.startLevel(nextLevel);
+        this.props.actions.startLevel(nextLevel);
     }
 
     replayLevel() {
         const actualLevel = this.props.level;
-        this.props.startLevel(actualLevel);
+        this.props.actions.startLevel(actualLevel);
     }
 
     shareLevelResult() {

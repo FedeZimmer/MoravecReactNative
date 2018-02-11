@@ -59,7 +59,7 @@ export function createTrial(level) {
         trial: {
             input: null,
             operation: createOperationForLevel(level),
-            time: 0,
+            startTime: new Date().getTime(),
         }
     }
 }

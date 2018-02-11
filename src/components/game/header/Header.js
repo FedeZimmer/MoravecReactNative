@@ -20,7 +20,7 @@ export default class Header extends React.Component {
         if (this.isHeaderVisible()) {
             return (
                 <View style={HEADER_STYLES.header}>
-                    <CalculationTimer time={this.props.time}/>
+                    <CalculationTimer startTime={this.props.startTime}/>
                     <Hints/>
                     <LevelState totalTrials={this.props.totalTrials} currentTrial={this.props.currentTrial}/>
                 </View>

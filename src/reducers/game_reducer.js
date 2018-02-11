@@ -19,7 +19,7 @@ const initialState = {
             operator: null,
             result: null,
         },
-        time: null
+        startTime: null
     },
     feedback: {
         visible: false,
