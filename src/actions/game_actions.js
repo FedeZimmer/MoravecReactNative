@@ -4,16 +4,16 @@ import {ToSquare} from "./operations/ToSquare";
 import {Multiplication} from "./operations/Multiplication";
 import {Addition} from "./operations/Addition";
 
-export const ARCADE_TYPE_INPUT = 'ARCADE_TYPE_INPUT';
-export const ARCADE_ERASE_INPUT = 'ARCADE_ERASE_INPUT';
-export const CREATE_TRIAL = 'CREATE_TRIAL';
+export const START_GAME = 'START_GAME';
+export const CALCULATOR_TYPE_INPUT = 'CALCULATOR_TYPE_INPUT';
+export const CALCULATOR_ERASE_INPUT = 'CALCULATOR_ERASE_INPUT';
+export const NEW_TRIAL = 'NEW_TRIAL';
 export const SUBMIT_TRIAL = 'SUBMIT_TRIAL';
 export const SHOW_FEEDBACK = 'SHOW_FEEDBACK';
 export const HIDE_FEEDBACK = 'HIDE_FEEDBACK';
 export const START_LEVEL = 'START_LEVEL';
 export const FINISH_LEVEL = 'FINISH_LEVEL';
 
-const MAX_NUMBER_OF_DIGITS = 8;
 
 function createOperationForLevel(level) {
     const operationCategoriesPerLevel = {
@@ -37,50 +37,48 @@ function createOperationForLevel(level) {
     }
 }
 
-const updateUserInput = function (actualInput, newInput) {
-    if (!actualInput) {
-        return newInput;
+function newTrial() {
+    return (dispatch, getState) => {
+        dispatch({
+            type: NEW_TRIAL,
+            trial: {
+                input: null,
+                operation: createOperationForLevel(getState().game.level),
+                startTime: new Date().getTime(),
+            }
+        });
     }
+}
 
-    let updatedInput;
-    const exceedsMaxNumberOfDigits = actualInput.toString().length >= MAX_NUMBER_OF_DIGITS;
-    if (exceedsMaxNumberOfDigits) {
-        updatedInput = actualInput;
-    } else {
-        updatedInput = Number('' + actualInput + newInput);
-    }
-
-    return updatedInput;
-};
-
-export function createTrial(level) {
+export function startGame() {
     return {
-        type: CREATE_TRIAL,
-        trial: {
-            input: null,
-            operation: createOperationForLevel(level),
-            startTime: new Date().getTime(),
-        }
+        type: START_GAME
     }
 }
 
 export function typeInput(input) {
     return {
-        type: ARCADE_TYPE_INPUT,
+        type: CALCULATOR_TYPE_INPUT,
         input: input,
-        updateUserInput: updateUserInput,
     }
 }
 
 export function eraseInput() {
     return {
-        type: ARCADE_ERASE_INPUT,
+        type: CALCULATOR_ERASE_INPUT,
     }
 }
 
 export function submitTrial() {
-    return {
-        type: SUBMIT_TRIAL,
+    return (dispatch, getState) => {
+        dispatch({type: SUBMIT_TRIAL});
+
+        const levelFinished = getState().game.trials.length === getState().game.totalTrials;
+        if (levelFinished) {
+            dispatch(finishLevel());
+        } else {
+            dispatch(newTrial());
+        }
     }
 }
 
@@ -97,13 +95,16 @@ export function hideFeedback() {
 }
 
 export function startLevel(level) {
-    return {
-        type: START_LEVEL,
-        level: level
+    return (dispatch) => {
+        dispatch({
+            type: START_LEVEL,
+            level: level,
+        });
+        dispatch(newTrial());
     }
 }
 
-export function finishLevel() {
+function finishLevel() {
     return {
         type: FINISH_LEVEL
     }
