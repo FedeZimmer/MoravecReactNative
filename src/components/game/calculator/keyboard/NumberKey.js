@@ -14,7 +14,7 @@ export default class NumberKey extends React.Component {
     handleInput(event) {
         event.preventDefault();
 
-        this.props.typeInput(this.props.value);
+        this.props.onTypeInput(this.props.value);
     }
 
     render() {

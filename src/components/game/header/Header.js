@@ -13,7 +13,7 @@ export default class Header extends React.Component {
     }
 
     isHeaderVisible() {
-        return this.props.header.visible;
+        return this.props.visible;
     }
 
     render() {
@@ -22,7 +22,7 @@ export default class Header extends React.Component {
                 <View style={HEADER_STYLES.header}>
                     <CalculationTimer time={this.props.time}/>
                     <Hints/>
-                    <LevelState totalTrials={this.props.totalTrials} trials={this.props.trials}/>
+                    <LevelState totalTrials={this.props.totalTrials} currentTrial={this.props.currentTrial}/>
                 </View>
             )
         } else {
