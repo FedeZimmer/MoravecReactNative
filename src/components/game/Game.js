@@ -19,10 +19,14 @@ export class Game extends React.Component {
     render() {
         return (
             <View style={GAME_STYLES.game}>
-                <UserAnswerFeedback {...this.props}/>
-                <Header {...this.props} />
-                <CountdownBar {...this.props} />
-                <Calculator {...this.props} />
+                <UserAnswerFeedback feedback={this.props.feedback}/>
+                <Header startTime={this.props.trial.startTime} currentTrial={this.props.trials.length + 1}
+                        totalTrials={this.props.totalTrials} visible={this.props.header.visible}/>
+                <CountdownBar startTime={this.props.trial.startTime}
+                              maxTimeForCountdownInMs={this.props.maxTimeForCountdownInMs}/>
+                <Calculator operation={this.props.trial.operation} input={this.props.trial.input}
+                            onEraseInput={this.props.actions.eraseInput} onTypeInput={this.props.actions.typeInput}
+                            onSubmit={this.props.onSubmit}/>
             </View>
         );
     }

@@ -13,10 +13,14 @@ export class Home extends React.Component {
 
     constructor(props) {
         super(props);
+        this.handlePlayButton = this.handlePlayButton.bind(this);
+    }
+
+    handlePlayButton() {
+        this.props.navigation.navigate('Play');
     }
 
     render() {
-        const navigate = this.props.navigation.navigate;
         return (
             <View style={HOME_STYLES.home}>
                 <View style={HOME_STYLES.logoContainer}>
@@ -27,7 +31,7 @@ export class Home extends React.Component {
                 </View>
                 <View style={HOME_STYLES.optionsContainer}>
                     <View>
-                        <Button style={HOME_STYLES.playButton} onPress={() => navigate('LevelSelection')}>
+                        <Button style={HOME_STYLES.playButton} onPress={this.handlePlayButton}>
                             <Text style={HOME_STYLES.playButtonText}>{I18n.t('play').toUpperCase()}</Text>
                         </Button>
                     </View>

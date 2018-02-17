@@ -1,5 +1,5 @@
 import React from "react";
-import {View, Text, TouchableOpacity, AsyncStorage} from "react-native";
+import {View, Text, TouchableOpacity} from "react-native";
 import {Container, Content, List, ListItem} from "native-base";
 import {LevelEfficacyStars} from "../common/LevelEfficacyStars";
 import {LEVEL_SELECTION_STYLES} from "../../styles/game/styles"
@@ -17,8 +17,7 @@ export class LevelSelection extends React.Component {
 
     constructor(props) {
         super(props);
-
-        this.goToLevel = this.goToLevel.bind(this);
+        this.handleLevelSelected = this.handleLevelSelected.bind(this);
     }
 
     componentWillMount() {
@@ -29,6 +28,10 @@ export class LevelSelection extends React.Component {
         this.props.navigation.navigate('PlayLevel', {
             levelNumber: levelNumber
         });
+    }
+
+    handleLevelSelected(levelNumber) {
+        this.props.onSelectLevel(levelNumber);
     }
 
     renderLevelToPlay() {
@@ -56,7 +59,7 @@ export class LevelSelection extends React.Component {
             <Content style={LEVEL_SELECTION_STYLES.list}>
                 {Object.keys(levels).map(levelNumber => (
                     <TouchableOpacity key={levelNumber} style={LEVEL_SELECTION_STYLES.listItem}
-                                      onPress={() => this.goToLevel(levelNumber)}>
+                                      onPress={this.handleLevelSelected(levelNumber)}>
                         <View style={LEVEL_SELECTION_STYLES.listItemContainer}>
                             <View>
                                 <Text style={LEVEL_SELECTION_STYLES.levelNumber}>{levelNumber}.</Text>

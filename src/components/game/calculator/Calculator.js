@@ -11,8 +11,10 @@ export default class Calculator extends React.Component {
     render() {
         return (
             <View>
-                <OperationDisplay {...this.props}/>
-                <CalculatorKeyboard {...this.props}/>
+                <OperationDisplay operation={this.props.operation} input={this.props.input}/>
+                <CalculatorKeyboard onTypeInput={this.props.onTypeInput}
+                                    onEraseInput={this.props.onEraseInput}
+                                    onSubmit={this.props.onSubmit}/>
             </View>
         )
     }
