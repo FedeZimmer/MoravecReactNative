@@ -6,7 +6,7 @@ import {
     NEW_TRIAL,
     SHOW_FEEDBACK, START_GAME,
     START_LEVEL,
-    SUBMIT_TRIAL
+    SUBMIT_TRIAL, RECEIVE_PLAYED_LEVELS_INFO
 } from '../actions/game_actions'
 
 
@@ -31,6 +31,7 @@ const initialState = {
         visible: true,
     },
     level: null,
+    levels: {},
     trials: [],
     levelFinished: null,
     totalTrials: 20,
@@ -140,7 +141,10 @@ export function gameReducer(state = initialState, action) {
         case SUBMIT_TRIAL:
             return {
                 ...state,
-                trials: state.trials.concat(action.submittedTrial(state.trial)),
+                trials: state.trials.concat({
+                    ...state.trial,
+                    submitTime: action.submitTime,
+                }),
                 totalCorrect: updateTotalCorrect(state.trial.input, state.trial.operation.result, state.totalCorrect)
             };
 
@@ -149,6 +153,12 @@ export function gameReducer(state = initialState, action) {
                 ...state,
                 levelFinished: true,
                 efficacy: calculateEfficacy(state.totalCorrect, state.totalTrials)
+            };
+
+        case RECEIVE_PLAYED_LEVELS_INFO:
+            return {
+                ...state,
+                levels: action.levels,
             };
 
         default:

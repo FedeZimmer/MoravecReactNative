@@ -21,13 +21,7 @@ export class LevelSelection extends React.Component {
     }
 
     componentWillMount() {
-        this.props.getPlayedLevelsInfo();
-    }
-
-    goToLevel(levelNumber) {
-        this.props.navigation.navigate('PlayLevel', {
-            levelNumber: levelNumber
-        });
+        this.props.onLoading();
     }
 
     handleLevelSelected(levelNumber) {
@@ -39,7 +33,7 @@ export class LevelSelection extends React.Component {
         const levelToPlay = numberOfPlayedLevels + 1;
 
         return (
-            <TouchableOpacity style={LEVEL_SELECTION_STYLES.playItem} onPress={() => this.goToLevel(levelToPlay)}>
+            <TouchableOpacity style={LEVEL_SELECTION_STYLES.playItem} onPress={() => this.handleLevelSelected(levelToPlay)}>
                 <View style={LEVEL_SELECTION_STYLES.listItemContainer}>
                     <View>
                         <Text style={LEVEL_SELECTION_STYLES.playItemLevelNumber}>{levelToPlay}.</Text>
@@ -59,7 +53,7 @@ export class LevelSelection extends React.Component {
             <Content style={LEVEL_SELECTION_STYLES.list}>
                 {Object.keys(levels).map(levelNumber => (
                     <TouchableOpacity key={levelNumber} style={LEVEL_SELECTION_STYLES.listItem}
-                                      onPress={this.handleLevelSelected(levelNumber)}>
+                                      onPress={() => this.handleLevelSelected(levelNumber)}>
                         <View style={LEVEL_SELECTION_STYLES.listItemContainer}>
                             <View>
                                 <Text style={LEVEL_SELECTION_STYLES.levelNumber}>{levelNumber}.</Text>

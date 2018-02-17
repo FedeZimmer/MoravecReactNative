@@ -69,12 +69,10 @@ export class LevelFinished extends React.Component {
     }
 
     handleHomeButtonPressed() {
-        const {navigate} = this.props.navigation;
-        navigate('Home');
+        this.props.onHomeButtonPressed();
     }
 
     render() {
-        const {navigate} = this.props.navigation;
         return (
             <View style={LEVEL_FINISHED_STYLES.levelFinished}>
                 <View style={LEVEL_FINISHED_STYLES.background}/>
@@ -83,7 +81,7 @@ export class LevelFinished extends React.Component {
                     {this.renderOptions()}
                 </View>
                 <View style={LEVEL_FINISHED_STYLES.mainPageButtonContainer}>
-                    <Button transparent style={LEVEL_FINISHED_STYLES.mainPageButton} onPress={() => navigate('Home')}>
+                    <Button transparent style={LEVEL_FINISHED_STYLES.mainPageButton} onPress={this.handleHomeButtonPressed}>
                         <Text style={LEVEL_FINISHED_STYLES.mainPageButtonText}>MENÚ PRINCIPAL</Text>
                     </Button>
                 </View>
