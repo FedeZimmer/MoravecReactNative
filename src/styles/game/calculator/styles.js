@@ -1,8 +1,8 @@
 import {darkGrayColor, greenColor, pinkColor, whiteColor, superLightGrayColor} from "../../global";
 import {getWindowHeight} from '../../../utils';
 
-export const CALCULATOR_STYLES = {
-    calculator: {
+export const GAME_STYLES = {
+    game: {
         flex: 1,
         flexDirection: 'column',
         justifyContent: 'center',

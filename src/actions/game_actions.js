@@ -4,12 +4,16 @@ import {ToSquare} from "./operations/ToSquare";
 import {Multiplication} from "./operations/Multiplication";
 import {Addition} from "./operations/Addition";
 
-export const ARCADE_TYPE_INPUT = 'ARCADE_TYPE_INPUT';
-export const ARCADE_ERASE_INPUT = 'ARCADE_ERASE_INPUT';
-export const CREATE_TRIAL = 'CREATE_TRIAL';
+export const START_GAME = 'START_GAME';
+export const CALCULATOR_TYPE_INPUT = 'CALCULATOR_TYPE_INPUT';
+export const CALCULATOR_ERASE_INPUT = 'CALCULATOR_ERASE_INPUT';
+export const NEW_TRIAL = 'NEW_TRIAL';
 export const SUBMIT_TRIAL = 'SUBMIT_TRIAL';
 export const SHOW_FEEDBACK = 'SHOW_FEEDBACK';
 export const HIDE_FEEDBACK = 'HIDE_FEEDBACK';
+export const START_LEVEL = 'START_LEVEL';
+export const FINISH_LEVEL = 'FINISH_LEVEL';
+
 
 function createOperationForLevel(level) {
     const operationCategoriesPerLevel = {
@@ -33,49 +37,75 @@ function createOperationForLevel(level) {
     }
 }
 
-export function createTrial(level) {
+function newTrial() {
+    return (dispatch, getState) => {
+        dispatch({
+            type: NEW_TRIAL,
+            trial: {
+                input: null,
+                operation: createOperationForLevel(getState().game.level),
+                startTime: new Date().getTime(),
+            }
+        });
+    }
+}
+
+export function startGame() {
     return {
-        type: CREATE_TRIAL,
-        trial: {
-            input: null,
-            operation: createOperationForLevel(level),
-            time: 0,
-        }
+        type: START_GAME
     }
 }
 
 export function typeInput(input) {
     return {
-        type: ARCADE_TYPE_INPUT,
-        input: input
+        type: CALCULATOR_TYPE_INPUT,
+        input: input,
     }
 }
 
 export function eraseInput() {
     return {
-        type: ARCADE_ERASE_INPUT,
+        type: CALCULATOR_ERASE_INPUT,
     }
 }
 
+export function submitTrial() {
+    return (dispatch, getState) => {
+        dispatch({type: SUBMIT_TRIAL});
 
-export function submitTrial(trial) {
-    return {
-        type: SUBMIT_TRIAL,
-        trial: trial
+        const levelFinished = getState().game.trials.length === getState().game.totalTrials;
+        if (levelFinished) {
+            dispatch(finishLevel());
+        } else {
+            dispatch(newTrial());
+        }
     }
 }
 
-
-export function showFeedback(trial) {
+export function showFeedback() {
     return {
         type: SHOW_FEEDBACK,
-        trial: trial
     }
 }
-
 
 export function hideFeedback() {
     return {
         type: HIDE_FEEDBACK
+    }
+}
+
+export function startLevel(level) {
+    return (dispatch) => {
+        dispatch({
+            type: START_LEVEL,
+            level: level,
+        });
+        dispatch(newTrial());
+    }
+}
+
+function finishLevel() {
+    return {
+        type: FINISH_LEVEL
     }
 }

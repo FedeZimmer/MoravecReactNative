@@ -63,7 +63,7 @@ export class LevelEfficacyStars extends React.Component {
             )
         }
 
-        if (this.props.correctAnswers == 20) {
+        if (this.props.correctAnswers === 20) {
             return (
                 <View style={LEVEL_EFFICACY_STARS_STYLES.levelEfficacy}>
                     <StarFull/>

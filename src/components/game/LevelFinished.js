@@ -8,14 +8,10 @@ export class LevelFinished extends React.Component {
     constructor(props) {
         super(props);
 
-        this.renderHeader = this.renderHeader.bind(this);
-        this.renderOptions = this.renderOptions.bind(this);
-
-        this.goToNextLevel = this.goToNextLevel.bind(this);
-        this.replayLevel = this.replayLevel.bind(this);
-        this.shareLevelResult = this.shareLevelResult.bind(this);
-
-        this.goToMainPage = this.goToMainPage.bind(this);
+        this.handlePlayNextButtonPressed = this.handlePlayNextButtonPressed.bind(this);
+        this.handleReplayLevelButtonPressed = this.handleReplayLevelButtonPressed.bind(this);
+        this.handleShareButtonPressed = this.handleShareButtonPressed.bind(this);
+        this.handleHomeButtonPressed = this.handleHomeButtonPressed.bind(this);
     }
 
     renderHeader() {
@@ -28,7 +24,7 @@ export class LevelFinished extends React.Component {
                 </View>
                 <View>
                     <View>
-                        <Text style={LEVEL_FINISHED_STYLES.headerLevelText}>Nivel {this.props.level}</Text>
+                        <Text style={LEVEL_FINISHED_STYLES.headerLevelText}>Nivel {this.props.finishedLevel}</Text>
                     </View>
                     <LevelEfficacyStars correctAnswers={this.props.totalCorrect} />
                     <View>
@@ -43,15 +39,15 @@ export class LevelFinished extends React.Component {
         return (
             <View style={LEVEL_FINISHED_STYLES.options}>
                 <View>
-                    <Button style={LEVEL_FINISHED_STYLES.shareButton} onPress={this.shareLevelResult}>
+                    <Button style={LEVEL_FINISHED_STYLES.shareButton} onPress={this.handleShareButtonPressed}>
                         <Text style={LEVEL_FINISHED_STYLES.shareButtonText}>COMPARTIR</Text>
                     </Button>
                 </View>
                 <View style={LEVEL_FINISHED_STYLES.gameOptionsContainer}>
-                    <Button style={LEVEL_FINISHED_STYLES.replayButton} onPress={this.replayLevel}>
+                    <Button style={LEVEL_FINISHED_STYLES.replayButton} onPress={this.handleReplayLevelButtonPressed}>
                         <Icon name="md-refresh" style={LEVEL_FINISHED_STYLES.replayButtonIcon}/>
                     </Button>
-                    <Button style={LEVEL_FINISHED_STYLES.nextLevelButton} onPress={this.goToNextLevel}>
+                    <Button style={LEVEL_FINISHED_STYLES.nextLevelButton} onPress={this.handlePlayNextButtonPressed}>
                         <Icon name="md-arrow-round-forward" style={LEVEL_FINISHED_STYLES.nextLevelButtonIcon}/>
                     </Button>
                 </View>
@@ -59,22 +55,19 @@ export class LevelFinished extends React.Component {
         )
     }
 
-    goToNextLevel() {
-        const actualLevel = this.props.level;
-        const nextLevel = actualLevel + 1;
-        this.props.startLevel(nextLevel);
+    handlePlayNextButtonPressed() {
+        this.props.onPlayNextLevel();
     }
 
-    replayLevel() {
-        const actualLevel = this.props.level;
-        this.props.startLevel(actualLevel);
+    handleReplayLevelButtonPressed() {
+        this.props.onReplayLevel();
     }
 
-    shareLevelResult() {
-
+    handleShareButtonPressed() {
+        //TODO
     }
 
-    goToMainPage() {
+    handleHomeButtonPressed() {
         const {navigate} = this.props.navigation;
         navigate('Home');
     }

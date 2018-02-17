@@ -3,22 +3,28 @@ import {View, Text, TouchableOpacity} from "react-native";
 import {Container, Content, List, ListItem} from "native-base";
 import {LevelEfficacyStars} from "../common/LevelEfficacyStars";
 import {LEVEL_SELECTION_STYLES} from "../../styles/game/styles"
-import {LEVEL_EFFICACY_STARS_STYLES} from "../../styles/common/styles"
+import {HEADER_STYLES, LEVEL_EFFICACY_STARS_STYLES} from "../../styles/common/styles"
+import {BackButton} from "../common/BackButton";
 
 export default class LevelSelection extends React.Component {
+    static navigationOptions = ({navigation, screenProps}) => ({
+        title: 'ARCADE',
+        headerLeft: <BackButton goBack={navigation.goBack}/>,
+        headerStyle: HEADER_STYLES.header,
+        headerTitleStyle: HEADER_STYLES.title,
+    });
+
     constructor(props) {
         super(props);
 
-        this.goToLevel = this.goToLevel.bind(this);
+        this.handleLevelSelected = this.handleLevelSelected.bind(this);
     }
 
-    goToLevel(levelNumber) {
-        this.props.navigation.navigate('Level', {
-            levelNumber: levelNumber
-        });
+    handleLevelSelected(levelNumber) {
+        this.props.onSelectLevel(levelNumber);
     }
 
-     render(){
+    render() {
         return (
             <Content style={LEVEL_SELECTION_STYLES.list}>
                 <TouchableOpacity style={LEVEL_SELECTION_STYLES.listItem}>
@@ -32,7 +38,7 @@ export default class LevelSelection extends React.Component {
                         </View>
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity style={LEVEL_SELECTION_STYLES.playItem} onPress={() => this.goToLevel(2)}>
+                <TouchableOpacity style={LEVEL_SELECTION_STYLES.playItem} onPress={() => this.handleLevelSelected(2)}>
                     <View style={LEVEL_SELECTION_STYLES.listItemContainer}>
                         <View>
                             <Text style={LEVEL_SELECTION_STYLES.playItemLevelNumber}>2.</Text>
@@ -45,5 +51,5 @@ export default class LevelSelection extends React.Component {
                 </TouchableOpacity>
             </Content>
         )
-     }
+    }
 }

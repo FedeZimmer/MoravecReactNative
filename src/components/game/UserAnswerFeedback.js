@@ -1,7 +1,7 @@
 import React from "react";
 import {Text, View} from "react-native";
 
-import {FEEDBACK_STYLES} from "../../../styles/game/calculator/styles";
+import {FEEDBACK_STYLES} from "../../styles/game/calculator/styles";
 
 
 export default class UserAnswerFeedback extends React.Component {

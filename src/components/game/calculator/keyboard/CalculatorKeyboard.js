@@ -17,24 +17,24 @@ export default class CalculatorKeyboard extends React.Component {
             <View style={INPUT_STYLES.inputContainer}>
                 <View style={INPUT_STYLES.input}>
                     <View style={INPUT_STYLES.row1}>
-                        <NumberKey value={7} typeInput={this.props.typeInput}/>
-                        <NumberKey value={8} typeInput={this.props.typeInput}/>
-                        <NumberKey value={9} typeInput={this.props.typeInput}/>
+                        <NumberKey value={7} onTypeInput={this.props.onTypeInput}/>
+                        <NumberKey value={8} onTypeInput={this.props.onTypeInput}/>
+                        <NumberKey value={9} onTypeInput={this.props.onTypeInput}/>
                     </View>
                     <View style={INPUT_STYLES.row2}>
-                        <NumberKey value={4} typeInput={this.props.typeInput}/>
-                        <NumberKey value={5} typeInput={this.props.typeInput}/>
-                        <NumberKey value={6} typeInput={this.props.typeInput}/>
+                        <NumberKey value={4} onTypeInput={this.props.onTypeInput}/>
+                        <NumberKey value={5} onTypeInput={this.props.onTypeInput}/>
+                        <NumberKey value={6} onTypeInput={this.props.onTypeInput}/>
                     </View>
                     <View style={INPUT_STYLES.row3}>
-                        <NumberKey value={1} typeInput={this.props.typeInput}/>
-                        <NumberKey value={2} typeInput={this.props.typeInput}/>
-                        <NumberKey value={3} typeInput={this.props.typeInput}/>
+                        <NumberKey value={1} onTypeInput={this.props.onTypeInput}/>
+                        <NumberKey value={2} onTypeInput={this.props.onTypeInput}/>
+                        <NumberKey value={3} onTypeInput={this.props.onTypeInput}/>
                     </View>
                     <View style={INPUT_STYLES.row4}>
-                        <EraseKey eraseInput={this.props.eraseInput}/>
-                        <NumberKey value={0} typeInput={this.props.typeInput}/>
-                        <EnterKey {...this.props}/>
+                        <EraseKey onEraseInput={this.props.onEraseInput}/>
+                        <NumberKey value={0} onTypeInput={this.props.onTypeInput}/>
+                        <EnterKey onSubmit={this.props.onSubmit}/>
                     </View>
                 </View>
             </View>

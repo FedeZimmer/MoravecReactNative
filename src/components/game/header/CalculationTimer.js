@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text} from "react-native";
 
-import {HEADER_STYLES} from "../../../../styles/game/calculator/header/styles";
+import {HEADER_STYLES} from "../../../styles/game/calculator/header/styles";
 
 
 export default class CalculationTimer extends React.Component {
@@ -9,9 +9,19 @@ export default class CalculationTimer extends React.Component {
         super(props);
     }
 
+    componentDidMount() {
+        this.interval = setInterval(this.forceUpdate.bind(this), 150);
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.interval);
+    }
+
     timerValue() {
-        const minutesElapsed = Math.floor(this.props.time / (1000 * 60));
-        const secondsElapsed = Math.floor(this.props.time / 1000 % 60);
+        const elapsedTimeInMs = new Date().getTime() - this.props.startTime;
+
+        const minutesElapsed = Math.floor(elapsedTimeInMs / (1000 * 60));
+        const secondsElapsed = Math.floor(elapsedTimeInMs / 1000 % 60);
 
         const fillWithZeroes = (number) => {
             let numberFormatted = number.toString();
