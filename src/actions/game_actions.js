@@ -1,4 +1,5 @@
 import math from "mathjs";
+import {AsyncStorage} from "react-native";
 
 import {ToSquare} from "./operations/ToSquare";
 import {Multiplication} from "./operations/Multiplication";
@@ -12,7 +13,8 @@ export const SUBMIT_TRIAL = 'SUBMIT_TRIAL';
 export const SHOW_FEEDBACK = 'SHOW_FEEDBACK';
 export const HIDE_FEEDBACK = 'HIDE_FEEDBACK';
 export const START_LEVEL = 'START_LEVEL';
-export const FINISH_LEVEL = 'FINISH_LEVEL';
+export const SHOW_LEVEL_RESUME = 'SHOW_LEVEL_RESUME';
+export const RECEIVE_PLAYED_LEVELS_INFO = 'RECEIVE_PLAYED_LEVELS_INFO';
 
 
 function createOperationForLevel(level) {
@@ -71,7 +73,10 @@ export function eraseInput() {
 
 export function submitTrial() {
     return (dispatch, getState) => {
-        dispatch({type: SUBMIT_TRIAL});
+        dispatch({
+            type: SUBMIT_TRIAL,
+            submitTime: new Date().getTime(),
+        });
 
         const levelFinished = getState().game.trials.length === getState().game.totalTrials;
         if (levelFinished) {
@@ -104,8 +109,59 @@ export function startLevel(level) {
     }
 }
 
-function finishLevel() {
+function showLevelResume() {
     return {
-        type: FINISH_LEVEL
+        type: SHOW_LEVEL_RESUME
+    }
+}
+
+function finishLevel() {
+    return (dispatch, getState) => {
+        dispatch(showLevelResume());
+
+        const state = getState().game;
+
+        const totalTimeOfLevel = state.trials.map((trial) => {
+            return trial.submitTime - trial.startTime;
+        }).reduce((totalTimeOfPreviousTrials, timeOfTrial) => {
+            return totalTimeOfPreviousTrials + timeOfTrial;
+        });
+        const levelNumber = state.level;
+        const levelInfo = {
+            totalTime: totalTimeOfLevel,
+            correctAnswers: state.totalCorrect,
+            trials: state.trials
+        };
+
+        AsyncStorage.getItem('@moravec:levels').then((result) => {
+            let levels = {};
+
+            const thereAreSavedLevels = result !== null;
+            if (thereAreSavedLevels) {
+                levels = JSON.parse(result);
+            }
+
+            levels[levelNumber] = levelInfo;
+            AsyncStorage.setItem('@moravec:levels', JSON.stringify(levels));
+        });
+    }
+}
+
+function receivePlayedLevelsInfo(levels) {
+    return {
+        type: RECEIVE_PLAYED_LEVELS_INFO,
+        levels: levels
+    }
+}
+
+export function getPlayedLevelsInfo() {
+    return (dispatch) => {
+        AsyncStorage.getItem('@moravec:levels').then((result) => {
+            const thereAreSavedLevels = result !== null;
+            if (thereAreSavedLevels) {
+                const levels = JSON.parse(result);
+                dispatch(receivePlayedLevelsInfo(levels));
+            }
+        });
     }
 }

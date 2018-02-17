@@ -1,18 +1,21 @@
 import {greenColor, lightGrayColor, whiteColor, darkGrayColor, pinkColor, superLightGrayColor, grayColor} from '../global';
 import {getWindowHeight, getWindowWidth} from "../../utils";
 
+const windowHeight = getWindowHeight();
+const windowWidth = getWindowWidth();
+
 export const LEVEL_FINISHED_STYLES = {
     background: {
-        height: getWindowHeight() * 0.5,
+        height: windowHeight * 0.5,
         backgroundColor: greenColor,
     },
     content: {
         flex: 2,
         flexDirection: 'column',
         alignSelf:  'center',
-        width: getWindowWidth() * 0.9,
-        height: getWindowHeight() * 0.6,
-        marginTop: getWindowHeight() * 0.15,
+        width: windowWidth * 0.9,
+        height: windowHeight * 0.65,
+        marginTop: windowHeight * 0.13,
         zIndex: 1,
         position: 'absolute',
         backgroundColor: whiteColor,
@@ -41,7 +44,7 @@ export const LEVEL_FINISHED_STYLES = {
     },
     shareButton: {
         backgroundColor: pinkColor,
-        width: getWindowWidth() * 0.9,
+        width: windowWidth * 0.9,
         borderRadius: 0,
         justifyContent: 'center'
     },
@@ -58,36 +61,61 @@ export const LEVEL_FINISHED_STYLES = {
         backgroundColor: "#CBCFD8",
         flexGrow: 1,
         borderRadius: 0,
-        height: getWindowHeight() * 0.12,
+        height: windowHeight * 0.14,
         marginTop: 3,
         marginRight: 1.5,
         justifyContent: 'center'
     },
     replayButtonIcon: {
         color: whiteColor,
-        fontSize: 40,
+        fontSize: 50,
         textAlign: 'center',
         fontWeight: 'bold',
         transform: [{scaleX: -1}]
     },
     nextLevelButton: {
         backgroundColor: greenColor,
-        flexGrow: 3,
+        flexGrow: 4,
         borderRadius: 0,
-        height: getWindowHeight() * 0.12,
+        height: windowHeight * 0.14,
         marginTop: 3,
         marginLeft: 1.5,
         justifyContent: 'center'
     },
     nextLevelButtonIcon: {
         color: whiteColor,
-        fontSize: 40,
+        fontSize: 50,
         textAlign: 'center',
         fontWeight: 'bold'
     },
+    mainPageButtonContainer: {
+        flex: 1,
+        flexDirection: "row",
+        justifyContent: "center",
+    },
+    mainPageButton: {
+        marginTop: windowHeight * 0.3,
+    },
+    mainPageButtonText: {
+        fontFamily: 'GothamBold',
+        fontSize: 15,
+        textAlign: 'center',
+        color: grayColor
+    },
+    logoContainer: {
+        flex: 1,
+        flexDirection: "row",
+        justifyContent: "center",
+    },
+    logo: {
+        alignSelf: "flex-end",
+        width: windowWidth * 0.25,
+        height: windowHeight * 0.2,
+        resizeMode: 'contain',
+    },
     levelFinished: {
         backgroundColor: lightGrayColor,
-        height: getWindowHeight(),
+        height: windowHeight,
     }
 };
 
@@ -98,13 +126,13 @@ export const LEVEL_SELECTION_STYLES = {
     },
     listItem: {
         backgroundColor: whiteColor,
-        height: getWindowHeight() * 0.1,
+        height: windowHeight * 0.1,
         borderBottomWidth: 4,
         borderBottomColor: superLightGrayColor,
     },
     playItem: {
         backgroundColor: pinkColor,
-        height: getWindowHeight() * 0.1,
+        height: windowHeight * 0.1,
         borderBottomWidth: 4,
         borderBottomColor: superLightGrayColor,
     },
@@ -113,7 +141,6 @@ export const LEVEL_SELECTION_STYLES = {
         flexDirection: "row",
         justifyContent: 'space-between',
         alignItems: "center",
-        // paddingLeft: 20,
         paddingRight: 20,
     },
     levelNumber: {
@@ -138,11 +165,13 @@ export const LEVEL_SELECTION_STYLES = {
         marginLeft: 60
     },
     levelTime: {
+        fontFamily: 'GothamMedium',
         fontSize: 17,
         color: greenColor,
     },
     playText: {
-        fontSize: 25,
+        fontFamily: 'GothamMedium',
+        fontSize: 23,
         color: whiteColor,
     },
 };

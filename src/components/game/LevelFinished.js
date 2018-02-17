@@ -1,8 +1,9 @@
 import React from 'react'
-import {View, Text} from "react-native";
+import {View, Text, Image} from "react-native";
 import {Button, Icon} from "native-base";
 import {LevelEfficacyStars} from "../common/LevelEfficacyStars";
 import {LEVEL_FINISHED_STYLES} from "../../styles/game/styles";
+import Images from "../../../assets/images/images";
 
 export class LevelFinished extends React.Component {
     constructor(props) {
@@ -68,8 +69,7 @@ export class LevelFinished extends React.Component {
     }
 
     handleHomeButtonPressed() {
-        const {navigate} = this.props.navigation;
-        navigate('Home');
+        this.props.onHomeButtonPressed();
     }
 
     render() {
@@ -80,11 +80,14 @@ export class LevelFinished extends React.Component {
                     {this.renderHeader()}
                     {this.renderOptions()}
                 </View>
-                {/*<View >
-                    <Button onPress={this.props.goToMainPage}>
-                        <Text>MENU PRINCIPAL </Text>
+                <View style={LEVEL_FINISHED_STYLES.mainPageButtonContainer}>
+                    <Button transparent style={LEVEL_FINISHED_STYLES.mainPageButton} onPress={this.handleHomeButtonPressed}>
+                        <Text style={LEVEL_FINISHED_STYLES.mainPageButtonText}>MENÚ PRINCIPAL</Text>
                     </Button>
-                </View>*/}
+                </View>
+                <View style={LEVEL_FINISHED_STYLES.logoContainer}>
+                    <Image source={Images.mainLogoGray} style={LEVEL_FINISHED_STYLES.logo}/>
+                </View>
             </View>
         )
     }

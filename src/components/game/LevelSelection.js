@@ -5,8 +5,9 @@ import {LevelEfficacyStars} from "../common/LevelEfficacyStars";
 import {LEVEL_SELECTION_STYLES} from "../../styles/game/styles"
 import {HEADER_STYLES, LEVEL_EFFICACY_STARS_STYLES} from "../../styles/common/styles"
 import {BackButton} from "../common/BackButton";
+import {formatTime} from "../../utils";
 
-export default class LevelSelection extends React.Component {
+export class LevelSelection extends React.Component {
     static navigationOptions = ({navigation, screenProps}) => ({
         title: 'ARCADE',
         headerLeft: <BackButton goBack={navigation.goBack}/>,
@@ -16,39 +17,57 @@ export default class LevelSelection extends React.Component {
 
     constructor(props) {
         super(props);
-
         this.handleLevelSelected = this.handleLevelSelected.bind(this);
+    }
+
+    componentWillMount() {
+        this.props.onLoading();
     }
 
     handleLevelSelected(levelNumber) {
         this.props.onSelectLevel(levelNumber);
     }
 
+    renderLevelToPlay() {
+        const numberOfPlayedLevels = Object.keys(this.props.levels).length;
+        const levelToPlay = numberOfPlayedLevels + 1;
+
+        return (
+            <TouchableOpacity style={LEVEL_SELECTION_STYLES.playItem} onPress={() => this.handleLevelSelected(levelToPlay)}>
+                <View style={LEVEL_SELECTION_STYLES.listItemContainer}>
+                    <View>
+                        <Text style={LEVEL_SELECTION_STYLES.playItemLevelNumber}>{levelToPlay}.</Text>
+                    </View>
+                    <View style={LEVEL_SELECTION_STYLES.levelResultContainer}>
+                        <Text style={LEVEL_SELECTION_STYLES.playText}>Jugar</Text>
+                        <LevelEfficacyStars emptyStarColor={LEVEL_EFFICACY_STARS_STYLES.emptyStarWhiteColor}/>
+                    </View>
+                </View>
+            </TouchableOpacity>
+        )
+    }
+
     render() {
+        const levels = this.props.levels;
         return (
             <Content style={LEVEL_SELECTION_STYLES.list}>
-                <TouchableOpacity style={LEVEL_SELECTION_STYLES.listItem}>
-                    <View style={LEVEL_SELECTION_STYLES.listItemContainer}>
-                        <View>
-                            <Text style={LEVEL_SELECTION_STYLES.levelNumber}>1.</Text>
+                {Object.keys(levels).map(levelNumber => (
+                    <TouchableOpacity key={levelNumber} style={LEVEL_SELECTION_STYLES.listItem}
+                                      onPress={() => this.handleLevelSelected(levelNumber)}>
+                        <View style={LEVEL_SELECTION_STYLES.listItemContainer}>
+                            <View>
+                                <Text style={LEVEL_SELECTION_STYLES.levelNumber}>{levelNumber}.</Text>
+                            </View>
+                            <View style={LEVEL_SELECTION_STYLES.levelResultContainer}>
+                                <Text style={LEVEL_SELECTION_STYLES.levelTime}>
+                                    {formatTime(levels[levelNumber].totalTime)}
+                                </Text>
+                                <LevelEfficacyStars correctAnswers={levels[levelNumber].correctAnswers}/>
+                            </View>
                         </View>
-                        <View style={LEVEL_SELECTION_STYLES.levelResultContainer}>
-                            <Text style={LEVEL_SELECTION_STYLES.levelTime}>20:56:654s</Text>
-                            <LevelEfficacyStars correctAnswers={16}/>
-                        </View>
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity style={LEVEL_SELECTION_STYLES.playItem} onPress={() => this.handleLevelSelected(2)}>
-                    <View style={LEVEL_SELECTION_STYLES.listItemContainer}>
-                        <View>
-                            <Text style={LEVEL_SELECTION_STYLES.playItemLevelNumber}>2.</Text>
-                        </View>
-                        <View style={LEVEL_SELECTION_STYLES.levelResultContainer}>
-                            <Text style={LEVEL_SELECTION_STYLES.playText}>Jugar</Text>
-                            <LevelEfficacyStars emptyStarColor={LEVEL_EFFICACY_STARS_STYLES.emptyStarWhiteColor}/>
-                        </View>
-                    </View>
-                </TouchableOpacity>
+                    </TouchableOpacity>
+                ))}
+                {this.renderLevelToPlay()}
             </Content>
         )
     }

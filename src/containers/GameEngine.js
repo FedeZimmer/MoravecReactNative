@@ -1,12 +1,12 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {
-    eraseInput, hideFeedback, showFeedback, startGame, startLevel, submitTrial,
+    eraseInput, getPlayedLevelsInfo, hideFeedback, showFeedback, startGame, startLevel, submitTrial,
     typeInput
 } from "../actions/game_actions";
 import {LevelFinished} from "../components/game/LevelFinished";
 import {Game} from "../components/game/Game";
-import LevelSelection from "../components/game/LevelSelection";
+import {LevelSelection} from "../components/game/LevelSelection";
 
 const mapStateToProps = (state) => {
     return state.game
@@ -36,6 +36,9 @@ const mapDispatchToProps = dispatch => {
             startLevel: (level) => {
                 dispatch(startLevel(level))
             },
+            getPlayedLevelsInfo: () => {
+                dispatch(getPlayedLevelsInfo())
+            },
         }
     }
 };
@@ -52,6 +55,7 @@ class GameEngine extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.playNextLevel = this.playNextLevel.bind(this);
         this.replayCurrentLevel = this.replayCurrentLevel.bind(this);
+        this.goToHome = this.goToHome.bind(this);
     }
 
     componentWillMount() {
@@ -81,9 +85,16 @@ class GameEngine extends Component {
         this.props.actions.startLevel(currentLevel);
     }
 
+    goToHome() {
+        this.props.navigation.navigate('Home');
+    }
+
     render() {
         if (this.props.level === null) {
-            return <LevelSelection onSelectLevel={this.props.actions.startLevel}/>
+            return <LevelSelection onSelectLevel={this.props.actions.startLevel}
+                                   onLoading={this.props.actions.getPlayedLevelsInfo}
+                                   levels={this.props.levels}
+            />
         } else {
             if (!this.props.levelFinished) {
                 return (
@@ -93,6 +104,7 @@ class GameEngine extends Component {
                 return <LevelFinished finishedLevel={this.props.level}
                                       onReplayLevel={this.replayCurrentLevel}
                                       onPlayNextLevel={this.playNextLevel}
+                                      onHomeButtonPressed={this.goToHome}
                                       totalCorrect={this.props.totalCorrect}
                                       totalTrials={this.props.totalTrials}
                 />;
