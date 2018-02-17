@@ -14,8 +14,8 @@ export const HEADER_STYLES = {
     },
     time: {
         color: pinkColor,
-        fontSize: 25,
-        fontWeight: 'bold',
+        fontSize: 23,
+        fontFamily: "GothamMedium"
     },
     hintsNumber: {
         color: darkGrayColor,
@@ -35,8 +35,8 @@ export const HEADER_STYLES = {
         marginRight: 20
     },
     remainingTrials: {
+        fontFamily: "GothamMedium",
         color: greenColor,
         fontSize: 25,
-        fontWeight: 'bold',
     },
 };
