@@ -61,12 +61,14 @@ export function typeInput(newUserInput) {
     return {
         type: CALCULATOR_TYPE_INPUT,
         newUserInput: newUserInput,
+        inputTime: new Date().getTime(),
     }
 }
 
 export function eraseInput() {
     return {
         type: CALCULATOR_ERASE_INPUT,
+        inputTime: new Date().getTime(),
     }
 }
 

@@ -13,6 +13,9 @@ export const LEVEL_SELECTION = 'LEVEL_SELECTION';
 export const PLAYING = 'PLAYING';
 export const LEVEL_FINISHED = 'LEVEL_FINISHED';
 
+const ERASE_KEY_CODE = -1;
+const ENTER_KEY_CODE = 20;
+
 const initialState = {
     state: LEVEL_SELECTION,
     levelsPlayedInfo: {},
@@ -51,7 +54,11 @@ function calculateEfficacy(totalCorrect, totalTrials) {
 }
 
 function calculateTotalLevelTime(totalTimeUntilNow, currentTrialStartTime, currentTrialSubmitTime) {
-    return totalTimeUntilNow + (currentTrialSubmitTime - currentTrialStartTime);
+    return totalTimeUntilNow + calculateTotalTrialTime(currentTrialStartTime, currentTrialSubmitTime);
+}
+
+function calculateTotalTrialTime(trialStartTime, trialSubmitTime) {
+    return trialSubmitTime - trialStartTime;
 }
 
 function playingOrLevelFinishedState(allPreviousTrials, totalTrials) {
@@ -60,6 +67,18 @@ function playingOrLevelFinishedState(allPreviousTrials, totalTrials) {
     } else {
         return PLAYING;
     }
+}
+
+function getNewTrialNumber(trials) {
+    return trials.length + 1;
+}
+
+function isAnswerCorrect(correctResult, currentUserInput) {
+    return correctResult === currentUserInput;
+}
+
+function hasExceededMaxSolveTime(trialStartTime, trialSubmitTime, operationMaxSolveTime) {
+    return calculateTotalTrialTime(trialStartTime, trialSubmitTime) > operationMaxSolveTime;
 }
 
 export function gameReducer(state = initialState, action) {
@@ -77,9 +96,15 @@ export function gameReducer(state = initialState, action) {
             return {
                 ...state,
                 currentTrial: {
+                    trialNumber: getNewTrialNumber(state.currentLevel.trials),
+                    levelNumber: state.currentLevel.number,
                     currentUserInput: null,
                     operation: action.operation,
                     startTime: action.startTime,
+                    keysPressed: [],
+                    responseTimes: [],
+                    hasErased: false,
+                    timeExceeded: false,
                 }
             };
 
@@ -88,7 +113,9 @@ export function gameReducer(state = initialState, action) {
                 ...state,
                 currentTrial: {
                     ...state.currentTrial,
-                    currentUserInput: appendNewUserInput(state.currentTrial.currentUserInput, action.newUserInput)
+                    currentUserInput: appendNewUserInput(state.currentTrial.currentUserInput, action.newUserInput),
+                    keysPressed: state.currentTrial.keysPressed.concat(action.newUserInput),
+                    responseTimes: state.currentTrial.responseTimes.concat(action.inputTime),
                 }
             };
 
@@ -97,7 +124,10 @@ export function gameReducer(state = initialState, action) {
                 ...state,
                 currentTrial: {
                     ...state.currentTrial,
-                    input: removeLastNumberEntered(state.currentTrial.currentUserInput)
+                    currentUserInput: removeLastNumberEntered(state.currentTrial.currentUserInput),
+                    keysPressed: state.currentTrial.keysPressed.concat(ERASE_KEY_CODE),
+                    responseTimes: state.currentTrial.responseTimes.concat(action.inputTime),
+                    hasErased: true,
                 }
             };
 
@@ -123,8 +153,13 @@ export function gameReducer(state = initialState, action) {
                 currentLevel: {
                     ...state.currentLevel,
                     trials: state.currentLevel.trials.concat({
-                        ...state.currentLevel.currentTrial,
+                        ...state.currentTrial,
+                        keysPressed: state.currentTrial.keysPressed.concat(ENTER_KEY_CODE),
+                        responseTimes: state.currentTrial.responseTimes.concat(action.submitTime),
                         submitTime: action.submitTime,
+                        totalTime: calculateTotalTrialTime(state.currentTrial.startTime, action.submitTime),
+                        timeExceeded: hasExceededMaxSolveTime(state.currentTrial.startTime, action.submitTime,
+                            state.currentTrial.operation.maxSolveTime),
                     }),
                     totalCorrect: updateTotalCorrect(state.currentTrial.currentUserInput,
                         state.currentTrial.operation.correctResult,
@@ -137,7 +172,8 @@ export function gameReducer(state = initialState, action) {
                 lastAnswerData: {
                     userInput: state.currentTrial.currentUserInput,
                     correctResult: state.currentTrial.operation.correctResult,
-                    isCorrect: state.currentTrial.operation.correctResult === state.currentTrial.currentUserInput,
+                    isCorrect: isAnswerCorrect(state.currentTrial.operation.correctResult,
+                        state.currentTrial.currentUserInput),
                 }
             };
 
