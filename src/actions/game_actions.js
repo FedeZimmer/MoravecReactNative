@@ -5,6 +5,7 @@ import {ToSquare} from "./operations/ToSquare";
 import {Multiplication} from "./operations/Multiplication";
 import {Addition} from "./operations/Addition";
 import {ApiClient} from "../api_client/ApiClient";
+import {LEVEL_FINISHED} from "../reducers/game_reducer";
 
 export const START_GAME = 'START_GAME';
 export const CALCULATOR_TYPE_INPUT = 'CALCULATOR_TYPE_INPUT';
@@ -14,11 +15,10 @@ export const SUBMIT_TRIAL = 'SUBMIT_TRIAL';
 export const SHOW_FEEDBACK = 'SHOW_FEEDBACK';
 export const HIDE_FEEDBACK = 'HIDE_FEEDBACK';
 export const START_LEVEL = 'START_LEVEL';
-export const SHOW_LEVEL_RESUME = 'SHOW_LEVEL_RESUME';
 export const RECEIVE_PLAYED_LEVELS_INFO = 'RECEIVE_PLAYED_LEVELS_INFO';
 
 
-function createOperationForLevel(level) {
+function createOperationForLevel(levelNumber) {
     const operationCategoriesPerLevel = {
         1: [Addition.createRandom(1, 1), Multiplication.createRandom(1, 1)],
         2: [Addition.createRandom(2, 2), Multiplication.createRandom(2, 1)],
@@ -27,7 +27,7 @@ function createOperationForLevel(level) {
         5: [ToSquare.createRandom(4)],
     };
 
-    const operationCategoriesOfLevel = operationCategoriesPerLevel[level];
+    const operationCategoriesOfLevel = operationCategoriesPerLevel[levelNumber];
 
     let operation = math.pickRandom(operationCategoriesOfLevel);
 
@@ -36,7 +36,8 @@ function createOperationForLevel(level) {
         operator: operation.operatorHumanRepresentation(),
         operand1: operation.leftOperand().value(),
         operand2: operation.rightOperand().value(),
-        result: operation.result(),
+        correctResult: operation.result(),
+        maxSolveTime: 30000,
     }
 }
 
@@ -44,11 +45,8 @@ function newTrial() {
     return (dispatch, getState) => {
         dispatch({
             type: NEW_TRIAL,
-            trial: {
-                input: null,
-                operation: createOperationForLevel(getState().game.level),
-                startTime: new Date().getTime(),
-            }
+            operation: createOperationForLevel(getState().game.currentLevel.number),
+            startTime: new Date().getTime(),
         });
     }
 }
@@ -59,10 +57,10 @@ export function startGame() {
     }
 }
 
-export function typeInput(input) {
+export function typeInput(newUserInput) {
     return {
         type: CALCULATOR_TYPE_INPUT,
-        input: input,
+        newUserInput: newUserInput,
     }
 }
 
@@ -79,9 +77,9 @@ export function submitTrial() {
             submitTime: new Date().getTime(),
         });
 
-        const levelFinished = getState().game.trials.length === getState().game.totalTrials;
-        if (levelFinished) {
-            dispatch(finishLevel());
+        if (getState().game.state === LEVEL_FINISHED) {
+            dispatch(saveFinishedLevelInfoOnDevice());
+            dispatch(sendUnsentTrials());
         } else {
             dispatch(newTrial());
         }
@@ -100,79 +98,57 @@ export function hideFeedback() {
     }
 }
 
-export function startLevel(level) {
+export function startLevel(levelNumber) {
     return (dispatch) => {
         dispatch({
             type: START_LEVEL,
-            level: level,
+            levelNumber: levelNumber,
         });
         dispatch(newTrial());
     }
 }
 
-function showLevelResume() {
-    return {
-        type: SHOW_LEVEL_RESUME
-    }
-}
-
-function finishLevel() {
+function saveFinishedLevelInfoOnDevice() {
     return (dispatch, getState) => {
-        dispatch(showLevelResume());
-        dispatch(sendStoredTrials());
-
-        const state = getState().game;
-
-        const totalTimeOfLevel = state.trials.map((trial) => {
-            return trial.submitTime - trial.startTime;
-        }).reduce((totalTimeOfPreviousTrials, timeOfTrial) => {
-            return totalTimeOfPreviousTrials + timeOfTrial;
-        });
-        const levelNumber = state.level;
-        const levelInfo = {
-            totalTime: totalTimeOfLevel,
-            correctAnswers: state.totalCorrect,
-            trials: state.trials
-        };
-
+        const levelInfo = getState().game.currentLevel;
         AsyncStorage.getItem('@moravec:levels').then((result) => {
-            let levels = {};
+            let levelsPlayedInfo = {};
 
             const thereAreSavedLevels = result !== null;
             if (thereAreSavedLevels) {
-                levels = JSON.parse(result);
+                levelsPlayedInfo = JSON.parse(result);
             }
 
-            levels[levelNumber] = levelInfo;
-            AsyncStorage.setItem('@moravec:levels', JSON.stringify(levels));
+            levelsPlayedInfo[levelInfo.number] = levelInfo;
+            AsyncStorage.setItem('@moravec:levels', JSON.stringify(levelsPlayedInfo));
         });
     }
 }
 
-function receivePlayedLevelsInfo(levels) {
+function receiveLevelsPlayedInfo(levelsPlayedInfo) {
     return {
         type: RECEIVE_PLAYED_LEVELS_INFO,
-        levels: levels
+        levelsPlayedInfo: levelsPlayedInfo
     }
 }
 
-export function getPlayedLevelsInfo() {
+export function getLevelsPlayedInfoFromDevice() {
     return (dispatch) => {
-        AsyncStorage.getItem('@moravec:levels').then((result) => {
-            const thereAreSavedLevels = result !== null;
+        AsyncStorage.getItem('@moravec:levels').then((savedLevelsInfo) => {
+            const thereAreSavedLevels = savedLevelsInfo !== null;
             if (thereAreSavedLevels) {
-                const levels = JSON.parse(result);
-                dispatch(receivePlayedLevelsInfo(levels));
+                const levelsPlayedInfo = JSON.parse(savedLevelsInfo);
+                dispatch(receiveLevelsPlayedInfo(levelsPlayedInfo));
             }
         });
     }
 }
 
-function sendStoredTrials() {
+function sendUnsentTrials() {
     return (dispatch, getState) => {
-        const allTrials = getState().game.trials;
+        const allTrials = getState().game.currentLevel.trials;
         new ApiClient().call('POST', "/api/v2/trials", allTrials, (data) => {
-            console.warn("Se han guardado los datos correctamente.");
+            console.log("API: POST /api/v2/trials successful!");
         });
     }
 }

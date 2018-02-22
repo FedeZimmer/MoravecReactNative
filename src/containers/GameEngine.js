@@ -1,15 +1,22 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {
-    eraseInput, getPlayedLevelsInfo, hideFeedback, showFeedback, startGame, startLevel, submitTrial,
+    eraseInput, getLevelsPlayedInfoFromDevice, hideFeedback, showFeedback, startGame, startLevel, submitTrial,
     typeInput
 } from "../actions/game_actions";
 import {LevelFinished} from "../components/game/LevelFinished";
 import {Game} from "../components/game/Game";
 import {LevelSelection} from "../components/game/LevelSelection";
+import {LEVEL_FINISHED, LEVEL_SELECTION, PLAYING} from "../reducers/game_reducer";
 
 const mapStateToProps = (state) => {
-    return state.game
+    return {
+        state: state.game.state,
+        levelsPlayedInfo: state.game.levelsPlayedInfo,
+        currentLevel: state.game.currentLevel,
+        currentTrial: state.game.currentTrial,
+        lastAnswerData: state.game.lastAnswerData,
+    }
 };
 
 const mapDispatchToProps = dispatch => {
@@ -17,6 +24,12 @@ const mapDispatchToProps = dispatch => {
         actions: {
             startGame: () => {
                 dispatch(startGame())
+            },
+            getLevelsPlayedInfoFromDevice: () => {
+                dispatch(getLevelsPlayedInfoFromDevice())
+            },
+            startLevel: (level) => {
+                dispatch(startLevel(level))
             },
             typeInput: (input) => {
                 dispatch(typeInput(input))
@@ -26,18 +39,6 @@ const mapDispatchToProps = dispatch => {
             },
             submitTrial: () => {
                 dispatch(submitTrial())
-            },
-            showFeedback: () => {
-                dispatch(showFeedback())
-            },
-            hideFeedback: () => {
-                dispatch(hideFeedback())
-            },
-            startLevel: (level) => {
-                dispatch(startLevel(level))
-            },
-            getPlayedLevelsInfo: () => {
-                dispatch(getPlayedLevelsInfo())
             },
         }
     }
@@ -64,25 +65,21 @@ class GameEngine extends Component {
 
     handleSubmit() {
         if (this.userEnteredResult()) {
-            this.props.actions.showFeedback();
-            setTimeout(this.props.actions.hideFeedback, this.props.feedback.duration);
             this.props.actions.submitTrial();
         }
     };
 
     userEnteredResult() {
-        return this.props.trial.input != null;
+        return this.props.currentTrial.currentUserInput != null;
     }
 
     playNextLevel() {
-        const currentLevel = this.props.level;
-        const nextLevel = currentLevel + 1;
+        const nextLevel = this.props.currentLevel.number + 1;
         this.props.actions.startLevel(nextLevel);
     }
 
     replayCurrentLevel() {
-        const currentLevel = this.props.level;
-        this.props.actions.startLevel(currentLevel);
+        this.props.actions.startLevel(this.props.currentLevel.number);
     }
 
     goToHome() {
@@ -90,25 +87,26 @@ class GameEngine extends Component {
     }
 
     render() {
-        if (this.props.level === null) {
+        if (this.props.state === LEVEL_SELECTION) {
             return <LevelSelection onSelectLevel={this.props.actions.startLevel}
-                                   onLoading={this.props.actions.getPlayedLevelsInfo}
-                                   levels={this.props.levels}
+                                   onLoading={this.props.actions.getLevelsPlayedInfoFromDevice}
+                                   levelsPlayedInfo={this.props.levelsPlayedInfo}
             />
-        } else {
-            if (!this.props.levelFinished) {
-                return (
-                    <Game {...this.props} onSubmit={this.handleSubmit}/>
-                );
-            } else {
-                return <LevelFinished finishedLevel={this.props.level}
-                                      onReplayLevel={this.replayCurrentLevel}
-                                      onPlayNextLevel={this.playNextLevel}
-                                      onHomeButtonPressed={this.goToHome}
-                                      totalCorrect={this.props.totalCorrect}
-                                      totalTrials={this.props.totalTrials}
-                />;
-            }
+        } else if (this.props.state === PLAYING) {
+            return (
+                <Game currentLevel={this.props.currentLevel}
+                      currentTrial={this.props.currentTrial}
+                      lastAnswerData={this.props.lastAnswerData}
+                      onEraseInput={this.props.actions.eraseInput}
+                      onTypeInput={this.props.actions.typeInput}
+                      onSubmit={this.handleSubmit}/>
+            );
+        } else if (this.props.state === LEVEL_FINISHED) {
+            return <LevelFinished finishedLevel={this.props.currentLevel}
+                                  onReplayLevel={this.replayCurrentLevel}
+                                  onPlayNextLevel={this.playNextLevel}
+                                  onHomeButtonPressed={this.goToHome}
+            />;
         }
     }
 }
