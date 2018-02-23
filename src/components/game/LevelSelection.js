@@ -29,7 +29,7 @@ export class LevelSelection extends React.Component {
     }
 
     renderLevelToPlay() {
-        const numberOfPlayedLevels = Object.keys(this.props.levels).length;
+        const numberOfPlayedLevels = Object.keys(this.props.levelsPlayedInfo).length;
         const levelToPlay = numberOfPlayedLevels + 1;
 
         return (
@@ -48,21 +48,20 @@ export class LevelSelection extends React.Component {
     }
 
     render() {
-        const levels = this.props.levels;
         return (
             <Content style={LEVEL_SELECTION_STYLES.list}>
-                {Object.keys(levels).map(levelNumber => (
-                    <TouchableOpacity key={levelNumber} style={LEVEL_SELECTION_STYLES.listItem}
-                                      onPress={() => this.handleLevelSelected(levelNumber)}>
+                {Object.keys(this.props.levelsPlayedInfo).map(levelNumberKey => (
+                    <TouchableOpacity key={levelNumberKey} style={LEVEL_SELECTION_STYLES.listItem}
+                                      onPress={() => this.handleLevelSelected(parseInt(levelNumberKey))}>
                         <View style={LEVEL_SELECTION_STYLES.listItemContainer}>
                             <View>
-                                <Text style={LEVEL_SELECTION_STYLES.levelNumber}>{levelNumber}.</Text>
+                                <Text style={LEVEL_SELECTION_STYLES.levelNumber}>{levelNumberKey}.</Text>
                             </View>
                             <View style={LEVEL_SELECTION_STYLES.levelResultContainer}>
                                 <Text style={LEVEL_SELECTION_STYLES.levelTime}>
-                                    {formatTime(levels[levelNumber].totalTime)}
+                                    {formatTime(this.props.levelsPlayedInfo[levelNumberKey].totalTrialsTime)}
                                 </Text>
-                                <LevelEfficacyStars correctAnswers={levels[levelNumber].correctAnswers}/>
+                                <LevelEfficacyStars correctAnswers={this.props.levelsPlayedInfo[levelNumberKey].totalCorrect}/>
                             </View>
                         </View>
                     </TouchableOpacity>

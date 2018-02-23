@@ -25,11 +25,11 @@ export class LevelFinished extends React.Component {
                 </View>
                 <View>
                     <View>
-                        <Text style={LEVEL_FINISHED_STYLES.headerLevelText}>Nivel {this.props.finishedLevel}</Text>
+                        <Text style={LEVEL_FINISHED_STYLES.headerLevelText}>Nivel {this.props.finishedLevel.number}</Text>
                     </View>
-                    <LevelEfficacyStars correctAnswers={this.props.totalCorrect} />
+                    <LevelEfficacyStars correctAnswers={this.props.finishedLevel.totalCorrect} />
                     <View>
-                        <Text>{this.props.totalCorrect + ' / ' + this.props.totalTrials + ' correctas'}</Text>
+                        <Text>{this.props.finishedLevel.totalCorrect + ' / ' + this.props.finishedLevel.totalTrials + ' correctas'}</Text>
                     </View>
                 </View>
             </View>

@@ -107,6 +107,16 @@ android {
             abiFilters "armeabi-v7a", "x86"
         }
     }
+    signingConfigs {
+        release {
+            if (project.hasProperty('MORAVEC_RELEASE_STORE_FILE')) {
+                storeFile file(MORAVEC_RELEASE_STORE_FILE)
+                storePassword MORAVEC_RELEASE_STORE_PASSWORD
+                keyAlias MORAVEC_RELEASE_KEY_ALIAS
+                keyPassword MORAVEC_RELEASE_KEY_PASSWORD
+            }
+        }
+    }
     splits {
         abi {
             reset()
@@ -119,6 +129,7 @@ android {
         release {
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            signingConfig signingConfigs.release
         }
     }
     // applicationVariants are e.g. debug, release
@@ -137,6 +148,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-device-info')
     compile project(':react-native-i18n')
     compile project(':react-native-keep-awake')
     compile project(':react-native-vector-icons')
@@ -152,3 +164,5 @@ task copyDownloadableDepsToLibs(type: Copy) {
     from configurations.compile
     into 'libs'
 }
+
+apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"

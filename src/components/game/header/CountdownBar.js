@@ -1,8 +1,8 @@
 import React from 'react'
 import {View} from "react-native";
 
-import {getWindowWidth} from "../../utils";
-import {COUNTDOWN_STYLES} from "../../styles/game/calculator/styles";
+import {getWindowWidth} from "../../../utils";
+import {COUNTDOWN_STYLES} from "../../../styles/game/calculator/styles";
 
 
 export default class CountdownBar extends React.Component {
@@ -20,8 +20,8 @@ export default class CountdownBar extends React.Component {
 
     remainingCountdownPercentage() {
         const elapsedTimeInMs = new Date().getTime() - this.props.startTime;
-        let remainingTime = this.props.maxTimeForCountdownInMs - elapsedTimeInMs;
-        let percentageRemaining = remainingTime / this.props.maxTimeForCountdownInMs;
+        let remainingTime = this.props.showTime - elapsedTimeInMs;
+        let percentageRemaining = remainingTime / this.props.showTime;
 
         if (percentageRemaining < 0) {
             percentageRemaining = 0;

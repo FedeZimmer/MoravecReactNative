@@ -1,34 +1,59 @@
-import Config from 'react-native-config';
+import Config from "react-native-config"
+import moment from "moment/moment";
+import * as DeviceInfo from "react-native-device-info";
 
 export class ApiClient {
-    domain() {
+    static baseUrl() {
         return Config.API_URL;
     }
 
-    apiCall(method, url, body, callback) {
+    _call(method = 'GET', url, body) {
         const headers = {'Accept': 'application/json', 'Content-Type': 'application/json'};
-        const options = {method: method, dataType: 'json', headers: headers};
+        const fetchOptions = {method: method, headers: headers};
 
-        if(method !== 'GET') {
-            Object.assign(options, {body: JSON.stringify(body)});
+        if (method !== 'GET') {
+            Object.assign(fetchOptions, {body: JSON.stringify(body)});
         }
 
-        fetch(this.domain() + url, options).then((response) => {
-            response.json().then(callback).done();
+        return fetch(ApiClient.baseUrl() + url, fetchOptions).then((response) => {
+            return response.json();
+        }, (error) => {
+            console.error('Ocurrió un error al conectar servidor ' + ApiClient.baseUrl());
         });
     }
 
-    // Example POST
-    /*
-        const body = {username: username, password: password};
-        const callback = null;
-        this.apiCall('POST', '/login/', body, callback);
-    */
+    sendTrials(trails) {
+        const appVersion = `${DeviceInfo.getApplicationName()} ${DeviceInfo.getReadableVersion()}`;
+        const deviceInfo = `${DeviceInfo.getSystemName()} ${DeviceInfo.getSystemVersion()}`;
+        const lang = DeviceInfo.getDeviceLocale();
+        const timeZone = DeviceInfo.getTimezone();
 
-    // Example GET
-    /*
-         const body = {};
-         const callback = null;
-         this.apiCall('GET', '/login/', body, callback);
-     */
+        const appVersionString = `${appVersion} | ${deviceInfo} | ${lang} | ${timeZone}`;
+
+        const trialsInfoToSend = trails.map((trial) => {
+            return {
+                Game_Type: 'Arcade',
+                Level: trial.levelNumber,
+                Operation_Type: trial.operation.opType,
+                Operand_1: trial.operation.operand1,
+                Operator: trial.operation.operator,
+                Operand_2: trial.operation.operand2,
+                Correct_Result: trial.operation.correctResult,
+                Entered_Answer: trial.currentUserInput,
+                Correct: trial.isCorrect ? 1 : 0,
+                Response_Vector: trial.keysPressed,
+                Response_Times: trial.responseTimes,
+                Total_Time: trial.totalTime,
+                Max_Time: trial.operation.maxSolveTime,
+                Time_Exceeded: trial.timeExceeded ? 1 : 0,
+                Start_Date: moment(trial.startTime).format("DD/MM/YYYY HH:mm:ss"),
+                End_Date: moment(trial.submitTime).format("DD/MM/YYYY HH:mm:ss"),
+                Erase: trial.hasErased ? 1 : 0,
+                Session_Trial: trial.trialNumber,
+                App_Version: appVersionString,
+            }
+        });
+
+        return this._call('POST', "/api/v2/trials", trialsInfoToSend);
+    }
 }
