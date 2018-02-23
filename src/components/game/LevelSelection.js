@@ -50,18 +50,18 @@ export class LevelSelection extends React.Component {
     render() {
         return (
             <Content style={LEVEL_SELECTION_STYLES.list}>
-                {Object.keys(this.props.levelsPlayedInfo).map(levelNumber => (
-                    <TouchableOpacity key={levelNumber} style={LEVEL_SELECTION_STYLES.listItem}
-                                      onPress={() => this.handleLevelSelected(levelNumber)}>
+                {Object.keys(this.props.levelsPlayedInfo).map(levelNumberKey => (
+                    <TouchableOpacity key={levelNumberKey} style={LEVEL_SELECTION_STYLES.listItem}
+                                      onPress={() => this.handleLevelSelected(parseInt(levelNumberKey))}>
                         <View style={LEVEL_SELECTION_STYLES.listItemContainer}>
                             <View>
-                                <Text style={LEVEL_SELECTION_STYLES.levelNumber}>{levelNumber}.</Text>
+                                <Text style={LEVEL_SELECTION_STYLES.levelNumber}>{levelNumberKey}.</Text>
                             </View>
                             <View style={LEVEL_SELECTION_STYLES.levelResultContainer}>
                                 <Text style={LEVEL_SELECTION_STYLES.levelTime}>
-                                    {formatTime(this.props.levelsPlayedInfo[levelNumber].totalTrialsTime)}
+                                    {formatTime(this.props.levelsPlayedInfo[levelNumberKey].totalTrialsTime)}
                                 </Text>
-                                <LevelEfficacyStars correctAnswers={this.props.levelsPlayedInfo[levelNumber].totalCorrect}/>
+                                <LevelEfficacyStars correctAnswers={this.props.levelsPlayedInfo[levelNumberKey].totalCorrect}/>
                             </View>
                         </View>
                     </TouchableOpacity>

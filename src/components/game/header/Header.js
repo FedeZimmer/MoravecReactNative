@@ -35,10 +35,11 @@ export default class Header extends React.Component {
 
     _renderBarContent() {
         if (this.state.showFeedback) {
-            return (<UserAnswerFeedback lastAnswerData={this.props.lastAnswerData} onTimeout={this.hideFeedbackBar}/>)
+            return (<UserAnswerFeedback key={1} lastAnswerData={this.props.lastAnswerData}
+                                        onTimeout={this.hideFeedbackBar}/>)
         } else {
             return (
-                <View style={HEADER_STYLES.header}>
+                <View key={1} style={HEADER_STYLES.header}>
                     <CalculationTimer startTime={this.props.startTime}/>
                     <Hints/>
                     <LevelState totalTrials={this.props.totalTrials}
@@ -51,7 +52,7 @@ export default class Header extends React.Component {
     render() {
         return [
             this._renderBarContent(),
-            <CountdownBar startTime={this.props.startTime}
+            <CountdownBar key={2} startTime={this.props.startTime}
                           showTime={this.props.countdownBarShowTime}/>
         ]
     }

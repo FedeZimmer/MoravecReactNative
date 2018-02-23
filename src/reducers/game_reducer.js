@@ -160,6 +160,8 @@ export function gameReducer(state = initialState, action) {
                         totalTime: calculateTotalTrialTime(state.currentTrial.startTime, action.submitTime),
                         timeExceeded: hasExceededMaxSolveTime(state.currentTrial.startTime, action.submitTime,
                             state.currentTrial.operation.maxSolveTime),
+                        isCorrect: isAnswerCorrect(state.currentTrial.operation.correctResult,
+                            state.currentTrial.currentUserInput)
                     }),
                     totalCorrect: updateTotalCorrect(state.currentTrial.currentUserInput,
                         state.currentTrial.operation.correctResult,

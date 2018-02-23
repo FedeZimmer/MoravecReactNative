@@ -12,8 +12,6 @@ export const CALCULATOR_TYPE_INPUT = 'CALCULATOR_TYPE_INPUT';
 export const CALCULATOR_ERASE_INPUT = 'CALCULATOR_ERASE_INPUT';
 export const NEW_TRIAL = 'NEW_TRIAL';
 export const SUBMIT_TRIAL = 'SUBMIT_TRIAL';
-export const SHOW_FEEDBACK = 'SHOW_FEEDBACK';
-export const HIDE_FEEDBACK = 'HIDE_FEEDBACK';
 export const START_LEVEL = 'START_LEVEL';
 export const RECEIVE_PLAYED_LEVELS_INFO = 'RECEIVE_PLAYED_LEVELS_INFO';
 
@@ -81,22 +79,9 @@ export function submitTrial() {
 
         if (getState().game.state === LEVEL_FINISHED) {
             dispatch(saveFinishedLevelInfoOnDevice());
-            dispatch(sendUnsentTrials());
         } else {
             dispatch(newTrial());
         }
-    }
-}
-
-export function showFeedback() {
-    return {
-        type: SHOW_FEEDBACK,
-    }
-}
-
-export function hideFeedback() {
-    return {
-        type: HIDE_FEEDBACK
     }
 }
 
@@ -122,7 +107,9 @@ function saveFinishedLevelInfoOnDevice() {
             }
 
             levelsPlayedInfo[levelInfo.number] = levelInfo;
-            AsyncStorage.setItem('@moravec:levels', JSON.stringify(levelsPlayedInfo));
+            AsyncStorage.setItem('@moravec:levels', JSON.stringify(levelsPlayedInfo)).then(() => {
+                sendUnsentTrials();
+            });
         });
     }
 }
@@ -147,10 +134,37 @@ export function getLevelsPlayedInfoFromDevice() {
 }
 
 function sendUnsentTrials() {
-    return (dispatch, getState) => {
-        const allTrials = getState().game.currentLevel.trials;
-        new ApiClient().call('POST', "/api/v2/trials", allTrials, (data) => {
-            console.log("API: POST /api/v2/trials successful!");
+    AsyncStorage.getItem('@moravec:levels').then((savedLevelsInfoJSON) => {
+        const savedLevelsInfo = JSON.parse(savedLevelsInfoJSON);
+
+        const allUnsentTrials = Object.keys(savedLevelsInfo).map((level) => {
+            const trialsOfLevel = savedLevelsInfo[level].trials;
+            return trialsOfLevel.filter((trial) => {
+                return !trial.hasOwnProperty('sentToBackend') || !trial['sentToBackend'];
+            });
+        }).reduce(function (allUnsentTrails, unsentTrailsOfLevel) {
+            return allUnsentTrails.concat(unsentTrailsOfLevel);
         });
-    }
+
+        new ApiClient().sendTrials(allUnsentTrials).then(() => {
+            console.log("--DEBUG-- API: POST /api/v2/trials successful!");
+            markAllTrialsAsSentOnDevice(savedLevelsInfo);
+        });
+    });
+}
+
+function markAllTrialsAsSentOnDevice(savedLevelsInfo) {
+    Object.keys(savedLevelsInfo).forEach((level) => {
+        savedLevelsInfo[level] = {
+            ...savedLevelsInfo[level],
+            trials: savedLevelsInfo[level].trials.map((trial) => {
+                return {
+                    ...trial,
+                    sentToBackend: true,
+                }
+            }),
+        };
+    });
+
+    AsyncStorage.setItem('@moravec:levels', JSON.stringify(savedLevelsInfo));
 }
