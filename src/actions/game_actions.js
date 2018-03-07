@@ -19,10 +19,14 @@ export const RECEIVE_PLAYED_LEVELS_INFO = 'RECEIVE_PLAYED_LEVELS_INFO';
 function createOperationForLevel(levelNumber) {
     const operationCategoriesPerLevel = {
         1: [Addition.createRandom(1, 1), Multiplication.createRandom(1, 1)],
-        2: [Addition.createRandom(2, 2), Multiplication.createRandom(2, 1)],
-        3: [Multiplication.createRandom(3, 1), ToSquare.createRandom(2)],
-        4: [Multiplication.createRandom(4, 1), ToSquare.createRandom(3)],
-        5: [ToSquare.createRandom(4)],
+        2: [Addition.createRandom(1, 1), Multiplication.createRandom(1, 1)],
+        3: [Addition.createRandom(1, 1), Multiplication.createRandom(1, 1), Addition.createRandom(2, 2)],
+        4: [Addition.createRandom(1, 1), Multiplication.createRandom(1, 1), Addition.createRandom(2, 2),
+            Multiplication.createRandom(2, 1)],
+        5: [Addition.createRandom(1, 1), Multiplication.createRandom(1, 1), Addition.createRandom(2, 2),
+            Multiplication.createRandom(2, 1), Multiplication.createRandom(3, 1)],
+        6: [Addition.createRandom(1, 1), Multiplication.createRandom(1, 1), Addition.createRandom(2, 2),
+            Multiplication.createRandom(2, 1), Multiplication.createRandom(3, 1), ToSquare.createRandom(2)],
     };
 
     const operationCategoriesOfLevel = operationCategoriesPerLevel[levelNumber];
