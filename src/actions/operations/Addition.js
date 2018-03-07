@@ -19,4 +19,15 @@ export class Addition extends Operation {
     operatorHumanRepresentation() {
         return this.operator();
     }
+
+    maxSolveTime() {
+        switch (this.category()) {
+            case '1+1':
+                return 7000;
+            case '2+2':
+                return 11000;
+            default:
+                throw `Maximum solve time not specified for operation ${this.category()}`;
+        }
+    }
 }

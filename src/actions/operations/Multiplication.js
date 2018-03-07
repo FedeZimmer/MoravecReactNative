@@ -19,4 +19,19 @@ export class Multiplication extends Operation {
     operatorHumanRepresentation() {
         return 'x';
     }
+
+    maxSolveTime() {
+        switch (this.category()) {
+            case '1x1':
+                return 10000;
+            case '2x1':
+                return 14000;
+            case '3x1':
+                return 16000;
+            case '4x1':
+                return 20000;
+            default:
+                throw `Maximum solve time not specified for operation ${this.category()}`;
+        }
+    }
 }

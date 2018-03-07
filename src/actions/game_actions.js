@@ -35,7 +35,7 @@ function createOperationForLevel(levelNumber) {
         operand1: operation.leftOperand().value(),
         operand2: operation.rightOperand().value(),
         correctResult: operation.result(),
-        maxSolveTime: 30000,
+        maxSolveTime: operation.maxSolveTime(),
     }
 }
 

@@ -28,6 +28,10 @@ export class Operation {
         return this._rightOperand;
     }
 
+    maxSolveTime() {
+        throw "Subclass responsibility";
+    }
+
     result() {
         return math.eval(this._leftOperand.value() + this.operator() + this._rightOperand.value());
     }
