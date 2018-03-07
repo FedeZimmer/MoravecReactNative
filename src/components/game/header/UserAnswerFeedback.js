@@ -23,7 +23,7 @@ export default class UserAnswerFeedback extends React.Component {
             return (
                 <View style={FEEDBACK_STYLES.feedbackCorrectContainer}>
                     <Text style={FEEDBACK_STYLES.feedbackCorrectText}>
-                        ¡Correcto!
+                        ¡Bien!
                     </Text>
                 </View>
             )
@@ -31,8 +31,7 @@ export default class UserAnswerFeedback extends React.Component {
             return (
                 <View style={FEEDBACK_STYLES.feedbackIncorrectContainer}>
                     <Text style={FEEDBACK_STYLES.feedbackIncorrectText}>
-                        LA RESPUESTA ERA {this.props.lastAnswerData.correctResult},
-                        NO {this.props.lastAnswerData.userInput}
+                        Era {this.props.lastAnswerData.correctResult} y no {this.props.lastAnswerData.userInput}
                     </Text>
                 </View>
             )
