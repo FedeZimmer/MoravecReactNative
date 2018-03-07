@@ -4,8 +4,9 @@ import {Operand} from "./Operand";
 
 export class Multiplication extends Operation {
     static createRandom(numDigitsLeftOperand, numDigitsRightOperand) {
-        const leftOperand = Operand.createRandom(numDigitsLeftOperand);
-        const rightOperand = Operand.createRandom(numDigitsRightOperand);
+        const operandRestrictions = {allow_zero: true, allow_one: false, allow_multiples_of_10: false};
+        const leftOperand = Operand.createRandom(numDigitsLeftOperand, operandRestrictions);
+        const rightOperand = Operand.createRandom(numDigitsRightOperand, operandRestrictions);
 
         const category = `${numDigitsLeftOperand.toString()}x${numDigitsRightOperand.toString()}`;
 

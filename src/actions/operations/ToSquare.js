@@ -4,7 +4,8 @@ import {Operand} from "./Operand";
 
 export class ToSquare extends Operation {
     static createRandom(numDigitsOperand) {
-        const leftOperand = Operand.createRandom(numDigitsOperand);
+        const operandRestrictions = {allow_zero: true, allow_one: false, allow_multiples_of_10: false};
+        const leftOperand = Operand.createRandom(numDigitsOperand, operandRestrictions);
         const rightOperand = new Operand(2);
 
         const category = `${numDigitsOperand.toString()}^2`;
