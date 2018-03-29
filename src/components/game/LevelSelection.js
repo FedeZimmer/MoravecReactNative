@@ -6,8 +6,9 @@ import {LEVEL_SELECTION_STYLES} from "../../styles/game/styles"
 import {HEADER_STYLES, LEVEL_EFFICACY_STARS_STYLES} from "../../styles/common/styles"
 import {BackButton} from "../common/BackButton";
 import {formatTime} from "../../utils";
+import {hook} from "cavy";
 
-export class LevelSelection extends React.Component {
+export let LevelSelection = class extends React.Component {
     static navigationOptions = ({navigation, screenProps}) => ({
         title: 'ARCADE',
         headerLeft: <BackButton goBack={navigation.goBack}/>,
@@ -33,7 +34,9 @@ export class LevelSelection extends React.Component {
         const levelToPlay = numberOfPlayedLevels + 1;
 
         return (
-            <TouchableOpacity style={LEVEL_SELECTION_STYLES.playItem} onPress={() => this.handleLevelSelected(levelToPlay)}>
+            <TouchableOpacity style={LEVEL_SELECTION_STYLES.playItem}
+                              onPress={() => this.handleLevelSelected(levelToPlay)}
+                              ref={this.props.generateTestHook('LevelSelection.PlayLevel')}>
                 <View style={LEVEL_SELECTION_STYLES.listItemContainer}>
                     <View>
                         <Text style={LEVEL_SELECTION_STYLES.playItemLevelNumber}>{levelToPlay}.</Text>
@@ -70,4 +73,6 @@ export class LevelSelection extends React.Component {
             </Content>
         )
     }
-}
+};
+
+LevelSelection = hook(LevelSelection);

@@ -1,7 +1,7 @@
 import React from "react";
 import {GAME_STYLES} from "../../styles/game/calculator/styles";
 import Header from "./header/Header";
-import Calculator from "./calculator/Calculator";
+import {Calculator} from "./calculator/Calculator";
 import {View} from "react-native";
 import KeepAwake from "react-native-keep-awake";
 

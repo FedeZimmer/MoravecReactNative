@@ -2,7 +2,7 @@ import React from 'react'
 import {View} from "react-native";
 
 import {INPUT_STYLES} from "../../../../styles/game/calculator/keyboard/styles";
-import NumberKey from "./NumberKey";
+import {NumberKey} from "./NumberKey";
 import EraseKey from "./EraseKey";
 import EnterKey from "./EnterKey";
 

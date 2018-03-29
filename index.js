@@ -6,6 +6,9 @@ import thunkMiddleware from 'redux-thunk'
 import {gameReducer} from "./src/reducers/game_reducer";
 import {Navigator} from "./src/navigator";
 
+import {Tester, TestHookStore} from "cavy";
+import {gameSpec} from "./specs/game_spec";
+
 
 const rootReducer = combineReducers({
     game: gameReducer,
@@ -13,10 +16,20 @@ const rootReducer = combineReducers({
 
 const store = createStore(rootReducer, undefined, applyMiddleware(thunkMiddleware));
 
-const Moravec = () => (
+export const Moravec = () => (
     <Provider store={store}>
         <Navigator/>
     </Provider>
 );
 
-AppRegistry.registerComponent('moravec', () => Moravec);
+const cavyTestHooksStore = new TestHookStore();
+
+const CavyMoravecWrapper = () => (
+    <Provider store={store}>
+        <Tester specs={[gameSpec]} store={cavyTestHooksStore} waitTime={2000}>
+            <Navigator/>
+        </Tester>
+    </Provider>
+);
+
+AppRegistry.registerComponent('moravec', () => CavyMoravecWrapper);

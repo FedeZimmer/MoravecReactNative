@@ -4,8 +4,9 @@ import {Button} from "native-base";
 import {HOME_STYLES} from "../../styles/home/styles";
 import Images from "../../../assets/images/images";
 import I18n from "../../../i18n/i18n";
+import {hook} from "cavy";
 
-export class Home extends React.Component {
+export let Home = class extends React.Component {
     static navigationOptions = {
         title: 'Home',
         header: null
@@ -31,7 +32,8 @@ export class Home extends React.Component {
                 </View>
                 <View style={HOME_STYLES.optionsContainer}>
                     <View>
-                        <Button style={HOME_STYLES.playButton} onPress={this.handlePlayButton}>
+                        <Button style={HOME_STYLES.playButton} onPress={this.handlePlayButton}
+                                ref={this.props.generateTestHook('Home.PlayButton')}>
                             <Text style={HOME_STYLES.playButtonText}>{I18n.t('play').toUpperCase()}</Text>
                         </Button>
                     </View>
@@ -55,4 +57,6 @@ export class Home extends React.Component {
             </View>
         );
     }
-}
+};
+
+Home = hook(Home);
