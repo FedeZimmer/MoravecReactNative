@@ -2,6 +2,9 @@ import React from 'react'
 import {Text, View} from "react-native";
 
 import {OPERATION_STYLES} from "../../../styles/game/calculator/styles";
+import {ToSquare} from "../../../actions/operations/ToSquare";
+
+var exponent = require('superscript-number');
 
 
 export default class OperationDisplay extends React.Component {
@@ -11,8 +14,14 @@ export default class OperationDisplay extends React.Component {
 
     operation() {
         const firstOperand = this.props.operation.operand1;
-        const secondOperand = this.props.operation.operand2;
-        const operator = this.props.operation.operator;
+        let operator = this.props.operation.operator;
+        let secondOperand = this.props.operation.operand2;
+
+        const isToSquareOperation = ToSquare.isValidWith(operator);
+        if (isToSquareOperation) {
+            operator = exponent(2);
+            secondOperand = '';
+        }
 
         return firstOperand + ' ' + operator + ' ' + secondOperand;
     }
