@@ -18,6 +18,7 @@ const ENTER_KEY_CODE = 20;
 
 const initialState = {
     state: LEVEL_SELECTION,
+    levels: undefined,
     levelsPlayedInfo: {},
     currentLevel: undefined,
     currentTrial: undefined,
@@ -84,7 +85,10 @@ function hasExceededMaxSolveTime(trialStartTime, trialSubmitTime, operationMaxSo
 export function gameReducer(state = initialState, action) {
     switch (action.type) {
         case START_GAME:
-            return initialState;
+            return {
+                ...initialState,
+                levels: action.levels
+            };
 
         case RECEIVE_PLAYED_LEVELS_INFO:
             return {

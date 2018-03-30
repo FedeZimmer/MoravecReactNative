@@ -1,0 +1,52 @@
+
+
+export class Category {
+    constructor(name) {
+        /*
+         The parameter "name" is a string with the following format:
+         "numDigitsLeftOperand operator numDigitsRightOperands". For example "1+2" where numDigitsLeftOperand is
+         equal to number 1, operator is equal to "+" and numDigitsRightOperands is equal to number 2.
+         */
+        this._name = name;
+    }
+    name() {
+        return this._name;
+    }
+
+    numDigitsLeftOperand() {
+        return Number.parseInt(this._name[0]);
+    }
+
+    operator() {
+        return this._name[1];
+    }
+
+    numDigitsRightOperands() {
+        return Number.parseInt(this._name[2]);
+    }
+
+    maxSolveTime() {
+        switch (this.name()) {
+            case '1+1':
+                return 7000;
+            case '1x1':
+                return 10000;
+            case '2+2':
+                return 11000;
+            case '2x1':
+                return 14000;
+            case '3x1':
+                return 16000;
+            case '2^2':
+                return 16000;
+            case '4x1':
+                return 20000;
+            case '3^2':
+                return 34000;
+            case '4^2':
+                return 80000;
+            default:
+                throw `Maximum solve time not specified for category ${this.name()}`;
+        }
+    }
+}
