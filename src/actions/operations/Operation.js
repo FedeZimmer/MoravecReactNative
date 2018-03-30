@@ -9,7 +9,7 @@ export class Operation {
         throw "Subclass responsibility";
     }
 
-    static isCorrectFor(operator) {
+    static isValidWith(operator) {
         throw "Subclass responsibility";
     }
 

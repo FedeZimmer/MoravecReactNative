@@ -10,7 +10,7 @@ export class OperationFactory {
     static createRandom(category) {
         const operator = category.operator();
         for (let operation of OperationFactory.allOperations()) {
-            if (operation.isCorrectFor(operator)) {
+            if (operation.isValidWith(operator)) {
                 return operation.createRandom(category);
             }
         }

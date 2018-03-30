@@ -11,7 +11,7 @@ export class Multiplication extends Operation {
         return 'x';
     }
 
-    static isCorrectFor(operator) {
+    static isValidWith(operator) {
         return operator == this.operator() || operator == this.operatorHumanRepresentation();
     }
 

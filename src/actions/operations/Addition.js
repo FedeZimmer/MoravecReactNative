@@ -11,7 +11,7 @@ export class Addition extends Operation {
         return Addition.operator();
     }
 
-    static isCorrectFor(operator) {
+    static isValidWith(operator) {
         return operator == this.operator();
     }
 
