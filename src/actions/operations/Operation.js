@@ -39,6 +39,10 @@ export class Operation {
         throw "Subclass responsibility";
     }
 
+    operationHumanRepresentation() {
+        throw "Subclass responsibility";
+    }
+
     maxSolveTime() {
         return this._category.maxSolveTime();
     }
