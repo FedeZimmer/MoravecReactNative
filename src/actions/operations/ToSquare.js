@@ -1,6 +1,6 @@
 import {Operation} from "./Operation";
 import {Operand} from "./Operand";
-
+var exponent = require('superscript-number');
 
 export class ToSquare extends Operation {
     static operator() {
@@ -29,5 +29,9 @@ export class ToSquare extends Operation {
 
     operatorHumanRepresentation() {
         return ToSquare.operatorHumanRepresentation();
+    }
+
+    operationHumanRepresentation() {
+        return this.leftOperand().value() + exponent(2);
     }
 }

@@ -40,6 +40,7 @@ function createOperationForLevel(levels, levelNumber) {
         operator: operation.operatorHumanRepresentation(),
         operand1: operation.leftOperand().value(),
         operand2: operation.rightOperand().value(),
+        operation: operation.operationHumanRepresentation(),
         correctResult: operation.result(),
         maxSolveTime: operation.maxSolveTime(),
     }

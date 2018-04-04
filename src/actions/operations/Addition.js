@@ -30,4 +30,8 @@ export class Addition extends Operation {
     operatorHumanRepresentation() {
         return Addition.operatorHumanRepresentation();
     }
+
+    operationHumanRepresentation() {
+        return this.leftOperand().value() + ' ' + this.operator() + ' ' + this.rightOperand().value();
+    }
 }

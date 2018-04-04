@@ -30,4 +30,8 @@ export class Multiplication extends Operation {
     operatorHumanRepresentation() {
         return Multiplication.operatorHumanRepresentation();
     }
+
+    operationHumanRepresentation() {
+        return this.leftOperand().value() + ' x ' + this.rightOperand().value();
+    }
 }
