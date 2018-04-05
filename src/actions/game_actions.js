@@ -90,12 +90,11 @@ export function submitTrial() {
 }
 
 export function startLevel(levelNumber) {
-    return (dispatch) => {
-        dispatch({
-            type: START_LEVEL,
-            levelNumber: levelNumber,
-        });
-        dispatch(newTrial());
+    return {
+        type: START_LEVEL,
+        levelNumber: levelNumber,
+        operation: createOperationForLevel(levelNumber),
+        startTime: new Date().getTime(),
     }
 }
 
