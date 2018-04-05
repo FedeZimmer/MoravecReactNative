@@ -1,6 +1,9 @@
 import {MoravecPlayer} from "./bots/MoravecPlayer";
 
 export function gameSpec(spec) {
+
+    // Assert helpers
+
     async function assertOperationDisplayShows(result) {
         const operationDisplayComponent = await spec.findComponent('OperationDisplay');
 
@@ -24,6 +27,8 @@ export function gameSpec(spec) {
         await spec.notExists('UserAnswerFeedback');
     }
 
+    // Spec
+
     spec.describe('As a user', function () {
         const aPlayer = new MoravecPlayer(spec);
 
@@ -38,7 +43,7 @@ export function gameSpec(spec) {
             await aPlayer.startGame();
             await aPlayer.playCurrentLevel();
 
-            await spec.press('NumberKey.1');
+            await aPlayer.pressANumberSequence("1");
 
             await assertOperationDisplayShows("1");
         });
@@ -58,7 +63,7 @@ export function gameSpec(spec) {
 
             await aPlayer.enterTheRightAnswer();
 
-            await spec.press('EnterKey');
+            await aPlayer.pressEnter();
 
             await assertCalculationOKMessageShown();
         });
