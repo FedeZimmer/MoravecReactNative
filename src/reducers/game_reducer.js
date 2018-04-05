@@ -81,6 +81,20 @@ function hasExceededMaxSolveTime(trialStartTime, trialSubmitTime, operationMaxSo
     return calculateTotalTrialTime(trialStartTime, trialSubmitTime) > operationMaxSolveTime;
 }
 
+function newTrialData(trials, levelNumber, operation, startTime) {
+    return {
+        trialNumber: getNewTrialNumber(trials),
+        levelNumber: levelNumber,
+        currentUserInput: null,
+        operation: operation,
+        startTime: startTime,
+        keysPressed: [],
+        responseTimes: [],
+        hasErased: false,
+        timeExceeded: false,
+    }
+}
+
 export function gameReducer(state = initialState, action) {
     switch (action.type) {
         case START_GAME:
@@ -95,17 +109,8 @@ export function gameReducer(state = initialState, action) {
         case NEW_TRIAL:
             return {
                 ...state,
-                currentTrial: {
-                    trialNumber: getNewTrialNumber(state.currentLevel.trials),
-                    levelNumber: state.currentLevel.number,
-                    currentUserInput: null,
-                    operation: action.operation,
-                    startTime: action.startTime,
-                    keysPressed: [],
-                    responseTimes: [],
-                    hasErased: false,
-                    timeExceeded: false,
-                }
+                currentTrial: newTrialData(state.currentLevel.trials, state.currentLevel.number,
+                    action.operation, action.startTime)
             };
 
         case CALCULATOR_TYPE_INPUT:
@@ -143,7 +148,8 @@ export function gameReducer(state = initialState, action) {
                     totalTrialsTime: 0,
                     efficacy: calculateEfficacy(state.totalCorrect, state.totalTrials),
                 },
-                currentTrial: undefined,
+                currentTrial: newTrialData([], action.levelNumber,
+                    action.operation, action.startTime)
             };
 
         case SUBMIT_TRIAL:
