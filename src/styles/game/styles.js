@@ -1,5 +1,6 @@
 import {greenColor, lightGrayColor, whiteColor, darkGrayColor, pinkColor, superLightGrayColor, grayColor} from '../global';
-import {getWindowHeight, getWindowWidth} from "../../utils";
+import {getWindowHeight} from "../../utils/get_window_info";
+import {getWindowWidth} from "../../utils/get_window_info";
 
 const windowHeight = getWindowHeight();
 const windowWidth = getWindowWidth();

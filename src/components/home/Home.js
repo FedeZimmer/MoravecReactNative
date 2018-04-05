@@ -1,12 +1,11 @@
 import React from "react";
-import {Text, View, Image} from "react-native";
+import {Image, Text, View} from "react-native";
 import {Button} from "native-base";
 import {HOME_STYLES} from "../../styles/home/styles";
 import Images from "../../../assets/images/images";
-import I18n from "../../../i18n/i18n";
-import {hook} from "cavy";
+import {PlayButton} from "./PlayButton";
 
-export let Home = class extends React.Component {
+export class Home extends React.Component {
     static navigationOptions = {
         title: 'Home',
         header: null
@@ -32,10 +31,7 @@ export let Home = class extends React.Component {
                 </View>
                 <View style={HOME_STYLES.optionsContainer}>
                     <View>
-                        <Button style={HOME_STYLES.playButton} onPress={this.handlePlayButton}
-                                ref={this.props.generateTestHook('Home.PlayButton')}>
-                            <Text style={HOME_STYLES.playButtonText}>{I18n.t('play').toUpperCase()}</Text>
-                        </Button>
+                        <PlayButton onPress={this.handlePlayButton}/>
                     </View>
                     <View style={HOME_STYLES.practiceOrTutorialContainer}>
                         <Button style={HOME_STYLES.practiceButton}>
@@ -57,6 +53,4 @@ export let Home = class extends React.Component {
             </View>
         );
     }
-};
-
-Home = hook(Home);
+}

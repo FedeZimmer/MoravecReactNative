@@ -1,14 +1,14 @@
 import React from "react";
-import {View, Text, TouchableOpacity} from "react-native";
+import {Text, TouchableOpacity, View} from "react-native";
 import {Container, Content, List, ListItem} from "native-base";
 import {LevelEfficacyStars} from "../common/LevelEfficacyStars";
 import {LEVEL_SELECTION_STYLES} from "../../styles/game/styles"
-import {HEADER_STYLES, LEVEL_EFFICACY_STARS_STYLES} from "../../styles/common/styles"
+import {HEADER_STYLES} from "../../styles/common/styles"
 import {BackButton} from "../common/BackButton";
-import {formatTime} from "../../utils";
-import {hook} from "cavy";
+import {formatTime} from "../../utils/format_time";
+import {PlayLevelButton} from "./PlayLevelButton";
 
-export let LevelSelection = class extends React.Component {
+export class LevelSelection extends React.Component {
     static navigationOptions = ({navigation, screenProps}) => ({
         title: 'ARCADE',
         headerLeft: <BackButton goBack={navigation.goBack}/>,
@@ -18,36 +18,21 @@ export let LevelSelection = class extends React.Component {
 
     constructor(props) {
         super(props);
-        this.handleLevelSelected = this.handleLevelSelected.bind(this);
     }
 
     componentWillMount() {
         this.props.onLoading();
     }
 
-    handleLevelSelected(levelNumber) {
-        this.props.onSelectLevel(levelNumber);
+    handleLevelSelected(levelToPlay) {
+        this.props.onSelectLevel(levelToPlay);
     }
 
     renderLevelToPlay() {
         const numberOfPlayedLevels = Object.keys(this.props.levelsPlayedInfo).length;
         const levelToPlay = numberOfPlayedLevels + 1;
 
-        return (
-            <TouchableOpacity style={LEVEL_SELECTION_STYLES.playItem}
-                              onPress={() => this.handleLevelSelected(levelToPlay)}
-                              ref={this.props.generateTestHook('LevelSelection.PlayLevel')}>
-                <View style={LEVEL_SELECTION_STYLES.listItemContainer}>
-                    <View>
-                        <Text style={LEVEL_SELECTION_STYLES.playItemLevelNumber}>{levelToPlay}.</Text>
-                    </View>
-                    <View style={LEVEL_SELECTION_STYLES.levelResultContainer}>
-                        <Text style={LEVEL_SELECTION_STYLES.playText}>Jugar</Text>
-                        <LevelEfficacyStars emptyStarColor={LEVEL_EFFICACY_STARS_STYLES.emptyStarWhiteColor}/>
-                    </View>
-                </View>
-            </TouchableOpacity>
-        )
+        return <PlayLevelButton onPress={() => this.handleLevelSelected(levelToPlay)} levelToPlay={levelToPlay}/>
     }
 
     render() {
@@ -64,7 +49,8 @@ export let LevelSelection = class extends React.Component {
                                 <Text style={LEVEL_SELECTION_STYLES.levelTime}>
                                     {formatTime(this.props.levelsPlayedInfo[levelNumberKey].totalTrialsTime)}
                                 </Text>
-                                <LevelEfficacyStars correctAnswers={this.props.levelsPlayedInfo[levelNumberKey].totalCorrect}/>
+                                <LevelEfficacyStars
+                                    correctAnswers={this.props.levelsPlayedInfo[levelNumberKey].totalCorrect}/>
                             </View>
                         </View>
                     </TouchableOpacity>
@@ -73,6 +59,4 @@ export let LevelSelection = class extends React.Component {
             </Content>
         )
     }
-};
-
-LevelSelection = hook(LevelSelection);
+}

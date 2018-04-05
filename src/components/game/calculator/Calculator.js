@@ -1,10 +1,9 @@
 import React from 'react';
-import {View, StatusBar} from 'react-native';
-import OperationDisplay from './OperationDisplay';
+import {StatusBar, View} from 'react-native';
+import {OperationDisplay} from './OperationDisplay';
 import CalculatorKeyboard from './keyboard/CalculatorKeyboard';
-import {hook} from "cavy";
 
-export let Calculator = class extends React.Component {
+export class Calculator extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -13,15 +12,12 @@ export let Calculator = class extends React.Component {
         return (
             <View>
                 <StatusBar hidden={true}/>
-                <OperationDisplay operation={this.props.operation} input={this.props.input}
-                                  ref={this.props.generateTestHook('Calculator.OperationDisplay')}/>
+                <OperationDisplay operation={this.props.operation} input={this.props.input}/>
                 <CalculatorKeyboard onTypeInput={this.props.onTypeInput}
                                     onEraseInput={this.props.onEraseInput}
                                     onSubmit={this.props.onSubmit}/>
             </View>
         )
     }
-};
-
-Calculator = hook(Calculator);
+}
 

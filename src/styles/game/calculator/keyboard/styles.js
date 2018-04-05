@@ -1,5 +1,5 @@
 import {grayColor, greenColor, superLightGrayColor, whiteColor} from "../../../global";
-import {getWindowHeight} from "../../../../utils";
+import {getWindowHeight} from "../../../../utils/get_window_info";
 
 export const INPUT_STYLES = {
     submitButton: {
