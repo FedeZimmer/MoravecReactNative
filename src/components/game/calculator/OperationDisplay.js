@@ -7,6 +7,19 @@ import {OPERATION_STYLES} from "../../../styles/game/calculator/styles";
 export default class OperationDisplay extends React.Component {
     constructor(props) {
         super(props);
+        this.operationFontSize = this.operationFontSize.bind(this);
+    }
+
+    operationFontSize() {
+        const userResponse = this.props.input;
+        const userResponseNumberOfDigits = Number(userResponse).toString().length;
+
+        let operationFontSize = 40;
+        if (userResponse && userResponseNumberOfDigits >= 6) {
+            operationFontSize = 35;
+        }
+
+        return operationFontSize;
     }
 
     operation() {
@@ -29,7 +42,7 @@ export default class OperationDisplay extends React.Component {
         return (
             <View style={OPERATION_STYLES.operationContainer}>
                 <View style={OPERATION_STYLES.operation}>
-                    <Text style={OPERATION_STYLES.operationText}>
+                    <Text style={[OPERATION_STYLES.operationText, {fontSize: this.operationFontSize()}]}>
                         {this.operation()}{' = '}{this.operationResult()}
                     </Text>
                 </View>

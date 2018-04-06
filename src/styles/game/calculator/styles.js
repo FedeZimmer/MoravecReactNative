@@ -26,14 +26,12 @@ export const OPERATION_STYLES = {
     operation: {
         flex: 1,
         flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        marginLeft: 30,
     },
     operationText: {
         fontFamily: 'GothamBook',
-        textAlign: 'center',
         color: darkGrayColor,
-        fontSize: 40,
     },
 };
 
