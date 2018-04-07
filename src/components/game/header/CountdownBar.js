@@ -1,7 +1,7 @@
 import React from 'react'
 import {View} from "react-native";
 
-import {getWindowWidth} from "../../../utils";
+import {getWindowWidth} from "../../../utils/get_window_info";
 import {COUNTDOWN_STYLES} from "../../../styles/game/calculator/styles";
 
 

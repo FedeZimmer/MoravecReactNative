@@ -1,27 +1,29 @@
 import React from 'react'
-import {Text, TouchableOpacity} from "react-native";
+import {TouchableOpacity} from "react-native";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {INPUT_STYLES} from "../../../../styles/game/calculator/keyboard/styles";
+import {makeItTestable} from "../../../../utils/testable_hoc";
 
 
-export default class EnterKey extends React.Component {
+export let EnterKey = class extends React.Component {
     constructor(props) {
         super(props);
 
-        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handlePress = this.handlePress.bind(this);
     }
 
-    handleSubmit(event) {
-        event.preventDefault();
-        this.props.onSubmit();
+    handlePress() {
+        this.props.onPress();
     }
 
     render() {
         return (
-            <TouchableOpacity style={INPUT_STYLES.submitButton} onPress={this.handleSubmit}>
+            <TouchableOpacity style={INPUT_STYLES.submitButton} onPress={this.handlePress}>
                 <Icon name="subdirectory-arrow-left" style={INPUT_STYLES.submitButtonText}/>
             </TouchableOpacity>
         )
     }
-}
+};
+
+EnterKey = makeItTestable('EnterKey')(EnterKey);

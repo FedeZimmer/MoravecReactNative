@@ -1,5 +1,5 @@
 import {darkGrayColor, greenColor, pinkColor, whiteColor, superLightGrayColor} from "../../global";
-import {getWindowHeight} from '../../../utils';
+import {getWindowHeight} from '../../../utils/get_window_info';
 
 export const GAME_STYLES = {
     game: {

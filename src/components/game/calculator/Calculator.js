@@ -1,9 +1,9 @@
 import React from 'react';
-import {View, StatusBar} from 'react-native';
-import OperationDisplay from './OperationDisplay';
+import {StatusBar, View} from 'react-native';
+import {OperationDisplay} from './OperationDisplay';
 import CalculatorKeyboard from './keyboard/CalculatorKeyboard';
 
-export default class Calculator extends React.Component {
+export class Calculator extends React.Component {
     constructor(props) {
         super(props);
     }

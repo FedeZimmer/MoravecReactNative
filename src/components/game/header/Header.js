@@ -5,7 +5,7 @@ import {HEADER_STYLES} from "../../../styles/game/calculator/header/styles";
 import CalculationTimer from "./CalculationTimer";
 import Hints from "./Hints";
 import LevelState from "./LevelState";
-import UserAnswerFeedback from "./UserAnswerFeedback";
+import {UserAnswerFeedback} from "./UserAnswerFeedback";
 import CountdownBar from "./CountdownBar";
 
 

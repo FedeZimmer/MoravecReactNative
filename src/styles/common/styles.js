@@ -1,5 +1,5 @@
 import {greenColor, lightGrayColor, whiteColor, pinkColor} from '../global';
-import {getWindowHeight} from "../../utils";
+import {getWindowHeight} from "../../utils/get_window_info";
 
 export const LEVEL_EFFICACY_STARS_STYLES = {
     smallStar: {
