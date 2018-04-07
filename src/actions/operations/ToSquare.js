@@ -11,10 +11,6 @@ export class ToSquare extends Operation {
         return ToSquare.operator();
     }
 
-    static isValidWith(operator) {
-        return operator == this.operator();
-    }
-
     static createRandom(category) {
         const operandRestrictions = {allow_zero: true, allow_one: false, allow_multiples_of_10: false};
         const leftOperand = Operand.createRandom(category.numDigitsLeftOperand(), operandRestrictions);

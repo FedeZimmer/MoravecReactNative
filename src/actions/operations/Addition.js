@@ -11,10 +11,6 @@ export class Addition extends Operation {
         return Addition.operator();
     }
 
-    static isValidWith(operator) {
-        return operator == this.operator();
-    }
-
     static createRandom(category) {
         const operandRestrictions = {allow_zero: false, allow_one: true, allow_multiples_of_10: true};
         const leftOperand = Operand.createRandom(category.numDigitsLeftOperand(), operandRestrictions);

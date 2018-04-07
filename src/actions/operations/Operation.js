@@ -9,10 +9,6 @@ export class Operation {
         throw "Subclass responsibility";
     }
 
-    static isValidWith(operator) {
-        throw "Subclass responsibility";
-    }
-
     constructor(category, leftOperand, rightOperand) {
         this._category = category;
         this._leftOperand = leftOperand;

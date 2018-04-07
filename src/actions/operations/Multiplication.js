@@ -11,10 +11,6 @@ export class Multiplication extends Operation {
         return 'x';
     }
 
-    static isValidWith(operator) {
-        return operator == this.operator() || operator == this.operatorHumanRepresentation();
-    }
-
     static createRandom(category) {
         const operandRestrictions = {allow_zero: false, allow_one: false, allow_multiples_of_10: false};
         const leftOperand = Operand.createRandom(category.numDigitsLeftOperand(), operandRestrictions);
@@ -32,6 +28,6 @@ export class Multiplication extends Operation {
     }
 
     operationHumanRepresentation() {
-        return this.leftOperand().value() + ' x ' + this.rightOperand().value();
+        return this.leftOperand().value() + ' ' + this.operatorHumanRepresentation() + ' '  + this.rightOperand().value();
     }
 }

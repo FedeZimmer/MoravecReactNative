@@ -1,4 +1,6 @@
-
+import {Addition} from "../operations/Addition";
+import {Multiplication} from "../operations/Multiplication";
+import {ToSquare} from "../operations/ToSquare";
 
 export class Category {
     constructor(name) {
@@ -23,6 +25,19 @@ export class Category {
 
     numDigitsRightOperands() {
         return Number.parseInt(this._name[2]);
+    }
+
+    operationClass() {
+        switch (this.operator()) {
+            case Addition.operator():
+                return Addition;
+            case Multiplication.operatorHumanRepresentation():
+                return Multiplication;
+            case ToSquare.operator():
+                return ToSquare;
+            default:
+                throw ("There is no operation with this operator: " + this.operator());
+        }
     }
 
     maxSolveTime() {
