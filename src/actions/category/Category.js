@@ -2,7 +2,7 @@ import {Addition} from "../operations/Addition";
 import {Multiplication} from "../operations/Multiplication";
 import {ToSquare} from "../operations/ToSquare";
 
-export class Category {
+export class OperationCategory {
     constructor(name) {
         /*
          The parameter "name" is a string with the following format:

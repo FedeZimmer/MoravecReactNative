@@ -11,16 +11,16 @@ export class Level {
 
     allPossibleOperations() {
         let operations = [];
-        for (let category of this._categories){
+        this._categories.forEach(category => {
             let newOperation = OperationFactory.createRandom(category);
 
             operations.push(newOperation);
-        }
+        });
 
         return operations;
     }
 
-    createOperation() {
+    createRandomOperation() {
         const operations = this.allPossibleOperations();
         return math.pickRandom(operations, this._categoriesProbability);
     }

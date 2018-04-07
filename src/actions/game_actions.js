@@ -1,8 +1,6 @@
 import {AsyncStorage} from "react-native";
 import {ApiClient} from "../api_client/ApiClient";
 import {LEVEL_FINISHED} from "../reducers/game_reducer";
-import {Level} from "./level/Level";
-import {Category} from "./category/Category";
 
 export const START_GAME = 'START_GAME';
 export const CALCULATOR_TYPE_INPUT = 'CALCULATOR_TYPE_INPUT';
@@ -12,28 +10,9 @@ export const SUBMIT_TRIAL = 'SUBMIT_TRIAL';
 export const START_LEVEL = 'START_LEVEL';
 export const RECEIVE_PLAYED_LEVELS_INFO = 'RECEIVE_PLAYED_LEVELS_INFO';
 
-var levelsConfigurationFile = require('../../assets/levels.json');
 
-function obtainLevels() {
-    let levels = {};
-    for (let [levelNumber, probabilityPerCategories] of Object.entries(levelsConfigurationFile)) {
-        let levelCategories = [];
-        let levelCategoriesProbability = [];
-        for (let [categoryName, probability] of Object.entries(probabilityPerCategories)) {
-            if (probability != 0) {
-                levelCategories.push(new Category(categoryName));
-                levelCategoriesProbability.push(probability);
-            }
-        }
-        levels[levelNumber] = new Level(levelNumber, levelCategories, levelCategoriesProbability);
-    }
-    return levels;
-}
-
-function createOperationForLevel(levels, levelNumber) {
-    const actualLevel = levels[levelNumber];
-
-    let operation = actualLevel.createOperation();
+function createRandomOperationForLevel(level) {
+    let operation = level.createRandomOperation();
 
     return {
         opType: operation.categoryName(),
@@ -48,9 +27,11 @@ function createOperationForLevel(levels, levelNumber) {
 
 function newTrial() {
     return (dispatch, getState) => {
+        const gameState = getState().game;
+        const currentLevel = gameState.levels[gameState.currentLevel.number];
         dispatch({
             type: NEW_TRIAL,
-            operation: createOperationForLevel(getState().game.levels, getState().game.currentLevel.number),
+            operation: createRandomOperationForLevel(currentLevel),
             startTime: new Date().getTime(),
         });
     }
@@ -59,7 +40,6 @@ function newTrial() {
 export function startGame() {
     return {
         type: START_GAME,
-        levels: obtainLevels(),
     }
 }
 
