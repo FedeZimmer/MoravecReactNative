@@ -7,8 +7,9 @@ import {HEADER_STYLES} from "../../styles/common/styles"
 import {BackButton} from "../common/BackButton";
 import {formatTime} from "../../utils/format_time";
 import {PlayLevelButton} from "./PlayLevelButton";
+import {makeItTestable} from "../../utils/testable_hoc";
 
-export class LevelSelection extends React.Component {
+export let LevelSelection = class extends React.Component {
     static navigationOptions = ({navigation, screenProps}) => ({
         title: 'ARCADE',
         headerLeft: <BackButton goBack={navigation.goBack}/>,
@@ -59,4 +60,6 @@ export class LevelSelection extends React.Component {
             </Content>
         )
     }
-}
+};
+
+LevelSelection = makeItTestable('LevelSelection')(LevelSelection);

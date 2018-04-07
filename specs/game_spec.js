@@ -36,7 +36,7 @@ export function gameSpec(spec) {
             await spec.exists('PlayButton');
             await aPlayer.startGame();
 
-            await spec.exists('PlayLevelButton');
+            await spec.exists('LevelSelection');
         });
 
         spec.it("I can enter any number and it will be shown in the screen", async function () {
