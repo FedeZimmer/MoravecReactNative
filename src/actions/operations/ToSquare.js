@@ -1,36 +1,33 @@
 import {Operation} from "./Operation";
 import {Operand} from "./Operand";
-
+var exponent = require('superscript-number');
 
 export class ToSquare extends Operation {
-    static createRandom(numDigitsOperand) {
-        const operandRestrictions = {allow_zero: true, allow_one: false, allow_multiples_of_10: false};
-        const leftOperand = Operand.createRandom(numDigitsOperand, operandRestrictions);
-        const rightOperand = new Operand(2);
+    static operator() {
+        return '^';
+    }
 
-        const category = `${numDigitsOperand.toString()}^2`;
+    static operatorHumanRepresentation() {
+        return ToSquare.operator();
+    }
+
+    static createRandom(category) {
+        const operandRestrictions = {allow_zero: true, allow_one: false, allow_multiples_of_10: false};
+        const leftOperand = Operand.createRandom(category.numDigitsLeftOperand(), operandRestrictions);
+        const rightOperand = new Operand(2);
 
         return new ToSquare(category, leftOperand, rightOperand);
     }
 
     operator() {
-        return '^';
+        return ToSquare.operator();
     }
 
     operatorHumanRepresentation() {
-        return this.operator();
+        return ToSquare.operatorHumanRepresentation();
     }
 
-    maxSolveTime() {
-        switch (this.category()) {
-            case '2^2':
-                return 16000;
-            case '3^2':
-                return 34000;
-            case '4^2':
-                return 80000;
-            default:
-                throw `Maximum solve time not specified for operation ${this.category()}`;
-        }
+    operationHumanRepresentation() {
+        return this.leftOperand().value() + exponent(2);
     }
 }

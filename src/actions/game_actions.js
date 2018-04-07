@@ -1,9 +1,4 @@
-import math from "mathjs";
 import {AsyncStorage} from "react-native";
-
-import {ToSquare} from "./operations/ToSquare";
-import {Multiplication} from "./operations/Multiplication";
-import {Addition} from "./operations/Addition";
 import {ApiClient} from "../api_client/ApiClient";
 import {LEVEL_FINISHED} from "../reducers/game_reducer";
 
@@ -16,28 +11,15 @@ export const START_LEVEL = 'START_LEVEL';
 export const RECEIVE_PLAYED_LEVELS_INFO = 'RECEIVE_PLAYED_LEVELS_INFO';
 
 
-function createOperationForLevel(levelNumber) {
-    const operationCategoriesPerLevel = {
-        1: [Addition.createRandom(1, 1), Multiplication.createRandom(1, 1)],
-        2: [Addition.createRandom(1, 1), Multiplication.createRandom(1, 1)],
-        3: [Addition.createRandom(1, 1), Multiplication.createRandom(1, 1), Addition.createRandom(2, 2)],
-        4: [Addition.createRandom(1, 1), Multiplication.createRandom(1, 1), Addition.createRandom(2, 2),
-            Multiplication.createRandom(2, 1)],
-        5: [Addition.createRandom(1, 1), Multiplication.createRandom(1, 1), Addition.createRandom(2, 2),
-            Multiplication.createRandom(2, 1), Multiplication.createRandom(3, 1)],
-        6: [Addition.createRandom(1, 1), Multiplication.createRandom(1, 1), Addition.createRandom(2, 2),
-            Multiplication.createRandom(2, 1), Multiplication.createRandom(3, 1), ToSquare.createRandom(2)],
-    };
-
-    const operationCategoriesOfLevel = operationCategoriesPerLevel[levelNumber];
-
-    let operation = math.pickRandom(operationCategoriesOfLevel);
+function createRandomOperationForLevel(level) {
+    let operation = level.createRandomOperation();
 
     return {
-        opType: operation.category(),
+        opType: operation.categoryName(),
         operator: operation.operatorHumanRepresentation(),
         operand1: operation.leftOperand().value(),
         operand2: operation.rightOperand().value(),
+        operation: operation.operationHumanRepresentation(),
         correctResult: operation.result(),
         maxSolveTime: operation.maxSolveTime(),
     }
@@ -45,9 +27,11 @@ function createOperationForLevel(levelNumber) {
 
 function newTrial() {
     return (dispatch, getState) => {
+        const gameState = getState().game;
+        const currentLevel = gameState.levels[gameState.currentLevel.number];
         dispatch({
             type: NEW_TRIAL,
-            operation: createOperationForLevel(getState().game.currentLevel.number),
+            operation: createRandomOperationForLevel(currentLevel),
             startTime: new Date().getTime(),
         });
     }
@@ -55,7 +39,7 @@ function newTrial() {
 
 export function startGame() {
     return {
-        type: START_GAME
+        type: START_GAME,
     }
 }
 

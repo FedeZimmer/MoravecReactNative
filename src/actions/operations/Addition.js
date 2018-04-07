@@ -3,32 +3,31 @@ import {Operand} from "./Operand";
 
 
 export class Addition extends Operation {
-    static createRandom(numDigitsLeftOperand, numDigitsRightOperand) {
-        const operandRestrictions = {allow_zero: false, allow_one: true, allow_multiples_of_10: true};
-        const leftOperand = Operand.createRandom(numDigitsLeftOperand, operandRestrictions);
-        const rightOperand = Operand.createRandom(numDigitsRightOperand, operandRestrictions);
+    static operator() {
+        return '+';
+    }
 
-        const category = `${numDigitsLeftOperand.toString()}+${numDigitsRightOperand.toString()}`;
+    static operatorHumanRepresentation() {
+        return Addition.operator();
+    }
+
+    static createRandom(category) {
+        const operandRestrictions = {allow_zero: false, allow_one: true, allow_multiples_of_10: true};
+        const leftOperand = Operand.createRandom(category.numDigitsLeftOperand(), operandRestrictions);
+        const rightOperand = Operand.createRandom(category.numDigitsRightOperands(), operandRestrictions);
 
         return new Addition(category, leftOperand, rightOperand);
     }
 
     operator() {
-        return '+';
+        return Addition.operator();
     }
 
     operatorHumanRepresentation() {
-        return this.operator();
+        return Addition.operatorHumanRepresentation();
     }
 
-    maxSolveTime() {
-        switch (this.category()) {
-            case '1+1':
-                return 7000;
-            case '2+2':
-                return 11000;
-            default:
-                throw `Maximum solve time not specified for operation ${this.category()}`;
-        }
+    operationHumanRepresentation() {
+        return this.leftOperand().value() + ' ' + this.operator() + ' ' + this.rightOperand().value();
     }
 }

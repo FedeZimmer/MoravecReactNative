@@ -3,36 +3,31 @@ import {Operand} from "./Operand";
 
 
 export class Multiplication extends Operation {
-    static createRandom(numDigitsLeftOperand, numDigitsRightOperand) {
-        const operandRestrictions = {allow_zero: false, allow_one: false, allow_multiples_of_10: false};
-        const leftOperand = Operand.createRandom(numDigitsLeftOperand, operandRestrictions);
-        const rightOperand = Operand.createRandom(numDigitsRightOperand, operandRestrictions);
+    static operator() {
+        return '*';
+    }
 
-        const category = `${numDigitsLeftOperand.toString()}x${numDigitsRightOperand.toString()}`;
+    static operatorHumanRepresentation() {
+        return 'x';
+    }
+
+    static createRandom(category) {
+        const operandRestrictions = {allow_zero: false, allow_one: false, allow_multiples_of_10: false};
+        const leftOperand = Operand.createRandom(category.numDigitsLeftOperand(), operandRestrictions);
+        const rightOperand = Operand.createRandom(category.numDigitsRightOperands(), operandRestrictions);
 
         return new Multiplication(category, leftOperand, rightOperand);
     }
 
     operator() {
-        return '*';
+        return Multiplication.operator();
     }
 
     operatorHumanRepresentation() {
-        return 'x';
+        return Multiplication.operatorHumanRepresentation();
     }
 
-    maxSolveTime() {
-        switch (this.category()) {
-            case '1x1':
-                return 10000;
-            case '2x1':
-                return 14000;
-            case '3x1':
-                return 16000;
-            case '4x1':
-                return 20000;
-            default:
-                throw `Maximum solve time not specified for operation ${this.category()}`;
-        }
+    operationHumanRepresentation() {
+        return this.leftOperand().value() + ' ' + this.operatorHumanRepresentation() + ' '  + this.rightOperand().value();
     }
 }
