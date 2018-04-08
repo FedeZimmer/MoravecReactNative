@@ -74,11 +74,14 @@ export function submitTrial() {
 }
 
 export function startLevel(levelNumber) {
-    return {
-        type: START_LEVEL,
-        levelNumber: levelNumber,
-        operation: createOperationForLevel(levelNumber),
-        startTime: new Date().getTime(),
+    return (dispatch, getState) => {
+        const currentLevel = getState().game.levels[levelNumber];
+        dispatch({
+            type: START_LEVEL,
+            levelNumber: levelNumber,
+            operation: createRandomOperationForLevel(currentLevel),
+            startTime: new Date().getTime()
+        })
     }
 }
 
