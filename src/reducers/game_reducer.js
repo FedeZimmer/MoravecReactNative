@@ -7,7 +7,9 @@ import {
     START_LEVEL,
     SUBMIT_TRIAL
 } from '../actions/game_actions'
-
+import {OperationCategory} from "../actions/category/Category";
+import {Level} from "../actions/level/Level";
+var levelsConfigurationFile = require('../../assets/levels.json');
 
 export const LEVEL_SELECTION = 'LEVEL_SELECTION';
 export const PLAYING = 'PLAYING';
@@ -18,6 +20,7 @@ const ENTER_KEY_CODE = 20;
 
 const initialState = {
     state: LEVEL_SELECTION,
+    levels: undefined,
     levelsPlayedInfo: {},
     currentLevel: undefined,
     currentTrial: undefined,
@@ -27,6 +30,22 @@ const initialState = {
 const MAX_NUMBER_OF_DIGITS = 8;
 
 const TOTAL_TRIALS_PER_LEVEL = 20;
+
+function obtainLevels() {
+    let levels = {};
+    Object.entries(levelsConfigurationFile).forEach(([levelNumber, probabilityPerCategories]) => {
+        let levelCategories = [];
+        let levelCategoriesProbability = [];
+        Object.entries(probabilityPerCategories).forEach(([categoryName, probability]) => {
+            if (probability != 0) {
+                levelCategories.push(new OperationCategory(categoryName));
+                levelCategoriesProbability.push(probability);
+            }
+        });
+        levels[levelNumber] = new Level(levelNumber, levelCategories, levelCategoriesProbability);
+    });
+    return levels;
+}
 
 function appendNewUserInput(currentInput, newInput) {
     if (!currentInput) {
@@ -113,7 +132,10 @@ function updateTrialsProgress(progressUpToNow, currentIsCorrect, timeExceeded) {
 export function gameReducer(state = initialState, action) {
     switch (action.type) {
         case START_GAME:
-            return initialState;
+            return {
+                ...initialState,
+                levels: obtainLevels(),
+            };
 
         case RECEIVE_PLAYED_LEVELS_INFO:
             return {
