@@ -22,7 +22,9 @@ export class MoravecPlayer {
 
         const operationResult = operationDisplayComponent.props.operation.correctResult;
 
-        await this.pressANumberSequence(operationResult.toString())
+        await this.pressANumberSequence(operationResult.toString());
+
+        await this.pressEnter();
     }
 
     async enterAWrongAnswer() {
@@ -30,7 +32,16 @@ export class MoravecPlayer {
 
         const wrongResult = operationDisplayComponent.props.operation.correctResult + 1;
 
-        await this.pressANumberSequence(wrongResult.toString())
+        await this.pressANumberSequence(wrongResult.toString());
+
+        await this.pressEnter();
+    }
+
+    async waitUntilMaxSolvingTimeIsExceeded() {
+        const gameComponent = await this._engineHelper.findComponent("Game");
+        const maxSolveTimeOfCurrentTrial = gameComponent.props.currentTrial.operation.maxSolveTime;
+
+        await this._engineHelper.pause(maxSolveTimeOfCurrentTrial + 1000);
     }
 
     async pressEnter() {

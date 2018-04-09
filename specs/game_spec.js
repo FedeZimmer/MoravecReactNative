@@ -2,6 +2,13 @@ import {MoravecPlayer} from "./bots/MoravecPlayer";
 
 export function gameSpec(spec) {
 
+    // Check info helpers
+
+    async function getCurrentTrialNumber() {
+        const levelStateComponent = await spec.findComponent("LevelState");
+        return levelStateComponent.props.currentTrialNumber;
+    }
+
     // Assert helpers
 
     async function assertOperationDisplayShows(result) {
@@ -25,6 +32,19 @@ export function gameSpec(spec) {
 
     async function assertNoAnswerFeedbackIsShownToTheUser() {
         await spec.notExists('UserAnswerFeedback');
+    }
+
+    async function assertYouCanDoBetterMessageShown() {
+        await spec.exists('YouCanDoBetterMessage');
+    }
+
+    async function assertCurrentTrialNumberIs(expectedTrialNumber) {
+        const currentTrialNumber = await getCurrentTrialNumber();
+
+        if (currentTrialNumber !== expectedTrialNumber) {
+            throw Error(`Was expecting current trial to be number ${expectedTrialNumber}, 
+                but it's showing ${currentTrialNumber}`);
+        }
     }
 
     // Spec
@@ -57,28 +77,6 @@ export function gameSpec(spec) {
             await assertOperationDisplayShows("135");
         });
 
-        spec.it("while playing I can hit the Enter key after entering a correct answer and the game will tell me its OK", async function () {
-            await aPlayer.startGame();
-            await aPlayer.playCurrentLevel();
-
-            await aPlayer.enterTheRightAnswer();
-
-            await aPlayer.pressEnter();
-
-            await assertCalculationOKMessageShown();
-        });
-
-        spec.it("while playing I can hit the Enter key after entering a WRONG answer and the game will tell me its wrong", async function () {
-            await aPlayer.startGame();
-            await aPlayer.playCurrentLevel();
-
-            await aPlayer.enterAWrongAnswer();
-
-            await aPlayer.pressEnter();
-
-            await assertCalculationWrongMessageShown();
-        });
-
         spec.it("hitting the Enter key without entering a number before does nothing", async function () {
             await aPlayer.startGame();
             await aPlayer.playCurrentLevel();
@@ -87,6 +85,57 @@ export function gameSpec(spec) {
 
             await assertNoAnswerFeedbackIsShownToTheUser();
         });
-    });
 
+        spec.it("entering a correct answer (before exceeding max solving time) shows an OK message and increases the trial counter", async function () {
+            await aPlayer.startGame();
+            await aPlayer.playCurrentLevel();
+            const previousTrialNumber = await getCurrentTrialNumber();
+
+            await aPlayer.enterTheRightAnswer();
+
+            await assertCalculationOKMessageShown();
+            await spec.pause(1000);
+            await assertCurrentTrialNumberIs(previousTrialNumber + 1);
+        });
+
+        spec.it("entering a WRONG answer (before exceeding max solving time) shows a 'wrong' message and increases the trial counter", async function () {
+            await aPlayer.startGame();
+            await aPlayer.playCurrentLevel();
+            const previousTrialNumber = await getCurrentTrialNumber();
+
+            await aPlayer.enterAWrongAnswer();
+
+            await assertCalculationWrongMessageShown();
+            await spec.pause(1000);
+            await assertCurrentTrialNumberIs(previousTrialNumber + 1);
+        });
+
+        spec.it("entering a WRONG answer out of time (max solving time exceeded) also shows the 'wrong' message and increases the trial counter", async function () {
+            await aPlayer.startGame();
+            await aPlayer.playCurrentLevel();
+            const previousTrialNumber = await getCurrentTrialNumber();
+
+            await aPlayer.waitUntilMaxSolvingTimeIsExceeded();
+
+            await aPlayer.enterAWrongAnswer();
+
+            await assertCalculationWrongMessageShown();
+            await spec.pause(1000);
+            await assertCurrentTrialNumberIs(previousTrialNumber + 1);
+        });
+
+        spec.it("entering a correct answer out of time (max solving time exceeded) shows a 'you can do better' message and does NOT increase the trial counter", async function () {
+            await aPlayer.startGame();
+            await aPlayer.playCurrentLevel();
+            const previousTrialNumber = await getCurrentTrialNumber();
+
+            await aPlayer.waitUntilMaxSolvingTimeIsExceeded();
+
+            await aPlayer.enterTheRightAnswer();
+
+            await assertYouCanDoBetterMessageShown();
+            await spec.pause(1000);
+            await assertCurrentTrialNumberIs(previousTrialNumber);
+        });
+    })
 }

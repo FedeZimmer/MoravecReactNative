@@ -4,8 +4,9 @@ import Header from "./header/Header";
 import {Calculator} from "./calculator/Calculator";
 import {View} from "react-native";
 import KeepAwake from "react-native-keep-awake";
+import {makeItTestable} from "../../utils/testable_hoc";
 
-export class Game extends React.Component {
+export let Game = class extends React.Component {
     componentDidMount() {
         KeepAwake.activate();
     }
@@ -18,7 +19,7 @@ export class Game extends React.Component {
         return (
             <View style={GAME_STYLES.game}>
                 <Header startTime={this.props.currentTrial.startTime}
-                        currentTrialNumber={this.props.currentLevel.trials.length + 1}
+                        currentTrialNumber={this.props.currentLevel.currentTrialNumber}
                         totalTrials={this.props.currentLevel.totalTrials}
                         lastAnswerData={this.props.lastAnswerData}
                         countdownBarShowTime={this.props.currentTrial.operation.maxSolveTime}/>
@@ -29,4 +30,6 @@ export class Game extends React.Component {
             </View>
         );
     }
-}
+};
+
+Game = makeItTestable('Game')(Game);
