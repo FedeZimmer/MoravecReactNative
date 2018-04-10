@@ -29,6 +29,7 @@ const initialState = {
 
 const MAX_NUMBER_OF_DIGITS = 8;
 
+const TOTAL_TRIALS_PER_LEVEL = 20;
 
 function obtainLevels() {
     let levels = {};
@@ -81,8 +82,8 @@ function calculateTotalTrialTime(trialStartTime, trialSubmitTime) {
     return trialSubmitTime - trialStartTime;
 }
 
-function playingOrLevelFinishedState(allPreviousTrials, totalTrials) {
-    if (allPreviousTrials.length + 1 === totalTrials) {
+function playingOrLevelFinishedState(currentTrialNumber, totalTrials) {
+    if (currentTrialNumber === totalTrials) {
         return LEVEL_FINISHED;
     } else {
         return PLAYING;
@@ -113,6 +114,19 @@ function newTrialData(trials, levelNumber, operation, startTime) {
         hasErased: false,
         timeExceeded: false,
     }
+}
+
+function updateTrialsProgress(progressUpToNow, currentIsCorrect, timeExceeded) {
+    let newTrialNumber = progressUpToNow;
+    if (currentIsCorrect) {
+        if (!timeExceeded) {
+            newTrialNumber += 1;
+        }
+    } else {
+        newTrialNumber += 1;
+    }
+
+    return newTrialNumber;
 }
 
 export function gameReducer(state = initialState, action) {
@@ -166,7 +180,8 @@ export function gameReducer(state = initialState, action) {
                 currentLevel: {
                     number: action.levelNumber,
                     trials: [],
-                    totalTrials: 20,
+                    totalTrials: TOTAL_TRIALS_PER_LEVEL,
+                    currentTrialNumber: 1,
                     totalCorrect: 0,
                     totalTrialsTime: 0,
                     efficacy: calculateEfficacy(state.totalCorrect, state.totalTrials),
@@ -176,9 +191,18 @@ export function gameReducer(state = initialState, action) {
             };
 
         case SUBMIT_TRIAL:
+            const isCorrect = isAnswerCorrect(state.currentTrial.operation.correctResult,
+                state.currentTrial.currentUserInput);
+
+            const exceededMaxSolveTime = hasExceededMaxSolveTime(state.currentTrial.startTime, action.submitTime,
+                state.currentTrial.operation.maxSolveTime);
+
+            const currentTrailNumber = updateTrialsProgress(state.currentLevel.currentTrialNumber, isCorrect,
+                exceededMaxSolveTime);
+
             return {
                 ...state,
-                state: playingOrLevelFinishedState(state.currentLevel.trials, state.currentLevel.totalTrials),
+                state: playingOrLevelFinishedState(currentTrailNumber, state.currentLevel.totalTrials),
                 currentLevel: {
                     ...state.currentLevel,
                     trials: state.currentLevel.trials.concat({
@@ -187,11 +211,10 @@ export function gameReducer(state = initialState, action) {
                         responseTimes: state.currentTrial.responseTimes.concat(action.submitTime),
                         submitTime: action.submitTime,
                         totalTime: calculateTotalTrialTime(state.currentTrial.startTime, action.submitTime),
-                        timeExceeded: hasExceededMaxSolveTime(state.currentTrial.startTime, action.submitTime,
-                            state.currentTrial.operation.maxSolveTime),
-                        isCorrect: isAnswerCorrect(state.currentTrial.operation.correctResult,
-                            state.currentTrial.currentUserInput)
+                        timeExceeded: exceededMaxSolveTime,
+                        isCorrect: isCorrect,
                     }),
+                    currentTrialNumber: currentTrailNumber,
                     totalCorrect: updateTotalCorrect(state.currentTrial.currentUserInput,
                         state.currentTrial.operation.correctResult,
                         state.currentLevel.totalCorrect),
@@ -203,8 +226,8 @@ export function gameReducer(state = initialState, action) {
                 lastAnswerData: {
                     userInput: state.currentTrial.currentUserInput,
                     correctResult: state.currentTrial.operation.correctResult,
-                    isCorrect: isAnswerCorrect(state.currentTrial.operation.correctResult,
-                        state.currentTrial.currentUserInput),
+                    isCorrect: isCorrect,
+                    timeExceeded: exceededMaxSolveTime,
                 }
             };
 

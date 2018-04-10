@@ -2,6 +2,7 @@ import React from "react";
 import {makeItTestable} from "../../../utils/testable_hoc";
 import {CorrectAnswerMessage} from "./CorrectAnswerMessage";
 import {WrongAnswerMessage} from "./WrongAnswerMessage";
+import {YouCanDoBetterMessage} from "./YouCanDoBetterMessage";
 
 export let UserAnswerFeedback = class extends React.Component {
     constructor(props) {
@@ -19,9 +20,15 @@ export let UserAnswerFeedback = class extends React.Component {
 
     render() {
         if (this.props.lastAnswerData.isCorrect) {
-            return (
-                <CorrectAnswerMessage/>
-            )
+            if (this.props.lastAnswerData.timeExceeded) {
+                return (
+                    <YouCanDoBetterMessage/>
+                )
+            } else {
+                return (
+                    <CorrectAnswerMessage/>
+                )
+            }
         } else {
             return (
                 <WrongAnswerMessage correctAnswer={this.props.lastAnswerData.correctResult}

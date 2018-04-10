@@ -37,7 +37,7 @@ const cavyTestHooksStore = new TestHookStore();
 
 const CavyMoravecWrapper = () => (
     <Provider store={store}>
-        <Tester specs={[gameSpec]} store={cavyTestHooksStore} waitTime={2000}>
+        <Tester specs={[gameSpec]} store={cavyTestHooksStore} clearAsyncStorage={true}>
             <Navigator/>
         </Tester>
     </Provider>
