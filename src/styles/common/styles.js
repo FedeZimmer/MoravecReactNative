@@ -19,16 +19,23 @@ export const LEVEL_EFFICACY_STARS_STYLES = {
 };
 
 export const HEADER_STYLES = {
-    backButton: {
-        color: greenColor,
-        fontSize: 30
-    },
     header: {
         backgroundColor: lightGrayColor,
         height: getWindowHeight() * 0.1,
         elevation: 0,
     },
+    left: {
+        marginLeft: 10,
+    },
     title: {
         color: greenColor,
+        fontFamily: 'GothamBold',
+    },
+};
+
+export const BACK_BUTTON_STYLES = {
+    icon: {
+        color: greenColor,
+        fontSize: 30,
     },
 };

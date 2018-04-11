@@ -90,23 +90,19 @@ class GameEngine extends Component {
         if (this.props.state === LEVEL_SELECTION) {
             return <LevelSelection onSelectLevel={this.props.actions.startLevel}
                                    onLoading={this.props.actions.getLevelsPlayedInfoFromDevice}
-                                   levelsPlayedInfo={this.props.levelsPlayedInfo}
-            />
+                                   levelsPlayedInfo={this.props.levelsPlayedInfo}/>
         } else if (this.props.state === PLAYING) {
-            return (
-                <Game currentLevel={this.props.currentLevel}
-                      currentTrial={this.props.currentTrial}
-                      lastAnswerData={this.props.lastAnswerData}
-                      onEraseInput={this.props.actions.eraseInput}
-                      onTypeInput={this.props.actions.typeInput}
-                      onSubmit={this.handleSubmit}/>
-            );
+            return <Game currentLevel={this.props.currentLevel}
+                         currentTrial={this.props.currentTrial}
+                         lastAnswerData={this.props.lastAnswerData}
+                         onEraseInput={this.props.actions.eraseInput}
+                         onTypeInput={this.props.actions.typeInput}
+                         onSubmit={this.handleSubmit}/>
         } else if (this.props.state === LEVEL_FINISHED) {
             return <LevelFinished finishedLevel={this.props.currentLevel}
                                   onReplayLevel={this.replayCurrentLevel}
                                   onPlayNextLevel={this.playNextLevel}
-                                  onHomeButtonPressed={this.goToHome}
-            />;
+                                  onHomeButtonPressed={this.goToHome}/>
         }
     }
 }
