@@ -3,19 +3,17 @@ import {TouchableOpacity} from "react-native";
 import {Icon} from 'native-base';
 
 import {INPUT_STYLES} from "../../../../styles/game/calculator/keyboard/styles";
+import {makeItTestable} from "../../../../utils/testable_hoc";
 
-
-export default class EraseKey extends React.Component {
+export let EraseKey = class extends React.Component {
     constructor(props) {
         super(props);
 
         this.handleErase = this.handleErase.bind(this);
     }
 
-    handleErase(event) {
-        event.preventDefault();
-
-        this.props.onEraseInput();
+    handleErase() {
+        this.props.onPress();
     }
 
     render() {
@@ -25,4 +23,6 @@ export default class EraseKey extends React.Component {
             </TouchableOpacity>
         )
     }
-}
+};
+
+EraseKey = makeItTestable('EraseKey')(EraseKey);

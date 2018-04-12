@@ -86,6 +86,18 @@ export function gameSpec(spec) {
             await assertNoAnswerFeedbackIsShownToTheUser();
         });
 
+        spec.it("hitting the Enter key with empty result does nothing", async function () {
+            await aPlayer.startGame();
+            await aPlayer.playCurrentLevel();
+
+            await aPlayer.pressANumberSequence("1");
+            await aPlayer.pressErase();
+
+            await aPlayer.pressEnter();
+
+            await assertNoAnswerFeedbackIsShownToTheUser();
+        });
+
         spec.it("entering a correct answer (before exceeding max solving time) shows an OK message and increases the trial counter", async function () {
             await aPlayer.startGame();
             await aPlayer.playCurrentLevel();
