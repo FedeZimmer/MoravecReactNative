@@ -47,21 +47,32 @@ export function gameSpec(spec) {
         }
     }
 
+    async function assertLevelSelectionScreenIsShown() {
+        await spec.exists('LevelSelection');
+    }
+
+    async function assertPlayNextLevelIsShown() {
+        await spec.exists('PlayNextButton');
+    }
+
+    async function assertPlayNextLevelIsNotShown() {
+        await spec.notExists('PlayNextButton');
+    }
+
     // Spec
 
     spec.describe('As a user', function () {
         const aPlayer = new MoravecPlayer(spec);
 
         spec.it("hitting the Play button should show me the level selection screen", async function () {
-            await spec.exists('PlayButton');
             await aPlayer.startGame();
 
-            await spec.exists('LevelSelection');
+            await assertLevelSelectionScreenIsShown();
         });
 
         spec.it("I can enter any number and it will be shown in the screen", async function () {
             await aPlayer.startGame();
-            await aPlayer.playCurrentLevel();
+            await aPlayer.playFirstLevel();
 
             await aPlayer.pressANumberSequence("1");
 
@@ -70,7 +81,7 @@ export function gameSpec(spec) {
 
         spec.it("I can enter a sequence of numbers and all the digits will be shown in the screen in correct order", async function () {
             await aPlayer.startGame();
-            await aPlayer.playCurrentLevel();
+            await aPlayer.playFirstLevel();
 
             await aPlayer.pressANumberSequence("135");
 
@@ -79,7 +90,7 @@ export function gameSpec(spec) {
 
         spec.it("hitting the Enter key without entering a number before does nothing", async function () {
             await aPlayer.startGame();
-            await aPlayer.playCurrentLevel();
+            await aPlayer.playFirstLevel();
 
             await aPlayer.pressEnter();
 
@@ -88,7 +99,7 @@ export function gameSpec(spec) {
 
         spec.it("entering a correct answer (before exceeding max solving time) shows an OK message and increases the trial counter", async function () {
             await aPlayer.startGame();
-            await aPlayer.playCurrentLevel();
+            await aPlayer.playFirstLevel();
             const previousTrialNumber = await getCurrentTrialNumber();
 
             await aPlayer.enterTheRightAnswer();
@@ -100,7 +111,7 @@ export function gameSpec(spec) {
 
         spec.it("entering a WRONG answer (before exceeding max solving time) shows a 'wrong' message and increases the trial counter", async function () {
             await aPlayer.startGame();
-            await aPlayer.playCurrentLevel();
+            await aPlayer.playFirstLevel();
             const previousTrialNumber = await getCurrentTrialNumber();
 
             await aPlayer.enterAWrongAnswer();
@@ -112,7 +123,7 @@ export function gameSpec(spec) {
 
         spec.it("entering a WRONG answer out of time (max solving time exceeded) also shows the 'wrong' message and increases the trial counter", async function () {
             await aPlayer.startGame();
-            await aPlayer.playCurrentLevel();
+            await aPlayer.playFirstLevel();
             const previousTrialNumber = await getCurrentTrialNumber();
 
             await aPlayer.waitUntilMaxSolvingTimeIsExceeded();
@@ -126,7 +137,7 @@ export function gameSpec(spec) {
 
         spec.it("entering a correct answer out of time (max solving time exceeded) shows a 'you can do better' message and does NOT increase the trial counter", async function () {
             await aPlayer.startGame();
-            await aPlayer.playCurrentLevel();
+            await aPlayer.playFirstLevel();
             const previousTrialNumber = await getCurrentTrialNumber();
 
             await aPlayer.waitUntilMaxSolvingTimeIsExceeded();
@@ -136,6 +147,36 @@ export function gameSpec(spec) {
             await assertYouCanDoBetterMessageShown();
             await spec.pause(1000);
             await assertCurrentTrialNumberIs(previousTrialNumber);
+        });
+
+        spec.it("entering 15 or more trials correct allows me to play next level", async function () {
+            await aPlayer.startGame();
+            await aPlayer.playFirstLevel();
+
+            for (let i = 1; i <= 15; i++) {
+                await aPlayer.enterTheRightAnswer();
+            }
+
+            for (let i = 1; i <= 5; i++) {
+                await aPlayer.enterAWrongAnswer();
+            }
+
+            await assertPlayNextLevelIsShown();
+        });
+
+        spec.it("entering 14 or less trials correct DOES NOT allow me to play next level", async function () {
+            await aPlayer.startGame();
+            await aPlayer.playFirstLevel();
+
+            for (let i = 1; i <= 14; i++) {
+                await aPlayer.enterTheRightAnswer();
+            }
+
+            for (let i = 1; i <= 6; i++) {
+                await aPlayer.enterAWrongAnswer();
+            }
+
+            await assertPlayNextLevelIsNotShown();
         });
     })
 }

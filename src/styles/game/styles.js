@@ -1,6 +1,13 @@
-import {greenColor, lightGrayColor, whiteColor, darkGrayColor, pinkColor, superLightGrayColor, grayColor} from '../global';
-import {getWindowHeight} from "../../utils/get_window_info";
-import {getWindowWidth} from "../../utils/get_window_info";
+import {
+    darkGrayColor,
+    grayColor,
+    greenColor,
+    lightGrayColor,
+    pinkColor,
+    superLightGrayColor,
+    whiteColor
+} from '../global';
+import {getWindowHeight, getWindowWidth} from "../../utils/get_window_info";
 
 const windowHeight = getWindowHeight();
 const windowWidth = getWindowWidth();
@@ -13,7 +20,7 @@ export const LEVEL_FINISHED_STYLES = {
     content: {
         flex: 2,
         flexDirection: 'column',
-        alignSelf:  'center',
+        alignSelf: 'center',
         width: windowWidth * 0.9,
         height: windowHeight * 0.65,
         marginTop: windowHeight * 0.13,
@@ -60,6 +67,15 @@ export const LEVEL_FINISHED_STYLES = {
     },
     replayButton: {
         backgroundColor: "#CBCFD8",
+        flexGrow: 1,
+        borderRadius: 0,
+        height: windowHeight * 0.14,
+        marginTop: 3,
+        marginRight: 1.5,
+        justifyContent: 'center'
+    },
+    replayButtonHighlighted: {
+        backgroundColor: greenColor,
         flexGrow: 1,
         borderRadius: 0,
         height: windowHeight * 0.14,
@@ -125,7 +141,7 @@ export const LEVEL_SELECTION_STYLES = {
         flex: 1,
         backgroundColor: lightGrayColor,
     },
-    listItem: {
+    alreadyPlayedItem: {
         backgroundColor: whiteColor,
         height: windowHeight * 0.1,
         borderBottomWidth: 4,
@@ -144,14 +160,14 @@ export const LEVEL_SELECTION_STYLES = {
         alignItems: "center",
         paddingRight: 20,
     },
-    levelNumber: {
+    alreadyPlayedLevelNumber: {
         fontSize: 23,
         color: grayColor,
         textAlign: 'right',
         fontWeight: 'bold',
         width: 50,
     },
-    playItemLevelNumber: {
+    levelNumber: {
         fontSize: 23,
         color: whiteColor,
         textAlign: 'right',

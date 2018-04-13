@@ -1,11 +1,9 @@
 import React from "react";
-import {Text, TouchableOpacity, View} from "react-native";
+import {View} from "react-native";
 import {Content} from "native-base";
-import {LevelEfficacyStars} from "../common/LevelEfficacyStars";
 import {LEVEL_SELECTION_STYLES} from "../../styles/game/styles"
 import {PlayLevelButton} from "./PlayLevelButton";
 import {makeItTestable} from "../../utils/testable_hoc";
-import {formatTime} from "../../utils/format_time";
 import {MoravecHeader} from "../common/Header";
 
 export let LevelSelection = class extends React.Component {
@@ -22,11 +20,35 @@ export let LevelSelection = class extends React.Component {
         this.props.onSelectLevel(levelToPlay);
     }
 
-    renderLevelToPlay() {
+    renderNewLevelToPlay() {
         const numberOfPlayedLevels = Object.keys(this.props.levelsPlayedInfo).length;
-        const levelToPlay = numberOfPlayedLevels + 1;
+        const nextLevelNumber = numberOfPlayedLevels + 1;
 
-        return <PlayLevelButton onPress={() => this.handleLevelSelected(levelToPlay)} levelToPlay={levelToPlay}/>
+        let newLevelAvailable = true;
+        if (numberOfPlayedLevels > 0) {
+            newLevelAvailable = this.props.levelsPlayedInfo[numberOfPlayedLevels].levelCompleted;
+        }
+
+        if (newLevelAvailable) {
+            return <PlayLevelButton key={nextLevelNumber} levelCompleted={false}
+                                    onPress={() => this.handleLevelSelected(nextLevelNumber)}
+                                    levelToPlay={nextLevelNumber}
+                                    previousTotalCorrect={0}
+            />
+        } else {
+            return null;
+        }
+    }
+
+    renderPreviouslyCompletedLevels() {
+        return Object.entries(this.props.levelsPlayedInfo).map(([levelNumber, levelData]) => (
+            <PlayLevelButton key={levelNumber} levelCompleted={levelData.levelCompleted}
+                             onPress={() => this.handleLevelSelected(parseInt(levelNumber))}
+                             levelToPlay={levelNumber}
+                             previousTotalCorrect={levelData.totalCorrect}
+                             previousLevelTime={levelData.totalTrialsTime}
+            />
+        ));
     }
 
     render() {
@@ -34,24 +56,8 @@ export let LevelSelection = class extends React.Component {
             <Content>
                 <MoravecHeader title='ARCADE'/>
                 <View style={LEVEL_SELECTION_STYLES.list}>
-                    {Object.keys(this.props.levelsPlayedInfo).map(levelNumberKey => (
-                        <TouchableOpacity key={levelNumberKey} style={LEVEL_SELECTION_STYLES.listItem}
-                                          onPress={() => this.handleLevelSelected(parseInt(levelNumberKey))}>
-                            <View style={LEVEL_SELECTION_STYLES.listItemContainer}>
-                                <View>
-                                    <Text style={LEVEL_SELECTION_STYLES.levelNumber}>{levelNumberKey}.</Text>
-                                </View>
-                                <View style={LEVEL_SELECTION_STYLES.levelResultContainer}>
-                                    <Text style={LEVEL_SELECTION_STYLES.levelTime}>
-                                        {formatTime(this.props.levelsPlayedInfo[levelNumberKey].totalTrialsTime)}
-                                    </Text>
-                                    <LevelEfficacyStars
-                                        correctAnswers={this.props.levelsPlayedInfo[levelNumberKey].totalCorrect}/>
-                                </View>
-                            </View>
-                        </TouchableOpacity>
-                    ))}
-                    {this.renderLevelToPlay()}
+                    {this.renderPreviouslyCompletedLevels()}
+                    {this.renderNewLevelToPlay()}
                 </View>
             </Content>
         )

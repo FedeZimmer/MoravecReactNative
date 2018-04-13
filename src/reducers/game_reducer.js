@@ -82,8 +82,8 @@ function calculateTotalTrialTime(trialStartTime, trialSubmitTime) {
     return trialSubmitTime - trialStartTime;
 }
 
-function playingOrLevelFinishedState(currentTrialNumber, totalTrials) {
-    if (currentTrialNumber === totalTrials) {
+function playingOrLevelFinishedState(trialNumberSubmitted, totalTrials) {
+    if (trialNumberSubmitted === totalTrials) {
         return LEVEL_FINISHED;
     } else {
         return PLAYING;
@@ -200,9 +200,15 @@ export function gameReducer(state = initialState, action) {
             const currentTrailNumber = updateTrialsProgress(state.currentLevel.currentTrialNumber, isCorrect,
                 exceededMaxSolveTime);
 
+            const totalCorrect = updateTotalCorrect(state.currentTrial.currentUserInput,
+                state.currentTrial.operation.correctResult,
+                state.currentLevel.totalCorrect);
+
+            const levelCompleted = totalCorrect >= 15;
+
             return {
                 ...state,
-                state: playingOrLevelFinishedState(currentTrailNumber, state.currentLevel.totalTrials),
+                state: playingOrLevelFinishedState(state.currentLevel.currentTrialNumber, state.currentLevel.totalTrials),
                 currentLevel: {
                     ...state.currentLevel,
                     trials: state.currentLevel.trials.concat({
@@ -222,6 +228,7 @@ export function gameReducer(state = initialState, action) {
                         state.currentTrial.startTime,
                         action.submitTime),
                     efficacy: calculateEfficacy(state.currentLevel.totalCorrect, state.currentLevel.totalTrials),
+                    levelCompleted: levelCompleted,
                 },
                 lastAnswerData: {
                     userInput: state.currentTrial.currentUserInput,
