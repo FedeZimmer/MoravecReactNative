@@ -2,8 +2,15 @@ import {darkGrayColor, greenColor, lightGrayColor, pinkColor} from "../../../glo
 
 
 export const HEADER_STYLES = {
-    header: {
+    headerGame: {
         flex: 3,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        backgroundColor: lightGrayColor,
+    },
+    headerPractice: {
+        flex: 2,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',

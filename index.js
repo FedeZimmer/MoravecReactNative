@@ -16,6 +16,7 @@ import thunkMiddleware from 'redux-thunk'
 import Config from "react-native-config"
 
 import {gameReducer} from "./src/reducers/game_reducer";
+import {practiceReducer} from "./src/reducers/practice_reducer";
 import {Navigator} from "./src/navigator";
 
 import {Tester, TestHookStore} from "cavy";
@@ -23,6 +24,7 @@ import {gameSpec} from "./specs/game_spec";
 
 const rootReducer = combineReducers({
     game: gameReducer,
+    practice: practiceReducer,
 });
 
 const store = createStore(rootReducer, undefined, applyMiddleware(thunkMiddleware));

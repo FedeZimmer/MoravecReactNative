@@ -92,7 +92,8 @@ class GameEngine extends Component {
                                    onLoading={this.props.actions.getLevelsPlayedInfoFromDevice}
                                    levelsPlayedInfo={this.props.levelsPlayedInfo}/>
         } else if (this.props.state === PLAYING) {
-            return <Game currentLevel={this.props.currentLevel}
+            return <Game state={this.props.state}
+                         currentLevel={this.props.currentLevel}
                          currentTrial={this.props.currentTrial}
                          lastAnswerData={this.props.lastAnswerData}
                          onEraseInput={this.props.actions.eraseInput}

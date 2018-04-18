@@ -3,12 +3,21 @@ import {Multiplication} from "../operations/Multiplication";
 import {ToSquare} from "../operations/ToSquare";
 
 export class OperationCategory {
+    static allPossibleCategories() {
+        return ['1+1', '1x1', '2+2', '2x1', '3x1', '2^2', '4x1', '3^2', '4^2'];
+    }
+
     constructor(name) {
         /*
          The parameter "name" is a string with the following format:
          "numDigitsLeftOperand operator numDigitsRightOperands". For example "1+2" where numDigitsLeftOperand is
          equal to number 1, operator is equal to "+" and numDigitsRightOperands is equal to number 2.
          */
+
+        if (!OperationCategory.allPossibleCategories().includes(name)) {
+            throw 'There is no operation category with name ' + name;
+        }
+
         this._name = name;
     }
     name() {

@@ -4,6 +4,7 @@ import {Button} from "native-base";
 import {HOME_STYLES} from "../../styles/home/styles";
 import Images from "../../../assets/images/images";
 import {PlayButton} from "./PlayButton";
+import {PracticeButton} from "./PracticeButton";
 
 export class Home extends React.Component {
     static navigationOptions = {
@@ -14,10 +15,15 @@ export class Home extends React.Component {
     constructor(props) {
         super(props);
         this.handlePlayButton = this.handlePlayButton.bind(this);
+        this.handlePracticeButton = this.handlePracticeButton.bind(this);
     }
 
     handlePlayButton() {
         this.props.navigation.navigate('Play');
+    }
+
+    handlePracticeButton() {
+        this.props.navigation.navigate('Practice');
     }
 
     render() {
@@ -34,9 +40,7 @@ export class Home extends React.Component {
                         <PlayButton onPress={this.handlePlayButton}/>
                     </View>
                     <View style={HOME_STYLES.practiceOrTutorialContainer}>
-                        <Button style={HOME_STYLES.practiceButton}>
-                            <Text style={HOME_STYLES.practiceButtonText}>PRÁCTICA</Text>
-                        </Button>
+                        <PracticeButton onPress={this.handlePracticeButton}/>
                         <Button style={HOME_STYLES.tutorialButton}>
                             <Text style={HOME_STYLES.tutorialButtonText}>TUTORIAL</Text>
                         </Button>
