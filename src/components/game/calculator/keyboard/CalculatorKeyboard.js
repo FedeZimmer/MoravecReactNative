@@ -3,7 +3,7 @@ import {View} from "react-native";
 
 import {INPUT_STYLES} from "../../../../styles/game/calculator/keyboard/styles";
 import {NumberKey} from "./NumberKey";
-import EraseKey from "./EraseKey";
+import {EraseKey} from "./EraseKey";
 import {EnterKey} from "./EnterKey";
 
 
@@ -32,7 +32,7 @@ export default class CalculatorKeyboard extends React.Component {
                         <NumberKey value={9} onTypeInput={this.props.onTypeInput}/>
                     </View>
                     <View style={INPUT_STYLES.row4}>
-                        <EraseKey onEraseInput={this.props.onEraseInput}/>
+                        <EraseKey onPress={this.props.onEraseInput}/>
                         <NumberKey value={0} onTypeInput={this.props.onTypeInput}/>
                         <EnterKey onPress={this.props.onSubmit}/>
                     </View>

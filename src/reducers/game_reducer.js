@@ -61,7 +61,15 @@ function appendNewUserInput(currentInput, newInput) {
 }
 
 function removeLastNumberEntered(currentInput) {
-    return Number(String(currentInput).slice(0, -1));
+    if (currentInput == null) {
+        return currentInput;
+    }
+
+    let inputWithoutLastNumberEntered = Number(String(currentInput).slice(0, -1));
+    if (inputWithoutLastNumberEntered === 0) {
+        inputWithoutLastNumberEntered = null;
+    }
+    return inputWithoutLastNumberEntered;
 }
 
 function updateTotalCorrect(currentInput, operationResult, previousTotalCorrectValue) {

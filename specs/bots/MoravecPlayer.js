@@ -47,4 +47,8 @@ export class MoravecPlayer {
     async pressEnter() {
         await this._engineHelper.press('EnterKey');
     }
+
+    async pressErase() {
+        await this._engineHelper.press('EraseKey');
+    }
 }
