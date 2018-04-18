@@ -61,12 +61,12 @@ function appendNewUserInput(currentInput, newInput) {
 }
 
 function removeLastNumberEntered(currentInput) {
-    if (currentInput == null) {
+    if (currentInput === null) {
         return currentInput;
     }
 
-    let inputWithoutLastNumberEntered = Number(String(currentInput).slice(0, -1));
-    if (inputWithoutLastNumberEntered === 0) {
+    let inputWithoutLastNumberEntered = String(currentInput).slice(0, -1);
+    if (inputWithoutLastNumberEntered === "") {
         inputWithoutLastNumberEntered = null;
     }
     return inputWithoutLastNumberEntered;
