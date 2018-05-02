@@ -21,12 +21,12 @@ export let LevelSelection = class extends React.Component {
     }
 
     renderNewLevelToPlay() {
-        const numberOfPlayedLevels = Object.keys(this.props.levelsPlayedInfo).length;
+        const numberOfPlayedLevels = Object.keys(this.props.playedLevelsStats).length;
         const nextLevelNumber = numberOfPlayedLevels + 1;
 
         let newLevelAvailable = true;
         if (numberOfPlayedLevels > 0) {
-            newLevelAvailable = this.props.levelsPlayedInfo[numberOfPlayedLevels].levelCompleted;
+            newLevelAvailable = this.props.playedLevelsStats[numberOfPlayedLevels].levelCompleted;
         }
 
         if (newLevelAvailable) {
@@ -41,12 +41,12 @@ export let LevelSelection = class extends React.Component {
     }
 
     renderPreviouslyCompletedLevels() {
-        return Object.entries(this.props.levelsPlayedInfo).map(([levelNumber, levelData]) => (
-            <PlayLevelButton key={levelNumber} levelCompleted={levelData.levelCompleted}
+        return Object.entries(this.props.playedLevelsStats).map(([levelNumber, levelStats]) => (
+            <PlayLevelButton key={levelNumber} levelCompleted={levelStats.levelCompleted}
                              onPress={() => this.handleLevelSelected(parseInt(levelNumber))}
                              levelToPlay={levelNumber}
-                             previousTotalCorrect={levelData.totalCorrect}
-                             previousLevelTime={levelData.totalTrialsTime}
+                             previousTotalCorrect={levelStats.totalCorrect}
+                             previousLevelTime={levelStats.totalTrialsTime}
             />
         ));
     }

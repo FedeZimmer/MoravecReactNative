@@ -99,7 +99,7 @@ export function gameSpec(spec) {
 
         spec.it("hitting the Enter key with empty result does nothing", async function () {
             await aPlayer.startGame();
-            await aPlayer.playCurrentLevel();
+            await aPlayer.playFirstLevel();
 
             await aPlayer.pressANumberSequence("1");
             await aPlayer.pressErase();
