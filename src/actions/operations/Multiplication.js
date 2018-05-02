@@ -13,8 +13,8 @@ export class Multiplication extends Operation {
 
     static createRandom(category) {
         const operandRestrictions = {allow_zero: false, allow_one: false, allow_multiples_of_10: false};
-        const leftOperand = Operand.createRandom(category.numDigitsLeftOperand(), operandRestrictions);
-        const rightOperand = Operand.createRandom(category.numDigitsRightOperands(), operandRestrictions);
+        const leftOperand = Operand.createRandom(category.numDigitsFirstOperand(), operandRestrictions);
+        const rightOperand = Operand.createRandom(category.numDigitsSecondOperand(), operandRestrictions);
 
         return new Multiplication(category, leftOperand, rightOperand);
     }

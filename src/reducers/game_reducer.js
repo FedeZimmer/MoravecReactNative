@@ -2,14 +2,16 @@ import {
     CALCULATOR_ERASE_INPUT,
     CALCULATOR_TYPE_INPUT,
     NEW_TRIAL,
-    RECEIVE_PLAYED_LEVELS_INFO,
+    RESTORE_SAVED_GAME_INFO,
     START_GAME,
     START_LEVEL,
-    SUBMIT_TRIAL
+    SUBMIT_TRIAL,
+    UPDATE_LEVELS_HISTORY,
 } from '../actions/game_actions'
 import {OperationCategory} from "../actions/category/Category";
 import {Level} from "../actions/level/Level";
-var levelsConfigurationFile = require('../../assets/levels.json');
+
+const levelsConfigurationFile = require('../../assets/levels.json');
 
 export const LEVEL_SELECTION = 'LEVEL_SELECTION';
 export const PLAYING = 'PLAYING';
@@ -21,10 +23,11 @@ const ENTER_KEY_CODE = 20;
 const initialState = {
     state: LEVEL_SELECTION,
     levels: undefined,
-    levelsPlayedInfo: {},
     currentLevel: undefined,
     currentTrial: undefined,
     lastAnswerData: undefined,
+    playedLevelsStats: {},
+    playedLevelsHistory: [],
 };
 
 const MAX_NUMBER_OF_DIGITS = 8;
@@ -37,7 +40,7 @@ function obtainLevels() {
         let levelCategories = [];
         let levelCategoriesProbability = [];
         Object.entries(probabilityPerCategories).forEach(([categoryName, probability]) => {
-            if (probability != 0) {
+            if (probability !== 0) {
                 levelCategories.push(new OperationCategory(categoryName));
                 levelCategoriesProbability.push(probability);
             }
@@ -61,7 +64,15 @@ function appendNewUserInput(currentInput, newInput) {
 }
 
 function removeLastNumberEntered(currentInput) {
-    return Number(String(currentInput).slice(0, -1));
+    if (currentInput === null) {
+        return currentInput;
+    }
+
+    let inputWithoutLastNumberEntered = String(currentInput).slice(0, -1);
+    if (inputWithoutLastNumberEntered === "") {
+        inputWithoutLastNumberEntered = null;
+    }
+    return inputWithoutLastNumberEntered;
 }
 
 function updateTotalCorrect(currentInput, operationResult, previousTotalCorrectValue) {
@@ -82,16 +93,12 @@ function calculateTotalTrialTime(trialStartTime, trialSubmitTime) {
     return trialSubmitTime - trialStartTime;
 }
 
-function playingOrLevelFinishedState(currentTrialNumber, totalTrials) {
-    if (currentTrialNumber === totalTrials) {
+function playingOrLevelFinishedState(trialNumberSubmitted, totalTrials) {
+    if (trialNumberSubmitted === totalTrials) {
         return LEVEL_FINISHED;
     } else {
         return PLAYING;
     }
-}
-
-function getNewTrialNumber(trials) {
-    return trials.length + 1;
 }
 
 function isAnswerCorrect(correctResult, currentUserInput) {
@@ -104,7 +111,6 @@ function hasExceededMaxSolveTime(trialStartTime, trialSubmitTime, operationMaxSo
 
 function newTrialData(trials, levelNumber, operation, startTime) {
     return {
-        trialNumber: getNewTrialNumber(trials),
         levelNumber: levelNumber,
         currentUserInput: null,
         operation: operation,
@@ -129,6 +135,11 @@ function updateTrialsProgress(progressUpToNow, currentIsCorrect, timeExceeded) {
     return newTrialNumber;
 }
 
+function addResponseTime(responseTimesUntilNow, startTime, inputTime) {
+    const responseTime = inputTime - startTime;
+    return responseTimesUntilNow.concat(responseTime);
+}
+
 export function gameReducer(state = initialState, action) {
     switch (action.type) {
         case START_GAME:
@@ -137,10 +148,11 @@ export function gameReducer(state = initialState, action) {
                 levels: obtainLevels(),
             };
 
-        case RECEIVE_PLAYED_LEVELS_INFO:
+        case RESTORE_SAVED_GAME_INFO:
             return {
                 ...state,
-                levelsPlayedInfo: action.levelsPlayedInfo,
+                playedLevelsStats: action.savedGameInfo.playedLevelsStats,
+                playedLevelsHistory: action.savedGameInfo.playedLevelsHistory,
             };
 
         case NEW_TRIAL:
@@ -157,7 +169,8 @@ export function gameReducer(state = initialState, action) {
                     ...state.currentTrial,
                     currentUserInput: appendNewUserInput(state.currentTrial.currentUserInput, action.newUserInput),
                     keysPressed: state.currentTrial.keysPressed.concat(action.newUserInput),
-                    responseTimes: state.currentTrial.responseTimes.concat(action.inputTime),
+                    responseTimes: addResponseTime(state.currentTrial.responseTimes, state.currentTrial.startTime,
+                        action.inputTime),
                 }
             };
 
@@ -168,7 +181,8 @@ export function gameReducer(state = initialState, action) {
                     ...state.currentTrial,
                     currentUserInput: removeLastNumberEntered(state.currentTrial.currentUserInput),
                     keysPressed: state.currentTrial.keysPressed.concat(ERASE_KEY_CODE),
-                    responseTimes: state.currentTrial.responseTimes.concat(action.inputTime),
+                    responseTimes: addResponseTime(state.currentTrial.responseTimes, state.currentTrial.startTime,
+                        action.inputTime),
                     hasErased: true,
                 }
             };
@@ -183,6 +197,7 @@ export function gameReducer(state = initialState, action) {
                     totalTrials: TOTAL_TRIALS_PER_LEVEL,
                     currentTrialNumber: 1,
                     totalCorrect: 0,
+                    lastCorrectInARowValue: 0,
                     totalTrialsTime: 0,
                     efficacy: calculateEfficacy(state.totalCorrect, state.totalTrials),
                 },
@@ -197,31 +212,43 @@ export function gameReducer(state = initialState, action) {
             const exceededMaxSolveTime = hasExceededMaxSolveTime(state.currentTrial.startTime, action.submitTime,
                 state.currentTrial.operation.maxSolveTime);
 
-            const currentTrailNumber = updateTrialsProgress(state.currentLevel.currentTrialNumber, isCorrect,
-                exceededMaxSolveTime);
+            const totalCorrect = updateTotalCorrect(state.currentTrial.currentUserInput,
+                state.currentTrial.operation.correctResult,
+                state.currentLevel.totalCorrect);
+
+            const levelCompleted = totalCorrect >= 15;
 
             return {
                 ...state,
-                state: playingOrLevelFinishedState(currentTrailNumber, state.currentLevel.totalTrials),
+                state: playingOrLevelFinishedState(state.currentLevel.currentTrialNumber, state.currentLevel.totalTrials),
                 currentLevel: {
                     ...state.currentLevel,
                     trials: state.currentLevel.trials.concat({
                         ...state.currentTrial,
                         keysPressed: state.currentTrial.keysPressed.concat(ENTER_KEY_CODE),
-                        responseTimes: state.currentTrial.responseTimes.concat(action.submitTime),
+                        responseTimes: addResponseTime(state.currentTrial.responseTimes, state.currentTrial.startTime,
+                            action.submitTime),
                         submitTime: action.submitTime,
                         totalTime: calculateTotalTrialTime(state.currentTrial.startTime, action.submitTime),
                         timeExceeded: exceededMaxSolveTime,
                         isCorrect: isCorrect,
+                        trialNumber: state.currentLevel.currentTrialNumber,
+                        totalCorrectUntilNow: updateTotalCorrect(state.currentTrial.currentUserInput,
+                            state.currentTrial.operation.correctResult,
+                            state.currentLevel.totalCorrect),
+                        correctInARowUntilNow: isCorrect ? state.currentLevel.lastCorrectInARowValue + 1 : 0,
                     }),
-                    currentTrialNumber: currentTrailNumber,
+                    currentTrialNumber: updateTrialsProgress(state.currentLevel.currentTrialNumber, isCorrect,
+                        exceededMaxSolveTime),
                     totalCorrect: updateTotalCorrect(state.currentTrial.currentUserInput,
                         state.currentTrial.operation.correctResult,
                         state.currentLevel.totalCorrect),
                     totalTrialsTime: calculateTotalLevelTime(state.currentLevel.totalTrialsTime,
                         state.currentTrial.startTime,
                         action.submitTime),
+                    lastCorrectInARowValue: isCorrect ? state.currentLevel.lastCorrectInARowValue + 1 : 0,
                     efficacy: calculateEfficacy(state.currentLevel.totalCorrect, state.currentLevel.totalTrials),
+                    levelCompleted: levelCompleted,
                 },
                 lastAnswerData: {
                     userInput: state.currentTrial.currentUserInput,
@@ -229,6 +256,20 @@ export function gameReducer(state = initialState, action) {
                     isCorrect: isCorrect,
                     timeExceeded: exceededMaxSolveTime,
                 }
+            };
+
+        case UPDATE_LEVELS_HISTORY:
+            return {
+                ...state,
+                playedLevelsStats: {
+                    ...state.playedLevelsStats,
+                    [state.currentLevel.number]: {
+                        totalCorrect: state.currentLevel.totalCorrect,
+                        totalTrialsTime: state.currentLevel.totalTrialsTime,
+                        levelCompleted: state.currentLevel.levelCompleted,
+                    },
+                },
+                playedLevelsHistory: state.playedLevelsHistory.concat(state.currentLevel),
             };
 
         default:

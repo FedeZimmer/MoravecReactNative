@@ -7,8 +7,8 @@ export class MoravecPlayer {
         await this._engineHelper.press('PlayButton');
     }
 
-    async playCurrentLevel() {
-        await this._engineHelper.press('PlayLevelButton');
+    async playFirstLevel() {
+        await this._engineHelper.press('PlayLevelButton.1');
     }
 
     async pressANumberSequence(numberSequence) {
@@ -46,5 +46,9 @@ export class MoravecPlayer {
 
     async pressEnter() {
         await this._engineHelper.press('EnterKey');
+    }
+
+    async pressErase() {
+        await this._engineHelper.press('EraseKey');
     }
 }

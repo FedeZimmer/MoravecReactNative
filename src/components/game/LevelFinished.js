@@ -1,9 +1,11 @@
 import React from 'react'
-import {View, Text, Image} from "react-native";
+import {Image, Text, View} from "react-native";
 import {Button, Icon} from "native-base";
 import {LevelEfficacyStars} from "../common/LevelEfficacyStars";
 import {LEVEL_FINISHED_STYLES} from "../../styles/game/styles";
 import Images from "../../../assets/images/images";
+import {PlayNextButton} from "./PlayNextButton";
+import {ReplayButton} from "./ReplayButton";
 
 export class LevelFinished extends React.Component {
     constructor(props) {
@@ -18,22 +20,48 @@ export class LevelFinished extends React.Component {
     renderHeader() {
         return (
             <View style={LEVEL_FINISHED_STYLES.header}>
-                <View>
-                    <Text style={LEVEL_FINISHED_STYLES.headerCongratulationsText}>
-                        Felicitaciones. Nivel completado.
-                    </Text>
-                </View>
+                {this.renderLevelCompletedOrTryAgain()}
                 <View>
                     <View>
-                        <Text style={LEVEL_FINISHED_STYLES.headerLevelText}>Nivel {this.props.finishedLevel.number}</Text>
+                        <Text style={LEVEL_FINISHED_STYLES.headerLevelText}>
+                            Nivel {this.props.finishedLevel.number}
+                        </Text>
                     </View>
-                    <LevelEfficacyStars correctAnswers={this.props.finishedLevel.totalCorrect} />
+                    <LevelEfficacyStars correctAnswers={this.props.finishedLevel.totalCorrect}/>
                     <View>
                         <Text>{this.props.finishedLevel.totalCorrect + ' / ' + this.props.finishedLevel.totalTrials + ' correctas'}</Text>
                     </View>
                 </View>
             </View>
         )
+    }
+
+    renderLevelCompletedOrTryAgain() {
+        if (this.props.finishedLevel.levelCompleted) {
+            return (
+                <View>
+                    <Text style={LEVEL_FINISHED_STYLES.headerCongratulationsText}>
+                        Felicitaciones. Nivel completado.
+                    </Text>
+                </View>
+            )
+        } else {
+            return (
+                <View>
+                    <Text style={LEVEL_FINISHED_STYLES.headerCongratulationsText}>
+                        Vuelve a intentarlo
+                    </Text>
+                </View>
+            )
+        }
+    }
+
+    renderPlayNextButton() {
+        if (this.props.finishedLevel.levelCompleted) {
+            return <PlayNextButton onPress={this.handlePlayNextButtonPressed}/>;
+        } else {
+            return null;
+        }
     }
 
     renderOptions() {
@@ -45,12 +73,9 @@ export class LevelFinished extends React.Component {
                     </Button>
                 </View>
                 <View style={LEVEL_FINISHED_STYLES.gameOptionsContainer}>
-                    <Button style={LEVEL_FINISHED_STYLES.replayButton} onPress={this.handleReplayLevelButtonPressed}>
-                        <Icon name="md-refresh" style={LEVEL_FINISHED_STYLES.replayButtonIcon}/>
-                    </Button>
-                    <Button style={LEVEL_FINISHED_STYLES.nextLevelButton} onPress={this.handlePlayNextButtonPressed}>
-                        <Icon name="md-arrow-round-forward" style={LEVEL_FINISHED_STYLES.nextLevelButtonIcon}/>
-                    </Button>
+                    <ReplayButton onPress={this.handleReplayLevelButtonPressed}
+                                  highlighted={!this.props.finishedLevel.levelCompleted}/>
+                    {this.renderPlayNextButton()}
                 </View>
             </View>
         )
@@ -81,7 +106,8 @@ export class LevelFinished extends React.Component {
                     {this.renderOptions()}
                 </View>
                 <View style={LEVEL_FINISHED_STYLES.mainPageButtonContainer}>
-                    <Button transparent style={LEVEL_FINISHED_STYLES.mainPageButton} onPress={this.handleHomeButtonPressed}>
+                    <Button transparent style={LEVEL_FINISHED_STYLES.mainPageButton}
+                            onPress={this.handleHomeButtonPressed}>
                         <Text style={LEVEL_FINISHED_STYLES.mainPageButtonText}>MENÚ PRINCIPAL</Text>
                     </Button>
                 </View>
