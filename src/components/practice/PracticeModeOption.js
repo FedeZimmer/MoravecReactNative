@@ -19,7 +19,8 @@ export let PracticeModeOption = class extends React.Component {
 
     render() {
         return (
-            <TouchableOpacity style={PRACTICE_MODE_SELECTION_STYLES.option} onPress={this.handleSelect}>
+            <TouchableOpacity style={PRACTICE_MODE_SELECTION_STYLES.option} onPress={this.handleSelect}
+                              ref={this.props.generateTestHook(`PracticeModeOption.${this.props.category.name()}.${this.props.difficulty}`)}>
                 <Text style={PRACTICE_MODE_SELECTION_STYLES.operationCategoryName}>
                     {applyLetterSpacing(this.props.category.name(), 3)}
                 </Text>

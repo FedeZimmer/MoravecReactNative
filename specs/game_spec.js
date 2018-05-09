@@ -1,4 +1,5 @@
 import {MoravecPlayer} from "./bots/MoravecPlayer";
+import {CalculatorAssertions} from "./calculator_asserts";
 
 export function gameSpec(spec) {
 
@@ -10,25 +11,6 @@ export function gameSpec(spec) {
     }
 
     // Assert helpers
-
-    async function assertOperationDisplayShows(result) {
-        const operationDisplayComponent = await spec.findComponent('OperationDisplay');
-
-        // TODO: Think if using operationResult() is the best way to scrap the value shown on screen...
-        const valueOnScreen = operationDisplayComponent.operationResult().toString();
-
-        if (valueOnScreen !== result) {
-            throw Error(`Was expecting to display number ${result} on screen, but it's showing ${valueOnScreen}`);
-        }
-    }
-
-    async function assertCalculationOKMessageShown() {
-        await spec.exists('CorrectAnswerMessage');
-    }
-
-    async function assertCalculationWrongMessageShown() {
-        await spec.exists('WrongAnswerMessage');
-    }
 
     async function assertNoAnswerFeedbackIsShownToTheUser() {
         await spec.notExists('UserAnswerFeedback');
@@ -63,6 +45,7 @@ export function gameSpec(spec) {
 
     spec.describe('As a user', function () {
         const aPlayer = new MoravecPlayer(spec);
+        const calculatorAsserts = new CalculatorAssertions(spec);
 
         spec.it("hitting the Play button should show me the level selection screen", async function () {
             await aPlayer.startGame();
@@ -76,7 +59,7 @@ export function gameSpec(spec) {
 
             await aPlayer.pressANumberSequence("1");
 
-            await assertOperationDisplayShows("1");
+            await calculatorAsserts.assertOperationDisplayShows("1");
         });
 
         spec.it("I can enter a sequence of numbers and all the digits will be shown in the screen in correct order", async function () {
@@ -85,7 +68,7 @@ export function gameSpec(spec) {
 
             await aPlayer.pressANumberSequence("135");
 
-            await assertOperationDisplayShows("135");
+            await calculatorAsserts.assertOperationDisplayShows("135");
         });
 
         spec.it("hitting the Enter key without entering a number before does nothing", async function () {
@@ -116,7 +99,7 @@ export function gameSpec(spec) {
 
             await aPlayer.enterTheRightAnswer();
 
-            await assertCalculationOKMessageShown();
+            await calculatorAsserts.assertCalculationOKMessageShown();
             await spec.pause(1000);
             await assertCurrentTrialNumberIs(previousTrialNumber + 1);
         });
@@ -128,7 +111,7 @@ export function gameSpec(spec) {
 
             await aPlayer.enterAWrongAnswer();
 
-            await assertCalculationWrongMessageShown();
+            await calculatorAsserts.assertCalculationWrongMessageShown();
             await spec.pause(1000);
             await assertCurrentTrialNumberIs(previousTrialNumber + 1);
         });
@@ -142,7 +125,7 @@ export function gameSpec(spec) {
 
             await aPlayer.enterAWrongAnswer();
 
-            await assertCalculationWrongMessageShown();
+            await calculatorAsserts.assertCalculationWrongMessageShown();
             await spec.pause(1000);
             await assertCurrentTrialNumberIs(previousTrialNumber + 1);
         });
