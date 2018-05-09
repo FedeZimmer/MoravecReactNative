@@ -14,14 +14,14 @@ export let PracticeModeOption = class extends React.Component {
     }
 
     handleSelect() {
-        this.props.handleSelect(this.props.categoryName, this.props.difficulty);
+        this.props.handleSelect(this.props.category, this.props.difficulty);
     }
 
     render() {
         return (
             <TouchableOpacity style={PRACTICE_MODE_SELECTION_STYLES.option} onPress={this.handleSelect}>
                 <Text style={PRACTICE_MODE_SELECTION_STYLES.operationCategoryName}>
-                    {applyLetterSpacing(this.props.categoryName, 3)}
+                    {applyLetterSpacing(this.props.category.name(), 3)}
                 </Text>
                 <Text style={PRACTICE_MODE_SELECTION_STYLES.difficult}>{this.props.difficulty}</Text>
             </TouchableOpacity>

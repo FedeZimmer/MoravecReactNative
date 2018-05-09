@@ -15,8 +15,8 @@ export class Operation {
         this._rightOperand = rightOperand;
     }
 
-    categoryName() {
-        return this._category.name();
+    category() {
+        return this._category.codename();
     }
 
     leftOperand() {

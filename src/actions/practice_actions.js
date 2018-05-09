@@ -11,7 +11,7 @@ function createRandomOperationForPracticeMode(practiceMode) {
     let operation = practiceMode.createRandomOperation();
 
     return {
-        opType: operation.categoryName(),
+        opType: operation.category(),
         operator: operation.operatorHumanRepresentation(),
         operand1: operation.leftOperand().value(),
         operand2: operation.rightOperand().value(),
@@ -27,9 +27,9 @@ export function startPractice() {
     }
 }
 
-export function startPracticeMode(categoryName, difficulty) {
+export function startPracticeMode(category, difficulty) {
     return (dispatch, getState) => {
-        const practiceMode = new PracticeMode(categoryName, difficulty);
+        const practiceMode = new PracticeMode(category, difficulty);
         dispatch({
             type: START_PRACTICE_MODE,
             practiceMode: practiceMode,

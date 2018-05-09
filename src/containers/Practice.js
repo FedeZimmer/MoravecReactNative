@@ -20,8 +20,8 @@ const mapDispatchToProps = dispatch => {
             startPractice: () => {
                 dispatch(startPractice())
             },
-            startPracticeMode: (categoryName, difficulty) => {
-                dispatch(startPracticeMode(categoryName, difficulty))
+            startPracticeMode: (category, difficulty) => {
+                dispatch(startPracticeMode(category, difficulty))
             },
             typeInput: (input) => {
                 dispatch(typeInput(input))

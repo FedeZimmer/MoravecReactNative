@@ -3,28 +3,27 @@ import {Multiplication} from "../operations/Multiplication";
 import {ToSquare} from "../operations/ToSquare";
 
 export class OperationCategory {
-    static allPossibleCategories() {
-        return ['1+1', '1x1', '2+2', '2x1', '3x1', '2^2', '4x1', '3^2', '4^2'];
-    }
-
-    constructor(name) {
+    constructor(codename) {
         /*
-         The parameter "name" is a string with the following format:
+         The parameter "codename" is a string with the following format:
          "numDigitsFirstOperand operator numDigitsSecondOperand". For example "1d+2d" where numDigitsFirstOperand is
          equal to number 1, operator is equal to "+" and numDigitsSecondOperand is equal to number 2.
          */
 
-        if (!OperationCategory.allPossibleCategories().includes(name)) {
-            throw 'There is no operation category with name ' + name;
-        }
+        this._codename = codename;
 
+        this._inferOperationPartsFromCodename(codename);
+
+        let name = this._numDigitsLeft.toString() + this._operatorHumanRepresentation.toString();
+        if(this._numDigitsRight > 0) {
+            name += this._numDigitsRight.toString();
+        }
         this._name = name;
-        this._inferOperationPartsFromName(name);
     }
 
-    _inferOperationPartsFromName(name) {
+    _inferOperationPartsFromCodename(codename) {
         const regex = /\(?([0-9])d\)?(\+|x|\^2)(?:([0-9])d)?/;
-        const matchGroups = regex.exec(name);
+        const matchGroups = regex.exec(codename);
 
         this._numDigitsLeft = Number.parseInt(matchGroups[1]);
         this._operatorHumanRepresentation = matchGroups[2];
@@ -33,6 +32,10 @@ export class OperationCategory {
         } else {
             this._numDigitsRight = 0;
         }
+    }
+
+    codename() {
+        return this._codename;
     }
 
     name() {

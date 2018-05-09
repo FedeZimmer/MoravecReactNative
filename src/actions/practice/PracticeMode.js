@@ -1,4 +1,3 @@
-import {OperationCategory} from "../category/Category";
 import {OperationFactory} from "../operations/OperationFactory";
 
 export const BASIC = 'básico';
@@ -7,16 +6,16 @@ export const DIFFICULT = 'difícil';
 
 
 export class PracticeMode {
-    static difficultyLevels () {
+    static difficultyLevels() {
         return [BASIC, MEDIUM, DIFFICULT];
     };
 
-    constructor(categoryName, difficulty) {
+    constructor(category, difficulty) {
         if (!PracticeMode.difficultyLevels().includes(difficulty)) {
             throw 'There is no level of difficulty ' + difficulty;
         }
 
-        this._category = new OperationCategory(categoryName);
+        this._category = category;
         this._difficulty = difficulty;
     }
 
