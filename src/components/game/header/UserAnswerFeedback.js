@@ -4,6 +4,8 @@ import {CorrectAnswerMessage} from "./CorrectAnswerMessage";
 import {WrongAnswerMessage} from "./WrongAnswerMessage";
 import {YouCanDoBetterMessage} from "./YouCanDoBetterMessage";
 import {Animated} from "react-native";
+import {FeedbackMessage} from "./FeedbackMessage";
+import {FEEDBACK_STYLES} from "../../../styles/game/calculator/styles";
 
 export let UserAnswerFeedback = class extends React.Component {
     constructor(props) {
@@ -40,15 +42,30 @@ export let UserAnswerFeedback = class extends React.Component {
         if (this.props.lastAnswerData !== undefined) {
             if (this.props.lastAnswerData.isCorrect) {
                 if (this.props.lastAnswerData.timeExceeded) {
-                    return <YouCanDoBetterMessage opacityValue={this.state.opacityValue}/>
+                    return (
+                        <FeedbackMessage opacityValue={this.state.opacityValue}
+                                         style={FEEDBACK_STYLES.feedbackCorrectBox}>
+                            <YouCanDoBetterMessage/>
+                        </FeedbackMessage>
+                    )
                 } else {
-                    return <CorrectAnswerMessage opacityValue={this.state.opacityValue}/>
+                    return (
+                        <FeedbackMessage opacityValue={this.state.opacityValue}
+                                         style={FEEDBACK_STYLES.feedbackCorrectBox}>
+                            <CorrectAnswerMessage/>
+                        </FeedbackMessage>
+                    )
                 }
             } else {
-                return <WrongAnswerMessage correctAnswer={this.props.lastAnswerData.correctResult}
-                                           wrongAnswer={this.props.lastAnswerData.userInput}
-                                           opacityValue={this.state.opacityValue}
-                />
+                return (
+                    <FeedbackMessage opacityValue={this.state.opacityValue}
+                                     style={FEEDBACK_STYLES.feedbackIncorrectBox}>
+                        <WrongAnswerMessage correctAnswer={this.props.lastAnswerData.correctResult}
+                                            wrongAnswer={this.props.lastAnswerData.userInput}
+                                            opacityValue={this.state.opacityValue}
+                        />
+                    </FeedbackMessage>
+                )
             }
         } else {
             return null;

@@ -13,7 +13,7 @@ export function gameSpec(spec) {
     // Assert helpers
 
     async function assertNoAnswerFeedbackIsShownToTheUser() {
-        await spec.notExists('UserAnswerFeedback');
+        await spec.notExists('FeedbackMessage');
     }
 
     async function assertYouCanDoBetterMessageShown() {

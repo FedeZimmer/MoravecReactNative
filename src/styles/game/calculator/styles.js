@@ -36,7 +36,7 @@ export const OPERATION_STYLES = {
 };
 
 export const FEEDBACK_STYLES = {
-    feedbackIncorrectContainer: {
+    feedbackContainer: {
         position: 'absolute',
         height: getWindowHeight() * 0.15,
         width: '100%',
@@ -44,6 +44,8 @@ export const FEEDBACK_STYLES = {
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    feedbackIncorrectBox: {
         backgroundColor: pinkColor,
     },
     feedbackIncorrectText: {
@@ -51,14 +53,7 @@ export const FEEDBACK_STYLES = {
         fontSize: 20,
         textAlign: 'center',
     },
-    feedbackCorrectContainer: {
-        position: 'absolute',
-        height: getWindowHeight() * 0.15,
-        width: '100%',
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
+    feedbackCorrectBox: {
         backgroundColor: greenColor,
     },
     feedbackCorrectText: {
