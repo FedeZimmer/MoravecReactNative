@@ -1,4 +1,4 @@
-import {darkGrayColor, greenColor, pinkColor, whiteColor, superLightGrayColor} from "../../global";
+import {darkGrayColor, greenColor, pinkColor, superLightGrayColor, whiteColor} from "../../global";
 import {getWindowHeight} from '../../../utils/get_window_info';
 
 export const GAME_STYLES = {
@@ -37,6 +37,9 @@ export const OPERATION_STYLES = {
 
 export const FEEDBACK_STYLES = {
     feedbackIncorrectContainer: {
+        position: 'absolute',
+        height: getWindowHeight() * 0.15,
+        width: '100%',
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'center',
@@ -49,6 +52,9 @@ export const FEEDBACK_STYLES = {
         textAlign: 'center',
     },
     feedbackCorrectContainer: {
+        position: 'absolute',
+        height: getWindowHeight() * 0.15,
+        width: '100%',
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'center',
