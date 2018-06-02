@@ -66,7 +66,7 @@ class Practice extends Component {
         if (this.props.state === PRACTICE_MODE_SELECTION) {
             return <PracticeModeSelection onSelectPracticeMode={this.props.actions.startPracticeMode}/>
         } else if (this.props.state === PRACTICING) {
-            return <Game state={this.props.state}
+            return <Game state={PRACTICING}
                          currentTrial={this.props.currentTrial}
                          lastAnswerData={this.props.lastAnswerData}
                          onEraseInput={this.props.actions.eraseInput}
