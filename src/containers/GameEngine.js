@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {
-    eraseInput, getLevelsPlayedInfoFromDevice, hideFeedback, showFeedback, startGame, startLevel, submitTrial,
+    eraseInput, getSavedGameInfoFromDevice, startGame, startLevel, submitTrial,
     typeInput
 } from "../actions/game_actions";
 import {LevelFinished} from "../components/game/LevelFinished";
@@ -12,7 +12,7 @@ import {LEVEL_FINISHED, LEVEL_SELECTION, PLAYING} from "../reducers/game_reducer
 const mapStateToProps = (state) => {
     return {
         state: state.game.state,
-        levelsPlayedInfo: state.game.levelsPlayedInfo,
+        playedLevelsStats: state.game.playedLevelsStats,
         currentLevel: state.game.currentLevel,
         currentTrial: state.game.currentTrial,
         lastAnswerData: state.game.lastAnswerData,
@@ -25,8 +25,8 @@ const mapDispatchToProps = dispatch => {
             startGame: () => {
                 dispatch(startGame())
             },
-            getLevelsPlayedInfoFromDevice: () => {
-                dispatch(getLevelsPlayedInfoFromDevice())
+            getSavedGameInfoFromDevice: () => {
+                dispatch(getSavedGameInfoFromDevice())
             },
             startLevel: (level) => {
                 dispatch(startLevel(level))
@@ -89,10 +89,11 @@ class GameEngine extends Component {
     render() {
         if (this.props.state === LEVEL_SELECTION) {
             return <LevelSelection onSelectLevel={this.props.actions.startLevel}
-                                   onLoading={this.props.actions.getLevelsPlayedInfoFromDevice}
-                                   levelsPlayedInfo={this.props.levelsPlayedInfo}/>
+                                   onLoading={this.props.actions.getSavedGameInfoFromDevice}
+                                   playedLevelsStats={this.props.playedLevelsStats}/>
         } else if (this.props.state === PLAYING) {
-            return <Game currentLevel={this.props.currentLevel}
+            return <Game state={this.props.state}
+                         currentLevel={this.props.currentLevel}
                          currentTrial={this.props.currentTrial}
                          lastAnswerData={this.props.lastAnswerData}
                          onEraseInput={this.props.actions.eraseInput}

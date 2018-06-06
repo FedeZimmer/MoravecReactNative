@@ -6,3 +6,6 @@ export const lightGrayColor = '#EEEEF0';
 export const superLightGrayColor = '#EDEDED';
 export const whiteColor = '#FFFFFF';
 
+export const applyLetterSpacing = function (string, count = 1) {
+    return string.split('').join('\u200A'.repeat(count));
+};

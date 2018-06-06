@@ -22,17 +22,15 @@ export class ApiClient {
         });
     }
 
-    sendTrials(trails) {
-        const appVersion = `${DeviceInfo.getApplicationName()} ${DeviceInfo.getReadableVersion()}`;
-        const deviceInfo = `${DeviceInfo.getSystemName()} ${DeviceInfo.getSystemVersion()}`;
-        const lang = DeviceInfo.getDeviceLocale();
-        const timeZone = DeviceInfo.getTimezone();
+    sendTrials(trialsToSend, lastTrialNumberSent) {
+        let trialNumber = lastTrialNumberSent;
 
-        const appVersionString = `${appVersion} | ${deviceInfo} | ${lang} | ${timeZone}`;
-
-        const trialsInfoToSend = trails.map((trial) => {
+        const trialsInfoToSend = trialsToSend.map((trial) => {
+            trialNumber = trialNumber + 1;
             return {
-                Game_Type: 'Arcade',
+                UUID: DeviceInfo.getUniqueID(),
+                Trial_Number: trialNumber,
+                Game_Type: 'Arcade', // mock
                 Level: trial.levelNumber,
                 Operation_Type: trial.operation.opType,
                 Operand_1: trial.operation.operand1,
@@ -46,14 +44,42 @@ export class ApiClient {
                 Total_Time: trial.totalTime,
                 Max_Time: trial.operation.maxSolveTime,
                 Time_Exceeded: trial.timeExceeded ? 1 : 0,
-                Start_Date: moment(trial.startTime).format("DD/MM/YYYY HH:mm:ss"),
-                End_Date: moment(trial.submitTime).format("DD/MM/YYYY HH:mm:ss"),
+                Start_Date: moment(trial.startTime).toArray(),
+                End_Date: moment(trial.submitTime).toArray(),
                 Erase: trial.hasErased ? 1 : 0,
+                Hide_Question: 0, // mock
+                Hints_Available: 3, // mock
+                Hint_Shown: 0, // mock
                 Session_Trial: trial.trialNumber,
-                App_Version: appVersionString,
+                Session_Correct: trial.totalCorrectUntilNow,
+                Correct_In_A_Row: trial.correctInARowUntilNow,
             }
         });
 
         return this._call('POST', "/api/v2/trials", trialsInfoToSend);
+    }
+
+    // TODO: Not used yet. Unimplemented backend.
+    sendPersonalData() {
+        const personalData = {
+            UUID: DeviceInfo.getUniqueID(),
+            System_Version: `${DeviceInfo.getSystemName()} ${DeviceInfo.getSystemVersion()}`,
+            System_Language: DeviceInfo.getDeviceLocale(),
+            App_Version: DeviceInfo.getReadableVersion(),
+            App_Language: 'es',  // mock
+            Birthdate: moment("1988-06-02").toArray(),  // mock
+            Studies: 'College completed',  // mock
+            Gender: 'Female',  // mock
+            Hand: 'Right handed',  // mock
+            Name: 'John Mock',  // mock
+            Email: 'john@mock.com',  // mock
+            Native_Language: 'English',  // mock
+            Number_Of_Languages: 3,  // mock
+            Music_Listener: 'Any',  // mock
+            Music_Instrumentist: 'Moderate',  // mock
+            Music_Theory: 'Advance',  // mock
+        };
+
+        return this._call('POST', "/api/v2/personal-data", personalData);
     }
 }

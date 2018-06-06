@@ -7,8 +7,16 @@ export class MoravecPlayer {
         await this._engineHelper.press('PlayButton');
     }
 
+    async startPractice() {
+        await this._engineHelper.press('PracticeButton');
+    }
+
     async playFirstLevel() {
         await this._engineHelper.press('PlayLevelButton.1');
+    }
+
+    async selectAPracticeLevel() {
+        await this._engineHelper.press('PracticeModeOption.1x1.medio');
     }
 
     async pressANumberSequence(numberSequence) {

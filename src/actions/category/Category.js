@@ -3,63 +3,105 @@ import {Multiplication} from "../operations/Multiplication";
 import {ToSquare} from "../operations/ToSquare";
 
 export class OperationCategory {
-    constructor(name) {
+    constructor(codename) {
         /*
-         The parameter "name" is a string with the following format:
-         "numDigitsLeftOperand operator numDigitsRightOperands". For example "1+2" where numDigitsLeftOperand is
-         equal to number 1, operator is equal to "+" and numDigitsRightOperands is equal to number 2.
+         The parameter "codename" is a string with the following format:
+         "numDigitsFirstOperand operator numDigitsSecondOperand". For example "1d+2d" where numDigitsFirstOperand is
+         equal to number 1, operator is equal to "+" and numDigitsSecondOperand is equal to number 2.
          */
+
+        this._codename = codename;
+
+        this._inferOperationPartsFromCodename(codename);
+
+        let name = this._numDigitsLeft.toString() + this._operatorHumanRepresentation.toString();
+        if(this._numDigitsRight > 0) {
+            name += this._numDigitsRight.toString();
+        }
         this._name = name;
     }
+
+    _inferOperationPartsFromCodename(codename) {
+        const regex = /\(?([0-9])d\)?(\+|x|\^2)(?:([0-9])d)?/;
+        const matchGroups = regex.exec(codename);
+
+        this._numDigitsLeft = Number.parseInt(matchGroups[1]);
+        this._operatorHumanRepresentation = matchGroups[2];
+        if (matchGroups[3] !== undefined) {
+            this._numDigitsRight = Number.parseInt(matchGroups[3]);
+        } else {
+            this._numDigitsRight = 0;
+        }
+    }
+
+    codename() {
+        return this._codename;
+    }
+
     name() {
         return this._name;
     }
 
-    numDigitsLeftOperand() {
-        return Number.parseInt(this._name[0]);
+    numDigitsFirstOperand() {
+        return this._numDigitsLeft;
     }
 
-    operator() {
-        return this._name[1];
+    operatorHumanRepresentation() {
+        return this._operatorHumanRepresentation;
     }
 
-    numDigitsRightOperands() {
-        return Number.parseInt(this._name[2]);
+    numDigitsSecondOperand() {
+        return this._numDigitsRight;
     }
 
     operationClass() {
-        switch (this.operator()) {
-            case Addition.operator():
+        switch (this.operatorHumanRepresentation()) {
+            case Addition.operatorHumanRepresentation():
                 return Addition;
             case Multiplication.operatorHumanRepresentation():
                 return Multiplication;
-            case ToSquare.operator():
+            case ToSquare.operatorHumanRepresentation():
                 return ToSquare;
             default:
-                throw ("There is no operation with this operator: " + this.operator());
+                throw ("There is no operation with this operator: " + this.operatorHumanRepresentation());
         }
     }
 
     maxSolveTime() {
-        switch (this.name()) {
-            case '1+1':
-                return 7000;
-            case '1x1':
-                return 10000;
-            case '2+2':
-                return 11000;
-            case '2x1':
-                return 14000;
-            case '3x1':
-                return 16000;
-            case '2^2':
-                return 16000;
-            case '4x1':
-                return 20000;
-            case '3^2':
-                return 34000;
-            case '4^2':
-                return 80000;
+        switch (this.operationClass()) {
+            case Addition:
+                if (this.numDigitsFirstOperand() === 1 && this.numDigitsSecondOperand() === 1) {
+                    return 7000;
+                }
+                if (this.numDigitsFirstOperand() === 2 && this.numDigitsSecondOperand() === 2) {
+                    return 11000;
+                }
+                throw `Maximum solve time not specified for category ${this.name()}`;
+            case Multiplication:
+                if (this.numDigitsFirstOperand() === 1 && this.numDigitsSecondOperand() === 1) {
+                    return 10000;
+                }
+                if (this.numDigitsFirstOperand() === 2 && this.numDigitsSecondOperand() === 1) {
+                    return 14000;
+                }
+                if (this.numDigitsFirstOperand() === 3 && this.numDigitsSecondOperand() === 1) {
+                    return 16000;
+                }
+                if (this.numDigitsFirstOperand() === 4 && this.numDigitsSecondOperand() === 1) {
+                    return 20000;
+                }
+                throw `Maximum solve time not specified for category ${this.name()}`;
+            case ToSquare:
+                if (this.numDigitsFirstOperand() === 2) {
+                    return 16000;
+                }
+                if (this.numDigitsFirstOperand() === 3) {
+                    return 34000;
+                }
+                if (this.numDigitsFirstOperand() === 4) {
+                    return 80000;
+                }
+                throw `Maximum solve time not specified for category ${this.name()}`;
             default:
                 throw `Maximum solve time not specified for category ${this.name()}`;
         }
