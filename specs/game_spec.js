@@ -41,6 +41,14 @@ export function gameSpec(spec) {
         await spec.notExists('PlayNextButton');
     }
 
+    async function assertReplayLevelIsShown() {
+        await spec.exists('ReplayButton');
+    }
+
+    async function assertGameScreenIsShown() {
+        await spec.exists('Game');
+    }
+
     // Spec
 
     spec.describe('As a user', function () {
@@ -172,6 +180,21 @@ export function gameSpec(spec) {
             }
 
             await assertPlayNextLevelIsNotShown();
+        });
+
+        spec.it("pressing replay level allows shows me the calculator again", async function () {
+            await aPlayer.startGame();
+            await aPlayer.playFirstLevel();
+
+            for (let i = 1; i <= 20; i++) {
+                await aPlayer.enterAWrongAnswer();
+            }
+
+            await assertReplayLevelIsShown();
+
+            await aPlayer.pressReplayLevel();
+
+            await assertGameScreenIsShown();
         });
     })
 }

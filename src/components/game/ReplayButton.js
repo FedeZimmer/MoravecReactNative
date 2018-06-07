@@ -8,7 +8,7 @@ export let ReplayButton = class extends React.Component {
         return (
             <Button
                 style={this.props.highlighted ? LEVEL_FINISHED_STYLES.replayButtonHighlighted : LEVEL_FINISHED_STYLES.replayButton}
-                onPress={this.handleReplayLevelButtonPressed}>
+                onPress={this.props.onPress}>
                 <Icon name="md-refresh" style={LEVEL_FINISHED_STYLES.replayButtonIcon}/>
             </Button>
         );

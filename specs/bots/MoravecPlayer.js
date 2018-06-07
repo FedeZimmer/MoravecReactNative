@@ -59,4 +59,8 @@ export class MoravecPlayer {
     async pressErase() {
         await this._engineHelper.press('EraseKey');
     }
+
+    async pressReplayLevel() {
+        await this._engineHelper.press('ReplayButton');
+    }
 }
