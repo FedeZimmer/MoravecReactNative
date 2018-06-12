@@ -1,16 +1,24 @@
 import React from 'react';
-import {Text, View} from "react-native";
+import {Text, TouchableOpacity} from "react-native";
 
 import {HEADER_STYLES} from "../../../styles/game/calculator/header/styles";
+import {MAX_HINTS_PER_LEVEL} from "../../../reducers/game_reducer";
+import {makeItTestable} from "../../../utils/testable_hoc";
 
 
-export default class Hints extends React.Component {
+export let Hints = class extends React.Component {
+    hintsText() {
+        return `${this.props.hintsUsed}/${MAX_HINTS_PER_LEVEL}`;
+    }
+
     render() {
         return (
-            <View style={HEADER_STYLES.hintsContainer}>
+            <TouchableOpacity onPress={this.props.onPress} style={HEADER_STYLES.hintsContainer}>
                 <Text style={HEADER_STYLES.hintsText}>Pistas: </Text>
-                <Text style={HEADER_STYLES.hintsNumber}>3/3</Text>
-            </View>
+                <Text style={HEADER_STYLES.hintsNumber}>{this.hintsText()}</Text>
+            </TouchableOpacity>
         )
     }
-}
+};
+
+Hints = makeItTestable('Hints')(Hints);

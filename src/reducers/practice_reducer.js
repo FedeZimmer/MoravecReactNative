@@ -20,6 +20,7 @@ function newTrialData(operation, startTime) {
         currentUserInput: null,
         operation: operation,
         startTime: startTime,
+        hintShown: operation.hint.hasHint(),
     }
 }
 

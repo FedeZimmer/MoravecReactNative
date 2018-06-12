@@ -1,12 +1,9 @@
 import {PositionalDecomposition} from "./PositionalDecomposition";
+import {OperationHint} from "./OperationHint";
 
-export class ToSquareHint {
+export class ToSquareHint extends OperationHint {
     static of(toSquareOperation) {
         return new ToSquareHint(toSquareOperation);
-    }
-
-    constructor(toSquareOperation) {
-        this._operation = toSquareOperation;
     }
 
     /**
@@ -58,7 +55,7 @@ export class ToSquareHint {
     }
 
     getHint() {
-        let numberToSquare = this._operation.leftOperand();
+        let numberToSquare = this.operation().leftOperand().value();
 
         let steps = [];
         const zeroStep = "x^2 = (x-a)(x+a) + a^2";
