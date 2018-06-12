@@ -5,6 +5,7 @@ import {LEVEL_FINISHED} from "../reducers/game_reducer";
 export const START_GAME = 'START_GAME';
 export const CALCULATOR_TYPE_INPUT = 'CALCULATOR_TYPE_INPUT';
 export const CALCULATOR_ERASE_INPUT = 'CALCULATOR_ERASE_INPUT';
+export const ASK_FOR_HINT = 'ASK_FOR_HINT';
 export const NEW_TRIAL = 'NEW_TRIAL';
 export const SUBMIT_TRIAL = 'SUBMIT_TRIAL';
 export const START_LEVEL = 'START_LEVEL';
@@ -15,6 +16,9 @@ export const UPDATE_LEVELS_HISTORY = 'UPDATE_LEVELS_HISTORY';
 function createRandomOperationForLevel(level) {
     let operation = level.createRandomOperation();
 
+    // TODO
+    // This mapping seems unnecessary. We could remove it and pass the
+    // Operation object through the components instead.
     return {
         opType: operation.category(),
         operator: operation.operatorHumanRepresentation(),
@@ -23,6 +27,7 @@ function createRandomOperationForLevel(level) {
         operation: operation.operationHumanRepresentation(),
         correctResult: operation.result(),
         maxSolveTime: operation.maxSolveTime(),
+        hint: operation.hint()
     }
 }
 
@@ -56,6 +61,12 @@ export function eraseInput() {
     return {
         type: CALCULATOR_ERASE_INPUT,
         inputTime: new Date().getTime(),
+    }
+}
+
+export function askForHint() {
+    return {
+        type: ASK_FOR_HINT,
     }
 }
 

@@ -1,8 +1,14 @@
 import {Operation} from "./Operation";
 import {Operand} from "./Operand";
+import {MultiplicationHint} from "../../models/hints/MultiplicationHint";
+import {NoHint} from "../../models/hints/NoHint";
 
 
 export class Multiplication extends Operation {
+    static create(leftOperandValue, rightOperandValue) {
+        return new Multiplication(null, new Operand(leftOperandValue), new Operand(rightOperandValue));
+    }
+
     static operator() {
         return '*';
     }
@@ -28,6 +34,14 @@ export class Multiplication extends Operation {
     }
 
     operationHumanRepresentation() {
-        return this.leftOperand().value() + ' ' + this.operatorHumanRepresentation() + ' '  + this.rightOperand().value();
+        return this.leftOperand().value() + ' ' + this.operatorHumanRepresentation() + ' ' + this.rightOperand().value();
+    }
+
+    hint() {
+        if (this.getCategory().numDigitsFirstOperand() >= 2) {
+            return MultiplicationHint.of(this);
+        } else {
+            return NoHint.of(this);
+        }
     }
 }

@@ -20,8 +20,9 @@ import {practiceReducer} from "./src/reducers/practice_reducer";
 import {Navigator} from "./src/navigator";
 
 import {Tester, TestHookStore} from "cavy";
-import {gameSpec} from "./specs/game_spec";
+import {gameSpec} from "./specs/game/game_spec";
 import {practiceSpec} from "./specs/practice_spec";
+import {operationHintsSpec} from "./specs/game/hints_spec";
 
 const rootReducer = combineReducers({
     game: gameReducer,
@@ -40,7 +41,8 @@ const cavyTestHooksStore = new TestHookStore();
 
 const CavyMoravecWrapper = () => (
     <Provider store={store}>
-        <Tester specs={[gameSpec, practiceSpec]} store={cavyTestHooksStore} clearAsyncStorage={true}>
+        <Tester specs={[gameSpec, practiceSpec, operationHintsSpec]}
+                store={cavyTestHooksStore} clearAsyncStorage={true}>
             <Navigator/>
         </Tester>
     </Provider>

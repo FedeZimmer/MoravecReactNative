@@ -1,17 +1,14 @@
 import {PositionalDecomposition} from "./PositionalDecomposition";
+import {OperationHint} from "./OperationHint";
 
-export class MultiplicationHint {
+export class MultiplicationHint extends OperationHint {
     static of(multiplicationOperation) {
         return new MultiplicationHint(multiplicationOperation);
     }
 
-    constructor(multiplicationOperation) {
-        this._operation = multiplicationOperation;
-    }
-
     getHint() {
-        const firstOperand = this._operation.leftOperand();
-        const secondOperand = this._operation.rightOperand();
+        const firstOperand = this.operation().leftOperand().value();
+        const secondOperand = this.operation().rightOperand().value();
 
         const decomposition = PositionalDecomposition.of(firstOperand).getDecomposition();
 
@@ -22,8 +19,10 @@ export class MultiplicationHint {
         const firstAddition = additionsList[0];
         const additionsListTail = additionsList.slice(1);
 
-        return additionsListTail.reduce((result, addition) => {
+        const hintStep = additionsListTail.reduce((result, addition) => {
             return `${result} + ${addition}`;
         }, `${firstAddition}`);
+
+        return [hintStep];
     }
 }

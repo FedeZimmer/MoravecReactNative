@@ -2,7 +2,7 @@ import {ToSquareHint} from "../src/models/hints/ToSquareHint";
 import {ToSquare} from "../src/actions/operations/ToSquare";
 
 test('creates hint for 16^2 correctly', () => {
-    const operation = new ToSquare(null, 16);
+    const operation = ToSquare.create(16);
 
     const hint = ToSquareHint.of(operation).getHint();
 
@@ -12,7 +12,7 @@ test('creates hint for 16^2 correctly', () => {
 });
 
 test('creates hint for 51^2 correctly', () => {
-    const operation = new ToSquare(null, 51);
+    const operation = ToSquare.create(51);
 
     const hint = ToSquareHint.of(operation).getHint();
 
@@ -23,7 +23,7 @@ test('creates hint for 51^2 correctly', () => {
 });
 
 test('creates hint for 763^2 correctly', () => {
-    const operation = new ToSquare(null, 763);
+    const operation = ToSquare.create(763);
 
     const hint = ToSquareHint.of(operation).getHint();
 
@@ -35,7 +35,7 @@ test('creates hint for 763^2 correctly', () => {
 });
 
 test('creates hint for 501^2 correctly', () => {
-    const operation = new ToSquare(null, 501);
+    const operation = ToSquare.create(501);
 
     const hint = ToSquareHint.of(operation).getHint();
 
@@ -46,7 +46,7 @@ test('creates hint for 501^2 correctly', () => {
 });
 
 test('creates hint for 5572^2 correctly', () => {
-    const operation = new ToSquare(null, 5572);
+    const operation = ToSquare.create(5572);
 
     const hint = ToSquareHint.of(operation).getHint();
 
@@ -59,7 +59,7 @@ test('creates hint for 5572^2 correctly', () => {
 });
 
 test('creates hint for 1500^2 correctly', () => {
-    const operation = new ToSquare(null, 1500);
+    const operation = ToSquare.create(1500);
 
     const hint = ToSquareHint.of(operation).getHint();
 
@@ -71,7 +71,7 @@ test('creates hint for 1500^2 correctly', () => {
 });
 
 test('creates hint for 2270^2 correctly', () => {
-    const operation = new ToSquare(null, 2270);
+    const operation = ToSquare.create(2270);
 
     const hint = ToSquareHint.of(operation).getHint();
 
@@ -84,7 +84,7 @@ test('creates hint for 2270^2 correctly', () => {
 });
 
 test('creates hint for 8027^2 correctly', () => {
-    const operation = new ToSquare(null, 8027);
+    const operation = ToSquare.create(8027);
 
     const hint = ToSquareHint.of(operation).getHint();
 

@@ -1,4 +1,4 @@
-import {MoravecPlayer} from "./bots/MoravecPlayer";
+import {MoravecPlayer} from "../bots/MoravecPlayer";
 import {CalculatorAssertions} from "./calculator_asserts";
 
 export function gameSpec(spec) {

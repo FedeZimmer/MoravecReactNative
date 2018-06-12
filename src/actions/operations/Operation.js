@@ -1,4 +1,5 @@
 import math from "mathjs";
+import {Operand} from "./Operand";
 
 export class Operation {
     static operator() {
@@ -9,10 +10,18 @@ export class Operation {
         throw "Subclass responsibility";
     }
 
+    static create(leftOperandValue, rightOperandValue) {
+        return new Operation(null, new Operand(leftOperandValue), new Operand(rightOperandValue));
+    }
+
     constructor(category, leftOperand, rightOperand) {
         this._category = category;
         this._leftOperand = leftOperand;
         this._rightOperand = rightOperand;
+    }
+
+    getCategory() {
+        return this._category;
     }
 
     category() {
@@ -36,6 +45,10 @@ export class Operation {
     }
 
     operationHumanRepresentation() {
+        throw "Subclass responsibility";
+    }
+
+    hint() {
         throw "Subclass responsibility";
     }
 

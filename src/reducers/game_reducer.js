@@ -1,4 +1,5 @@
 import {
+    ASK_FOR_HINT,
     CALCULATOR_ERASE_INPUT,
     CALCULATOR_TYPE_INPUT,
     NEW_TRIAL,
@@ -33,6 +34,8 @@ const initialState = {
 const MAX_NUMBER_OF_DIGITS = 8;
 
 const TOTAL_TRIALS_PER_LEVEL = 20;
+
+export const MAX_HINTS_PER_LEVEL = 3;
 
 function obtainLevels() {
     let levels = {};
@@ -119,6 +122,7 @@ function newTrialData(trials, levelNumber, operation, startTime) {
         responseTimes: [],
         hasErased: false,
         timeExceeded: false,
+        hintShown: false,
     }
 }
 
@@ -140,12 +144,26 @@ function addResponseTime(responseTimesUntilNow, startTime, inputTime) {
     return responseTimesUntilNow.concat(responseTime);
 }
 
+function shouldShowHint(hintsUsed, operationHint, hintShown) {
+    return hintShown || (hintsUsed < MAX_HINTS_PER_LEVEL && operationHint.hasHint());
+}
+
+function calculateHintsUsed(prevHintsUsed, operationHint, hintShown) {
+    if (!hintShown && shouldShowHint(prevHintsUsed, operationHint, hintShown)) {
+        return prevHintsUsed + 1;
+    } else {
+        return prevHintsUsed;
+    }
+}
+
 export function gameReducer(state = initialState, action) {
     switch (action.type) {
         case START_GAME:
+            const levels = obtainLevels();
             return {
                 ...initialState,
-                levels: obtainLevels(),
+                levels: levels,
+                numLevels: Object.keys(levels).length,
             };
 
         case RESTORE_SAVED_GAME_INFO:
@@ -187,6 +205,21 @@ export function gameReducer(state = initialState, action) {
                 }
             };
 
+        case ASK_FOR_HINT:
+            return {
+                ...state,
+                currentLevel: {
+                    ...state.currentLevel,
+                    hintsUsed: calculateHintsUsed(state.currentLevel.hintsUsed,
+                        state.currentTrial.operation.hint, state.currentTrial.hintShown),
+                },
+                currentTrial: {
+                    ...state.currentTrial,
+                    hintShown: shouldShowHint(state.currentLevel.hintsUsed,
+                        state.currentTrial.operation.hint, state.currentTrial.hintShown),
+                }
+            };
+
         case START_LEVEL:
             return {
                 ...state,
@@ -200,6 +233,7 @@ export function gameReducer(state = initialState, action) {
                     lastCorrectInARowValue: 0,
                     totalTrialsTime: 0,
                     efficacy: calculateEfficacy(state.totalCorrect, state.totalTrials),
+                    hintsUsed: 0,
                 },
                 currentTrial: newTrialData([], action.levelNumber,
                     action.operation, action.startTime)
