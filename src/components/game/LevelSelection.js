@@ -5,6 +5,7 @@ import {LEVEL_SELECTION_STYLES} from "../../styles/game/styles"
 import {PlayLevelButton} from "./PlayLevelButton";
 import {makeItTestable} from "../../utils/testable_hoc";
 import {MoravecHeader} from "../common/Header";
+import Config from "react-native-config";
 
 export let LevelSelection = class extends React.Component {
     constructor(props) {
@@ -51,14 +52,35 @@ export let LevelSelection = class extends React.Component {
         ));
     }
 
-    render() {
-        return (
-            <Content>
-                <MoravecHeader title='ARCADE'/>
+    renderLevelsList() {
+        if (Config.UNLOCK_ALL_LEVELS === 'on') {
+            const allLevels = Array.from(Array(this.props.numLevels), (_, x) => x + 1);
+            return (
+                <View style={LEVEL_SELECTION_STYLES.list}>
+                    {allLevels.map((levelNumber) => (
+                        <PlayLevelButton key={levelNumber} levelCompleted={true}
+                                         onPress={() => this.handleLevelSelected(parseInt(levelNumber))}
+                                         levelToPlay={levelNumber}
+                                         previousTotalCorrect={0}
+                        />
+                    ))}
+                </View>
+            )
+        } else {
+            return (
                 <View style={LEVEL_SELECTION_STYLES.list}>
                     {this.renderPreviouslyCompletedLevels()}
                     {this.renderNewLevelToPlay()}
                 </View>
+            )
+        }
+    }
+
+    render() {
+        return (
+            <Content>
+                <MoravecHeader title='ARCADE'/>
+                {this.renderLevelsList()}
             </Content>
         )
     }
