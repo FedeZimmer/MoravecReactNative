@@ -1,4 +1,5 @@
 export default {
     play: 'Jugar',
-    practice: 'Practica'
+    practice: 'Practica',
+    agree: 'Acepto los términos'
 };
