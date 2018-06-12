@@ -52,6 +52,10 @@ export class MoravecPlayer {
         await this._engineHelper.pause(maxSolveTimeOfCurrentTrial + 1000);
     }
 
+    async pressAskForHintButton() {
+        await this._engineHelper.press('Hints');
+    }
+
     async pressEnter() {
         await this._engineHelper.press('EnterKey');
     }

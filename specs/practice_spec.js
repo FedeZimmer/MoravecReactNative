@@ -1,5 +1,5 @@
 import {MoravecPlayer} from "./bots/MoravecPlayer";
-import {CalculatorAssertions} from "./calculator_asserts";
+import {CalculatorAssertions} from "./game/calculator_asserts";
 
 export function practiceSpec(spec) {
 

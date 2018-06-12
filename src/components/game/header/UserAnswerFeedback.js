@@ -12,12 +12,14 @@ export let UserAnswerFeedback = class extends React.Component {
         super(props);
         this.state = {
             opacityValue: new Animated.Value(0),
+            isShown: false,
         };
     }
 
     componentDidUpdate(prevProps) {
         const newAnswerSubmitted = prevProps.lastAnswerData !== this.props.lastAnswerData;
         if (newAnswerSubmitted) {
+            this.setState({isShown: true});
             this.fadeoutBar();
         }
     }
@@ -34,12 +36,14 @@ export let UserAnswerFeedback = class extends React.Component {
                     duration: 500,
                 }
             );
-            fadeoutAnimation.start();
+            fadeoutAnimation.start(() => {
+                this.setState({isShown: false});
+            });
         });
     }
 
     render() {
-        if (this.props.lastAnswerData !== undefined) {
+        if (this.state.isShown) {
             if (this.props.lastAnswerData.isCorrect) {
                 if (this.props.lastAnswerData.timeExceeded) {
                     return (

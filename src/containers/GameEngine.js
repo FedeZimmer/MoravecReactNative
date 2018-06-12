@@ -1,7 +1,12 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {
-    eraseInput, getSavedGameInfoFromDevice, startGame, startLevel, submitTrial,
+    askForHint,
+    eraseInput,
+    getSavedGameInfoFromDevice,
+    startGame,
+    startLevel,
+    submitTrial,
     typeInput
 } from "../actions/game_actions";
 import {LevelFinished} from "../components/game/LevelFinished";
@@ -12,6 +17,7 @@ import {LEVEL_FINISHED, LEVEL_SELECTION, PLAYING} from "../reducers/game_reducer
 const mapStateToProps = (state) => {
     return {
         state: state.game.state,
+        numLevels: state.game.numLevels,
         playedLevelsStats: state.game.playedLevelsStats,
         currentLevel: state.game.currentLevel,
         currentTrial: state.game.currentTrial,
@@ -40,6 +46,9 @@ const mapDispatchToProps = dispatch => {
             submitTrial: () => {
                 dispatch(submitTrial())
             },
+            askForHint: () => {
+                dispatch(askForHint())
+            },
         }
     }
 };
@@ -54,6 +63,7 @@ class GameEngine extends Component {
         super(props);
 
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleAskForHint = this.handleAskForHint.bind(this);
         this.playNextLevel = this.playNextLevel.bind(this);
         this.replayCurrentLevel = this.replayCurrentLevel.bind(this);
         this.goToHome = this.goToHome.bind(this);
@@ -68,6 +78,10 @@ class GameEngine extends Component {
             this.props.actions.submitTrial();
         }
     };
+
+    handleAskForHint() {
+        this.props.actions.askForHint();
+    }
 
     userEnteredResult() {
         return this.props.currentTrial.currentUserInput != null;
@@ -90,7 +104,9 @@ class GameEngine extends Component {
         if (this.props.state === LEVEL_SELECTION) {
             return <LevelSelection onSelectLevel={this.props.actions.startLevel}
                                    onLoading={this.props.actions.getSavedGameInfoFromDevice}
-                                   playedLevelsStats={this.props.playedLevelsStats}/>
+                                   playedLevelsStats={this.props.playedLevelsStats}
+                                   numLevels={this.props.numLevels}
+            />
         } else if (this.props.state === PLAYING) {
             return <Game state={this.props.state}
                          currentLevel={this.props.currentLevel}
@@ -98,7 +114,9 @@ class GameEngine extends Component {
                          lastAnswerData={this.props.lastAnswerData}
                          onEraseInput={this.props.actions.eraseInput}
                          onTypeInput={this.props.actions.typeInput}
-                         onSubmit={this.handleSubmit}/>
+                         onSubmit={this.handleSubmit}
+                         onAskForHint={this.handleAskForHint}
+            />
         } else if (this.props.state === LEVEL_FINISHED) {
             return <LevelFinished finishedLevel={this.props.currentLevel}
                                   onReplayLevel={this.replayCurrentLevel}

@@ -1,8 +1,14 @@
 import {Operation} from "./Operation";
 import {Operand} from "./Operand";
+import {ToSquareHint} from "../../models/hints/ToSquareHint";
+
 var exponent = require('superscript-number');
 
 export class ToSquare extends Operation {
+    static create(operandValue) {
+        return new ToSquare(null, new Operand(operandValue));
+    }
+
     static operator() {
         return '^2';
     }
@@ -29,5 +35,9 @@ export class ToSquare extends Operation {
 
     operationHumanRepresentation() {
         return this.leftOperand().value() + exponent(2);
+    }
+
+    hint() {
+        return ToSquareHint.of(this);
     }
 }
