@@ -27,7 +27,7 @@ export const TYC_STYLES = {
         marginTop: getWindowHeight() * 0.12,
     },
     text: {
-        fontFamily: 'GothamBold',
+        fontFamily: 'GothamBook',
         color: grayColor,
         fontSize: 20,
         lineHeight: 30,
