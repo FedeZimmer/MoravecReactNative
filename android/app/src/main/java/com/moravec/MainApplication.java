@@ -3,6 +3,7 @@ package com.moravec;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.brentvatne.react.ReactVideoPackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import com.AlexanderZaytsev.RNI18n.RNI18nPackage;
 import com.corbt.keepawake.KCKeepAwakePackage;
@@ -28,6 +29,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new ReactVideoPackage(),
             new RNDeviceInfo(),
             new RNI18nPackage(),
             new KCKeepAwakePackage(),
