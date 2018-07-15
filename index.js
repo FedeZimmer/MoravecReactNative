@@ -15,6 +15,7 @@ import {Provider} from "react-redux";
 import thunkMiddleware from 'redux-thunk'
 import Config from "react-native-config"
 
+import {personalInfoReducer} from "./src/reducers/personal_info_reducer";
 import {gameReducer} from "./src/reducers/game_reducer";
 import {practiceReducer} from "./src/reducers/practice_reducer";
 import {Navigator} from "./src/navigator";
@@ -25,6 +26,7 @@ import {practiceSpec} from "./specs/practice_spec";
 import {operationHintsSpec} from "./specs/game/hints_spec";
 
 const rootReducer = combineReducers({
+    personalInfo: personalInfoReducer,
     game: gameReducer,
     practice: practiceReducer,
 });

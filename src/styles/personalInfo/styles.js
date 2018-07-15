@@ -1,4 +1,4 @@
-import {greenColor, whiteColor, lightGrayColor, grayColor} from "../global";
+import {greenColor, whiteColor, lightGrayColor, grayColor, darkGrayColor} from "../global";
 import {getWindowHeight, getWindowWidth} from "../../utils/get_window_info";
 
 export const TYC_STYLES = {
@@ -52,5 +52,90 @@ export const TYC_STYLES = {
         color: whiteColor,
         fontSize: 15,
         textAlign: 'center',
+    },
+};
+
+
+export const PERSONAL_INFO_FORM_STYLES = {
+    personalInfoForm: {
+        flex: 9,
+        flexDirection: "column",
+        backgroundColor: lightGrayColor,
+        paddingTop: getWindowHeight() * 0.02,
+        paddingLeft: 20,
+        paddingRight: 20
+    },
+    mainTextContainer: {
+        marginBottom: 30,
+    },
+    mainText: {
+        fontFamily: 'GothamBold',
+        color: darkGrayColor,
+        fontSize: 14,
+        lineHeight: 30,
+        textAlign: 'justify',
+    },
+    inputContainer: {
+        marginBottom: 20,
+    },
+    inputLabel: {
+        fontFamily: 'GothamBold',
+        color: darkGrayColor,
+        fontSize: 17,
+        marginBottom: 10,
+    },
+    textInput: {
+        fontFamily: 'GothamMedium',
+        fontSize: 16,
+        color: darkGrayColor
+    },
+    inputSubLabel: {
+        fontFamily: 'GothamBold',
+        color: darkGrayColor,
+        fontSize: 16,
+        marginBottom: 5,
+    },
+    placeholder: {
+        fontFamily: 'GothamBold',
+        color: grayColor,
+        fontSize: 14,
+    },
+    submitButton: {
+        width: getWindowWidth() * 0.9,
+        backgroundColor: greenColor,
+        justifyContent: "center",
+        borderRadius: 0,
+        marginBottom: getWindowHeight() * 0.1,
+        marginTop: 10,
+    },
+    submitButtonText: {
+        fontFamily: 'GothamBold',
+        color: whiteColor,
+        fontSize: 15,
+        textAlign: 'center',
+    },
+};
+
+export const RADIO_SET_STYLES = {
+    horizontal: {
+        flexDirection: "row",
+    },
+    vertical: {
+        flexDirection: "column",
+    },
+    radioContainer: {
+        flexGrow: 1,
+        flex: 2,
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 8
+    },
+    radioOptionLabel: {
+        fontFamily: 'GothamBold',
+        color: grayColor,
+        fontSize: 14,
+    },
+    radioButton: {
+        marginRight: 10
     },
 };

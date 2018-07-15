@@ -6,18 +6,13 @@ import Images from "../../../assets/images/images";
 import I18n from "../../../i18n/i18n";
 
 export class TermsAndConditions extends React.Component {
-    static navigationOptions = {
-        title: 'PersonalInfo',
-        header: null
-    };
-
     constructor(props) {
         super(props);
         this.handleAgreeTerms = this.handleAgreeTerms.bind(this);
     }
 
     handleAgreeTerms() {
-        this.props.navigation.navigate('Home');
+        this.props.handleAgreeTerms();
     }
 
     render() {

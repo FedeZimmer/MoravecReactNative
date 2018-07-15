@@ -1,6 +1,7 @@
 import Config from "react-native-config"
 import moment from "moment/moment";
 import * as DeviceInfo from "react-native-device-info";
+import I18n from 'react-native-i18n';
 
 export class ApiClient {
     static baseUrl() {
@@ -59,25 +60,24 @@ export class ApiClient {
         return this._call('POST', "/api/v2/trials", trialsInfoToSend);
     }
 
-    // TODO: Not used yet. Unimplemented backend.
-    sendPersonalData() {
+    sendPersonalData(personalDataToSend) {
         const personalData = {
             UUID: DeviceInfo.getUniqueID(),
             System_Version: `${DeviceInfo.getSystemName()} ${DeviceInfo.getSystemVersion()}`,
             System_Language: DeviceInfo.getDeviceLocale(),
             App_Version: DeviceInfo.getReadableVersion(),
-            App_Language: 'es',  // mock
-            Birthdate: moment("1988-06-02").toArray(),  // mock
-            Studies: 'College completed',  // mock
-            Gender: 'Female',  // mock
-            Hand: 'Right handed',  // mock
-            Name: 'John Mock',  // mock
-            Email: 'john@mock.com',  // mock
-            Native_Language: 'English',  // mock
-            Number_Of_Languages: 3,  // mock
-            Music_Listener: 'Any',  // mock
-            Music_Instrumentist: 'Moderate',  // mock
-            Music_Theory: 'Advance',  // mock
+            App_Language: I18n.locale,
+            Birthdate: personalDataToSend['birthDate'],
+            Studies: personalDataToSend['studiesAchieved'],
+            Gender: personalDataToSend['gender'],
+            Hand: personalDataToSend['skillfulHand'],
+            Name: '', // mock
+            Email: '', // mock
+            Native_Language: personalDataToSend['language'],
+            Number_Of_Languages: personalDataToSend['languageQuantity'],
+            Music_Listener: personalDataToSend['musicListenerAbility'],
+            Music_Instrumentist: personalDataToSend['musicInstrumentalistAbility'],
+            Music_Theory: personalDataToSend['musicProfessionalAbility']
         };
 
         return this._call('POST', "/api/v2/personal-data", personalData);

@@ -1,0 +1,29 @@
+import {AsyncStorage} from "react-native";
+import {ApiClient} from "../api_client/ApiClient";
+
+export function verifyIfPersonalInfoIsSavedOnDevice(callback) {
+    return (dispatch) => {
+        let personalInfoIsCompleted = false;
+        AsyncStorage.getItem('@moravec:personalInfo').then((personalInfoJSON) => {
+            if (personalInfoJSON !== null) {
+                personalInfoIsCompleted = true;
+                const savedPersonalInfo = JSON.parse(personalInfoJSON);
+
+                if (!savedPersonalInfo.sentToBackend) {
+                    sendPersonalInfo(savedPersonalInfo);
+                }
+            }
+            callback(personalInfoIsCompleted);
+        });
+    }
+}
+
+export function sendPersonalInfo(personalInfo) {
+    // TODO: Uncomment when the endpoint to send personal data is ready
+    /*new ApiClient().sendPersonalData(personalInfo).then(() => {
+        AsyncStorage.setItem('@moravec:personalInfo', JSON.stringify({
+            ...personalInfo,
+            sentToBackend: true
+        }));
+    });*/
+}
