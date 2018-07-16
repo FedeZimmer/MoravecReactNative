@@ -1,8 +1,7 @@
 import React from "react";
-import {Text, View} from "react-native";
-import {Radio} from "native-base";
+import {Text, View, TouchableOpacity} from "react-native";
 import {PERSONAL_INFO_FORM_STYLES, RADIO_SET_STYLES} from "../../styles/personalInfo/styles";
-import {pinkColor} from "../../styles/global";
+import {RadioButton} from "./RadioButton";
 
 export class RadioSet extends React.Component {
     static defaultProps = {
@@ -25,12 +24,11 @@ export class RadioSet extends React.Component {
                 <View style={[RADIO_SET_STYLES[this.props.orientation], {flex: this.state.optionsQuantity}]}>
                     {this.props.options.map((option) =>
                         (
-                            <View key={option} style={RADIO_SET_STYLES.radioContainer}>
-                                <Radio selected={this.props.optionIsSelected(this.props.name, option)}
-                                       onPress={() => this.props.selectOption(this.props.name, option)}
-                                       style={RADIO_SET_STYLES.radioButton} selectedColor={pinkColor}/>
+                            <TouchableOpacity key={option} style={RADIO_SET_STYLES.radioContainer}
+                                              onPress={() => this.props.selectOption(this.props.name, option)}>
+                                <RadioButton selected={this.props.optionIsSelected(this.props.name, option)}/>
                                 <Text style={RADIO_SET_STYLES.radioOptionLabel}>{option}</Text>
-                            </View>
+                            </TouchableOpacity>
                         )
                     )}
                 </View>

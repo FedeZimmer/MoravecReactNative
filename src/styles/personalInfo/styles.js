@@ -88,9 +88,20 @@ export const PERSONAL_INFO_FORM_STYLES = {
         marginBottom: 10,
     },
     textInput: {
-        fontFamily: 'GothamMedium',
-        fontSize: 16,
-        color: darkGrayColor
+        ios: {
+            fontFamily: 'GothamMedium',
+            fontSize: 16,
+            color: grayColor,
+            borderBottomWidth: 2,
+            borderBottomColor: darkGrayColor,
+            height: 30,
+        },
+        android: {
+            fontFamily: 'GothamMedium',
+            fontSize: 16,
+            color: grayColor,
+            height: 40,
+        }
     },
     inputSubLabel: {
         fontFamily: 'GothamBold',
@@ -137,8 +148,23 @@ export const RADIO_SET_STYLES = {
         fontFamily: 'GothamBold',
         color: grayColor,
         fontSize: 14,
-    },
-    radioButton: {
+    }
+};
+
+export const RADIO_STYLES= {
+    radio: {
+        height: 24,
+        width: 24,
+        borderRadius: 12,
+        borderWidth: 2,
+        borderColor: grayColor,
+        alignItems: 'center',
+        justifyContent: 'center',
         marginRight: 10
     },
+    selected: {
+        height: 12,
+        width: 12,
+        borderRadius: 10
+    }
 };
