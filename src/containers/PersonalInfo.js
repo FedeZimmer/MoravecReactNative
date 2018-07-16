@@ -3,8 +3,8 @@ import {View, Text} from 'react-native'
 import {connect} from 'react-redux'
 import {TERMS_AND_CONDITIONS, PERSONAL_INFO_FORM} from "../reducers/personal_info_reducer";
 import {agreeTerms, savePersonalInfo} from "../actions/personal_info_actions";
-import {TermsAndConditions} from "../components/personlInfo/TermsAndConditions";
-import {PersonalInfoForm} from "../components/personlInfo/PersonalInfoForm";
+import {TermsAndConditions} from "../components/personalInfo/TermsAndConditions";
+import {PersonalInfoForm} from "../components/personalInfo/PersonalInfoForm";
 
 const mapStateToProps = (state) => {
     return {
@@ -36,7 +36,6 @@ class PersonalInfo extends Component {
         super(props);
 
         this.onSubmit = this.onSubmit.bind(this);
-        this.goToHome = this.goToHome.bind(this);
     }
 
     onSubmit(personalInfo) {

@@ -19,11 +19,10 @@ export function verifyIfPersonalInfoIsSavedOnDevice(callback) {
 }
 
 export function sendPersonalInfo(personalInfo) {
-    // TODO: Uncomment when the endpoint to send personal data is ready
-    /*new ApiClient().sendPersonalData(personalInfo).then(() => {
+    new ApiClient().sendPersonalData(personalInfo).then(() => {
         AsyncStorage.setItem('@moravec:personalInfo', JSON.stringify({
             ...personalInfo,
             sentToBackend: true
         }));
-    });*/
+    });
 }

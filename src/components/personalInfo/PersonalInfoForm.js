@@ -1,8 +1,8 @@
 import React from "react";
 import {Image, Text, View, TextInput, ScrollView} from "react-native";
-import {DatePicker, Radio, Button} from "native-base";
-import {PERSONAL_INFO_FORM_STYLES, RADIO_SET_STYLES} from "../../styles/personalInfo/styles";
-import {pinkColor} from "../../styles/global";
+import {DatePicker, Button} from "native-base";
+import {PERSONAL_INFO_FORM_STYLES} from "../../styles/personalInfo/styles";
+import {RadioSet} from "./RadioSet";
 
 import I18n from 'react-native-i18n';
 import moment from "moment";
@@ -31,7 +31,7 @@ export class PersonalInfoForm extends React.Component {
         this.optionIsSelected = this.optionIsSelected.bind(this);
         this.selectOption = this.selectOption.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.showSelectedDate = this.showSelectedDate.bind(this);
+        this.formatSelectedDate = this.formatSelectedDate.bind(this);
     }
 
     setResponse(formField, response) {
@@ -51,7 +51,7 @@ export class PersonalInfoForm extends React.Component {
         this.props.onSubmit(personalInfo);
     }
 
-    showSelectedDate() {
+    formatSelectedDate() {
         if (this.state.birthDate  !== '') {
             return moment(this.state.birthDate).locale(I18n.locale).format('LL');
         } else {
@@ -82,7 +82,7 @@ export class PersonalInfoForm extends React.Component {
                         textStyle={PERSONAL_INFO_FORM_STYLES.textInput}
                         placeHolderTextStyle={PERSONAL_INFO_FORM_STYLES.placeholder}
                         onDateChange={(date) => this.setResponse('birthDate', date)}
-                        formatChosenDate={this.showSelectedDate}/>
+                        formatChosenDate={this.formatSelectedDate}/>
                 </View>
                 <View style={PERSONAL_INFO_FORM_STYLES.inputContainer}>
                     <RadioSet name="gender" label="Género" orientation="vertical"
@@ -100,7 +100,7 @@ export class PersonalInfoForm extends React.Component {
                     <Text style={PERSONAL_INFO_FORM_STYLES.inputLabel}> Cuántos idiomas hablas ?</Text>
                     <TextInput style={[PERSONAL_INFO_FORM_STYLES.textInput, {height: 40}]}
                                onSubmitEditing={(event) => this.setResponse('languageQuantity', event.nativeEvent.text)}
-                               defaultValue={this.state.languageQuantity}/>
+                               defaultValue={this.state.languageQuantity} keyboardType='numeric'/>
                 </View>
                 <View style={PERSONAL_INFO_FORM_STYLES.inputContainer}>
                     <RadioSet name="studiesAchieved" label="Estudios alcanzados" orientation="vertical"
@@ -142,40 +142,5 @@ export class PersonalInfoForm extends React.Component {
                 </View>
             </ScrollView>
         );
-    }
-}
-
-class RadioSet extends React.Component {
-    static defaultProps = {
-        orientation: 'horizontal',
-        labelStyle: PERSONAL_INFO_FORM_STYLES.inputLabel
-    };
-
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            optionsQuantity: this.props.options.length
-        };
-    }
-
-    render() {
-        return (
-            <View>
-                <Text style={this.props.labelStyle}>{this.props.label}</Text>
-                <View style={[RADIO_SET_STYLES[this.props.orientation], {flex: this.state.optionsQuantity}]}>
-                    {this.props.options.map((option) =>
-                        (
-                            <View key={option} style={RADIO_SET_STYLES.radioContainer}>
-                                <Radio selected={this.props.optionIsSelected(this.props.name, option)}
-                                       onPress={() => this.props.selectOption(this.props.name, option)}
-                                       style={RADIO_SET_STYLES.radioButton} selectedColor={pinkColor}/>
-                                <Text style={RADIO_SET_STYLES.radioOptionLabel}>{option}</Text>
-                            </View>
-                        )
-                    )}
-                </View>
-            </View>
-        )
     }
 }
