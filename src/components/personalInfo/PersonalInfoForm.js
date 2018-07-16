@@ -1,5 +1,5 @@
 import React from "react";
-import {Image, Text, View, TextInput, ScrollView} from "react-native";
+import {Image, Text, View, TextInput, ScrollView, Platform} from "react-native";
 import {DatePicker, Button} from "native-base";
 import {PERSONAL_INFO_FORM_STYLES} from "../../styles/personalInfo/styles";
 import {RadioSet} from "./RadioSet";
@@ -79,7 +79,7 @@ export class PersonalInfoForm extends React.Component {
                         animationType={"fade"}
                         androidMode={"default"}
                         placeHolderText="Seleccioná una fecha"
-                        textStyle={PERSONAL_INFO_FORM_STYLES.textInput}
+                        textStyle={PERSONAL_INFO_FORM_STYLES.textInput[Platform.OS]}
                         placeHolderTextStyle={PERSONAL_INFO_FORM_STYLES.placeholder}
                         onDateChange={(date) => this.setResponse('birthDate', date)}
                         formatChosenDate={this.formatSelectedDate}/>
@@ -98,8 +98,8 @@ export class PersonalInfoForm extends React.Component {
                 </View>
                 <View style={PERSONAL_INFO_FORM_STYLES.inputContainer}>
                     <Text style={PERSONAL_INFO_FORM_STYLES.inputLabel}> Cuántos idiomas hablas ?</Text>
-                    <TextInput style={[PERSONAL_INFO_FORM_STYLES.textInput, {height: 40}]}
-                               onSubmitEditing={(event) => this.setResponse('languageQuantity', event.nativeEvent.text)}
+                    <TextInput style={[PERSONAL_INFO_FORM_STYLES.textInput[Platform.OS]]}
+                               onChangeText={(text) => this.setResponse('languageQuantity', text)}
                                defaultValue={this.state.languageQuantity} keyboardType='numeric'/>
                 </View>
                 <View style={PERSONAL_INFO_FORM_STYLES.inputContainer}>

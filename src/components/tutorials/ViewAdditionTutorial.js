@@ -40,7 +40,7 @@ export class ViewAdditionTutorial extends React.Component {
         return (
             <Content>
                 <MoravecHeader title='SUMA'/>
-                <Tutorial title="+ suma" videoUrl="http://techslides.com/demos/sample-videos/small.mp4"
+                <Tutorial title="+ suma" videoUrl="https://vjs.zencdn.net/v/oceans.mp4"
                           showExamples={this.showExamples} />
             </Content>
         );
