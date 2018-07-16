@@ -6,7 +6,7 @@ export function verifyIfPersonalInfoIsSavedOnDevice(callback) {
         let personalInfoIsCompleted = false;
         AsyncStorage.getItem('@moravec:personalInfo').then((personalInfoJSON) => {
             if (personalInfoJSON !== null) {
-                personalInfoIsCompleted = false;
+                personalInfoIsCompleted = true;
                 const savedPersonalInfo = JSON.parse(personalInfoJSON);
 
                 if (!savedPersonalInfo.sentToBackend) {
