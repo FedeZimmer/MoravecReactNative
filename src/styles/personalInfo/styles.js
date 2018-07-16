@@ -27,19 +27,22 @@ export const TYC_STYLES = {
         marginTop: getWindowHeight() * 0.12,
     },
     text: {
-        fontFamily: 'GothamBold',
+        fontFamily: 'GothamMedium',
         color: grayColor,
-        fontSize: 20,
+        fontSize: 16,
         lineHeight: 30,
         textAlign: 'justify',
         marginLeft: 20,
-        marginRight: 20
+        marginRight: 20,
+        marginTop: 10,
+        marginBottom: 20,
     },
     agreeButtonContainer: {
         flex: 1,
         flexGrow: 1,
         flexDirection: "row",
         justifyContent: "center",
+        marginTop: 20,
     },
     agreeButton: {
         width: getWindowWidth() * 0.9,

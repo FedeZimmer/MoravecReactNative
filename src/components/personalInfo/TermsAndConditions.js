@@ -1,5 +1,5 @@
 import React from "react";
-import {Image, Text, View} from "react-native";
+import {Image, ScrollView, Text, View} from "react-native";
 import {Button} from "native-base";
 import {TYC_STYLES} from "../../styles/personalInfo/styles";
 import Images from "../../../assets/images/images";
@@ -22,17 +22,23 @@ export class TermsAndConditions extends React.Component {
                     <Image source={Images.mainLogoGray} style={TYC_STYLES.logo}/>
                 </View>
                 <View style={TYC_STYLES.textContainer}>
-                    <Text style={TYC_STYLES.text}>
-                        Estoy de acuerdo en participar en la investigación online de la cognición aritmética titulada
-                        Moravec. Durante esta experiencia se recogerán datos cronométricos de mis respuestas. Toda la
-                        información será anónima y será utilizada solamente por los investigadores responsables del
-                        estudio.
-                        {'\n'}
-                        {'\n'}
-                        Mi participación es voluntario y puede ser interrumpida en cualquier momento. Entiendo que los
-                        datos recogidos se guardan en una base de datos que servirá para su tratamiento informático no
-                        nominativo.
-                    </Text>
+                    <ScrollView>
+                        <Text style={TYC_STYLES.text}>
+                            Estoy de acuerdo en participar en la investigación online de la cognición aritmética
+                            titulada
+                            Moravec. Durante esta experiencia se recogerán datos cronométricos de mis respuestas. Toda
+                            la
+                            información será anónima y será utilizada solamente por los investigadores responsables del
+                            estudio.
+                            {'\n'}
+                            {'\n'}
+                            Mi participación es voluntario y puede ser interrumpida en cualquier momento. Entiendo que
+                            los
+                            datos recogidos se guardan en una base de datos que servirá para su tratamiento informático
+                            no
+                            nominativo.
+                        </Text>
+                    </ScrollView>
                 </View>
                 <View style={TYC_STYLES.agreeButtonContainer}>
                     <Button style={TYC_STYLES.agreeButton} onPress={this.handleAgreeTerms}>
