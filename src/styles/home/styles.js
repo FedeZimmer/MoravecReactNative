@@ -18,7 +18,7 @@ export const HOME_STYLES = {
         marginTop: getWindowHeight() * 0.3,
     },
     appName: {
-        fontFamily: 'GothamBlack',
+        fontFamily: 'GothamBook',
         color: '#152939',
         fontSize: 50,
         textAlign: 'center',
