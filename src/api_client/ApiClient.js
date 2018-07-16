@@ -30,6 +30,10 @@ export class ApiClient {
             trialNumber = trialNumber + 1;
             return {
                 UUID: DeviceInfo.getUniqueID(),
+                System_Version: `${DeviceInfo.getSystemName()} ${DeviceInfo.getSystemVersion()}`,
+                System_Language: DeviceInfo.getDeviceLocale(),
+                App_Version: DeviceInfo.getReadableVersion(),
+                App_Language: I18n.locale,
                 Trial_Number: trialNumber,
                 Game_Type: 'Arcade', // mock
                 Level: trial.levelNumber,
@@ -63,10 +67,6 @@ export class ApiClient {
     sendPersonalData(personalDataToSend) {
         const personalData = {
             UUID: DeviceInfo.getUniqueID(),
-            System_Version: `${DeviceInfo.getSystemName()} ${DeviceInfo.getSystemVersion()}`,
-            System_Language: DeviceInfo.getDeviceLocale(),
-            App_Version: DeviceInfo.getReadableVersion(),
-            App_Language: I18n.locale,
             Birthdate: personalDataToSend['birthDate'],
             Studies: personalDataToSend['studiesAchieved'],
             Gender: personalDataToSend['gender'],
