@@ -1,4 +1,6 @@
 export default {
-    play: 'Play',
-    agree: 'I agree terms'
+    play: "Play",
+    practice: "Practice",
+    agree: "I agree with the terms",
+    submitPersonalInfo: "Ready! Let's play"
 };

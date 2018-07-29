@@ -10,7 +10,7 @@ export let SubmitPersonalInfoButton = class extends React.Component {
         return (
             <Button style={PERSONAL_INFO_FORM_STYLES.submitButton} onPress={this.props.onPress}>
                 <Text style={PERSONAL_INFO_FORM_STYLES.submitButtonText}>
-                    {I18n.t('Listo! Empezar a jugar').toUpperCase()}
+                    {I18n.t('submitPersonalInfo').toUpperCase()}
                 </Text>
             </Button>
         )
