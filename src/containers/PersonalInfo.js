@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
-import {View, Text} from 'react-native'
 import {connect} from 'react-redux'
-import {TERMS_AND_CONDITIONS, PERSONAL_INFO_FORM} from "../reducers/personal_info_reducer";
+import {PERSONAL_INFO_FORM, TERMS_AND_CONDITIONS} from "../reducers/personal_info_reducer";
 import {agreeTerms, savePersonalInfo} from "../actions/personal_info_actions";
 import {TermsAndConditions} from "../components/personalInfo/TermsAndConditions";
 import {PersonalInfoForm} from "../components/personalInfo/PersonalInfoForm";
@@ -18,10 +17,9 @@ const mapDispatchToProps = dispatch => {
             agreeTerms: () => {
                 dispatch(agreeTerms())
             },
-            savePersonalInfo: (personalInfo) => {
-                dispatch(savePersonalInfo(personalInfo))
+            savePersonalInfo: (personalInfo, afterSaveCallback) => {
+                dispatch(savePersonalInfo(personalInfo, afterSaveCallback))
             },
-
         }
     }
 };
@@ -36,11 +34,11 @@ class PersonalInfo extends Component {
         super(props);
 
         this.onSubmit = this.onSubmit.bind(this);
+        this.goToHome = this.goToHome.bind(this);
     }
 
     onSubmit(personalInfo) {
-        this.props.actions.savePersonalInfo(personalInfo);
-        this.goToHome();
+        this.props.actions.savePersonalInfo(personalInfo, this.goToHome);
     };
 
     goToHome() {

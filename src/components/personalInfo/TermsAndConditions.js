@@ -1,9 +1,8 @@
 import React from "react";
 import {Image, ScrollView, Text, View} from "react-native";
-import {Button} from "native-base";
 import {TYC_STYLES} from "../../styles/personalInfo/styles";
 import Images from "../../../assets/images/images";
-import I18n from "../../../i18n/i18n";
+import {AcceptTACButton} from "./AcceptTACButton";
 
 export class TermsAndConditions extends React.Component {
     constructor(props) {
@@ -41,9 +40,7 @@ export class TermsAndConditions extends React.Component {
                     </ScrollView>
                 </View>
                 <View style={TYC_STYLES.agreeButtonContainer}>
-                    <Button style={TYC_STYLES.agreeButton} onPress={this.handleAgreeTerms}>
-                        <Text style={TYC_STYLES.agreeButtonText}>{I18n.t('agree').toUpperCase()}</Text>
-                    </Button>
+                    <AcceptTACButton onPress={this.handleAgreeTerms}/>
                 </View>
             </View>
         );

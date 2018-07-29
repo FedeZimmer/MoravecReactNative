@@ -1,15 +1,15 @@
 import React from "react";
-import {Image, Text, View, TextInput, ScrollView, Platform} from "react-native";
-import {DatePicker, Button} from "native-base";
+import {Platform, ScrollView, Text, TextInput, View} from "react-native";
+import {DatePicker} from "native-base";
 import {PERSONAL_INFO_FORM_STYLES} from "../../styles/personalInfo/styles";
 import {RadioSet} from "./RadioSet";
 
 import I18n from 'react-native-i18n';
 import moment from "moment";
-
 // FIXME: Import only the locale that is needed
 import 'moment/locale/es';
 import 'moment/locale/fr';
+import {SubmitPersonalInfoButton} from "./SubmitPersonalInfoButton";
 
 export class PersonalInfoForm extends React.Component {
     constructor(props) {
@@ -39,7 +39,7 @@ export class PersonalInfoForm extends React.Component {
     }
 
     optionIsSelected(formField, option) {
-        return this.state[formField] == option;
+        return this.state[formField] === option;
     }
 
     selectOption(formField, option) {
@@ -52,7 +52,7 @@ export class PersonalInfoForm extends React.Component {
     }
 
     formatSelectedDate() {
-        if (this.state.birthDate  !== '') {
+        if (this.state.birthDate !== '') {
             return moment(this.state.birthDate).locale(I18n.locale).format('LL');
         } else {
             return this.state.birthDate;
@@ -105,15 +105,15 @@ export class PersonalInfoForm extends React.Component {
                 <View style={PERSONAL_INFO_FORM_STYLES.inputContainer}>
                     <RadioSet name="studiesAchieved" label="Estudios alcanzados" orientation="vertical"
                               options={['Primaria terminada', 'Secundaria en curso', 'Secundaria terminada',
-                              'Universitario en curso', 'Universitario terminado']}
+                                  'Universitario en curso', 'Universitario terminado']}
                               optionIsSelected={this.optionIsSelected}
-                              selectOption={this.selectOption} />
+                              selectOption={this.selectOption}/>
                 </View>
                 <View style={PERSONAL_INFO_FORM_STYLES.inputContainer}>
                     <RadioSet name="skillfulHand" label="Mano hábil" orientation="vertical"
                               options={['Diestro', 'Zurdo', 'Ambas']}
                               optionIsSelected={this.optionIsSelected}
-                              selectOption={this.selectOption} />
+                              selectOption={this.selectOption}/>
                 </View>
                 <View style={PERSONAL_INFO_FORM_STYLES.inputContainer}>
                     <Text style={PERSONAL_INFO_FORM_STYLES.inputLabel}>¿Cuál es tu habilidad musical?</Text>
@@ -121,24 +121,20 @@ export class PersonalInfoForm extends React.Component {
                               labelStyle={PERSONAL_INFO_FORM_STYLES.inputSubLabel}
                               options={['Nula', 'Moderada', 'Avanzada']}
                               optionIsSelected={this.optionIsSelected}
-                              selectOption={this.selectOption} />
+                              selectOption={this.selectOption}/>
                     <RadioSet name="musicInstrumentalistAbility" label="Como instrumentista"
                               labelStyle={PERSONAL_INFO_FORM_STYLES.inputSubLabel}
                               options={['Nula', 'Moderada', 'Avanzada']}
                               optionIsSelected={this.optionIsSelected}
-                              selectOption={this.selectOption} />
+                              selectOption={this.selectOption}/>
                     <RadioSet name="musicProfessionalAbility" label="Como profesional"
                               labelStyle={PERSONAL_INFO_FORM_STYLES.inputSubLabel}
                               options={['Nula', 'Moderada', 'Avanzada']}
                               optionIsSelected={this.optionIsSelected}
-                              selectOption={this.selectOption} />
+                              selectOption={this.selectOption}/>
                 </View>
                 <View>
-                    <Button style={PERSONAL_INFO_FORM_STYLES.submitButton} onPress={this.handleSubmit}>
-                        <Text style={PERSONAL_INFO_FORM_STYLES.submitButtonText}>
-                            {'Listo! Empezar a jugar'.toUpperCase()}
-                        </Text>
-                    </Button>
+                    <SubmitPersonalInfoButton onPress={this.handleSubmit}/>
                 </View>
             </ScrollView>
         );

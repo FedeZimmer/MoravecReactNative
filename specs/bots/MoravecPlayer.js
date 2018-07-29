@@ -1,13 +1,19 @@
+import {pressIfPresent} from "../utils";
+
 export class MoravecPlayer {
     constructor(engineHelper) {
         this._engineHelper = engineHelper;
     }
 
     async startGame() {
+        await pressIfPresent(this._engineHelper, 'AcceptTACButton');
+        await this._engineHelper.press('SubmitPersonalInfoButton');
         await this._engineHelper.press('PlayButton');
     }
 
     async startPractice() {
+        await pressIfPresent(this._engineHelper, 'AcceptTACButton');
+        await this._engineHelper.press('SubmitPersonalInfoButton');
         await this._engineHelper.press('PracticeButton');
     }
 

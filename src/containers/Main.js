@@ -1,10 +1,10 @@
 import React from "react";
 import {connect} from 'react-redux'
-import {View, Text, AsyncStorage} from "react-native";
+import {View} from "react-native";
 import {Spinner} from "native-base";
 
 import {verifyIfPersonalInfoIsSavedOnDevice} from "../actions/main_actions";
-import {spinnerColor, MAIN_STYLES} from "../styles/main/styles";
+import {MAIN_STYLES, spinnerColor} from "../styles/main/styles";
 
 const mapStateToProps = () => {
     return {}
@@ -30,8 +30,6 @@ class Main extends React.Component {
         super(props);
 
         this.redirectToCorrectScreen = this.redirectToCorrectScreen.bind(this);
-        this.goToHome = this.goToHome.bind(this);
-        this.goToPersonalInfo = this.goToPersonalInfo.bind(this);
     }
 
     componentDidMount() {
@@ -57,7 +55,7 @@ class Main extends React.Component {
     render() {
         return (
             <View style={MAIN_STYLES.main}>
-                <Spinner color={spinnerColor} />
+                <Spinner color={spinnerColor}/>
             </View>
         )
     }
