@@ -8,7 +8,7 @@ import {makeItTestable} from "../../../utils/testable_hoc";
 
 export let Hints = class extends React.Component {
     hintsText() {
-        return `${this.props.hintsUsed}/${MAX_HINTS_PER_LEVEL}`;
+        return `${this.props.hintsAvailable}/${MAX_HINTS_PER_LEVEL}`;
     }
 
     render() {

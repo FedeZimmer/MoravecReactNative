@@ -28,14 +28,14 @@ export function operationHintsSpec(spec) {
             await aPlayer.startGame();
 
             await aPlayer.playFirstLevel();
-            await assertHintsTextContentIs("0/3");
+            await assertHintsTextContentIs("3/3");
             await assertHintCardIsNotShown();
 
             await spec.pause(1500);
 
             await aPlayer.pressAskForHintButton();
 
-            await assertHintsTextContentIs("0/3");
+            await assertHintsTextContentIs("3/3");
             await assertHintCardIsNotShown();
         });
 
@@ -47,7 +47,7 @@ export function operationHintsSpec(spec) {
         //     await aPlayer.startGame();
         //
         //     await aPlayer.playFirstLevel();
-        //     await assertHintsTextContentIs("0/3");
+        //     await assertHintsTextContentIs("3/3");
         //     await assertHintCardIsNotShown();
         //
         //     // TODO: set a 2-digit multiplication operation for the current trial
@@ -56,7 +56,7 @@ export function operationHintsSpec(spec) {
         //
         //     await aPlayer.pressAskForHintButton();
         //
-        //     await assertHintsTextContentIs("1/3");
+        //     await assertHintsTextContentIs("2/3");
         //     await assertHintCardIsShown();
         // });
         //
@@ -64,7 +64,7 @@ export function operationHintsSpec(spec) {
         //     await aPlayer.startGame();
         //
         //     await aPlayer.playFirstLevel();
-        //     await assertHintsTextContentIs("0/3");
+        //     await assertHintsTextContentIs("3/3");
         //     await assertHintCardIsNotShown();
         //
         //     // TODO: set a 2-digit multiplication operation for the current trial
@@ -72,14 +72,14 @@ export function operationHintsSpec(spec) {
         //     await aPlayer.pressAskForHintButton();
         //     await aPlayer.pressAskForHintButton();
         //
-        //     await assertHintsTextContentIs("1/3");
+        //     await assertHintsTextContentIs("2/3");
         //     await assertHintCardIsShown();
         // });
         //
         // spec.it("asking for a hint when there are no remaining hints does nothing", async function () {
         //     await aPlayer.startGame();
         //     await aPlayer.playFirstLevel();
-        //     await assertHintsTextContentIs("0/3");
+        //     await assertHintsTextContentIs("3/3");
         //     await assertHintCardIsNotShown();
         //
         //     // TODO: set a 2-digit multiplication operation for the current trial
@@ -99,7 +99,7 @@ export function operationHintsSpec(spec) {
         //
         //     await aPlayer.pressAskForHintButton();
         //
-        //     await assertHintsTextContentIs("3/3");
+        //     await assertHintsTextContentIs("0/3");
         //     await assertHintCardIsNotShown();
         // });
     })

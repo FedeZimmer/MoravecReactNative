@@ -25,7 +25,7 @@ export let Game = class extends React.Component {
                                totalTrials={this.props.currentLevel.totalTrials}
                                lastAnswerData={this.props.lastAnswerData}
                                countdownBarShowTime={this.props.currentTrial.operation.maxSolveTime}
-                               hintsUsed={this.props.currentLevel.hintsUsed}
+                               hintsAvailable={this.props.currentLevel.hintsAvailable}
                                onAskForHint={this.props.onAskForHint}
             />
         } else if (this.props.state === PRACTICING) {

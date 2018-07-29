@@ -25,7 +25,7 @@ export class GameHeader extends React.Component {
         return [
             <View key={1} style={HEADER_STYLES.headerGame}>
                 <CalculationTimer startTime={this.props.startTime}/>
-                <Hints hintsUsed={this.props.hintsUsed} onPress={this.props.onAskForHint}/>
+                <Hints hintsAvailable={this.props.hintsAvailable} onPress={this.props.onAskForHint}/>
                 <LevelState totalTrials={this.props.totalTrials} currentTrialNumber={this.props.currentTrialNumber}/>
                 <UserAnswerFeedback lastAnswerData={this.props.lastAnswerData}/>
             </View>,
