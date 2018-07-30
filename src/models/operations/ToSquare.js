@@ -1,6 +1,6 @@
 import {Operation} from "./Operation";
 import {Operand} from "./Operand";
-import {ToSquareHint} from "../../models/hints/ToSquareHint";
+import {ToSquareHint} from "../hints/ToSquareHint";
 import math from "mathjs";
 
 var exponent = require('superscript-number');

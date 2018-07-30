@@ -1,5 +1,5 @@
 import {ToSquareHint} from "../src/models/hints/ToSquareHint";
-import {ToSquare} from "../src/actions/operations/ToSquare";
+import {ToSquare} from "../src/models/operations/ToSquare";
 
 test('creates hint for 16^2 correctly', () => {
     const operation = ToSquare.create(16);

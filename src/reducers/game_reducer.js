@@ -9,8 +9,8 @@ import {
     SUBMIT_TRIAL,
     UPDATE_LEVELS_HISTORY,
 } from '../actions/game_actions'
-import {OperationCategory} from "../actions/category/Category";
-import {Level} from "../actions/level/Level";
+import {OperationCategory} from "../models/operations/Category";
+import {Level} from "../models/level/Level";
 
 const levelsConfigurationFile = require('../../assets/levels.json');
 

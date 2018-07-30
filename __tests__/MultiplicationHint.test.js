@@ -1,5 +1,5 @@
 import {MultiplicationHint} from "../src/models/hints/MultiplicationHint";
-import {Multiplication} from "../src/actions/operations/Multiplication";
+import {Multiplication} from "../src/models/operations/Multiplication";
 
 test('creates hint for 94 x 2 correctly', () => {
     const operation = Multiplication.create(94, 2);

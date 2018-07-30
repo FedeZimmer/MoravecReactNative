@@ -5,8 +5,8 @@ import {PracticeModeOption} from "./PracticeModeOption";
 import {PRACTICE_MODE_SELECTION_STYLES} from "../../styles/practice/styles"
 import {makeItTestable} from "../../utils/testable_hoc";
 import {MoravecHeader} from "../common/Header";
-import {BASIC, DIFFICULT, MEDIUM} from "../../actions/practice/PracticeMode";
-import {OperationCategory} from "../../actions/category/Category";
+import {BASIC, DIFFICULT, MEDIUM} from "../../models/practice/PracticeMode";
+import {OperationCategory} from "../../models/operations/Category";
 
 export let PracticeModeSelection = class extends React.Component {
     constructor(props) {
