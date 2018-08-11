@@ -21,15 +21,28 @@ export class PracticeHeader extends React.Component {
 }
 
 export class GameHeader extends React.Component {
+    _renderLevelInfo() {
+        if (this.props.hintShown) {
+            return null;
+        } else {
+            return (
+                <View key={1} style={HEADER_STYLES.gameInfo}>
+                    <CalculationTimer startTime={this.props.startTime}/>
+                    <Hints hintsUsed={this.props.hintsUsed} onPress={this.props.onAskForHint}/>
+                    <LevelState totalTrials={this.props.totalTrials} currentTrialNumber={this.props.currentTrialNumber}/>
+                    <UserAnswerFeedback lastAnswerData={this.props.lastAnswerData}/>
+                </View>
+            )
+        }
+    }
+
     render() {
-        return [
-            <View key={1} style={HEADER_STYLES.headerGame}>
-                <CalculationTimer startTime={this.props.startTime}/>
-                <Hints hintsUsed={this.props.hintsUsed} onPress={this.props.onAskForHint}/>
-                <LevelState totalTrials={this.props.totalTrials} currentTrialNumber={this.props.currentTrialNumber}/>
-                <UserAnswerFeedback lastAnswerData={this.props.lastAnswerData}/>
-            </View>,
-            <CountdownBar key={2} startTime={this.props.startTime} showTime={this.props.countdownBarShowTime}/>
-        ]
+        const headerGrow = this.props.hintShown ? 0.2:1;
+        return (
+            <View style={[{flexGrow: headerGrow}, HEADER_STYLES.headerGame]}>
+                {this._renderLevelInfo()}
+                <CountdownBar key={2} startTime={this.props.startTime} showTime={this.props.countdownBarShowTime}/>
+            </View>
+        )
     }
 }

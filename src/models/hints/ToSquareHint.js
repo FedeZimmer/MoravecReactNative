@@ -1,6 +1,8 @@
 import {PositionalDecomposition} from "./PositionalDecomposition";
 import {OperationHint} from "./OperationHint";
 
+var exponent = require('superscript-number');
+
 export class ToSquareHint extends OperationHint {
     static of(toSquareOperation) {
         return new ToSquareHint(toSquareOperation);
@@ -16,9 +18,9 @@ export class ToSquareHint extends OperationHint {
     _decompositionOf(x) {
         if (x >= 10) {
             const a = this._valueOfA(x);
-            return `(${x}-${a}) x (${x}+${a}) + ${a}^2`
+            return `(${x}-${a}) x (${x}+${a}) + ${a}${exponent(2)}`
         } else {
-            return `${x}^2`;
+            return `${x}${exponent(2)}`;
         }
     }
 
@@ -58,7 +60,7 @@ export class ToSquareHint extends OperationHint {
         let numberToSquare = this.operation().leftOperand().value();
 
         let steps = [];
-        const zeroStep = "x^2 = (x-a)(x+a) + a^2";
+        const zeroStep = "x" + exponent(2) + " = (x-a)(x+a) + a" + exponent(2);
         steps.push(zeroStep);
 
         const firstStep = `${this._decompositionOf(numberToSquare)}`;

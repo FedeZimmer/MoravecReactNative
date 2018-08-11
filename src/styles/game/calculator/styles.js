@@ -3,10 +3,12 @@ import {getWindowHeight} from '../../../utils/get_window_info';
 
 export const GAME_STYLES = {
     game: {
-        flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'center',
+        flex: 2,
+        flexDirection: 'column'
     },
+    calculatorContainer: {
+        flexGrow: 6
+    }
 };
 
 export const COUNTDOWN_STYLES = {
@@ -19,7 +21,7 @@ export const COUNTDOWN_STYLES = {
 export const OPERATION_STYLES = {
     operationContainer: {
         backgroundColor: whiteColor,
-        height: getWindowHeight() * 0.25,
+        flexGrow: 2,
         borderBottomWidth: 1,
         borderBottomColor: superLightGrayColor,
     },

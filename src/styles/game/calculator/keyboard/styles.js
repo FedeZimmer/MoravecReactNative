@@ -84,6 +84,6 @@ export const INPUT_STYLES = {
         justifyContent: 'space-between',
     },
     inputContainer: {
-        height: getWindowHeight() * 0.6,
+        flexGrow: 5,
     },
 };
