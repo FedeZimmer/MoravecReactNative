@@ -112,7 +112,7 @@ function hasExceededMaxSolveTime(trialStartTime, trialSubmitTime, operationMaxSo
     return calculateTotalTrialTime(trialStartTime, trialSubmitTime) > operationMaxSolveTime;
 }
 
-function newTrialData(trials, levelNumber, operation, startTime) {
+function newTrialData(trials, levelNumber, operation, startTime, hintsAvailable) {
     return {
         levelNumber: levelNumber,
         currentUserInput: null,
@@ -123,6 +123,7 @@ function newTrialData(trials, levelNumber, operation, startTime) {
         hasErased: false,
         timeExceeded: false,
         hintShown: false,
+        hintsCurrentlyAvailable: hintsAvailable,
     }
 }
 
@@ -144,15 +145,15 @@ function addResponseTime(responseTimesUntilNow, startTime, inputTime) {
     return responseTimesUntilNow.concat(responseTime);
 }
 
-function shouldShowHint(hintsUsed, operationHint, hintShown) {
-    return hintShown || (hintsUsed < MAX_HINTS_PER_LEVEL && operationHint.hasHint());
+function shouldShowHint(hintsAvailable, operationHint, hintShown) {
+    return hintShown || (hintsAvailable > 0 && operationHint.hasHint());
 }
 
-function calculateHintsUsed(prevHintsUsed, operationHint, hintShown) {
-    if (!hintShown && shouldShowHint(prevHintsUsed, operationHint, hintShown)) {
-        return prevHintsUsed + 1;
+function calculateHintsAvailable(prevHintsAvailable, operationHint, hintShown) {
+    if (!hintShown && shouldShowHint(prevHintsAvailable, operationHint, hintShown)) {
+        return prevHintsAvailable - 1;
     } else {
-        return prevHintsUsed;
+        return prevHintsAvailable;
     }
 }
 
@@ -177,7 +178,7 @@ export function gameReducer(state = initialState, action) {
             return {
                 ...state,
                 currentTrial: newTrialData(state.currentLevel.trials, state.currentLevel.number,
-                    action.operation, action.startTime)
+                    action.operation, action.startTime, state.currentLevel.hintsAvailable)
             };
 
         case CALCULATOR_TYPE_INPUT:
@@ -210,12 +211,12 @@ export function gameReducer(state = initialState, action) {
                 ...state,
                 currentLevel: {
                     ...state.currentLevel,
-                    hintsUsed: calculateHintsUsed(state.currentLevel.hintsUsed,
+                    hintsAvailable: calculateHintsAvailable(state.currentLevel.hintsAvailable,
                         state.currentTrial.operation.hint, state.currentTrial.hintShown),
                 },
                 currentTrial: {
                     ...state.currentTrial,
-                    hintShown: shouldShowHint(state.currentLevel.hintsUsed,
+                    hintShown: shouldShowHint(state.currentLevel.hintsAvailable,
                         state.currentTrial.operation.hint, state.currentTrial.hintShown),
                 }
             };
@@ -233,10 +234,10 @@ export function gameReducer(state = initialState, action) {
                     lastCorrectInARowValue: 0,
                     totalTrialsTime: 0,
                     efficacy: calculateEfficacy(state.totalCorrect, state.totalTrials),
-                    hintsUsed: 0,
+                    hintsAvailable: MAX_HINTS_PER_LEVEL,
                 },
                 currentTrial: newTrialData([], action.levelNumber,
-                    action.operation, action.startTime)
+                    action.operation, action.startTime, MAX_HINTS_PER_LEVEL)
             };
 
         case SUBMIT_TRIAL:

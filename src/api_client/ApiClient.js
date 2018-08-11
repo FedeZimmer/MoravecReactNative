@@ -53,8 +53,8 @@ export class ApiClient {
                 End_Date: moment(trial.submitTime).toArray(),
                 Erase: trial.hasErased ? 1 : 0,
                 Hide_Question: 0, // mock
-                Hints_Available: 3, // mock
-                Hint_Shown: 0, // mock
+                Hints_Available: trial.hintsCurrentlyAvailable,
+                Hint_Shown: trial.hintShown ? 1 : 0,
                 Session_Trial: trial.trialNumber,
                 Session_Correct: trial.totalCorrectUntilNow,
                 Correct_In_A_Row: trial.correctInARowUntilNow,
