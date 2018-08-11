@@ -1,6 +1,6 @@
 import {Operation} from "./Operation";
 import {Operand} from "./Operand";
-import {NoHint} from "../../models/hints/NoHint";
+import {NoHint} from "../hints/NoHint";
 
 
 export class Addition extends Operation {

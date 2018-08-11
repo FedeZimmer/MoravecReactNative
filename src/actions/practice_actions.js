@@ -1,4 +1,4 @@
-import {PracticeMode} from "./practice/PracticeMode";
+import {PracticeMode} from "../models/practice/PracticeMode";
 
 export const START_PRACTICE = 'START_PRACTICE';
 export const START_PRACTICE_MODE = 'START_PRACTICE_MODE';

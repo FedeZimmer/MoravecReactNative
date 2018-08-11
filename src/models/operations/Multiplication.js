@@ -1,7 +1,7 @@
 import {Operation} from "./Operation";
 import {Operand} from "./Operand";
-import {MultiplicationHint} from "../../models/hints/MultiplicationHint";
-import {NoHint} from "../../models/hints/NoHint";
+import {MultiplicationHint} from "../hints/MultiplicationHint";
+import {NoHint} from "../hints/NoHint";
 
 
 export class Multiplication extends Operation {

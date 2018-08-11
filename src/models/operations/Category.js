@@ -1,6 +1,6 @@
-import {Addition} from "../operations/Addition";
-import {Multiplication} from "../operations/Multiplication";
-import {ToSquare} from "../operations/ToSquare";
+import {Addition} from "./Addition";
+import {Multiplication} from "./Multiplication";
+import {ToSquare} from "./ToSquare";
 
 export class OperationCategory {
     constructor(codename) {
