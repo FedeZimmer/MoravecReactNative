@@ -11,10 +11,11 @@ export function agreeTerms() {
     }
 }
 
-export function savePersonalInfo(personalInfo) {
+export function savePersonalInfo(personalInfo, afterSaveCallback) {
     return (dispatch, getState) => {
         personalInfo['sentToBackend'] = false;
         AsyncStorage.setItem('@moravec:personalInfo', JSON.stringify(personalInfo)).then(() => {
+            afterSaveCallback();
             sendPersonalInfo(personalInfo);
         });
     }
