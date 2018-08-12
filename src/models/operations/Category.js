@@ -15,10 +15,23 @@ export class OperationCategory {
         this._inferOperationPartsFromCodename(codename);
 
         let name = this._numDigitsLeft.toString() + this._operatorHumanRepresentation.toString();
-        if(this._numDigitsRight > 0) {
+        if (this._numDigitsRight > 0) {
             name += this._numDigitsRight.toString();
         }
         this._name = name;
+    }
+
+    static allCategories() {
+        return [
+            new OperationCategory("1d+1d"),
+            new OperationCategory("1dx1d"),
+            new OperationCategory("2d+2d"),
+            new OperationCategory("2dx1d"),
+            new OperationCategory("3dx1d"),
+            new OperationCategory("(2d)^2"),
+            new OperationCategory("(3d)^2"),
+            new OperationCategory("(4d)^2"),
+        ]
     }
 
     _inferOperationPartsFromCodename(codename) {

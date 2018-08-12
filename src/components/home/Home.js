@@ -17,6 +17,7 @@ export class Home extends React.Component {
         this.handlePlayButton = this.handlePlayButton.bind(this);
         this.handlePracticeButton = this.handlePracticeButton.bind(this);
         this.handleTutorialButton = this.handleTutorialButton.bind(this);
+        this.handleStatsButton = this.handleStatsButton.bind(this);
     }
 
     handlePlayButton() {
@@ -29,6 +30,10 @@ export class Home extends React.Component {
 
     handleTutorialButton() {
         this.props.navigation.navigate('TutorialsList');
+    }
+
+    handleStatsButton() {
+        this.props.navigation.navigate('StatsContainer');
     }
 
     render() {
@@ -46,13 +51,16 @@ export class Home extends React.Component {
                     </View>
                     <View style={HOME_STYLES.practiceOrTutorialContainer}>
                         <PracticeButton onPress={this.handlePracticeButton}/>
-                        <Button style={HOME_STYLES.tutorialButton}
+                        <Button title={'Tutorial'}
+                                style={HOME_STYLES.tutorialButton}
                                 onPress={this.handleTutorialButton}>
                             <Text style={HOME_STYLES.tutorialButtonText}>TUTORIAL</Text>
                         </Button>
                     </View>
                     <View>
-                        <Button transparent>
+                        <Button title={'Estadisticas'}
+                                style={HOME_STYLES.tutorialButton}
+                                onPress={this.handleStatsButton}>
                             <Text style={HOME_STYLES.statsButtonText}>ESTADÍSTICAS</Text>
                         </Button>
                     </View>
