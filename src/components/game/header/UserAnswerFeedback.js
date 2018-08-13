@@ -66,8 +66,7 @@ export let UserAnswerFeedback = class extends React.Component {
                                      style={FEEDBACK_STYLES.feedbackIncorrectBox}>
                         <WrongAnswerMessage correctAnswer={this.props.lastAnswerData.correctResult}
                                             wrongAnswer={this.props.lastAnswerData.userInput}
-                                            opacityValue={this.state.opacityValue}
-                        />
+                                            opacityValue={this.state.opacityValue}/>
                     </FeedbackMessage>
                 )
             }

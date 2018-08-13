@@ -3,6 +3,10 @@ import {darkGrayColor, greenColor, lightGrayColor, pinkColor} from "../../../glo
 
 export const HEADER_STYLES = {
     headerGame: {
+        flex: 2,
+        flexDirection: 'column'
+    },
+    gameInfo: {
         flex: 3,
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -15,6 +19,7 @@ export const HEADER_STYLES = {
         justifyContent: 'space-between',
         alignItems: 'center',
         backgroundColor: lightGrayColor,
+        flexGrow: 0.7
     },
     timeContainer: {
         marginLeft: 20,

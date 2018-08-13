@@ -36,7 +36,7 @@ export default class CountdownBar extends React.Component {
 
     render() {
         return (
-            <View style={Object.assign({}, COUNTDOWN_STYLES.countdown, {width: this.countdownBarWidth()})}/>
+            <View style={[COUNTDOWN_STYLES.countdown, {width: this.countdownBarWidth()}]}/>
         )
     }
 }
