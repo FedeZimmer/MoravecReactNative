@@ -2,8 +2,8 @@ import {Operation} from "./Operation";
 import {Operand} from "./Operand";
 import {ToSquareHint} from "../../models/hints/ToSquareHint";
 import math from "mathjs";
+import exponent from "superscript-number";
 
-var exponent = require('superscript-number');
 
 export class ToSquare extends Operation {
     static create(operandValue) {

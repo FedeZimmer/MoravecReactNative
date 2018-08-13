@@ -1,7 +1,7 @@
 import {PositionalDecomposition} from "./PositionalDecomposition";
 import {OperationHint} from "./OperationHint";
+import exponent from "superscript-number";
 
-var exponent = require('superscript-number');
 
 export class ToSquareHint extends OperationHint {
     static of(toSquareOperation) {

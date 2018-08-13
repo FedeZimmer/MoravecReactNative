@@ -36,10 +36,13 @@ export class GameHeader extends React.Component {
         }
     }
 
+    _headerGrow() {
+        return this.props.hintShown ? 0.2 : 1;
+    }
+
     render() {
-        const headerGrow = this.props.hintShown ? 0.2:1;
         return (
-            <View style={[{flexGrow: headerGrow}, HEADER_STYLES.headerGame]}>
+            <View style={[{flexGrow: this._headerGrow()}, HEADER_STYLES.headerGame]}>
                 {this._renderLevelInfo()}
                 <CountdownBar key={2} startTime={this.props.startTime} showTime={this.props.countdownBarShowTime}/>
             </View>
