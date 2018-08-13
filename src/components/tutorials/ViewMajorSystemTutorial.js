@@ -1,8 +1,6 @@
 import React from "react";
 import {ScrollView, Text, View, Image} from "react-native";
-import {Content} from "native-base";
 import {Tutorial} from "./Tutorial";
-import {MoravecHeader} from "../common/Header";
 import Images from "../../../assets/images/images";
 import {TUTORIAL_STYLES} from "../../styles/tutorials/styles";
 
@@ -37,11 +35,9 @@ export class ViewMajorSystemTutorial extends React.Component {
 
     render() {
         return (
-            <Content>
-                <MoravecHeader title='SIST. MAYOR'/>
-                <Tutorial title="Sistema mayor" videoUrl="http://techslides.com/demos/sample-videos/small.mp4"
-                          showExamples={this.showExamples} />
-            </Content>
+            <Tutorial title="Sistema mayor" headerTitle="SIST. MAYOR"
+                      videoUrl="http://techslides.com/demos/sample-videos/small.mp4"
+                      showExamples={this.showExamples} />
         );
     }
 }

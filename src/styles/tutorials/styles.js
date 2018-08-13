@@ -1,17 +1,22 @@
 import {whiteColor, greenColor, lightGrayColor, grayColor, superLightGrayColor, pinkColor} from "../global";
 import {getWindowHeight, getWindowWidth} from "../../utils/get_window_info";
-export const spinnerColor = '#fc327a';
 
 const windowHeight = getWindowHeight();
 const windowWidth = getWindowWidth();
 
 export const TUTORIAL_STYLES = {
     tutorial: {
-        flex: 4,
+        flex: 5,
         flexDirection: "column",
         paddingLeft: windowHeight * 0.03,
         paddingRight: windowHeight * 0.03,
         paddingBottom: windowHeight * 0.03,
+        backgroundColor: lightGrayColor
+    },
+    tutorialFullScreen: {
+        flex: 5,
+        flexDirection: "column",
+        padding: 0,
         backgroundColor: lightGrayColor
     },
     titleContainer: {
@@ -92,5 +97,74 @@ export const LIST_STYLES = {
         fontSize: 30,
         textAlign: 'center',
         fontWeight: 'bold',
+    }
+};
+
+export const VIDEO_PLAYER_STYLES = {
+    videoLoading: {
+        display: "none"
+    },
+    video: {
+        height: 300
+    },
+    fullScreenVideo: {
+        height: windowHeight * 0.92,
+        width: windowWidth * 0.92,
+        zIndex: 2,
+        alignSelf: "center"
+    },
+    videoContainer: {
+        flex: 1
+    },
+    videoContainerFullScreen: {
+        flex: 1,
+        position: "absolute",
+        top: 0,
+        height: windowHeight,
+        width: windowWidth,
+        justifyContent: "center",
+    },
+    overlay: {
+        flex: 1,
+        opacity: 0.6,
+        backgroundColor: 'black',
+        zIndex: 1,
+        position: "absolute",
+        height: windowHeight,
+        width: windowWidth,
+        top: 0
+    },
+    controlsContainer: {
+        position: "absolute",
+        bottom: 10,
+        flex: 2,
+        flexDirection: "row",
+        zIndex: 2,
+        width: "100%",
+        justifyContent: "space-between",
+        paddingLeft: 30,
+        paddingRight: 30
+    },
+    controlsContainerFullScreen: {
+        position: "absolute",
+        bottom: 35,
+        flex: 2,
+        flexDirection: "row",
+        zIndex: 2,
+        width: "100%",
+        justifyContent: "space-between",
+        paddingLeft: 40,
+        paddingRight: 40
+    },
+    button: {
+        color: whiteColor,
+        fontSize: 40,
+        textAlign: 'center',
+    },
+    playPauseButton: {
+        margin: 0
+    },
+    screenSizeButton: {
+        margin: 0
     }
 };
