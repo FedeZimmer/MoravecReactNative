@@ -31,7 +31,6 @@ export class PersonalInfoForm extends React.Component {
         this.optionIsSelected = this.optionIsSelected.bind(this);
         this.selectOption = this.selectOption.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.formatSelectedDate = this.formatSelectedDate.bind(this);
     }
 
     setResponse(formField, response) {
@@ -49,14 +48,6 @@ export class PersonalInfoForm extends React.Component {
     handleSubmit() {
         let personalInfo = this.state;
         this.props.onSubmit(personalInfo);
-    }
-
-    formatSelectedDate() {
-        if (this.state.birthDate !== '') {
-            return moment(this.state.birthDate).locale(I18n.locale).format('LL');
-        } else {
-            return this.state.birthDate;
-        }
     }
 
     render() {
@@ -81,8 +72,7 @@ export class PersonalInfoForm extends React.Component {
                         placeHolderText="Seleccioná una fecha"
                         textStyle={PERSONAL_INFO_FORM_STYLES.textInput[Platform.OS]}
                         placeHolderTextStyle={PERSONAL_INFO_FORM_STYLES.placeholder}
-                        onDateChange={(date) => this.setResponse('birthDate', date)}
-                        formatChosenDate={this.formatSelectedDate}/>
+                        onDateChange={(date) => this.setResponse('birthDate', date)}/>
                 </View>
                 <View style={PERSONAL_INFO_FORM_STYLES.inputContainer}>
                     <RadioSet name="gender" label="Género" orientation="vertical"
