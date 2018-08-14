@@ -27,7 +27,7 @@ export let Game = class extends React.Component {
                                countdownBarShowTime={this.props.currentTrial.operation.maxSolveTime}
                                hintsAvailable={this.props.currentLevel.hintsAvailable}
                                onAskForHint={this.props.onAskForHint}
-            />
+                               hintShown={this.props.currentTrial.hintShown} />
         } else if (this.props.state === PRACTICING) {
             return <PracticeHeader startTime={this.props.currentTrial.startTime}
                                    lastAnswerData={this.props.lastAnswerData}/>

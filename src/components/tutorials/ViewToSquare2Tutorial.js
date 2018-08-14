@@ -5,7 +5,7 @@ import {Tutorial} from "./Tutorial";
 import {MoravecHeader} from "../common/Header";
 import Images from "../../../assets/images/images";
 import {TUTORIAL_STYLES} from "../../styles/tutorials/styles";
-var exponent = require('superscript-number');
+import exponent from "superscript-number";
 
 export class ViewToSquare2Tutorial extends React.Component {
     static navigationOptions = {

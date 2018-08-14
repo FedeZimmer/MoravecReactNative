@@ -39,3 +39,16 @@ export const BACK_BUTTON_STYLES = {
         fontSize: 30,
     },
 };
+
+export const HINT_CARD_STYLES = {
+    hint: {
+        justifyContent: 'center',
+        flexGrow: 0.7
+    },
+    hintText: {
+        color: greenColor,
+        textAlign: "center",
+        fontFamily: "GothamBook",
+        fontSize: 15
+    }
+};

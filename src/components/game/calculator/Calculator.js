@@ -1,7 +1,8 @@
 import React from 'react';
-import {StatusBar, View} from 'react-native';
+import {View} from 'react-native';
 import {OperationDisplay} from './OperationDisplay';
 import CalculatorKeyboard from './keyboard/CalculatorKeyboard';
+import {GAME_STYLES} from "../../../styles/game/calculator/styles";
 
 export class Calculator extends React.Component {
     constructor(props) {
@@ -10,8 +11,7 @@ export class Calculator extends React.Component {
 
     render() {
         return (
-            <View>
-                <StatusBar hidden={true}/>
+            <View style={GAME_STYLES.calculatorContainer}>
                 <OperationDisplay operation={this.props.operation} input={this.props.input}/>
                 <CalculatorKeyboard onTypeInput={this.props.onTypeInput}
                                     onEraseInput={this.props.onEraseInput}
