@@ -1,10 +1,12 @@
 import React from "react";
 import {Image, Text, View} from "react-native";
 import {Button} from "native-base";
+import I18n from "../../../i18n/i18n";
 import {HOME_STYLES} from "../../styles/home/styles";
 import Images from "../../../assets/images/images";
 import {PlayButton} from "./PlayButton";
 import {PracticeButton} from "./PracticeButton";
+import {TouchableWithoutFeedback} from "react-native";
 
 export class Home extends React.Component {
     static navigationOptions = {
@@ -58,10 +60,8 @@ export class Home extends React.Component {
                         </Button>
                     </View>
                     <View>
-                        <Button title={'Estadisticas'}
-                                style={HOME_STYLES.tutorialButton}
-                                onPress={this.handleStatsButton}>
-                            <Text style={HOME_STYLES.statsButtonText}>ESTADÍSTICAS</Text>
+                        <Button style={HOME_STYLES.statsButton} onPress={this.handleStatsButton}>
+                            <Text style={HOME_STYLES.statsButtonText}>{I18n.t('stats').toUpperCase()}</Text>
                         </Button>
                     </View>
                 </View>
