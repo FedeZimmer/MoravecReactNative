@@ -73,11 +73,22 @@ export const HOME_STYLES = {
         fontSize: 15,
         textAlign: 'center',
     },
+    statsButton: {
+        borderWidth: 2,
+        borderColor: grayColor,
+        justifyContent: "center",
+        zIndex: 2,
+        paddingLeft: 15,
+        paddingRight: 15,
+        backgroundColor: "transparent",
+        elevation: 0,
+        marginTop: 10
+    },
     statsButtonText: {
         fontFamily: 'GothamBold',
+        color: grayColor,
         fontSize: 15,
         textAlign: 'center',
-        color: grayColor
     },
     footerContainer: {
         flex: 1,

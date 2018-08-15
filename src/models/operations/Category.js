@@ -1,6 +1,7 @@
 import {Addition} from "./Addition";
 import {Multiplication} from "./Multiplication";
 import {ToSquare} from "./ToSquare";
+import exponent from "superscript-number";
 
 export class OperationCategory {
     constructor(codename) {
@@ -14,9 +15,11 @@ export class OperationCategory {
 
         this._inferOperationPartsFromCodename(codename);
 
-        let name = this._numDigitsLeft.toString() + this._operatorHumanRepresentation.toString();
+        let name = this._numDigitsLeft.toString();
         if (this._numDigitsRight > 0) {
-            name += this._numDigitsRight.toString();
+            name += this._operatorHumanRepresentation.toString() + this._numDigitsRight.toString();
+        } else {
+            name += exponent(2);
         }
         this._name = name;
     }

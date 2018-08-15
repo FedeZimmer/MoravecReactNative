@@ -1,12 +1,12 @@
 import React from "react";
 import {Text, View} from "react-native";
 import {Content, Spinner} from "native-base";
-import {LEVEL_SELECTION_STYLES} from "../../styles/game/styles"
 import {makeItTestable} from "../../utils/testable_hoc";
 import {MoravecHeader} from "../common/Header";
 import {OperationRowStats} from "./OperationRowStats";
 import {OperationRowStatsUnavailable} from "./OperationRowStatsUnavailable";
 import {spinnerColor} from "../../styles/main/styles";
+import {CATEGORIES_LIST_STYLES} from "../../styles/stats/styles";
 
 export let StatsMainScreen = class extends React.Component {
     renderOperationsStats() {
@@ -23,9 +23,7 @@ export let StatsMainScreen = class extends React.Component {
                 )
             } else {
                 return (
-                    <OperationRowStatsUnavailable key={index}
-                                                  category={operationStats.category}
-                    />
+                    <OperationRowStatsUnavailable key={index} category={operationStats.category}/>
                 )
             }
         });
@@ -34,13 +32,15 @@ export let StatsMainScreen = class extends React.Component {
     renderContent() {
         if (this.props.operationStats !== null) {
             return (
-                <View style={LEVEL_SELECTION_STYLES.list}>
-                    <View>
-                        <Text key={0}>Operación</Text>
-                        <Text key={1}>Tiempo promedio</Text>
-                        <Text key={2}>Eficacia</Text>
+                <View>
+                    <View style={CATEGORIES_LIST_STYLES.header}>
+                        <Text key={0} style={CATEGORIES_LIST_STYLES.leftTextHeader}>Operación</Text>
+                        <Text key={1} style={CATEGORIES_LIST_STYLES.centerTextHeader}>Tiempo promedio</Text>
+                        <Text key={2} style={CATEGORIES_LIST_STYLES.rightTextHeader}>Eficacia</Text>
                     </View>
-                    {this.renderOperationsStats()}
+                    <View style={CATEGORIES_LIST_STYLES.list}>
+                        {this.renderOperationsStats()}
+                    </View>
                 </View>
             )
         } else {
@@ -51,7 +51,7 @@ export let StatsMainScreen = class extends React.Component {
     render() {
         return (
             <Content>
-                <MoravecHeader title='ESTADISTICAS'/>
+                <MoravecHeader title='ESTADÍSTICAS'/>
                 {this.renderContent()}
             </Content>
         )

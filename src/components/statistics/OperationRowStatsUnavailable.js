@@ -1,22 +1,25 @@
 import React from "react";
-import {Text, View} from "react-native";
-import {LEVEL_SELECTION_STYLES} from "../../styles/game/styles";
+import {Text, TouchableWithoutFeedback, View} from "react-native";
+import {CATEGORIES_LIST_STYLES} from "../../styles/stats/styles";
+import {applyLetterSpacing} from "../../styles/global";
 
 
 export class OperationRowStatsUnavailable extends React.Component {
     render() {
         return (
-            <View style={LEVEL_SELECTION_STYLES.playItem}>
-                <View style={LEVEL_SELECTION_STYLES.listItemContainer}>
+            <View style={CATEGORIES_LIST_STYLES.unavailableItem}>
+                <View style={CATEGORIES_LIST_STYLES.unavailableItemContainer}>
                     <View>
-                        <Text style={LEVEL_SELECTION_STYLES.levelNumber}>
-                            {this.props.category.name()}
+                        <Text style={CATEGORIES_LIST_STYLES.unavailableItemCategoryName}>
+                            {applyLetterSpacing(this.props.category.name(), 1)}
+                        </Text>
+                    </View>
+                    <View style={CATEGORIES_LIST_STYLES.playMoreLevelsContainer}>
+                        <Text style={CATEGORIES_LIST_STYLES.playMoreLevelsText}>
+                            Jugá más niveles.
                         </Text>
                     </View>
                     <View>
-                        <Text>
-                            Juega más niveles.
-                        </Text>
                     </View>
                 </View>
             </View>

@@ -3,7 +3,9 @@ import {Text, View} from "react-native";
 import {Content} from "native-base";
 import {makeItTestable} from "../../utils/testable_hoc";
 import {MoravecHeader} from "../common/Header";
-import {VictoryChart, VictoryLine, VictoryTheme} from "victory-native";
+import {VictoryChart, VictoryLine, VictoryScatter, VictoryAxis} from "victory-native";
+import {applyLetterSpacing} from "../../styles/global";
+import {CHART_STYLES} from "../../styles/stats/styles";
 
 export let OperationStatsScreen = class extends React.Component {
     static navigationOptions = {header: null};
@@ -33,17 +35,31 @@ export let OperationStatsScreen = class extends React.Component {
 
     render() {
         return (
-            <Content>
+            <Content style={CHART_STYLES.content}>
                 <MoravecHeader title='ESTADISTICAS'/>
-                <View>
-                    <Text>{this.operationCategory()}</Text>
+                <View style={CHART_STYLES.container}>
+                    <View>
+                        <Text style={CHART_STYLES.categoryName}>
+                            {applyLetterSpacing(this.operationCategory(), 1)}
+                        </Text>
+                    </View>
+                    <View style={CHART_STYLES.verticalLabelContainer}>
+                        <Text style={CHART_STYLES.verticalLabel}>Tiempo de respuesta (sec)</Text>
+                    </View>
+                    <View style={CHART_STYLES.horizontalLabelContainer}>
+                        <Text style={CHART_STYLES.horizontalLabel}>Intentos</Text>
+                    </View>
+                    <View>
+                        <VictoryChart height={CHART_STYLES.chartHeight}>
+                            <VictoryAxis crossAxis style={CHART_STYLES.crossAxis}
+                                         tickFormat={(value) => Math.round(value)}/>
+                            <VictoryAxis dependentAxis crossAxis style={CHART_STYLES.dependentAxis}
+                                         tickFormat={(value) => Math.round(value)}/>
+                            <VictoryLine style={CHART_STYLES.lineChart} data={this.getChartData()}/>
+                            <VictoryScatter style={CHART_STYLES.scatterPlot} size={5} data={this.getChartData()}/>
+                        </VictoryChart>
+                    </View>
                 </View>
-                <VictoryChart theme={VictoryTheme.material}>
-                    <VictoryLine
-                        style={{}} // https://formidable.com/open-source/victory/docs/common-props/#style
-                        data={this.getChartData()}
-                    />
-                </VictoryChart>
             </Content>
         )
     }
