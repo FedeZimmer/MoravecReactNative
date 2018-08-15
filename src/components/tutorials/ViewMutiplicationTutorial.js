@@ -1,8 +1,6 @@
 import React from "react";
 import {ScrollView, Text, View, Image} from "react-native";
-import {Content} from "native-base";
 import {Tutorial} from "./Tutorial";
-import {MoravecHeader} from "../common/Header";
 import Images from "../../../assets/images/images";
 import {TUTORIAL_STYLES} from "../../styles/tutorials/styles";
 
@@ -43,11 +41,9 @@ export class ViewMultiplicationTutorial extends React.Component {
 
     render() {
         return (
-            <Content>
-                <MoravecHeader title='PRODUCTO'/>
-                <Tutorial title="x producto" videoUrl="http://techslides.com/demos/sample-videos/small.mp4"
-                          showExamples={this.showExamples} />
-            </Content>
+            <Tutorial title="x producto" headerTitle="PRODUCTO"
+                      videoUrl="http://techslides.com/demos/sample-videos/small.mp4"
+                      showExamples={this.showExamples} />
         );
     }
 }

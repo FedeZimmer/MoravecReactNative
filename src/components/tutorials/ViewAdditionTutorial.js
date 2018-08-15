@@ -1,7 +1,5 @@
 import React from "react";
 import {ScrollView, Text, View, Image} from "react-native";
-import {Content} from "native-base";
-import {MoravecHeader} from "../common/Header";
 import {Tutorial} from "./Tutorial";
 import Images from "../../../assets/images/images";
 import {TUTORIAL_STYLES} from "../../styles/tutorials/styles";
@@ -38,11 +36,8 @@ export class ViewAdditionTutorial extends React.Component {
 
     render() {
         return (
-            <Content>
-                <MoravecHeader title='SUMA'/>
-                <Tutorial title="+ suma" videoUrl="https://vjs.zencdn.net/v/oceans.mp4"
-                          showExamples={this.showExamples} />
-            </Content>
+            <Tutorial title="+ suma" headerTitle="SUMA" videoUrl="https://vjs.zencdn.net/v/oceans.mp4"
+                      showExamples={this.showExamples} />
         );
     }
 }

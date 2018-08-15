@@ -1,6 +1,6 @@
 import React from "react";
 import {connect} from 'react-redux'
-import {View} from "react-native";
+import {View, StatusBar} from "react-native";
 import {Spinner} from "native-base";
 
 import {verifyIfPersonalInfoIsSavedOnDevice} from "../actions/main_actions";
@@ -19,6 +19,9 @@ const mapDispatchToProps = dispatch => {
         }
     }
 };
+
+// Hiding StatusBar for all screens
+StatusBar.setHidden(true);
 
 class Main extends React.Component {
     static navigationOptions = {

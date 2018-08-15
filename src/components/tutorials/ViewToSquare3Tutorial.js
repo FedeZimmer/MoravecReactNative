@@ -1,8 +1,6 @@
 import React from "react";
 import {ScrollView, Text, View, Image} from "react-native";
-import {Content} from "native-base";
 import {Tutorial} from "./Tutorial";
-import {MoravecHeader} from "../common/Header";
 import Images from "../../../assets/images/images";
 import {TUTORIAL_STYLES} from "../../styles/tutorials/styles";
 import exponent from "superscript-number";
@@ -42,12 +40,10 @@ export class ViewToSquare3Tutorial extends React.Component {
 
     render() {
         return (
-            <Content>
-                <MoravecHeader title='POTENCIA'/>
-                <Tutorial title={"x" + exponent(2) + " potencia (3d)"}
-                          videoUrl="http://techslides.com/demos/sample-videos/small.mp4"
-                          showExamples={this.showExamples} />
-            </Content>
+            <Tutorial title={"x" + exponent(2) + " potencia (3d)"}
+                      headerTitle="POTENCIA"
+                      videoUrl="http://techslides.com/demos/sample-videos/small.mp4"
+                      showExamples={this.showExamples} />
         );
     }
 }
