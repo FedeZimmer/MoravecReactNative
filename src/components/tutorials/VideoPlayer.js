@@ -18,51 +18,26 @@ export class VideoPlayer extends React.Component {
             controlsContainerStyle: VIDEO_PLAYER_STYLES.controlsContainer
         };
 
-        this._renderSpinner = this._renderSpinner.bind(this);
-        this.onVideoLoaded = this.onVideoLoaded.bind(this);
-        this._renderPlayerControls = this._renderPlayerControls.bind(this);
-        this.pause = this.pause.bind(this);
-        this.play = this.play.bind(this);
-        this.expandScreen = this.expandScreen.bind(this);
-        this.shrinkScreen = this.shrinkScreen.bind(this);
-        this._renderOverlay = this._renderOverlay.bind(this);
+        this.handleVideoLoaded = this.handleVideoLoaded.bind(this);
+        this.handlePause = this.handlePause.bind(this);
+        this.handlePlay = this.handlePlay.bind(this);
+        this.handleExpandScreen = this.handleExpandScreen.bind(this);
+        this.handleShrinkScreen = this.handleShrinkScreen.bind(this);
     }
 
-    _renderSpinner() {
-        if (this.state.loaded) {
-            return null;
-        } else {
-            return <Spinner color={spinnerColor}/>;
-        }
-    }
-
-    onVideoLoaded() {
+    handleVideoLoaded() {
         this.setState({loaded: true, videoStyle: VIDEO_PLAYER_STYLES.video});
     }
 
-    _renderPlayerControls() {
-        if (this.state.loaded) {
-            return (
-                <View style={this.state.controlsContainerStyle}>
-                    <PlayPauseButton paused={this.state.paused} onPlay={this.play} onPause={this.pause}/>
-                    <ScreenSizeButton showingInFullScreen={this.state.showingInFullScreen}
-                                      onExpandScreen={this.expandScreen} onShrinkScreen={this.shrinkScreen}/>
-                </View>
-            )
-        } else {
-            return null;
-        }
-    }
-
-    pause() {
+    handlePause() {
         this.setState({paused: true});
     }
 
-    play() {
+    handlePlay() {
         this.setState({paused: false});
     }
 
-    expandScreen() {
+    handleExpandScreen() {
         this.props.onExpandVideo();
         this.setState(
             {
@@ -73,7 +48,7 @@ export class VideoPlayer extends React.Component {
             });
     }
 
-    shrinkScreen() {
+    handleShrinkScreen() {
         this.props.onShrinkVideo();
         this.setState(
             {
@@ -82,6 +57,28 @@ export class VideoPlayer extends React.Component {
                 videoContainerStyle: VIDEO_PLAYER_STYLES.videoContainer,
                 controlsContainerStyle: VIDEO_PLAYER_STYLES.controlsContainer
             });
+    }
+
+    _renderSpinner() {
+        if (this.state.loaded) {
+            return null;
+        } else {
+            return <Spinner color={spinnerColor}/>;
+        }
+    }
+
+    _renderPlayerControls() {
+        if (this.state.loaded) {
+            return (
+                <View style={this.state.controlsContainerStyle}>
+                    <PlayPauseButton paused={this.state.paused} onPlay={this.handlePlay} onPause={this.handlePause}/>
+                    <ScreenSizeButton showingInFullScreen={this.state.showingInFullScreen}
+                                      onExpandScreen={this.handleExpandScreen} onShrinkScreen={this.handleShrinkScreen}/>
+                </View>
+            )
+        } else {
+            return null;
+        }
     }
 
     _renderOverlay() {
@@ -99,7 +96,7 @@ export class VideoPlayer extends React.Component {
         return (
             <View style={this.state.videoContainerStyle}>
                 <Video source={{ uri: this.props.videoUrl }} resizeMode="cover" paused={this.state.paused}
-                       style={this.state.videoStyle} onLoad={this.onVideoLoaded}/>
+                       style={this.state.videoStyle} onLoad={this.handleVideoLoaded} repeat={true}/>
                 {this._renderSpinner()}
                 {this._renderPlayerControls()}
                 {this._renderOverlay()}
