@@ -24,11 +24,13 @@ import {Tester, TestHookStore} from "cavy";
 import {gameSpec} from "./specs/game/game_spec";
 import {practiceSpec} from "./specs/practice_spec";
 import {operationHintsSpec} from "./specs/game/hints_spec";
+import {statsReducer} from "./src/reducers/stats_reducer";
 
 const rootReducer = combineReducers({
     personalInfo: personalInfoReducer,
     game: gameReducer,
     practice: practiceReducer,
+    stats: statsReducer
 });
 
 const store = createStore(rootReducer, undefined, applyMiddleware(thunkMiddleware));

@@ -1,3 +1,3 @@
 export const formatPercentage = function (number) {
-    return number + '%';
+    return Math.round(number * 100)  + '%';
 };

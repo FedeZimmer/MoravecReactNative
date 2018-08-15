@@ -1,7 +1,7 @@
 import {connect} from "react-redux";
 import React from "react";
 import {StatsMainScreen} from "../components/statistics/StatsMainScreen";
-import {OperationCategory} from "../models/operations/Category";
+import {fetchOperationCategoryStats} from "../actions/stats_actions";
 
 class StatsContainer extends React.Component {
     static navigationOptions = {header: null};
@@ -16,47 +16,30 @@ class StatsContainer extends React.Component {
             {operationCategory: operationCategory, responseTimes: responseTimes});
     }
 
-    getStats() {
-        const categories = OperationCategory.allCategories();
-        const categoryStats = categories.map((category) => {
-            return {
-                category: category,
-                hasStats: false,
-            }
-        });
-
-        // TODO: Get and calculate real stats!
-        return categoryStats.map((categoryStat) => {
-            if (categoryStat.category.codename() === "1d+1d") {
-                return {
-                    ...categoryStat,
-                    hasStats: true,
-                    averageTime: 1000,
-                    effectiveness: 94,
-                    responseTimes: [
-                        150, 200, 50, 78, 320
-                    ]
-                }
-            } else {
-                return categoryStat
-            }
-        });
+    componentDidMount() {
+        this.props.actions.fetchStats();
     }
 
     render() {
-        return <StatsMainScreen operationStats={this.getStats()}
+        return <StatsMainScreen operationStats={this.props.operationCategoryStats}
                                 onShowOperationStats={this.handleShowOperationStats}
         />
     }
 }
 
 const mapStateToProps = (state) => {
-    return {}
+    return {
+        operationCategoryStats: state.stats.operationCategoryStats
+    }
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        actions: {}
+        actions: {
+            fetchStats: () => {
+                dispatch(fetchOperationCategoryStats())
+            }
+        }
     }
 };
 

@@ -1,8 +1,7 @@
 import React, {Component} from 'react'
-import {View, Text} from 'react-native'
 import {connect} from 'react-redux'
 import {PRACTICE_MODE_SELECTION, PRACTICING} from "../reducers/practice_reducer";
-import {startPractice, startPracticeMode, typeInput, eraseInput, submitTrial} from "../actions/practice_actions";
+import {eraseInput, startPractice, startPracticeMode, submitTrial, typeInput} from "../actions/practice_actions";
 import {PracticeModeSelection} from "../components/practice/PracticeModeSelection";
 import {Game} from "../components/game/Game";
 
