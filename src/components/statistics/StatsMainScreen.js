@@ -1,11 +1,12 @@
 import React from "react";
 import {Text, View} from "react-native";
-import {Content} from "native-base";
+import {Content, Spinner} from "native-base";
 import {LEVEL_SELECTION_STYLES} from "../../styles/game/styles"
 import {makeItTestable} from "../../utils/testable_hoc";
 import {MoravecHeader} from "../common/Header";
 import {OperationRowStats} from "./OperationRowStats";
 import {OperationRowStatsUnavailable} from "./OperationRowStatsUnavailable";
+import {spinnerColor} from "../../styles/main/styles";
 
 export let StatsMainScreen = class extends React.Component {
     renderOperationsStats() {
@@ -30,10 +31,9 @@ export let StatsMainScreen = class extends React.Component {
         });
     }
 
-    render() {
-        return (
-            <Content>
-                <MoravecHeader title='ESTADISTICAS'/>
+    renderContent() {
+        if (this.props.operationStats !== null) {
+            return (
                 <View style={LEVEL_SELECTION_STYLES.list}>
                     <View>
                         <Text key={0}>Operación</Text>
@@ -42,6 +42,17 @@ export let StatsMainScreen = class extends React.Component {
                     </View>
                     {this.renderOperationsStats()}
                 </View>
+            )
+        } else {
+            return <Spinner color={spinnerColor}/>
+        }
+    }
+
+    render() {
+        return (
+            <Content>
+                <MoravecHeader title='ESTADISTICAS'/>
+                {this.renderContent()}
             </Content>
         )
     }
