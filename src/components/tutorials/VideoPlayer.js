@@ -1,6 +1,6 @@
 import React from "react";
 import Video from "react-native-video";
-import {ScrollView, Text, View, Image, TouchableWithoutFeedback} from "react-native";
+import {ScrollView, Text, View, Image, TouchableWithoutFeedback, Platform} from "react-native";
 import {Icon, Spinner} from 'native-base';
 import {VIDEO_PLAYER_STYLES} from "../../styles/tutorials/styles";
 import {spinnerColor} from "../../styles/main/styles";
@@ -43,7 +43,7 @@ export class VideoPlayer extends React.Component {
             {
                 showingInFullScreen: true,
                 videoStyle: VIDEO_PLAYER_STYLES.fullScreenVideo,
-                videoContainerStyle: VIDEO_PLAYER_STYLES.videoContainerFullScreen,
+                videoContainerStyle: VIDEO_PLAYER_STYLES.videoContainerFullScreen[Platform.OS],
                 controlsContainerStyle: VIDEO_PLAYER_STYLES.controlsContainerFullScreen
             });
     }
@@ -111,13 +111,13 @@ class PlayPauseButton extends React.Component {
         if (this.props.paused) {
             return (
                 <TouchableWithoutFeedback style={VIDEO_PLAYER_STYLES.playPauseButton} onPress={this.props.onPlay}>
-                    <Icon style={VIDEO_PLAYER_STYLES.button} name="ios-play"/>
+                    <Icon style={VIDEO_PLAYER_STYLES.button[Platform.OS]} name="ios-play"/>
                 </TouchableWithoutFeedback>
             )
         } else {
             return (
                 <TouchableWithoutFeedback style={VIDEO_PLAYER_STYLES.playPauseButton} onPress={this.props.onPause}>
-                    <Icon style={VIDEO_PLAYER_STYLES.button} name="ios-pause"/>
+                    <Icon style={VIDEO_PLAYER_STYLES.button[Platform.OS]} name="ios-pause"/>
                 </TouchableWithoutFeedback>
             )
         }
@@ -130,14 +130,14 @@ class ScreenSizeButton extends React.Component {
             return (
                 <TouchableWithoutFeedback style={VIDEO_PLAYER_STYLES.screenSizeButton}
                                           onPress={this.props.onShrinkScreen}>
-                    <Icon style={VIDEO_PLAYER_STYLES.button} name="md-contract"/>
+                    <Icon style={VIDEO_PLAYER_STYLES.button[Platform.OS]} name="md-contract"/>
                 </TouchableWithoutFeedback>
             )
         } else {
             return (
                 <TouchableWithoutFeedback style={VIDEO_PLAYER_STYLES.screenSizeButton}
                                           onPress={this.props.onExpandScreen}>
-                    <Icon style={VIDEO_PLAYER_STYLES.button} name="md-expand"/>
+                    <Icon style={VIDEO_PLAYER_STYLES.button[Platform.OS]} name="md-expand"/>
                 </TouchableWithoutFeedback>
             )
         }

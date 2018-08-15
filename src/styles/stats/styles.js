@@ -61,21 +61,21 @@ export const CATEGORIES_LIST_STYLES = {
         alignItems: "center",
     },
     availableItemCategoryName: {
-        fontFamily: 'GothamBook',
+        fontFamily: 'GothamLight',
         fontSize: 25,
         color: grayColor,
         textAlign: 'right',
         width: 70
     },
     unavailableItemCategoryName: {
-        fontFamily: 'GothamBook',
+        fontFamily: 'GothamLight',
         fontSize: 25,
         color: whiteColor,
         textAlign: 'right',
         width: 70
     },
     averageTime: {
-        fontFamily: 'GothamBook',
+        fontFamily: 'GothamLight',
         fontSize: 20,
         color: greenColor,
     },
@@ -108,7 +108,7 @@ export const CHART_STYLES = {
     categoryName: {
         fontSize: 25,
         color: grayColor,
-        fontFamily: "GothamBook"
+        fontFamily: "GothamLight"
     },
     verticalLabelContainer: {
         position: "absolute",
@@ -117,7 +117,7 @@ export const CHART_STYLES = {
     },
     horizontalLabelContainer: {
         position: "absolute",
-        top: getWindowHeight() * 0.7,
+        top: getWindowHeight() * 0.72,
         left: getWindowWidth() * 0.4,
     },
     verticalLabel: {

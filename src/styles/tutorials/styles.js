@@ -117,12 +117,23 @@ export const VIDEO_PLAYER_STYLES = {
         flex: 1
     },
     videoContainerFullScreen: {
-        flex: 1,
-        position: "absolute",
-        top: 0,
-        height: windowHeight,
-        width: windowWidth,
-        justifyContent: "center",
+        ios: {
+            flex: 1,
+            position: "absolute",
+            top: 0,
+            zIndex: 2,
+            height: windowHeight,
+            width: windowWidth,
+            justifyContent: "center",
+        },
+        android: {
+            flex: 1,
+            position: "absolute",
+            top: 0,
+            height: windowHeight,
+            width: windowWidth,
+            justifyContent: "center",
+        }
     },
     overlay: {
         flex: 1,
@@ -157,12 +168,20 @@ export const VIDEO_PLAYER_STYLES = {
         paddingRight: 40
     },
     button: {
-        color: whiteColor,
-        fontSize: 40,
-        textAlign: 'center',
+        ios: {
+            color: whiteColor,
+            fontSize: 40,
+            textAlign: 'center',
+            backgroundColor: "transparent"
+        },
+        android: {
+            color: whiteColor,
+            fontSize: 40,
+            textAlign: 'center',
+        }
     },
     playPauseButton: {
-        margin: 0
+        margin: 0,
     },
     screenSizeButton: {
         margin: 0
