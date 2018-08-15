@@ -28,7 +28,7 @@ export let OperationStatsScreen = class extends React.Component {
         return this.responseTimes().map((responseTime, index) => (
             {
                 x: index + 1,
-                y: responseTime,
+                y: responseTime / 1000.0,
             }
         ));
     }
@@ -53,8 +53,7 @@ export let OperationStatsScreen = class extends React.Component {
                         <VictoryChart height={CHART_STYLES.chartHeight}>
                             <VictoryAxis crossAxis style={CHART_STYLES.crossAxis}
                                          tickFormat={(value) => Math.round(value)}/>
-                            <VictoryAxis dependentAxis crossAxis style={CHART_STYLES.dependentAxis}
-                                         tickFormat={(value) => Math.round(value)}/>
+                            <VictoryAxis dependentAxis crossAxis style={CHART_STYLES.dependentAxis}/>
                             <VictoryLine style={CHART_STYLES.lineChart} data={this.getChartData()}/>
                             <VictoryScatter style={CHART_STYLES.scatterPlot} size={5} data={this.getChartData()}/>
                         </VictoryChart>
