@@ -27,6 +27,7 @@ const initialState = {
     currentLevel: undefined,
     currentTrial: undefined,
     lastAnswerData: undefined,
+    loadingPlayedLevelData: true,
     playedLevelsStats: {},
     playedLevelsHistory: [],
 };
@@ -170,6 +171,7 @@ export function gameReducer(state = initialState, action) {
         case RESTORE_SAVED_GAME_INFO:
             return {
                 ...state,
+                loadingPlayedLevelData: false,
                 playedLevelsStats: action.savedGameInfo.playedLevelsStats,
                 playedLevelsHistory: action.savedGameInfo.playedLevelsHistory,
             };

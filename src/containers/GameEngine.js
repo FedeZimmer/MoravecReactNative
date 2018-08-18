@@ -18,6 +18,7 @@ const mapStateToProps = (state) => {
     return {
         state: state.game.state,
         numLevels: state.game.numLevels,
+        loadingPlayedLevelData: state.game.loadingPlayedLevelData,
         playedLevelsStats: state.game.playedLevelsStats,
         currentLevel: state.game.currentLevel,
         currentTrial: state.game.currentTrial,
@@ -104,6 +105,7 @@ class GameEngine extends Component {
         if (this.props.state === LEVEL_SELECTION) {
             return <LevelSelection onSelectLevel={this.props.actions.startLevel}
                                    onLoading={this.props.actions.getSavedGameInfoFromDevice}
+                                   loadingPlayedLevelData={this.props.loadingPlayedLevelData}
                                    playedLevelsStats={this.props.playedLevelsStats}
                                    numLevels={this.props.numLevels}
             />
