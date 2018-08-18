@@ -45,7 +45,7 @@ export const LEVEL_FINISHED_STYLES = {
         textAlign: 'center',
     },
     options: {
-        flex: 2,
+        flex: 1,
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'flex-end'

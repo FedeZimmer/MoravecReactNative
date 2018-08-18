@@ -13,7 +13,6 @@ export class LevelFinished extends React.Component {
 
         this.handlePlayNextButtonPressed = this.handlePlayNextButtonPressed.bind(this);
         this.handleReplayLevelButtonPressed = this.handleReplayLevelButtonPressed.bind(this);
-        this.handleShareButtonPressed = this.handleShareButtonPressed.bind(this);
         this.handleHomeButtonPressed = this.handleHomeButtonPressed.bind(this);
     }
 
@@ -67,11 +66,6 @@ export class LevelFinished extends React.Component {
     renderOptions() {
         return (
             <View style={LEVEL_FINISHED_STYLES.options}>
-                <View>
-                    <Button style={LEVEL_FINISHED_STYLES.shareButton} onPress={this.handleShareButtonPressed}>
-                        <Text style={LEVEL_FINISHED_STYLES.shareButtonText}>COMPARTIR</Text>
-                    </Button>
-                </View>
                 <View style={LEVEL_FINISHED_STYLES.gameOptionsContainer}>
                     <ReplayButton onPress={this.handleReplayLevelButtonPressed}
                                   highlighted={!this.props.finishedLevel.levelCompleted}/>
@@ -87,10 +81,6 @@ export class LevelFinished extends React.Component {
 
     handleReplayLevelButtonPressed() {
         this.props.onReplayLevel();
-    }
-
-    handleShareButtonPressed() {
-        //TODO
     }
 
     handleHomeButtonPressed() {
