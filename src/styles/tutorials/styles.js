@@ -51,7 +51,7 @@ export const TUTORIAL_STYLES = {
     },
     image: {
         resizeMode: 'contain',
-        width: windowWidth,
+        width: windowWidth * 0.9,
         marginTop: 20,
         marginBottom: 20
     },

@@ -21,7 +21,7 @@ export class ViewToSquare2Tutorial extends React.Component {
         return (
             <View style={TUTORIAL_STYLES.exampleContainer}>
                 <Text style={TUTORIAL_STYLES.exampleTitle}>{'Ejemplos'.toUpperCase()}</Text>
-                <Image source={Images.squareExample2} style={TUTORIAL_STYLES.image}/>
+                <Image source={Images.squareExample1} style={TUTORIAL_STYLES.image}/>
                 <Text style={TUTORIAL_STYLES.explanation}>
                     Usamos la fórmula <Text style={TUTORIAL_STYLES.boldText}>{"x" + exponent(2) + "=(x+a)(x-a) + a" + exponent(2)}</Text>
                     {'\n'}
