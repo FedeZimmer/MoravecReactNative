@@ -39,6 +39,7 @@ export const TUTORIAL_STYLES = {
         flexDirection: "column",
         backgroundColor: whiteColor,
         marginTop: 10,
+        marginBottom: 20,
         paddingLeft: 10,
         paddingRight: 10,
         paddingTop: 10,

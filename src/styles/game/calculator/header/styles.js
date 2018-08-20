@@ -32,10 +32,12 @@ export const HEADER_STYLES = {
     hintsNumber: {
         color: darkGrayColor,
         fontSize: 25,
+        fontFamily: "GothamMedium"
     },
     hintsText: {
         color: darkGrayColor,
         fontSize: 20,
+        fontFamily: "GothamMedium"
     },
     hintsContainer: {
         flex: 1,

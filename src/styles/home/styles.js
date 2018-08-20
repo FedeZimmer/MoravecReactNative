@@ -2,20 +2,23 @@ import {greenColor, whiteColor, pinkColor, lightGrayColor, grayColor} from "../g
 import {getWindowHeight} from "../../utils/get_window_info";
 import {getWindowWidth} from "../../utils/get_window_info";
 
+const windowHeight = getWindowHeight();
+const windowWidth = getWindowWidth();
+
 export const HOME_STYLES = {
     logoContainer: {
         flex: 1,
         flexDirection: "row",
         justifyContent: "center",
-        marginTop: getWindowHeight() * 0.1,
+        marginTop: windowHeight * 0.1,
     },
     logo: {
-        width: getWindowWidth() * 0.8,
-        height: getWindowHeight() * 0.4,
+        width: windowWidth * 0.8,
+        height: windowHeight * 0.4,
         resizeMode: 'contain',
     },
     appNameContainer: {
-        marginTop: getWindowHeight() * 0.3,
+        marginTop: windowHeight * 0.3,
     },
     appName: {
         fontFamily: 'GothamMedium',
@@ -28,10 +31,11 @@ export const HOME_STYLES = {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        marginTop: getWindowHeight() * 0.1,
+        marginTop: windowHeight * 0.1,
     },
     playButton: {
-        width: getWindowWidth() * 0.9,
+        width: windowWidth * 0.9,
+        height: windowHeight * 0.075,
         backgroundColor: greenColor,
         justifyContent: "center",
         borderRadius: 0,
@@ -40,16 +44,17 @@ export const HOME_STYLES = {
     playButtonText: {
         fontFamily: 'GothamBold',
         color: whiteColor,
-        fontSize: 15,
+        fontSize: 16,
         textAlign: 'center',
     },
     practiceOrTutorialContainer: {
         flexDirection: "row",
-        width: getWindowWidth() * 0.9,
+        width: windowWidth * 0.9,
     },
     practiceButton: {
         flexGrow: 1,
         backgroundColor: pinkColor,
+        height: windowHeight * 0.075,
         borderRadius: 0,
         marginRight: 4,
         justifyContent: "center",
@@ -57,12 +62,13 @@ export const HOME_STYLES = {
     practiceButtonText: {
         fontFamily: 'GothamBold',
         color: whiteColor,
-        fontSize: 15,
+        fontSize: 16,
         textAlign: 'center',
     },
     tutorialButton: {
         flexGrow: 1,
         backgroundColor: pinkColor,
+        height: windowHeight * 0.075,
         borderRadius: 0,
         marginLeft: 4,
         justifyContent: "center",
@@ -70,11 +76,12 @@ export const HOME_STYLES = {
     tutorialButtonText: {
         fontFamily: 'GothamBold',
         color: whiteColor,
-        fontSize: 15,
+        fontSize: 16,
         textAlign: 'center',
     },
     statsButton: {
         borderWidth: 2,
+        height: windowHeight * 0.075,
         borderColor: grayColor,
         justifyContent: "center",
         zIndex: 2,
@@ -87,18 +94,18 @@ export const HOME_STYLES = {
     statsButtonText: {
         fontFamily: 'GothamBold',
         color: grayColor,
-        fontSize: 15,
+        fontSize: 16,
         textAlign: 'center',
     },
     footerContainer: {
         flex: 1,
         flexDirection: "row",
         justifyContent: "center",
-        marginBottom: getWindowHeight() * 0.15,
+        marginBottom: windowHeight * 0.15,
     },
     logoFooter: {
-        width: getWindowWidth() * 0.5,
-        height: getWindowHeight() * 0.2,
+        width: windowWidth * 0.5,
+        height: windowHeight * 0.2,
         resizeMode: 'contain'
     },
     home: {
