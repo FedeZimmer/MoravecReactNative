@@ -3,6 +3,7 @@ import {Text, View} from "react-native";
 import {Content} from "native-base";
 import {makeItTestable} from "../../utils/testable_hoc";
 import {MoravecHeader} from "../common/Header";
+import I18n from "../../../i18n/i18n";
 import {VictoryChart, VictoryLine, VictoryScatter, VictoryAxis} from "victory-native";
 import {applyLetterSpacing} from "../../styles/global";
 import {CHART_STYLES} from "../../styles/stats/styles";
@@ -36,7 +37,7 @@ export let OperationStatsScreen = class extends React.Component {
     render() {
         return (
             <Content style={CHART_STYLES.content}>
-                <MoravecHeader title='ESTADISTICAS'/>
+                <MoravecHeader title={I18n.t('stats.headerTitle').toUpperCase()}/>
                 <View style={CHART_STYLES.container}>
                     <View>
                         <Text style={CHART_STYLES.categoryName}>
@@ -44,10 +45,10 @@ export let OperationStatsScreen = class extends React.Component {
                         </Text>
                     </View>
                     <View style={CHART_STYLES.verticalLabelContainer}>
-                        <Text style={CHART_STYLES.verticalLabel}>Tiempo de respuesta (sec)</Text>
+                        <Text style={CHART_STYLES.verticalLabel}>{I18n.t('stats.chart.verticalAxisLabel')}</Text>
                     </View>
                     <View style={CHART_STYLES.horizontalLabelContainer}>
-                        <Text style={CHART_STYLES.horizontalLabel}>Intentos</Text>
+                        <Text style={CHART_STYLES.horizontalLabel}>{I18n.t('stats.chart.horizontalAxisLabel')}</Text>
                     </View>
                     <View>
                         <VictoryChart height={CHART_STYLES.chartHeight}>

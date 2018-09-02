@@ -1,6 +1,7 @@
 import React from "react";
 import {Text, TouchableWithoutFeedback, View} from "react-native";
 import {CATEGORIES_LIST_STYLES} from "../../styles/stats/styles";
+import I18n from "../../../i18n/i18n";
 import {applyLetterSpacing} from "../../styles/global";
 
 
@@ -16,7 +17,7 @@ export class OperationRowStatsUnavailable extends React.Component {
                     </View>
                     <View style={CATEGORIES_LIST_STYLES.playMoreLevelsContainer}>
                         <Text style={CATEGORIES_LIST_STYLES.playMoreLevelsText}>
-                            Jugá más niveles.
+                            {I18n.t('stats.statsSelection.unavailableStats')}
                         </Text>
                     </View>
                     <View>

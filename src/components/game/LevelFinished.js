@@ -1,6 +1,7 @@
-import React from 'react'
+import React from "react";
 import {Image, Text, View} from "react-native";
-import {Button, Icon} from "native-base";
+import {Button} from "native-base";
+import I18n from "../../../i18n/i18n";
 import {LevelEfficacyStars} from "../common/LevelEfficacyStars";
 import {LEVEL_FINISHED_STYLES} from "../../styles/game/styles";
 import Images from "../../../assets/images/images";
@@ -24,12 +25,17 @@ export class LevelFinished extends React.Component {
                 <View>
                     <View>
                         <Text style={LEVEL_FINISHED_STYLES.headerLevelText}>
-                            Nivel {this.props.finishedLevel.number}
+                            {I18n.t('game.levelFinished.levelNumber')} {this.props.finishedLevel.number}
                         </Text>
                     </View>
                     <LevelEfficacyStars correctAnswers={this.props.finishedLevel.totalCorrect}/>
                     <View>
-                        <Text>{this.props.finishedLevel.totalCorrect + ' / ' + this.props.finishedLevel.totalTrials + ' correctas'}</Text>
+                        <Text>
+                            {I18n.t('game.levelFinished.correctAnswers', {
+                                correctAnswers: this.props.finishedLevel.totalCorrect,
+                                totalTrials: this.props.finishedLevel.totalTrials })
+                            }
+                            </Text>
                     </View>
                 </View>
             </View>
@@ -41,7 +47,7 @@ export class LevelFinished extends React.Component {
             return (
                 <View>
                     <Text style={LEVEL_FINISHED_STYLES.headerCongratulationsText}>
-                        Felicitaciones. Nivel completado.
+                        {I18n.t('game.levelFinished.levelCompletedMessage')}
                     </Text>
                 </View>
             )
@@ -49,7 +55,7 @@ export class LevelFinished extends React.Component {
             return (
                 <View>
                     <Text style={LEVEL_FINISHED_STYLES.headerCongratulationsText}>
-                        Vuelve a intentarlo
+                        {I18n.t('game.levelFinished.retryMessage')}
                     </Text>
                 </View>
             )
@@ -108,7 +114,9 @@ export class LevelFinished extends React.Component {
                 <View style={LEVEL_FINISHED_STYLES.mainPageButtonContainer}>
                     <Button transparent style={LEVEL_FINISHED_STYLES.mainPageButton}
                             onPress={this.handleHomeButtonPressed}>
-                        <Text style={LEVEL_FINISHED_STYLES.mainPageButtonText}>MENÚ PRINCIPAL</Text>
+                        <Text style={LEVEL_FINISHED_STYLES.mainPageButtonText}>
+                            {I18n.t('game.levelFinished.mainMenuButton')}
+                        </Text>
                     </Button>
                 </View>
                 <View style={LEVEL_FINISHED_STYLES.logoContainer}>

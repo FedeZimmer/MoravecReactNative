@@ -1,5 +1,6 @@
 import React from "react";
 import {LEVEL_SELECTION_STYLES} from "../../styles/game/styles";
+import I18n from "../../../i18n/i18n";
 import {Text, TouchableOpacity, View} from "react-native";
 import {LevelEfficacyStars} from "../common/LevelEfficacyStars";
 import {formatTime} from "../../utils/format_time";
@@ -33,7 +34,7 @@ export let PlayLevelButton = class extends React.Component {
         if (this.props.levelCompleted) {
             return <Text style={LEVEL_SELECTION_STYLES.levelTime}>{formatTime(this.props.previousLevelTime)}</Text>
         } else {
-            return <Text style={LEVEL_SELECTION_STYLES.playText}>Jugar</Text>
+            return <Text style={LEVEL_SELECTION_STYLES.playText}>{I18n.t('game.levelSelection.playButton')}</Text>
         }
     }
 };

@@ -1,7 +1,8 @@
 import React from "react";
 import {View} from "react-native";
 import {Content} from "native-base";
-import {LEVEL_SELECTION_STYLES} from "../../styles/game/styles"
+import {LEVEL_SELECTION_STYLES} from "../../styles/game/styles";
+import I18n from "../../../i18n/i18n";
 import {PlayLevelButton} from "./PlayLevelButton";
 import {makeItTestable} from "../../utils/testable_hoc";
 import {MoravecHeader} from "../common/Header";
@@ -79,7 +80,7 @@ export let LevelSelection = class extends React.Component {
     render() {
         return (
             <Content>
-                <MoravecHeader title='ARCADE'/>
+                <MoravecHeader title={I18n.t('game.headerTitle').toUpperCase()}/>
                 {this.renderLevelsList()}
             </Content>
         )

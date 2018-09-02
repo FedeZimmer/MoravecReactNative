@@ -9,7 +9,7 @@ export let AcceptTACButton = class extends React.Component {
     render() {
         return (
             <Button style={TYC_STYLES.agreeButton} onPress={this.props.onPress}>
-                <Text style={TYC_STYLES.agreeButtonText}>{I18n.t('agree').toUpperCase()}</Text>
+                <Text style={TYC_STYLES.agreeButtonText}>{I18n.t('termsAndConditions.agreeButton').toUpperCase()}</Text>
             </Button>
         )
     }
