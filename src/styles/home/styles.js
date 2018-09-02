@@ -10,7 +10,7 @@ export const HOME_STYLES = {
         flex: 1,
         flexDirection: "row",
         justifyContent: "center",
-        marginTop: windowHeight * 0.1,
+        padding: windowHeight * 0.07
     },
     logo: {
         width: windowWidth * 0.8,
@@ -18,10 +18,10 @@ export const HOME_STYLES = {
         resizeMode: 'contain',
     },
     appNameContainer: {
-        marginTop: windowHeight * 0.3,
+        marginTop: windowHeight * 0.17,
     },
     appName: {
-        fontFamily: 'GothamMedium',
+        fontFamily: 'GothamUltra',
         color: '#152939',
         fontSize: 50,
         textAlign: 'center',
@@ -31,7 +31,7 @@ export const HOME_STYLES = {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        marginTop: windowHeight * 0.1,
+        marginTop: windowHeight * 0.07,
     },
     playButton: {
         width: windowWidth * 0.9,
@@ -101,12 +101,12 @@ export const HOME_STYLES = {
         flex: 1,
         flexDirection: "row",
         justifyContent: "center",
-        marginBottom: windowHeight * 0.15,
+        marginBottom: windowHeight * 0.04
     },
     logoFooter: {
-        width: windowWidth * 0.5,
-        height: windowHeight * 0.2,
-        resizeMode: 'contain'
+        width: windowWidth * 0.25,
+        height: windowHeight * 0.1,
+        resizeMode: 'contain',
     },
     home: {
         flex: 4,

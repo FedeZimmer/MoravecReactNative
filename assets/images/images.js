@@ -1,7 +1,8 @@
 const images = {
     mainLogo: require("./mainLogo.png"),
-    homeFooterLogos: require("./splashLogos.png"),
     mainLogoGray: require("./mainLogoGray.png"),
+    logoEryx: require("./logoEryx.png"),
+    logoEglc: require("./logoEglc.png"),
     additionExample1: require("./additionExample1.png"),
     additionExample2: require("./additionExample2.png"),
     majorSystemExample: require("./majorSystemExample.png"),
