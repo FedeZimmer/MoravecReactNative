@@ -27,7 +27,7 @@ const initialState = {
     currentLevel: undefined,
     currentTrial: undefined,
     lastAnswerData: undefined,
-    loadingPlayedLevelData: true,
+    loadingPlayedLevelData: undefined,
     playedLevelsStats: {},
     playedLevelsHistory: [],
 };
@@ -164,6 +164,7 @@ export function gameReducer(state = initialState, action) {
             const levels = obtainLevels();
             return {
                 ...initialState,
+                loadingPlayedLevelData: true,
                 levels: levels,
                 numLevels: Object.keys(levels).length,
             };

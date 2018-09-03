@@ -66,6 +66,11 @@ export class LevelFinished extends React.Component {
     renderOptions() {
         return (
             <View style={LEVEL_FINISHED_STYLES.options}>
+                {/*<View>
+                    <Button style={LEVEL_FINISHED_STYLES.shareButton} onPress={this.handleShareButtonPressed}>
+                        <Text style={LEVEL_FINISHED_STYLES.shareButtonText}>COMPARTIR</Text>
+                    </Button>
+                </View>*/}
                 <View style={LEVEL_FINISHED_STYLES.gameOptionsContainer}>
                     <ReplayButton onPress={this.handleReplayLevelButtonPressed}
                                   highlighted={!this.props.finishedLevel.levelCompleted}/>

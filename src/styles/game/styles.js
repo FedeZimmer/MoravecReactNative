@@ -56,12 +56,12 @@ export const LEVEL_FINISHED_STYLES = {
         borderRadius: 0,
         justifyContent: 'center'
     },
-    shareButtonText: {
+    /*shareButtonText: {
         color: whiteColor,
         fontSize: 15,
         textAlign: 'center',
         fontWeight: 'bold'
-    },
+    },*/
     gameOptionsContainer: {
         flexDirection: 'row',
     },
