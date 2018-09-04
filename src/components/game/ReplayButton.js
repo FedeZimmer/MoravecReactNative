@@ -4,6 +4,10 @@ import {makeItTestable} from "../../utils/testable_hoc";
 import {Button, Icon} from "native-base";
 
 export let ReplayButton = class extends React.Component {
+    static defaultProps = {
+        highlighted: false
+    };
+
     render() {
         return (
             <Button

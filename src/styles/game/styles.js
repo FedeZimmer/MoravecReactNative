@@ -15,7 +15,6 @@ const windowWidth = getWindowWidth();
 export const LEVEL_FINISHED_STYLES = {
     background: {
         height: windowHeight * 0.5,
-        backgroundColor: greenColor,
     },
     content: {
         flex: 2,
@@ -24,33 +23,52 @@ export const LEVEL_FINISHED_STYLES = {
         width: windowWidth * 0.9,
         height: windowHeight * 0.65,
         marginTop: windowHeight * 0.13,
+        paddingTop: windowHeight * 0.06,
+        paddingBottom: windowHeight * 0.07,
         zIndex: 1,
         position: 'absolute',
         backgroundColor: whiteColor,
     },
     header: {
-        flex: 1,
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-    headerCongratulationsText: {
-        fontSize: 18,
-        color: darkGrayColor,
-        textAlign: 'center',
-    },
-    headerLevelText: {
-        fontSize: 35,
-        color: darkGrayColor,
-        textAlign: 'center',
+        container: {
+            flex: 4,
+            flexDirection: 'column',
+            alignItems: 'center'
+        },
+        message: {
+            fontSize: 18,
+            fontFamily: "GothamMedium",
+            color: darkGrayColor,
+            textAlign: 'center',
+        },
+        levelNumber: {
+            fontSize: 40,
+            color: darkGrayColor,
+            fontFamily: "GothamLight",
+            textAlign: 'center',
+            marginTop: windowHeight * 0.08
+        },
+        results: {
+            fontSize: 18,
+            color: grayColor,
+            fontFamily: "GothamMedium",
+            textAlign: 'center',
+            marginTop: windowHeight * 0.04,
+        },
+        tryAgain: {
+            fontSize: 40,
+            color: darkGrayColor,
+            fontFamily: "GothamLight",
+            textAlign: 'center',
+            marginTop: windowHeight * 0.08,
+            width: windowWidth * 0.5
+        }
     },
     options: {
-        flex: 2,
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'flex-end'
+        flex: 1,
+        flexDirection: 'row'
     },
-    shareButton: {
+    /*shareButton: {
         backgroundColor: pinkColor,
         width: windowWidth * 0.9,
         borderRadius: 0,
@@ -61,15 +79,12 @@ export const LEVEL_FINISHED_STYLES = {
         fontSize: 15,
         textAlign: 'center',
         fontWeight: 'bold'
-    },
-    gameOptionsContainer: {
-        flexDirection: 'row',
-    },
+    },*/
     replayButton: {
         backgroundColor: "#CBCFD8",
         flexGrow: 1,
         borderRadius: 0,
-        height: windowHeight * 0.14,
+        height: windowHeight * 0.17,
         marginTop: 3,
         marginRight: 1.5,
         justifyContent: 'center'
@@ -78,7 +93,7 @@ export const LEVEL_FINISHED_STYLES = {
         backgroundColor: greenColor,
         flexGrow: 1,
         borderRadius: 0,
-        height: windowHeight * 0.14,
+        height: windowHeight * 0.17,
         marginTop: 3,
         marginRight: 1.5,
         justifyContent: 'center'
@@ -94,7 +109,7 @@ export const LEVEL_FINISHED_STYLES = {
         backgroundColor: greenColor,
         flexGrow: 4,
         borderRadius: 0,
-        height: windowHeight * 0.14,
+        height: windowHeight * 0.17,
         marginTop: 3,
         marginLeft: 1.5,
         justifyContent: 'center'
@@ -109,23 +124,30 @@ export const LEVEL_FINISHED_STYLES = {
         flex: 1,
         flexDirection: "row",
         justifyContent: "center",
+        marginTop: windowHeight * 0.30,
     },
     mainPageButton: {
-        marginTop: windowHeight * 0.3,
+        borderWidth: 2,
+        borderColor: grayColor,
+        justifyContent: "center",
+        zIndex: 2,
+        paddingLeft: 15,
+        paddingRight: 15,
+        backgroundColor: "transparent",
+        elevation: 0,
     },
     mainPageButtonText: {
         fontFamily: 'GothamBold',
+        color: grayColor,
         fontSize: 15,
         textAlign: 'center',
-        color: grayColor
     },
     logoContainer: {
         flex: 1,
         flexDirection: "row",
-        justifyContent: "center",
+        justifyContent: "center"
     },
     logo: {
-        alignSelf: "flex-end",
         width: windowWidth * 0.25,
         height: windowHeight * 0.2,
         resizeMode: 'contain',
@@ -133,6 +155,7 @@ export const LEVEL_FINISHED_STYLES = {
     levelFinished: {
         backgroundColor: lightGrayColor,
         height: windowHeight,
+        paddingBottom: windowHeight * 0.12,
     }
 };
 
