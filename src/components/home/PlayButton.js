@@ -9,7 +9,7 @@ export let PlayButton = class extends React.Component {
     render() {
         return (
             <Button style={HOME_STYLES.playButton} onPress={this.props.onPress}>
-                <Text style={HOME_STYLES.playButtonText}>{I18n.t('play').toUpperCase()}</Text>
+                <Text style={HOME_STYLES.playButtonText}>{I18n.t('home.playButton').toUpperCase()}</Text>
             </Button>
         )
     }

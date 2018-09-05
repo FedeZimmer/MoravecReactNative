@@ -1,13 +1,14 @@
 import {OperationFactory} from "../operations/OperationFactory";
+import I18n from "../../../i18n/i18n";
 
-export const BASIC = 'básico';
-export const MEDIUM = 'medio';
-export const DIFFICULT = 'difícil';
+export const INITIAL = I18n.t('practice.practiceModeSelection.difficulties.initial');
+export const INTERMEDIATE = I18n.t('practice.practiceModeSelection.difficulties.intermediate');
+export const ADVANCED = I18n.t('practice.practiceModeSelection.difficulties.advanced');
 
 
 export class PracticeMode {
     static difficultyLevels() {
-        return [BASIC, MEDIUM, DIFFICULT];
+        return [INITIAL, INTERMEDIATE, ADVANCED];
     };
 
     constructor(category, difficulty) {

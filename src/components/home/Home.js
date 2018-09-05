@@ -56,12 +56,14 @@ export class Home extends React.Component {
                         <Button title={'Tutorial'}
                                 style={HOME_STYLES.tutorialButton}
                                 onPress={this.handleTutorialButton}>
-                            <Text style={HOME_STYLES.tutorialButtonText}>TUTORIAL</Text>
+                            <Text style={HOME_STYLES.tutorialButtonText}>
+                                {I18n.t('home.tutorialButton').toUpperCase()}
+                            </Text>
                         </Button>
                     </View>
                     <View>
                         <Button style={HOME_STYLES.statsButton} onPress={this.handleStatsButton}>
-                            <Text style={HOME_STYLES.statsButtonText}>{I18n.t('stats').toUpperCase()}</Text>
+                            <Text style={HOME_STYLES.statsButtonText}>{I18n.t('home.statsButton').toUpperCase()}</Text>
                         </Button>
                     </View>
                 </View>

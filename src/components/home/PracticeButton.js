@@ -9,7 +9,7 @@ export let PracticeButton = class extends React.Component {
     render() {
         return (
             <Button style={HOME_STYLES.practiceButton} onPress={this.props.onPress}>
-                <Text style={HOME_STYLES.practiceButtonText}>{I18n.t('practice').toUpperCase()}</Text>
+                <Text style={HOME_STYLES.practiceButtonText}>{I18n.t('home.practiceButton').toUpperCase()}</Text>
             </Button>
         )
     }

@@ -1,6 +1,7 @@
 import React from "react";
 import {Image, Text, View} from "react-native";
 import {Button} from "native-base";
+import I18n from "../../../i18n/i18n";
 import {LevelEfficacyStars} from "../common/LevelEfficacyStars";
 import {LEVEL_FINISHED_STYLES} from "../../styles/game/styles";
 import Images from "../../../assets/images/images";
@@ -36,16 +37,19 @@ export class LevelFinished extends React.Component {
                 <View style={LEVEL_FINISHED_STYLES.content}>
                     <View style={LEVEL_FINISHED_STYLES.header.container}>
                         <Text style={LEVEL_FINISHED_STYLES.header.message}>
-                            Felicitaciones. Nivel completado.
+                            {I18n.t('game.levelFinished.levelCompletedMessage')}
                         </Text>
                         <Text style={LEVEL_FINISHED_STYLES.header.levelNumber}>
-                            Nivel {this.props.finishedLevel.number}
+                            {I18n.t('game.levelFinished.levelNumber')} {this.props.finishedLevel.number}
                         </Text>
                         <LevelEfficacyStars correctAnswers={this.props.finishedLevel.totalCorrect}
                                             smallStarSize={40}
                                             bigStarSize={50}/>
                         <Text style={LEVEL_FINISHED_STYLES.header.results}>
-                            {this.props.finishedLevel.totalCorrect + '/' + this.props.finishedLevel.totalTrials + ' correctas'}
+                            {I18n.t('game.levelFinished.correctAnswers', {
+                                correctAnswers: this.props.finishedLevel.totalCorrect,
+                                totalTrials: this.props.finishedLevel.totalTrials })
+                            }
                         </Text>
                     </View>
                     <View style={LEVEL_FINISHED_STYLES.options}>
@@ -97,7 +101,9 @@ export class LevelFinished extends React.Component {
                 {this.renderContent()}
                 <View style={LEVEL_FINISHED_STYLES.mainPageButtonContainer}>
                     <Button style={LEVEL_FINISHED_STYLES.mainPageButton} onPress={this.handleHomeButtonPressed}>
-                        <Text style={LEVEL_FINISHED_STYLES.mainPageButtonText}>{"Menú principal".toUpperCase()}</Text>
+                        <Text style={LEVEL_FINISHED_STYLES.mainPageButtonText}>
+                            {I18n.t('game.levelFinished.mainMenuButton')}
+                        </Text>
                     </Button>
                 </View>
                 <View style={LEVEL_FINISHED_STYLES.logoContainer}>
