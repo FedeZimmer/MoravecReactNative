@@ -63,7 +63,11 @@ export class VideoPlayer extends React.Component {
         if (this.state.loaded) {
             return null;
         } else {
-            return <Spinner color={spinnerColor}/>;
+            return (
+                <View style={VIDEO_PLAYER_STYLES.loadingContainer}>
+                    <Spinner style={VIDEO_PLAYER_STYLES.spinner} color={spinnerColor}/>
+                </View>
+            )
         }
     }
 

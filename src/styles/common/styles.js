@@ -23,13 +23,21 @@ export const HEADER_STYLES = {
         backgroundColor: lightGrayColor,
         height: getWindowHeight() * 0.1,
         elevation: 0,
+        flex: 2,
+        flexDirection: "row",
+        justifyContent: "flex-start",
+        alignItems: "center"
     },
     left: {
         marginLeft: 10,
     },
+    titleContent: {
+        marginLeft: 20,
+    },
     title: {
         color: greenColor,
         fontFamily: 'GothamBold',
+        fontSize: 20
     },
 };
 
