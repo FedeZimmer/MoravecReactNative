@@ -1,11 +1,12 @@
-import React from 'react'
+import React from "react";
 import {Image, Text, View} from "react-native";
-import {Button, Icon} from "native-base";
+import {Button} from "native-base";
 import {LevelEfficacyStars} from "../common/LevelEfficacyStars";
 import {LEVEL_FINISHED_STYLES} from "../../styles/game/styles";
 import Images from "../../../assets/images/images";
 import {PlayNextButton} from "./PlayNextButton";
 import {ReplayButton} from "./ReplayButton";
+import {pinkColor, greenColor} from "../../styles/global";
 
 export class LevelFinished extends React.Component {
     constructor(props) {
@@ -14,70 +15,6 @@ export class LevelFinished extends React.Component {
         this.handlePlayNextButtonPressed = this.handlePlayNextButtonPressed.bind(this);
         this.handleReplayLevelButtonPressed = this.handleReplayLevelButtonPressed.bind(this);
         this.handleHomeButtonPressed = this.handleHomeButtonPressed.bind(this);
-    }
-
-    renderHeader() {
-        return (
-            <View style={LEVEL_FINISHED_STYLES.header}>
-                {this.renderLevelCompletedOrTryAgain()}
-                <View>
-                    <View>
-                        <Text style={LEVEL_FINISHED_STYLES.headerLevelText}>
-                            Nivel {this.props.finishedLevel.number}
-                        </Text>
-                    </View>
-                    <LevelEfficacyStars correctAnswers={this.props.finishedLevel.totalCorrect}/>
-                    <View>
-                        <Text>{this.props.finishedLevel.totalCorrect + ' / ' + this.props.finishedLevel.totalTrials + ' correctas'}</Text>
-                    </View>
-                </View>
-            </View>
-        )
-    }
-
-    renderLevelCompletedOrTryAgain() {
-        if (this.props.finishedLevel.levelCompleted) {
-            return (
-                <View>
-                    <Text style={LEVEL_FINISHED_STYLES.headerCongratulationsText}>
-                        Felicitaciones. Nivel completado.
-                    </Text>
-                </View>
-            )
-        } else {
-            return (
-                <View>
-                    <Text style={LEVEL_FINISHED_STYLES.headerCongratulationsText}>
-                        Vuelve a intentarlo
-                    </Text>
-                </View>
-            )
-        }
-    }
-
-    renderPlayNextButton() {
-        if (this.props.finishedLevel.levelCompleted) {
-            return <PlayNextButton onPress={this.handlePlayNextButtonPressed}/>;
-        } else {
-            return null;
-        }
-    }
-
-    renderOptions() {
-        return (
-            <View style={LEVEL_FINISHED_STYLES.options}>
-                {/*<View>
-                    <Button style={LEVEL_FINISHED_STYLES.shareButton} onPress={this.handleShareButtonPressed}>
-                        <Text style={LEVEL_FINISHED_STYLES.shareButtonText}>COMPARTIR</Text>
-                    </Button>
-                </View>*/}
-                <View style={LEVEL_FINISHED_STYLES.gameOptionsContainer}>
-                    <ReplayButton onPress={this.handleReplayLevelButtonPressed}
-                                  highlighted={!this.props.finishedLevel.levelCompleted}/>
-                    {this.renderPlayNextButton()}
-                </View>
-            </View>
-        )
     }
 
     handlePlayNextButtonPressed() {
@@ -92,18 +29,75 @@ export class LevelFinished extends React.Component {
         this.props.onHomeButtonPressed();
     }
 
+    renderLevelCompleted() {
+        return (
+            <View >
+                <View style={[LEVEL_FINISHED_STYLES.background, {backgroundColor: greenColor}]}/>
+                <View style={LEVEL_FINISHED_STYLES.content}>
+                    <View style={LEVEL_FINISHED_STYLES.header.container}>
+                        <Text style={LEVEL_FINISHED_STYLES.header.message}>
+                            Felicitaciones. Nivel completado.
+                        </Text>
+                        <Text style={LEVEL_FINISHED_STYLES.header.levelNumber}>
+                            Nivel {this.props.finishedLevel.number}
+                        </Text>
+                        <LevelEfficacyStars correctAnswers={this.props.finishedLevel.totalCorrect}
+                                            smallStarSize={40}
+                                            bigStarSize={50}/>
+                        <Text style={LEVEL_FINISHED_STYLES.header.results}>
+                            {this.props.finishedLevel.totalCorrect + '/' + this.props.finishedLevel.totalTrials + ' correctas'}
+                        </Text>
+                    </View>
+                    <View style={LEVEL_FINISHED_STYLES.options}>
+                        <ReplayButton onPress={this.handleReplayLevelButtonPressed}/>
+                        <PlayNextButton onPress={this.handlePlayNextButtonPressed}/>
+                         {/*<View>
+                             <Button style={LEVEL_FINISHED_STYLES.shareButton} onPress={this.handleShareButtonPressed}>
+                                 <Text style={LEVEL_FINISHED_STYLES.shareButtonText}>COMPARTIR</Text>
+                             </Button>
+                         </View>*/}
+                    </View>
+                </View>
+            </View>
+        )
+    }
+
+    renderTryAgain() {
+        return (
+            <View>
+                <View style={[LEVEL_FINISHED_STYLES.background, {backgroundColor: pinkColor}]}/>
+                <View style={LEVEL_FINISHED_STYLES.content}>
+                    <View style={LEVEL_FINISHED_STYLES.header.container}>
+                        <Text style={LEVEL_FINISHED_STYLES.header.message}>
+                            Nivel {this.props.finishedLevel.number} no superado.
+                        </Text>
+                        <Text style={LEVEL_FINISHED_STYLES.header.tryAgain}>
+                            Volvé a intentarlo
+                        </Text>
+                    </View>
+                    <View style={LEVEL_FINISHED_STYLES.options}>
+                        <ReplayButton highlighted={true} onPress={this.handleReplayLevelButtonPressed}/>
+                    </View>
+                </View>
+            </View>
+        )
+    }
+
+    renderContent() {
+        if (this.props.finishedLevel.levelCompleted) {
+            return this.renderLevelCompleted();
+        } else {
+            return this.renderTryAgain();
+        }
+    }
+
     render() {
         return (
             <View style={LEVEL_FINISHED_STYLES.levelFinished}>
-                <View style={LEVEL_FINISHED_STYLES.background}/>
-                <View style={LEVEL_FINISHED_STYLES.content}>
-                    {this.renderHeader()}
-                    {this.renderOptions()}
-                </View>
+                {this.renderContent()}
                 <View style={LEVEL_FINISHED_STYLES.mainPageButtonContainer}>
-                    <Button transparent style={LEVEL_FINISHED_STYLES.mainPageButton}
-                            onPress={this.handleHomeButtonPressed}>
-                        <Text style={LEVEL_FINISHED_STYLES.mainPageButtonText}>MENÚ PRINCIPAL</Text>
+                    <Button style={LEVEL_FINISHED_STYLES.mainPageButton} onPress={this.handleHomeButtonPressed}>
+                        <Text style={LEVEL_FINISHED_STYLES.mainPageButtonText}>{"Menú principal".toUpperCase()}</Text>
                     </Button>
                 </View>
                 <View style={LEVEL_FINISHED_STYLES.logoContainer}>
