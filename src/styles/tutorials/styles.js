@@ -102,6 +102,12 @@ export const LIST_STYLES = {
 };
 
 export const VIDEO_PLAYER_STYLES = {
+    loadingContainer: {
+        height: 300,
+    },
+    spinner: {
+        marginTop: 120
+    },
     videoLoading: {
         display: "none"
     },

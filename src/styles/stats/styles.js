@@ -103,7 +103,8 @@ export const CHART_STYLES = {
         flexDirection: "column",
         alignItems: "center",
         alignContent: "center",
-        paddingTop: 30
+        paddingTop: 30,
+        paddingBottom: 30
     },
     categoryName: {
         fontSize: 25,
@@ -112,12 +113,12 @@ export const CHART_STYLES = {
     },
     verticalLabelContainer: {
         position: "absolute",
-        left: getWindowWidth() * 0.6,
+        left: getWindowWidth() * 0.65,
         top: getWindowHeight() * 0.4
     },
     horizontalLabelContainer: {
         position: "absolute",
-        top: getWindowHeight() * 0.72,
+        top: getWindowHeight() * 0.75,
         left: getWindowWidth() * 0.4,
     },
     verticalLabel: {
