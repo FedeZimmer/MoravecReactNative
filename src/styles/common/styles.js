@@ -51,7 +51,8 @@ export const BACK_BUTTON_STYLES = {
 export const HINT_CARD_STYLES = {
     hint: {
         justifyContent: 'center',
-        flexGrow: 0.7
+        flexGrow: 0.7,
+        backgroundColor: lightGrayColor
     },
     hintText: {
         color: greenColor,

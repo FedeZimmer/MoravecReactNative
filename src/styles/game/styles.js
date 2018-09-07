@@ -54,6 +54,7 @@ export const LEVEL_FINISHED_STYLES = {
             fontFamily: "GothamMedium",
             textAlign: 'center',
             marginTop: windowHeight * 0.04,
+            width: windowWidth * 0.5
         },
         tryAgain: {
             fontSize: 40,
