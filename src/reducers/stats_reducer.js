@@ -6,29 +6,28 @@ const initialState = {
 };
 
 function trialsDataPerCategory(levelsHistory) {
-    let trialsTimePerCategory = {};
-    let isCorrectPerCategory = {};
+    let totalTrialsPerCategory = {};
+    let correctTrialsTimePerCategory = {};
     OperationCategory.allCategories().forEach((category) => {
-        trialsTimePerCategory[category.codename()] = [];
-        isCorrectPerCategory[category.codename()] = [];
+        correctTrialsTimePerCategory[category.codename()] = [];
+        totalTrialsPerCategory[category.codename()] = 0;
     });
 
     levelsHistory.forEach(levelHistory => {
         levelHistory.trials.forEach((trial) => {
             const categoryName = trial.operation.opType;
-            trialsTimePerCategory[categoryName].push(trial.totalTime);
-            isCorrectPerCategory[categoryName].push(trial.isCorrect);
+            totalTrialsPerCategory[categoryName]++;
+            if (trial.isCorrect) {
+                correctTrialsTimePerCategory[categoryName].push(trial.totalTime);
+            }
         });
     });
 
-    return [trialsTimePerCategory, isCorrectPerCategory];
+    return [correctTrialsTimePerCategory, totalTrialsPerCategory];
 }
 
-function effectiveness(isCorrectArray) {
-    const totalCorrect = isCorrectArray.filter((isCorrect) => isCorrect).length;
-    const totalTrials = isCorrectArray.length;
-
-    return totalCorrect / totalTrials;
+function effectiveness(corrrectTrialsTimes, totalTrials) {
+    return corrrectTrialsTimes.length / totalTrials;
 }
 
 function averageTime(trialsTime) {
@@ -42,18 +41,20 @@ export function statsReducer(state = initialState, action) {
     switch (action.type) {
         case CALCULATE_STATS:
             if (action.levelsHistory.length > 0) {
-                const [trialsTime, isCorrectArray] = trialsDataPerCategory(action.levelsHistory);
+                const [correctTrialsTimes, totalTrials] = trialsDataPerCategory(action.levelsHistory);
 
                 const operationCategoryStats = OperationCategory.allCategories().map((category) => {
                     const categoryName = category.codename();
-                    const totalTrialsForCategory = isCorrectArray[categoryName].length;
+                    const corrrectTrialsTimesForCategory = correctTrialsTimes[categoryName];
+                    const totalTrialsForCategory = totalTrials[categoryName];
 
                     if (totalTrialsForCategory > 0) {
                         return {
                             category: category,
-                            effectiveness: effectiveness(isCorrectArray[categoryName]),
-                            averageTime: averageTime(trialsTime[categoryName]),
-                            responseTimes: trialsTime[categoryName],
+                            effectiveness: effectiveness(corrrectTrialsTimesForCategory,
+                                totalTrialsForCategory),
+                            averageTime: averageTime(corrrectTrialsTimesForCategory),
+                            responseTimes: corrrectTrialsTimesForCategory,
                             hasStats: true,
                         }
                     } else {
