@@ -27,9 +27,8 @@ const initialState = {
     currentLevel: undefined,
     currentTrial: undefined,
     lastAnswerData: undefined,
-    loadingPlayedLevelData: undefined,
-    playedLevelsStats: {},
-    playedLevelsHistory: [],
+    playedLevelsStats: null,
+    playedLevelsHistory: null,
 };
 
 const MAX_NUMBER_OF_DIGITS = 8;
@@ -163,8 +162,7 @@ export function gameReducer(state = initialState, action) {
         case START_GAME:
             const levels = obtainLevels();
             return {
-                ...initialState,
-                loadingPlayedLevelData: true,
+                ...state,
                 levels: levels,
                 numLevels: Object.keys(levels).length,
             };
@@ -172,7 +170,6 @@ export function gameReducer(state = initialState, action) {
         case RESTORE_SAVED_GAME_INFO:
             return {
                 ...state,
-                loadingPlayedLevelData: false,
                 playedLevelsStats: action.savedGameInfo.playedLevelsStats,
                 playedLevelsHistory: action.savedGameInfo.playedLevelsHistory,
             };

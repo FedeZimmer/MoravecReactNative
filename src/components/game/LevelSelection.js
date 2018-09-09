@@ -15,7 +15,7 @@ export let LevelSelection = class extends React.Component {
         this.handleLevelSelected = this.handleLevelSelected.bind(this);
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.props.onLoading();
     }
 
@@ -55,7 +55,7 @@ export let LevelSelection = class extends React.Component {
     }
 
     renderLevelsList() {
-        if (this.props.loadingPlayedLevelData) {
+        if (this.props.playedLevelsStats === null) {
             return <Spinner color={spinnerColor}/>
         } else {
             if (Config.UNLOCK_ALL_LEVELS === 'on') {
