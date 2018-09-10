@@ -1,9 +1,10 @@
 import React from "react";
-import {ScrollView, Text, View, Image} from "react-native";
+import {Image, Text, View} from "react-native";
 import {Tutorial} from "./Tutorial";
 import I18n from "../../../i18n/i18n";
 import Images from "../../../assets/images/images";
 import {TUTORIAL_STYLES} from "../../styles/tutorials/styles";
+import {CDNBaseURL} from "../../../index";
 
 export class ViewMajorSystemTutorial extends React.Component {
     static navigationOptions = {
@@ -29,11 +30,19 @@ export class ViewMajorSystemTutorial extends React.Component {
         )
     }
 
+    videoUrl() {
+        if (I18n.currentLocale().startsWith('es')) {
+            return `${CDNBaseURL}/Sistema Mayor (Tutorial).mp4`;
+        } else {
+            return `${CDNBaseURL}/Moravec EN 06.mp4`;
+        }
+    }
+
     render() {
         return (
             <Tutorial title={I18n.t('tutorial.majorSystem.sectionTitle')}
                       headerTitle={I18n.t('tutorial.majorSystem.headerTitle').toUpperCase()}
-                      videoUrl="http://techslides.com/demos/sample-videos/small.mp4"
+                      videoUrl={this.videoUrl()}
                       showExamples={this.showExamples} />
         );
     }

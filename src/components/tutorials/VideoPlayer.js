@@ -99,7 +99,7 @@ export class VideoPlayer extends React.Component {
     render() {
         return (
             <View style={this.state.videoContainerStyle}>
-                <Video source={{ uri: this.props.videoUrl }} resizeMode="cover" paused={this.state.paused}
+                <Video source={{ uri: this.props.videoUrl }} resizeMode="contain" paused={this.state.paused}
                        style={this.state.videoStyle} onLoad={this.handleVideoLoaded} repeat={true}/>
                 {this._renderSpinner()}
                 {this._renderPlayerControls()}
