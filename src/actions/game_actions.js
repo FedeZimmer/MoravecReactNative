@@ -122,13 +122,19 @@ function saveGameInfoOnDevice() {
 export function getSavedGameInfoFromDevice() {
     return (dispatch) => {
         AsyncStorage.getItem('@moravec:game').then((gameInfoJSON) => {
+            let gameInfo;
             if (gameInfoJSON !== null) {
-                const gameInfo = JSON.parse(gameInfoJSON);
-                dispatch({
-                    type: RESTORE_SAVED_GAME_INFO,
-                    savedGameInfo: gameInfo
-                });
+                gameInfo = JSON.parse(gameInfoJSON);
+            } else {
+                gameInfo = {
+                    playedLevelsStats: {},
+                    playedLevelsHistory: [],
+                };
             }
+            dispatch({
+                type: RESTORE_SAVED_GAME_INFO,
+                savedGameInfo: gameInfo
+            });
         });
     }
 }
