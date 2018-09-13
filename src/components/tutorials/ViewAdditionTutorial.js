@@ -1,9 +1,10 @@
 import React from "react";
-import {ScrollView, Text, View, Image} from "react-native";
+import {Image, Text, View} from "react-native";
 import {Tutorial} from "./Tutorial";
 import I18n from "../../../i18n/i18n";
 import Images from "../../../assets/images/images";
 import {TUTORIAL_STYLES} from "../../styles/tutorials/styles";
+import {CDNBaseURL} from "../../../index";
 
 export class ViewAdditionTutorial extends React.Component {
     static navigationOptions = {
@@ -33,12 +34,20 @@ export class ViewAdditionTutorial extends React.Component {
         )
     }
 
+    videoUrl() {
+        if (I18n.currentLocale().startsWith('es')) {
+            return `${CDNBaseURL}/Suma.mp4`;
+        } else {
+            return `${CDNBaseURL}/Moravec EN 01.mp4`;
+        }
+    }
+
     render() {
         return (
             <Tutorial title={I18n.t('tutorial.addition.sectionTitle')}
                       headerTitle={I18n.t('tutorial.addition.headerTitle').toUpperCase()}
-                      videoUrl="https://vjs.zencdn.net/v/oceans.mp4"
-                      showExamples={this.showExamples} />
+                      videoUrl={this.videoUrl()}
+                      showExamples={this.showExamples}/>
         );
     }
 }

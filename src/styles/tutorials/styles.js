@@ -103,16 +103,16 @@ export const LIST_STYLES = {
 
 export const VIDEO_PLAYER_STYLES = {
     loadingContainer: {
-        height: 300,
+        height: 180,
     },
     spinner: {
-        marginTop: 120
+        marginTop: 55
     },
     videoLoading: {
         display: "none"
     },
     video: {
-        height: 300
+        height: 180
     },
     fullScreenVideo: {
         height: windowHeight * 0.92,
