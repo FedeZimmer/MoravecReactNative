@@ -1,4 +1,4 @@
-package com.moravec;
+package tedxperiments.math.entrenamente;
 
 import android.app.Application;
 
