@@ -37,8 +37,7 @@ export class ViewToSquare3Tutorial extends React.Component {
         if (I18n.currentLocale().startsWith('es')) {
             return "VHsTlMzN76g";
         } else {
-            // TODO: Replace with the english video ID
-            return "VHsTlMzN76g";
+            return "_JuEXOrnbQo";
         }
     }
 

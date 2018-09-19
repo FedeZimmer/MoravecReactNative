@@ -37,8 +37,7 @@ export class ViewAdditionTutorial extends React.Component {
         if (I18n.currentLocale().startsWith('es')) {
             return "Ies8X7VxGKs";
         } else {
-            // TODO: Replace with the english video ID
-            return "Ies8X7VxGKs";
+            return "9aW6b2qZ18s";
         }
     }
 

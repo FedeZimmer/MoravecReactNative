@@ -33,8 +33,7 @@ export class ViewMajorSystemTutorial extends React.Component {
         if (I18n.currentLocale().startsWith('es')) {
             return "Fv0Si7UJHKw";
         } else {
-            // TODO: Replace with the english video ID
-            return "Fv0Si7UJHKw";
+            return "qhlm1tF6IQ4";
         }
     }
 

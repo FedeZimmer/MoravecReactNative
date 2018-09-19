@@ -41,8 +41,7 @@ export class ViewMultiplicationTutorial extends React.Component {
         if (I18n.currentLocale().startsWith('es')) {
             return "mwa-zblNdR4";
         } else {
-            // TODO: Replace with the english video ID
-            return "mwa-zblNdR4";
+            return "egcXRXXWuwE";
         }
     }
 
