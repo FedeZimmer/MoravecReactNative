@@ -56,6 +56,4 @@ const isTest = Config.ENV === 'testing';
 
 const App = isTest ? CavyMoravecWrapper : Moravec;
 
-export const CDNBaseURL = "https://1841111903.rsc.cdn77.org";
-
 AppRegistry.registerComponent('Moravec', () => App);

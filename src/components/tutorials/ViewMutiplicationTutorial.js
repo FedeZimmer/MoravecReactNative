@@ -4,7 +4,6 @@ import {Tutorial} from "./Tutorial";
 import I18n from "../../../i18n/i18n";
 import Images from "../../../assets/images/images";
 import {TUTORIAL_STYLES} from "../../styles/tutorials/styles";
-import {CDNBaseURL} from "../../../index";
 
 export class ViewMultiplicationTutorial extends React.Component {
     static navigationOptions = {
@@ -38,11 +37,11 @@ export class ViewMultiplicationTutorial extends React.Component {
         )
     }
 
-    videoUrl() {
+    videoId() {
         if (I18n.currentLocale().startsWith('es')) {
-            return `${CDNBaseURL}/Multiplicación (Tutorial).mp4`;
+            return "mwa-zblNdR4";
         } else {
-            return `${CDNBaseURL}/Moravec EN 02.mp4`;
+            return "egcXRXXWuwE";
         }
     }
 
@@ -50,7 +49,7 @@ export class ViewMultiplicationTutorial extends React.Component {
         return (
             <Tutorial title={I18n.t('tutorial.multiplication.sectionTitle')}
                       headerTitle={I18n.t('tutorial.multiplication.headerTitle').toUpperCase()}
-                      videoUrl={this.videoUrl()}
+                      videoId={this.videoId()}
                       showExamples={this.showExamples} />
         );
     }

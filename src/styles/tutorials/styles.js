@@ -13,12 +13,6 @@ export const TUTORIAL_STYLES = {
         paddingBottom: windowHeight * 0.03,
         backgroundColor: lightGrayColor
     },
-    tutorialFullScreen: {
-        flex: 5,
-        flexDirection: "column",
-        padding: 0,
-        backgroundColor: lightGrayColor
-    },
     titleContainer: {
         backgroundColor: whiteColor,
         height: windowHeight * 0.12,
@@ -102,95 +96,20 @@ export const LIST_STYLES = {
 };
 
 export const VIDEO_PLAYER_STYLES = {
-    loadingContainer: {
-        height: 180,
-    },
     spinner: {
-        marginTop: 55
-    },
-    videoLoading: {
-        display: "none"
+        position: "absolute",
+        bottom: 120,
+        left: windowWidth * 0.45
     },
     video: {
-        height: 180
-    },
-    fullScreenVideo: {
-        height: windowHeight * 0.92,
-        width: windowWidth * 0.92,
-        zIndex: 2,
-        alignSelf: "center"
-    },
-    videoContainer: {
-        flex: 1
-    },
-    videoContainerFullScreen: {
-        ios: {
-            flex: 1,
-            position: "absolute",
-            top: 0,
-            zIndex: 2,
-            height: windowHeight,
-            width: windowWidth,
-            justifyContent: "center",
-        },
-        android: {
-            flex: 1,
-            position: "absolute",
-            top: 0,
-            height: windowHeight,
-            width: windowWidth,
-            justifyContent: "center",
-        }
-    },
-    overlay: {
-        flex: 1,
-        opacity: 0.6,
-        backgroundColor: 'black',
-        zIndex: 1,
-        position: "absolute",
-        height: windowHeight,
-        width: windowWidth,
-        top: 0
-    },
-    controlsContainer: {
-        position: "absolute",
-        bottom: 10,
-        flex: 2,
-        flexDirection: "row",
-        zIndex: 2,
+        height: 240,
         width: "100%",
-        justifyContent: "space-between",
-        paddingLeft: 30,
-        paddingRight: 30
-    },
-    controlsContainerFullScreen: {
-        position: "absolute",
-        bottom: 35,
-        flex: 2,
-        flexDirection: "row",
-        zIndex: 2,
-        width: "100%",
-        justifyContent: "space-between",
-        paddingLeft: 40,
-        paddingRight: 40
-    },
-    button: {
-        ios: {
-            color: whiteColor,
-            fontSize: 40,
-            textAlign: 'center',
-            backgroundColor: "transparent"
-        },
-        android: {
-            color: whiteColor,
-            fontSize: 40,
-            textAlign: 'center',
-        }
-    },
-    playPauseButton: {
         margin: 0,
     },
-    screenSizeButton: {
-        margin: 0
+    videoContainer: {
+        flex: 1,
+        padding: 0,
+        height: 240,
+        backgroundColor: "black"
     }
 };
