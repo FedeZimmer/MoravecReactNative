@@ -4,7 +4,6 @@ import {Tutorial} from "./Tutorial";
 import I18n from "../../../i18n/i18n";
 import Images from "../../../assets/images/images";
 import {TUTORIAL_STYLES} from "../../styles/tutorials/styles";
-import {CDNBaseURL} from "../../../index";
 
 export class ViewMajorSystemTutorial extends React.Component {
     static navigationOptions = {
@@ -30,11 +29,11 @@ export class ViewMajorSystemTutorial extends React.Component {
         )
     }
 
-    videoUrl() {
+    videoId() {
         if (I18n.currentLocale().startsWith('es')) {
-            return `${CDNBaseURL}/Sistema Mayor (Tutorial).mp4`;
+            return "Fv0Si7UJHKw";
         } else {
-            return `${CDNBaseURL}/Moravec EN 06.mp4`;
+            return "qhlm1tF6IQ4";
         }
     }
 
@@ -42,7 +41,7 @@ export class ViewMajorSystemTutorial extends React.Component {
         return (
             <Tutorial title={I18n.t('tutorial.majorSystem.sectionTitle')}
                       headerTitle={I18n.t('tutorial.majorSystem.headerTitle').toUpperCase()}
-                      videoUrl={this.videoUrl()}
+                      videoId={this.videoId()}
                       showExamples={this.showExamples} />
         );
     }

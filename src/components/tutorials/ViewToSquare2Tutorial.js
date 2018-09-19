@@ -4,7 +4,6 @@ import {Tutorial} from "./Tutorial";
 import I18n from "../../../i18n/i18n";
 import Images from "../../../assets/images/images";
 import {TUTORIAL_STYLES} from "../../styles/tutorials/styles";
-import {CDNBaseURL} from "../../../index";
 
 export class ViewToSquare2Tutorial extends React.Component {
     static navigationOptions = {
@@ -34,11 +33,11 @@ export class ViewToSquare2Tutorial extends React.Component {
         )
     }
 
-    videoUrl() {
+    videoId() {
         if (I18n.currentLocale().startsWith('es')) {
-            return `${CDNBaseURL}/2 digitos al cuadrado (Tutorial).mp4`;
+            return "_CUWlWjFreM";
         } else {
-            return `${CDNBaseURL}/Moravec EN 03.mp4`;
+            return "DyBsVVe5w5g";
         }
     }
 
@@ -46,7 +45,7 @@ export class ViewToSquare2Tutorial extends React.Component {
         return (
             <Tutorial title={I18n.t('tutorial.toSquare2.sectionTitle')}
                       headerTitle={I18n.t('tutorial.toSquare2.headerTitle').toUpperCase()}
-                      videoUrl={this.videoUrl()}
+                      videoId={this.videoId()}
                       showExamples={this.showExamples} />
         );
     }
