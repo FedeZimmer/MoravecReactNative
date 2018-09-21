@@ -1,9 +1,9 @@
 import React from "react";
 import {connect} from 'react-redux'
-import {View, StatusBar} from "react-native";
+import {StatusBar, View} from "react-native";
 import {Spinner} from "native-base";
 
-import {verifyIfPersonalInfoIsSavedOnDevice} from "../actions/main_actions";
+import {migrateV1DataIfNeeded, verifyIfPersonalInfoIsSavedOnDevice} from "../actions/main_actions";
 import {MAIN_STYLES, spinnerColor} from "../styles/main/styles";
 
 const mapStateToProps = () => {
@@ -13,6 +13,9 @@ const mapStateToProps = () => {
 const mapDispatchToProps = dispatch => {
     return {
         actions: {
+            migrateV1DataIfNeeded: (callback) => {
+                dispatch(migrateV1DataIfNeeded(callback))
+            },
             verifyIfPersonalInfoIsSavedOnDevice: (callback) => {
                 dispatch(verifyIfPersonalInfoIsSavedOnDevice(callback))
             }
@@ -36,7 +39,9 @@ class Main extends React.Component {
     }
 
     componentDidMount() {
-        this.props.actions.verifyIfPersonalInfoIsSavedOnDevice(this.redirectToCorrectScreen)
+        this.props.actions.migrateV1DataIfNeeded(() => {
+            this.props.actions.verifyIfPersonalInfoIsSavedOnDevice(this.redirectToCorrectScreen);
+        });
     }
 
     redirectToCorrectScreen(personalInfoCompleted) {
