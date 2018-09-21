@@ -1681,7 +1681,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.elgatoylacaja.Moravec;
+				PRODUCT_BUNDLE_IDENTIFIER = com.elgatoylacaja.moravec;
 				PRODUCT_NAME = Moravec;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
