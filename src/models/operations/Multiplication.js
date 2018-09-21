@@ -17,12 +17,12 @@ export class Multiplication extends Operation {
         return 'x';
     }
 
-    static createRandom(category) {
+    static createRandom(category, probabilityThatIsHidden) {
         const operandRestrictions = {allow_zero: false, allow_one: false, allow_multiples_of_10: false};
         const leftOperand = Operand.createRandom(category.numDigitsFirstOperand(), operandRestrictions);
         const rightOperand = Operand.createRandom(category.numDigitsSecondOperand(), operandRestrictions);
 
-        return new Multiplication(category, leftOperand, rightOperand);
+        return new Multiplication(category, leftOperand, rightOperand, probabilityThatIsHidden);
     }
 
     operator() {
