@@ -16,12 +16,12 @@ export class Addition extends Operation {
         return Addition.operator();
     }
 
-    static createRandom(category) {
+    static createRandom(category, probabilityThatIsHidden) {
         const operandRestrictions = {allow_zero: false, allow_one: true, allow_multiples_of_10: true};
         const leftOperand = Operand.createRandom(category.numDigitsFirstOperand(), operandRestrictions);
         const rightOperand = Operand.createRandom(category.numDigitsSecondOperand(), operandRestrictions);
 
-        return new Addition(category, leftOperand, rightOperand);
+        return new Addition(category, leftOperand, rightOperand, probabilityThatIsHidden);
     }
 
     operator() {

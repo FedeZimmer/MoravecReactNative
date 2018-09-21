@@ -11,7 +11,8 @@ import {TouchableWithoutFeedback} from "react-native";
 export class Home extends React.Component {
     static navigationOptions = {
         title: 'Home',
-        header: null
+        header: null,
+        gesturesEnabled: false,
     };
 
     constructor(props) {
@@ -68,7 +69,8 @@ export class Home extends React.Component {
                     </View>
                 </View>
                 <View style={HOME_STYLES.footerContainer}>
-                    <Image source={Images.logoEryx} style={HOME_STYLES.logoFooter}/>
+                    <Image source={Images.logoLni} style={HOME_STYLES.logoFooter}/>
+                    <Image source={Images.logoEryx} style={HOME_STYLES.logoEryx}/>
                     <Image source={Images.logoEglc} style={HOME_STYLES.logoFooter}/>
                 </View>
             </View>

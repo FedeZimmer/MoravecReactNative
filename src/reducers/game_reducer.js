@@ -39,16 +39,16 @@ export const MAX_HINTS_PER_LEVEL = 3;
 
 function obtainLevels() {
     let levels = {};
-    Object.entries(levelsConfigurationFile).forEach(([levelNumber, probabilityPerCategories]) => {
+    Object.entries(levelsConfigurationFile).forEach(([levelNumber, levelInfo]) => {
         let levelCategories = [];
         let levelCategoriesProbability = [];
-        Object.entries(probabilityPerCategories).forEach(([categoryName, probability]) => {
+        Object.entries(levelInfo['probabilityPerCategories']).forEach(([categoryName, probability]) => {
             if (probability !== 0) {
                 levelCategories.push(new OperationCategory(categoryName));
                 levelCategoriesProbability.push(probability);
             }
         });
-        levels[levelNumber] = new Level(levelNumber, levelCategories, levelCategoriesProbability);
+        levels[levelNumber] = new Level(levelNumber, levelCategories, levelCategoriesProbability, levelInfo['probabilityThatOperationIsHidden']);
     });
     return levels;
 }

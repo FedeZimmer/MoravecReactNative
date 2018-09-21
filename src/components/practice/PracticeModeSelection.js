@@ -22,7 +22,7 @@ export let PracticeModeSelection = class extends React.Component {
     render() {
         return (
             <Content>
-                <MoravecHeader title={I18n.t('practice.headerTitle')}/>
+                <MoravecHeader title={I18n.t('practice.headerTitle').toUpperCase()}/>
                 <View style={PRACTICE_MODE_SELECTION_STYLES.container}>
                     <View style={PRACTICE_MODE_SELECTION_STYLES.row}>
                         <PracticeModeOption category={new OperationCategory("1d+1d")} difficulty={INITIAL}

@@ -108,6 +108,12 @@ export const HOME_STYLES = {
         height: windowHeight * 0.1,
         resizeMode: 'contain',
     },
+    logoEryx: {
+        width: windowWidth * 0.20,
+        height: windowHeight * 0.09,
+        marginTop: 5,
+        resizeMode: 'contain',
+    },
     home: {
         flex: 4,
         flexDirection: "column",
