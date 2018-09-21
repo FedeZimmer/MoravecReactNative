@@ -14,10 +14,11 @@ export class Operation {
         return new Operation(null, new Operand(leftOperandValue), new Operand(rightOperandValue));
     }
 
-    constructor(category, leftOperand, rightOperand) {
+    constructor(category, leftOperand, rightOperand, probabilityThatIsHidden) {
         this._category = category;
         this._leftOperand = leftOperand;
         this._rightOperand = rightOperand;
+        this._probabilityThatIsHidden = probabilityThatIsHidden;
     }
 
     getCategory() {
@@ -58,5 +59,9 @@ export class Operation {
 
     result() {
         return math.eval(this._leftOperand.value() + this.operator() + this._rightOperand.value());
+    }
+
+    shouldBeHidden() {
+        return math.random(0, 99) < this._probabilityThatIsHidden;
     }
 }
