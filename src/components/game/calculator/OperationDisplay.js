@@ -3,7 +3,7 @@ import {Text, View, Animated} from "react-native";
 import {OPERATION_STYLES} from "../../../styles/game/calculator/styles";
 import {makeItTestable} from "../../../utils/testable_hoc";
 
-export let OperationDisplay = class extends React.Component{
+export let OperationDisplay = class extends React.Component {
     constructor(props) {
         super(props);
 
