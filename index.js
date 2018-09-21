@@ -56,4 +56,4 @@ const isTest = Config.ENV === 'testing';
 
 const App = isTest ? CavyMoravecWrapper : Moravec;
 
-AppRegistry.registerComponent('moravec', () => App);
+AppRegistry.registerComponent('Moravec', () => App);
