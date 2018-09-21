@@ -18,12 +18,12 @@ export class ToSquare extends Operation {
         return ToSquare.operator();
     }
 
-    static createRandom(category) {
+    static createRandom(category, probabilityThatIsHidden) {
         const operandRestrictions = {allow_zero: true, allow_one: false, allow_multiples_of_10: false};
         const leftOperand = Operand.createRandom(category.numDigitsFirstOperand(), operandRestrictions);
         const rightOperand = new Operand(2);
 
-        return new ToSquare(category, leftOperand, rightOperand);
+        return new ToSquare(category, leftOperand, rightOperand, probabilityThatIsHidden);
     }
 
     operator() {

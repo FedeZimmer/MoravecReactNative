@@ -33,6 +33,11 @@ export const Navigator = StackNavigator(
         OperationStatsScreen: {screen: OperationStatsScreen},
     },
     {
-        headerMode: 'screen'
+        headerMode: 'screen',
+        navigationOptions: {
+            gestureResponseDistance: {
+                horizontal: 150
+            }
+        }
     }
 );

@@ -27,7 +27,8 @@ function createRandomOperationForLevel(level) {
         operation: operation.operationHumanRepresentation(),
         correctResult: operation.result(),
         maxSolveTime: operation.maxSolveTime(),
-        hint: operation.hint()
+        hint: operation.hint(),
+        shouldBeHidden: operation.shouldBeHidden()
     }
 }
 
