@@ -37,10 +37,6 @@ export class AndroidV1Data {
         return this._arrayOfIntegersFrom(correctTimesString);
     }
 
-    async getRaw() {
-        return this._getAllStoredData();
-    }
-
     // private - low-level accessors
 
     async _getData(key) {

@@ -1,13 +1,12 @@
 import {OperationCategory} from "../models/operations/Category";
 import {AndroidV1Data} from "./AndroidV1Data";
-import {AsyncStorage} from "react-native";
 import * as DeviceInfo from "react-native-device-info/deviceinfo";
 import {NativeSharedPreferences} from "./shared_preferences/NativeSharedPreferences";
+import {AppDataStorage} from "../storage/AppDataStorage";
 
 export class Version1DataMigrator {
     static async wasMigratedBefore() {
-        const dataMigrated = await AsyncStorage.getItem("@moravec:dataMigrated");
-        return dataMigrated !== null;
+        return await Version1DataMigrator._checkMigrated();
     }
 
     static newForProduction() {
@@ -22,14 +21,14 @@ export class Version1DataMigrator {
 
     async migrateAll() {
         await this.migratePersonalDataSentStatus();
-        await this.migratePlayedLevelsInfo();
+        await this.migratePlayedLevelsStats();
         await this.migrateStatsPerOperation();
         await this._persistThatDataWasMigrated();
     }
 
-    async migratePlayedLevelsInfo() {
-        const playedLevelsInfo = await this.getPlayedLevelsInfo();
-        await this._storePlayedLevelInfo(playedLevelsInfo);
+    async migratePlayedLevelsStats() {
+        const playedLevelsStats = await this.getPlayedLevelsStats();
+        await this._storePlayedLevelStats(playedLevelsStats);
     }
 
     async migrateStatsPerOperation() {
@@ -46,15 +45,11 @@ export class Version1DataMigrator {
 
     // get data
 
-    async getAllStoredData() {
-        return this._androidV1Data.getRaw();
-    }
-
     async wasPersonalDataSent() {
         return await this._androidV1Data.wasPersonalDataSent();
     }
 
-    async getPlayedLevelsInfo() {
+    async getPlayedLevelsStats() {
         const levelsCompleted = await this._androidV1Data.getLevelsCompleted();
         const starsPerLevel = await this._androidV1Data.getLevelsStars();
         const trialsTimePerLevel = await this._androidV1Data.getLevelsTotalTimes();
@@ -63,17 +58,14 @@ export class Version1DataMigrator {
             return {};
         }
 
-        return this._buildPlayedLevelsInfo(levelsCompleted, trialsTimePerLevel, starsPerLevel);
+        return this._buildPlayedLevelsStats(levelsCompleted, trialsTimePerLevel, starsPerLevel);
     }
 
     async getStatsPerOperation() {
-        let statsPerOperation = {};
+        let statsPerOperation = [];
 
-        const allCategories = OperationCategory.allCategories();
-
-        for (const category of allCategories) {
-            const codename = category.codename();
-            statsPerOperation[codename] = await this._buildStatsForCategory(category);
+        for (const category of OperationCategory.allCategories()) {
+            statsPerOperation.push(await this._buildStatsForCategory(category));
         }
 
         return statsPerOperation;
@@ -81,15 +73,20 @@ export class Version1DataMigrator {
 
     // private - build data
 
-    _buildPlayedLevelsInfo(levelsCompleted, trialsTimePerLevel, starsPerLevel) {
+    _buildPlayedLevelsStats(levelsCompleted, trialsTimePerLevel, starsPerLevel) {
         let levelData = {};
 
-        for (let numLevel = 1; numLevel <= levelsCompleted; numLevel++) {
+        const trialsTimePerPlayedLevel = trialsTimePerLevel.filter((time) => time > 0);
+
+        trialsTimePerPlayedLevel.forEach((trialsTime, index) => {
+            const numLevel = index + 1;
             levelData[numLevel] = {
-                totalTrialsTime: trialsTimePerLevel[numLevel - 1],
-                stars: starsPerLevel[numLevel - 1]
+                stars: starsPerLevel[index],
+                totalTrialsTime: trialsTime,
+                levelCompleted: numLevel <= levelsCompleted,
             }
-        }
+        });
+
         return levelData;
     }
 
@@ -99,6 +96,7 @@ export class Version1DataMigrator {
         const incorrectTimes = await this._androidV1Data.getIncorrectTimesForOperation(codename);
 
         return {
+            categoryCodename: codename,
             correctTrialsTimes: correctTimes,
             incorrectTrialsTimes: incorrectTimes,
         }
@@ -109,19 +107,24 @@ export class Version1DataMigrator {
     async _persistThatPersonalDataWasSent() {
         // NOTE: This normally has all the personal info data.
         // For now, we'll not migrate this data as it's not needed anymore (because was sent once before).
-        await AsyncStorage.setItem("@moravec:personalInfo", JSON.stringify({sentToBackend: true}));
+        await AppDataStorage.save("personalInfo", {sentToBackend: true});
     }
 
     async _storeStatsData(statsData) {
-        await AsyncStorage.setItem("@moravec:stats", JSON.stringify(statsData));
+        await AppDataStorage.save("stats", statsData);
     }
 
-    async _storePlayedLevelInfo(statsData) {
-        await AsyncStorage.setItem("@moravec:playedLevelsInfo", JSON.stringify(statsData));
+    async _storePlayedLevelStats(statsData) {
+        await AppDataStorage.save("playedLevelsStats", statsData);
     }
 
     async _persistThatDataWasMigrated() {
-        await AsyncStorage.setItem("@moravec:dataMigrated", JSON.stringify(true));
+        await AppDataStorage.save("dataMigrated", true);
+    }
+
+    static async _checkMigrated() {
+        const dataMigrated = await AppDataStorage.fetch("dataMigrated");
+        return dataMigrated !== null;
     }
 
 }
