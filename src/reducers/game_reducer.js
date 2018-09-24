@@ -23,12 +23,14 @@ const ENTER_KEY_CODE = 20;
 
 const initialState = {
     state: LEVEL_SELECTION,
+    numLevels: undefined,
     levels: undefined,
     currentLevel: undefined,
     currentTrial: undefined,
     lastAnswerData: undefined,
     playedLevelsStats: null,
     playedLevelsHistory: null,
+    stats: emptyStats()
 };
 
 const MAX_NUMBER_OF_DIGITS = 8;
@@ -157,6 +159,51 @@ function calculateHintsAvailable(prevHintsAvailable, operationHint, hintShown) {
     }
 }
 
+function calculateStars(totalCorrect) {
+    if (totalCorrect < 15) {
+        return 0;
+    }
+    if (totalCorrect < 17) {
+        return 1;
+    }
+    if (totalCorrect < 20) {
+        return 2;
+    }
+    if (totalCorrect >= 20) {
+        return 3;
+    }
+}
+
+export function emptyStats() {
+    return OperationCategory.allCategories().map((category) => {
+        return {
+            categoryCodename: category.codename(),
+            correctTrialsTimes: [],
+            incorrectTrialsTimes: [],
+        }
+    });
+}
+
+function addStatsFromNewTrials(previousStats, newTrials) {
+    return previousStats.map((operationStats) => {
+        const trialsOfCategory = newTrials.filter((trial) => {
+            return trial.operation.opType === operationStats.categoryCodename
+        });
+
+        const correctTrials = trialsOfCategory.filter((trial) => trial.isCorrect);
+        const incorrectTrials = trialsOfCategory.filter((trial) => !trial.isCorrect);
+
+        const correctTrialsTimes = correctTrials.map((trial) => trial.totalTime);
+        const incorrectTrialsTimes = incorrectTrials.map((trial) => trial.totalTime);
+
+        return {
+            ...operationStats,
+            correctTrialsTimes: operationStats.correctTrialsTimes.concat(correctTrialsTimes),
+            incorrectTrialsTimes: operationStats.incorrectTrialsTimes.concat(incorrectTrialsTimes),
+        }
+    });
+}
+
 export function gameReducer(state = initialState, action) {
     switch (action.type) {
         case START_GAME:
@@ -170,8 +217,9 @@ export function gameReducer(state = initialState, action) {
         case RESTORE_SAVED_GAME_INFO:
             return {
                 ...state,
-                playedLevelsStats: action.savedGameInfo.playedLevelsStats,
-                playedLevelsHistory: action.savedGameInfo.playedLevelsHistory,
+                playedLevelsStats: action.playedLevelsStats,
+                playedLevelsHistory: action.playedLevelsHistory,
+                stats: action.stats,
             };
 
         case NEW_TRIAL:
@@ -231,6 +279,7 @@ export function gameReducer(state = initialState, action) {
                     totalTrials: TOTAL_TRIALS_PER_LEVEL,
                     currentTrialNumber: 1,
                     totalCorrect: 0,
+                    stars: 0,
                     lastCorrectInARowValue: 0,
                     totalTrialsTime: 0,
                     efficacy: calculateEfficacy(state.totalCorrect, state.totalTrials),
@@ -278,6 +327,9 @@ export function gameReducer(state = initialState, action) {
                     totalCorrect: updateTotalCorrect(state.currentTrial.currentUserInput,
                         state.currentTrial.operation.correctResult,
                         state.currentLevel.totalCorrect),
+                    stars: calculateStars(updateTotalCorrect(state.currentTrial.currentUserInput,
+                        state.currentTrial.operation.correctResult,
+                        state.currentLevel.totalCorrect)),
                     totalTrialsTime: calculateTotalLevelTime(state.currentLevel.totalTrialsTime,
                         state.currentTrial.startTime,
                         action.submitTime),
@@ -299,12 +351,13 @@ export function gameReducer(state = initialState, action) {
                 playedLevelsStats: {
                     ...state.playedLevelsStats,
                     [state.currentLevel.number]: {
-                        totalCorrect: state.currentLevel.totalCorrect,
+                        stars: state.currentLevel.stars,
                         totalTrialsTime: state.currentLevel.totalTrialsTime,
                         levelCompleted: state.currentLevel.levelCompleted,
                     },
                 },
                 playedLevelsHistory: state.playedLevelsHistory.concat(state.currentLevel),
+                stats: addStatsFromNewTrials(state.stats, state.currentLevel.trials),
             };
 
         default:

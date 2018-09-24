@@ -36,7 +36,7 @@ export let LevelSelection = class extends React.Component {
             return <PlayLevelButton key={nextLevelNumber} levelCompleted={false}
                                     onPress={() => this.handleLevelSelected(nextLevelNumber)}
                                     levelToPlay={nextLevelNumber}
-                                    previousTotalCorrect={0}
+                                    stars={0}
             />
         } else {
             return null;
@@ -48,7 +48,7 @@ export let LevelSelection = class extends React.Component {
             <PlayLevelButton key={levelNumber} levelCompleted={levelStats.levelCompleted}
                              onPress={() => this.handleLevelSelected(parseInt(levelNumber))}
                              levelToPlay={levelNumber}
-                             previousTotalCorrect={levelStats.totalCorrect}
+                             stars={levelStats.stars}
                              previousLevelTime={levelStats.totalTrialsTime}
             />
         ));
@@ -66,7 +66,7 @@ export let LevelSelection = class extends React.Component {
                             <PlayLevelButton key={levelNumber} levelCompleted={true}
                                              onPress={() => this.handleLevelSelected(parseInt(levelNumber))}
                                              levelToPlay={levelNumber}
-                                             previousTotalCorrect={0}
+                                             stars={0}
                             />
                         ))}
                     </View>

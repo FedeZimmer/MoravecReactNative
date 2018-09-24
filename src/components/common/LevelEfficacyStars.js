@@ -28,14 +28,14 @@ class StarEmpty extends React.Component {
 
 export class LevelEfficacyStars extends React.Component {
     static defaultProps = {
-        correctAnswers: 0,
+        stars: 0,
         emptyStarColor: LEVEL_EFFICACY_STARS_STYLES.emptyStarDefaultColor,
         smallStarSize: LEVEL_EFFICACY_STARS_STYLES.smallStar.fontSize,
         bigStarSize: LEVEL_EFFICACY_STARS_STYLES.bigStar.fontSize
     };
 
     render() {
-        if (this.props.correctAnswers < 15) {
+        if (this.props.stars === 0) {
             return (
                 <View style={LEVEL_EFFICACY_STARS_STYLES.levelEfficacy}>
                     <StarEmpty fontSize={this.props.smallStarSize} color={this.props.emptyStarColor}/>
@@ -44,7 +44,7 @@ export class LevelEfficacyStars extends React.Component {
                 </View>
             )
         }
-        if (this.props.correctAnswers < 17) {
+        if (this.props.stars === 1) {
             return (
                 <View style={LEVEL_EFFICACY_STARS_STYLES.levelEfficacy}>
                     <StarFull fontSize={this.props.smallStarSize}/>
@@ -53,7 +53,7 @@ export class LevelEfficacyStars extends React.Component {
                 </View>
             )
         }
-        if (this.props.correctAnswers < 20) {
+        if (this.props.stars === 2) {
             return (
                 <View style={LEVEL_EFFICACY_STARS_STYLES.levelEfficacy}>
                     <StarFull fontSize={this.props.smallStarSize}/>
@@ -63,7 +63,7 @@ export class LevelEfficacyStars extends React.Component {
             )
         }
 
-        if (this.props.correctAnswers >= 20) {
+        if (this.props.stars === 3) {
             return (
                 <View style={LEVEL_EFFICACY_STARS_STYLES.levelEfficacy}>
                     <StarFull fontSize={this.props.smallStarSize}/>
