@@ -1,6 +1,6 @@
-import {AsyncStorage} from "react-native";
 import {ApiClient} from "../api_client/ApiClient";
-import {LEVEL_FINISHED} from "../reducers/game_reducer";
+import {emptyStats, LEVEL_FINISHED} from "../reducers/game_reducer";
+import {AppDataStorage} from "../storage/AppDataStorage";
 
 export const START_GAME = 'START_GAME';
 export const CALCULATOR_TYPE_INPUT = 'CALCULATOR_TYPE_INPUT';
@@ -110,55 +110,45 @@ function updateLevelsHistory() {
 function saveGameInfoOnDevice() {
     return (dispatch, getState) => {
         const gameState = getState().game;
-        const gameInfo = {
-            playedLevelsStats: gameState.playedLevelsStats,
-            playedLevelsHistory: gameState.playedLevelsHistory,
-        };
-        AsyncStorage.setItem('@moravec:game', JSON.stringify(gameInfo)).then(() => {
+        AppDataStorage.save('playedLevelsStats', gameState.playedLevelsStats);
+        AppDataStorage.save('playedLevelsHistory', gameState.playedLevelsHistory).then(() => {
             sendUnsentTrials();
         });
+        AppDataStorage.save('stats', gameState.stats);
     }
 }
 
 export function getSavedGameInfoFromDevice() {
     return (dispatch) => {
-        AsyncStorage.getItem('@moravec:game').then((gameInfoJSON) => {
-            let gameInfo;
-            if (gameInfoJSON !== null) {
-                gameInfo = JSON.parse(gameInfoJSON);
-            } else {
-                gameInfo = {
-                    playedLevelsStats: {},
-                    playedLevelsHistory: [],
-                };
-            }
+        const playedLevelsStats = AppDataStorage.fetch('playedLevelsStats');
+        const playedLevelsHistory = AppDataStorage.fetch('playedLevelsHistory');
+        const stats = AppDataStorage.fetch('stats');
+
+        Promise.all([playedLevelsStats, playedLevelsHistory, stats]).then(promiseValues => {
             dispatch({
                 type: RESTORE_SAVED_GAME_INFO,
-                savedGameInfo: gameInfo
+                playedLevelsStats: promiseValues[0] || {},
+                playedLevelsHistory: promiseValues[1] || [],
+                stats: promiseValues[2] || emptyStats(),
             });
         });
     }
 }
 
 function sendUnsentTrials() {
-    AsyncStorage.getItem('@moravec:game').then((gameInfoJSON) => {
-        const gameInfo = JSON.parse(gameInfoJSON);
+    AppDataStorage.fetch('playedLevelsHistory').then((playedLevelsHistory) => {
+        const allUnsentTrials = getAllUnsentTrials(playedLevelsHistory);
 
-        const allUnsentTrials = getAllUnsentTrials(gameInfo.playedLevelsHistory);
-
-        const totalTrials = gameInfo.playedLevelsHistory.reduce((accum, level) => accum + level.trials.length, 0);
+        const totalTrials = playedLevelsHistory.reduce((accum, level) => accum + level.trials.length, 0);
 
         const totalTrialsSentBefore = totalTrials - allUnsentTrials.length;
 
         new ApiClient().sendTrials(allUnsentTrials, totalTrialsSentBefore).then(() => {
             console.log("--DEBUG-- API: POST /api/v2/trials successful!");
 
-            const playedLevelsHistory = markAllTrialsAsSentOnDevice(gameInfo.playedLevelsHistory);
+            const markedHistory = markAllTrialsAsSentOnDevice(playedLevelsHistory);
 
-            AsyncStorage.setItem('@moravec:game', JSON.stringify({
-                ...gameInfo,
-                playedLevelsHistory: playedLevelsHistory
-            }));
+            AppDataStorage.save('playedLevelsHistory', markedHistory);
         });
     });
 }

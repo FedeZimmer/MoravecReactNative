@@ -1,22 +1,23 @@
-import {AsyncStorage} from "react-native";
+import {AppDataStorage} from "../storage/AppDataStorage";
+import {emptyStats} from "../reducers/game_reducer";
 
 export const CALCULATE_STATS = 'CALCULATE_STATS';
 
 export function fetchOperationCategoryStats() {
     return (dispatch) => {
-        AsyncStorage.getItem('@moravec:game').then((gameInfoJSON) => {
-            let levelsHistory = [];
-            if (gameInfoJSON !== null) {
-                levelsHistory = JSON.parse(gameInfoJSON).playedLevelsHistory;
+        let stats = emptyStats();
+        AppDataStorage.fetch('stats').then((savedStats) => {
+            if (savedStats !== null) {
+                stats = savedStats;
             }
-            dispatch(calculateStats(levelsHistory));
+            dispatch(calculateStats(stats));
         });
     }
 }
 
-function calculateStats(levelsHistory) {
+function calculateStats(stats) {
     return {
         type: CALCULATE_STATS,
-        levelsHistory: levelsHistory
+        stats: stats
     }
 }

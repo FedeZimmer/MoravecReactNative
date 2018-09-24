@@ -23,7 +23,7 @@ export let PlayLevelButton = class extends React.Component {
                     </View>
                     <View style={LEVEL_SELECTION_STYLES.levelResultContainer}>
                         {this.renderPlayOrPreviousTimeLegend()}
-                        <LevelEfficacyStars correctAnswers={this.props.previousTotalCorrect}/>
+                        <LevelEfficacyStars stars={this.props.stars}/>
                     </View>
                 </View>
             </TouchableOpacity>
