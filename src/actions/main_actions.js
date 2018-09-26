@@ -1,5 +1,6 @@
-import {AsyncStorage} from "react-native";
+import {AsyncStorage, Platform} from "react-native";
 import {ApiClient} from "../api_client/ApiClient";
+import {Version1DataMigrator} from "../android_v1_migration/Version1DataMigrator";
 
 export function verifyIfPersonalInfoIsSavedOnDevice(callback) {
     return (dispatch) => {
@@ -14,6 +15,25 @@ export function verifyIfPersonalInfoIsSavedOnDevice(callback) {
                 }
             }
             callback(personalInfoIsCompleted);
+        });
+    }
+}
+
+export function migrateV1DataIfNeeded(callback) {
+    return (dispatch) => {
+        if (Platform.OS !== "android") {
+            callback();
+        }
+
+        Version1DataMigrator.wasMigratedBefore().then((wasMigrated) => {
+            if (!wasMigrated) {
+                const migrator = Version1DataMigrator.newForProduction();
+                migrator.migrateAll().then(() => {
+                    callback();
+                });
+            } else {
+                callback();
+            }
         });
     }
 }
