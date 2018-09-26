@@ -15,7 +15,7 @@ export let StatsMainScreen = class extends React.Component {
             if (operationStats.hasStats) {
                 return (
                     <OperationRowStats key={index}
-                                       category={operationStats.category}
+                                       categoryCodename={operationStats.categoryCodename}
                                        averageTime={operationStats.averageTime}
                                        effectiveness={operationStats.effectiveness}
                                        responseTimes={operationStats.responseTimes}
@@ -24,7 +24,8 @@ export let StatsMainScreen = class extends React.Component {
                 )
             } else {
                 return (
-                    <OperationRowStatsUnavailable key={index} category={operationStats.category}/>
+                    <OperationRowStatsUnavailable key={index}
+                                                  categoryCodename={operationStats.categoryCodename}/>
                 )
             }
         });

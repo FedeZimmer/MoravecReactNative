@@ -11,9 +11,9 @@ class StatsContainer extends React.Component {
         this.handleShowOperationStats = this.handleShowOperationStats.bind(this);
     }
 
-    handleShowOperationStats(operationCategory, responseTimes) {
+    handleShowOperationStats(operationCategoryCodename, responseTimes) {
         this.props.navigation.navigate('OperationStatsScreen',
-            {operationCategory: operationCategory, responseTimes: responseTimes});
+            {categoryCodename: operationCategoryCodename, responseTimes: responseTimes});
     }
 
     componentDidMount() {

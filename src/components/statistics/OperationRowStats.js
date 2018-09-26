@@ -4,6 +4,7 @@ import {formatTime} from "../../utils/format_time";
 import {formatPercentage} from "../../utils/format_percentage";
 import {CATEGORIES_LIST_STYLES} from "../../styles/stats/styles";
 import {applyLetterSpacing} from "../../styles/global";
+import {OperationCategory} from "../../models/operations/Category";
 
 
 export class OperationRowStats extends React.Component {
@@ -14,7 +15,11 @@ export class OperationRowStats extends React.Component {
     }
 
     handleShowDetails() {
-        return this.props.onShowOperationStats(this.props.category, this.props.responseTimes);
+        return this.props.onShowOperationStats(this.props.categoryCodename, this.props.responseTimes);
+    }
+
+    categoryName() {
+        return new OperationCategory(this.props.categoryCodename).name();
     }
 
     render() {
@@ -23,7 +28,7 @@ export class OperationRowStats extends React.Component {
                 <View style={CATEGORIES_LIST_STYLES.availableItemContainer}>
                     <View>
                         <Text style={CATEGORIES_LIST_STYLES.availableItemCategoryName}>
-                            {applyLetterSpacing(this.props.category.name(), 1)}
+                            {applyLetterSpacing(this.categoryName(), 1)}
                         </Text>
                     </View>
                     <View>

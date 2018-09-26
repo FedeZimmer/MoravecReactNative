@@ -7,6 +7,7 @@ import I18n from "../../../i18n/i18n";
 import {VictoryChart, VictoryLine, VictoryScatter, VictoryAxis} from "victory-native";
 import {applyLetterSpacing} from "../../styles/global";
 import {CHART_STYLES} from "../../styles/stats/styles";
+import {OperationCategory} from "../../models/operations/Category";
 
 export let OperationStatsScreen = class extends React.Component {
     static navigationOptions = {header: null};
@@ -15,9 +16,9 @@ export let OperationStatsScreen = class extends React.Component {
         super(props);
     }
 
-    operationCategory() {
+    categoryName() {
         const navigationsParams = this.props.navigation.state.params;
-        return navigationsParams.operationCategory.name();
+        return new OperationCategory(navigationsParams.categoryCodename).name();
     }
 
     responseTimes() {
@@ -41,7 +42,7 @@ export let OperationStatsScreen = class extends React.Component {
                 <View style={CHART_STYLES.container}>
                     <View>
                         <Text style={CHART_STYLES.categoryName}>
-                            {applyLetterSpacing(this.operationCategory(), 1)}
+                            {applyLetterSpacing(this.categoryName(), 1)}
                         </Text>
                     </View>
                     <View style={CHART_STYLES.verticalLabelContainer}>
