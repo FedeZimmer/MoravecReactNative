@@ -1,23 +1,15 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {
-    askForHint,
-    eraseInput,
-    getSavedGameInfoFromDevice,
-    startGame,
-    startLevel,
-    submitTrial,
-    typeInput
-} from "../actions/game_actions";
+import {askForHint, eraseInput, loadGameData, startLevel, submitTrial, typeInput} from "../actions/game_actions";
 import {LevelFinished} from "../components/game/LevelFinished";
 import {Game} from "../components/game/Game";
-import {LevelSelection} from "../components/game/LevelSelection";
-import {LEVEL_FINISHED, LEVEL_SELECTION, PLAYING} from "../reducers/game_reducer";
+import {LEVEL_FINISHED, LOADING, PLAYING} from "../reducers/game_reducer";
+import {spinnerColor} from "../styles/main/styles";
+import {Spinner} from "native-base";
 
 const mapStateToProps = (state) => {
     return {
         state: state.game.state,
-        numLevels: state.game.numLevels,
         playedLevelsStats: state.game.playedLevelsStats,
         currentLevel: state.game.currentLevel,
         currentTrial: state.game.currentTrial,
@@ -28,11 +20,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = dispatch => {
     return {
         actions: {
-            startGame: () => {
-                dispatch(startGame())
-            },
-            getSavedGameInfoFromDevice: () => {
-                dispatch(getSavedGameInfoFromDevice())
+            loadGameData: () => {
+                dispatch(loadGameData())
             },
             startLevel: (level) => {
                 dispatch(startLevel(level))
@@ -69,8 +58,10 @@ class GameEngine extends Component {
         this.goToHome = this.goToHome.bind(this);
     }
 
-    componentWillMount() {
-        this.props.actions.startGame();
+    componentDidMount() {
+        this.props.actions.loadGameData();
+        const navigationsParams = this.props.navigation.state.params;
+        this.props.actions.startLevel(navigationsParams.levelNumber);
     }
 
     handleSubmit() {
@@ -101,13 +92,11 @@ class GameEngine extends Component {
     }
 
     render() {
-        if (this.props.state === LEVEL_SELECTION) {
-            return <LevelSelection onSelectLevel={this.props.actions.startLevel}
-                                   onLoading={this.props.actions.getSavedGameInfoFromDevice}
-                                   playedLevelsStats={this.props.playedLevelsStats}
-                                   numLevels={this.props.numLevels}
-            />
-        } else if (this.props.state === PLAYING) {
+        if (this.props.state === LOADING) {
+            return <Spinner color={spinnerColor}/>
+        }
+
+        if (this.props.state === PLAYING) {
             return <Game state={this.props.state}
                          currentLevel={this.props.currentLevel}
                          currentTrial={this.props.currentTrial}
