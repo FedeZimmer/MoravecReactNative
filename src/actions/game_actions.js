@@ -1,6 +1,6 @@
-import {ApiClient} from "../api_client/ApiClient";
 import {emptyStats, LEVEL_FINISHED} from "../reducers/game_reducer";
 import {AppDataStorage} from "../storage/AppDataStorage";
+import {sendUnsentTrials} from "../send_data";
 
 export const START_GAME = 'START_GAME';
 export const CALCULATOR_TYPE_INPUT = 'CALCULATOR_TYPE_INPUT';
@@ -133,46 +133,4 @@ export function getSavedGameInfoFromDevice() {
             });
         });
     }
-}
-
-function sendUnsentTrials() {
-    AppDataStorage.fetch('playedLevelsHistory').then((playedLevelsHistory) => {
-        const allUnsentTrials = getAllUnsentTrials(playedLevelsHistory);
-
-        const totalTrials = playedLevelsHistory.reduce((accum, level) => accum + level.trials.length, 0);
-
-        const totalTrialsSentBefore = totalTrials - allUnsentTrials.length;
-
-        new ApiClient().sendTrials(allUnsentTrials, totalTrialsSentBefore).then(() => {
-            console.log("--DEBUG-- API: POST /api/v2/trials successful!");
-
-            const markedHistory = markAllTrialsAsSentOnDevice(playedLevelsHistory);
-
-            AppDataStorage.save('playedLevelsHistory', markedHistory);
-        });
-    });
-}
-
-function getAllUnsentTrials(levels) {
-    return levels.map((level) => {
-        return level.trials.filter((trial) => {
-            return !trial.hasOwnProperty('sentToBackend') || !trial['sentToBackend'];
-        });
-    }).reduce(function (allUnsentTrails, unsentTrailsOfLevel) {
-        return allUnsentTrails.concat(unsentTrailsOfLevel);
-    });
-}
-
-function markAllTrialsAsSentOnDevice(playedLevelsHistory) {
-    return playedLevelsHistory.map((level) => {
-        return {
-            ...level,
-            trials: level.trials.map((trial) => {
-                return {
-                    ...trial,
-                    sentToBackend: true,
-                }
-            }),
-        };
-    });
 }

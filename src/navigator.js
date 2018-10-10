@@ -1,5 +1,5 @@
-import {StackNavigator} from "react-navigation";
-import Main from "./containers/Main";
+import { createSwitchNavigator, createStackNavigator } from 'react-navigation';
+import {LoadingAppScreen} from "./components/LoadingAppScreen";
 import PersonalInfo from "./containers/PersonalInfo";
 import {Home} from "./components/home/Home";
 import GameEngine from "./containers/GameEngine";
@@ -15,10 +15,17 @@ import {ViewToSquare4Tutorial} from "./components/tutorials/ViewToSquare4Tutoria
 import {OperationStatsScreen} from "./components/statistics/OperationStatsScreen";
 
 
-export const Navigator = StackNavigator(
+export const PersonalInfoStack = createStackNavigator(
     {
-        Main: {screen: Main},
-        PersonalInfo: {screen: PersonalInfo},
+        PersonalInfoContainer: PersonalInfo,
+    },
+    {
+        initialRouteName: 'PersonalInfoContainer',
+    }
+);
+
+export const HomeStack = createStackNavigator(
+    {
         Home: {screen: Home},
         Play: {screen: GameEngine},
         Practice: {screen: Practice},
@@ -33,11 +40,23 @@ export const Navigator = StackNavigator(
         OperationStatsScreen: {screen: OperationStatsScreen},
     },
     {
+        initialRouteName: 'Home',
         headerMode: 'screen',
         navigationOptions: {
             gestureResponseDistance: {
                 horizontal: 150
             }
         }
+    }
+);
+
+export const Navigator = createSwitchNavigator(
+    {
+        LoadingAppScreen: LoadingAppScreen,
+        Home: HomeStack,
+        PersonalInfo: PersonalInfoStack,
+    },
+    {
+        initialRouteName: 'LoadingAppScreen',
     }
 );

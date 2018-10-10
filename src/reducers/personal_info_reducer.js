@@ -6,7 +6,6 @@ export const PERSONAL_INFO_FORM = 'PERSONAL_INFO_FORM';
 const initialState = {
     state: TERMS_AND_CONDITIONS,
     agreedTerms: false,
-    personalInfo: undefined
 };
 
 
