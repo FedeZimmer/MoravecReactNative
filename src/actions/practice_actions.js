@@ -1,4 +1,6 @@
 import {PracticeMode} from "../models/practice/PracticeMode";
+import {AppDataStorage} from "../storage/AppDataStorage";
+import {ApiClient} from "../api_client/ApiClient";
 
 export const START_PRACTICE = 'START_PRACTICE';
 export const START_PRACTICE_MODE = 'START_PRACTICE_MODE';
@@ -73,6 +75,50 @@ export function submitTrial() {
             submitTime: new Date().getTime(),
         });
 
+        dispatch(savePracticeInfoOnDevice());
         dispatch(newTrial());
     }
 }
+
+function savePracticeInfoOnDevice() {
+    return (dispatch, getState) => {
+        const practiceState = getState().practice;
+        AppDataStorage.save('practiceHistory', practiceState.practiceHistory).then(() => {
+            sendUnsentTrials();
+        });
+    }
+}
+
+function sendUnsentTrials() {
+    AppDataStorage.fetch('practiceHistory').then((practiceHistory) => {
+        const allUnsentTrials = getAllUnsentTrials(practiceHistory);
+
+        const totalTrials = practiceHistory.trials.length;
+
+        const totalTrialsSentBefore = totalTrials - allUnsentTrials.length;
+
+        new ApiClient().sendTrials(allUnsentTrials, totalTrialsSentBefore, 'Practice').then(() => {
+            console.log("--DEBUG-- API: POST /api/v2/trials successful!");
+
+            const markedHistory = markAllTrialsAsSentOnDevice(practiceHistory);
+
+            AppDataStorage.save('practiceHistory', markedHistory);
+        });
+    });
+}
+
+function getAllUnsentTrials(practice) {
+    return practice.trials.filter((trial) => {
+        return !trial.hasOwnProperty('sentToBackend') || !trial['sentToBackend'];
+    });
+}
+
+function markAllTrialsAsSentOnDevice(practiceHistory) {
+    return practiceHistory.trials.map((trial) => {
+        return {
+            ...trial,
+            sentToBackend: true,
+        };
+    });
+}
+

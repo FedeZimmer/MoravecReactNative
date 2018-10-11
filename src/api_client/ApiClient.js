@@ -23,7 +23,7 @@ export class ApiClient {
         });
     }
 
-    sendTrials(trialsToSend, lastTrialNumberSent) {
+    sendTrials(trialsToSend, lastTrialNumberSent, gameType) {
         let trialNumber = lastTrialNumberSent;
 
         const trialsInfoToSend = trialsToSend.map((trial) => {
@@ -35,7 +35,7 @@ export class ApiClient {
                 App_Version: DeviceInfo.getReadableVersion(),
                 App_Language: I18n.locale,
                 Trial_Number: trialNumber,
-                Game_Type: 'Arcade', // mock
+                Game_Type: gameType,
                 Level: trial.levelNumber,
                 Operation_Type: trial.operation.opType,
                 Operand_1: trial.operation.operand1,

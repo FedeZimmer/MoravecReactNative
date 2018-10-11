@@ -143,7 +143,7 @@ function sendUnsentTrials() {
 
         const totalTrialsSentBefore = totalTrials - allUnsentTrials.length;
 
-        new ApiClient().sendTrials(allUnsentTrials, totalTrialsSentBefore).then(() => {
+        new ApiClient().sendTrials(allUnsentTrials, totalTrialsSentBefore, 'Arcade').then(() => {
             console.log("--DEBUG-- API: POST /api/v2/trials successful!");
 
             const markedHistory = markAllTrialsAsSentOnDevice(playedLevelsHistory);

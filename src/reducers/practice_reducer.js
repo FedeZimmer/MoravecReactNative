@@ -6,6 +6,8 @@ import {
 export const PRACTICE_MODE_SELECTION = 'PRACTICE_MODE_SELECTION';
 export const PRACTICING = 'PRACTICING';
 
+const ENTER_KEY_CODE = 20;
+
 const initialState = {
     state: PRACTICE_MODE_SELECTION,
     currentPracticeMode: undefined,
@@ -43,6 +45,19 @@ function removeLastNumberEntered(currentInput) {
 
 function isAnswerCorrect(correctResult, currentUserInput) {
     return correctResult === currentUserInput;
+}
+
+function addResponseTime(responseTimesUntilNow, startTime, inputTime) {
+    const responseTime = inputTime - startTime;
+    return responseTimesUntilNow.concat(responseTime);
+}
+
+function calculateTotalTrialTime(trialStartTime, trialSubmitTime) {
+    return trialSubmitTime - trialStartTime;
+}
+
+function hasExceededMaxSolveTime(trialStartTime, trialSubmitTime, operationMaxSolveTime) {
+    return calculateTotalTrialTime(trialStartTime, trialSubmitTime) > operationMaxSolveTime;
 }
 
 export function practiceReducer(state = initialState, action) {
@@ -85,8 +100,23 @@ export function practiceReducer(state = initialState, action) {
         case SUBMIT_TRIAL_PRACTICE:
             const isCorrect = isAnswerCorrect(state.currentTrial.operation.correctResult, state.currentTrial.currentUserInput);
 
+            const exceededMaxSolveTime = hasExceededMaxSolveTime(state.currentTrial.startTime, action.submitTime,
+                state.currentTrial.operation.maxSolveTime);
+
             return {
                 ...state,
+                practiceHistory: {
+                    trials: state.currentLevel.trials.concat({
+                        ...state.currentTrial,
+                        keysPressed: state.currentTrial.keysPressed.concat(ENTER_KEY_CODE),
+                        responseTimes: addResponseTime(state.currentTrial.responseTimes, state.currentTrial.startTime,
+                            action.submitTime),
+                        submitTime: action.submitTime,
+                        totalTime: calculateTotalTrialTime(state.currentTrial.startTime, action.submitTime),
+                        timeExceeded: exceededMaxSolveTime,
+                        isCorrect: isCorrect,
+                    })
+                },
                 lastAnswerData: {
                     userInput: state.currentTrial.currentUserInput,
                     correctResult: state.currentTrial.operation.correctResult,
