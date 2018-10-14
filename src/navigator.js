@@ -1,4 +1,4 @@
-import { createSwitchNavigator, createStackNavigator } from 'react-navigation';
+import {createStackNavigator, createSwitchNavigator} from 'react-navigation';
 import {LoadingAppScreen} from "./components/LoadingAppScreen";
 import PersonalInfo from "./containers/PersonalInfo";
 import {Home} from "./components/home/Home";
@@ -13,6 +13,7 @@ import {ViewToSquare2Tutorial} from "./components/tutorials/ViewToSquare2Tutoria
 import {ViewToSquare3Tutorial} from "./components/tutorials/ViewToSquare3Tutorial";
 import {ViewToSquare4Tutorial} from "./components/tutorials/ViewToSquare4Tutorial";
 import {OperationStatsScreen} from "./components/statistics/OperationStatsScreen";
+import LevelSelectionContainer from "./containers/LevelSelectionContainer";
 
 
 export const PersonalInfoStack = createStackNavigator(
@@ -27,6 +28,7 @@ export const PersonalInfoStack = createStackNavigator(
 export const HomeStack = createStackNavigator(
     {
         Home: {screen: Home},
+        LevelSelection: {screen: LevelSelectionContainer},
         Play: {screen: GameEngine},
         Practice: {screen: Practice},
         TutorialsList: {screen: TutorialsList},

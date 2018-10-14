@@ -2,19 +2,15 @@ import {
     ASK_FOR_HINT,
     CALCULATOR_ERASE_INPUT,
     CALCULATOR_TYPE_INPUT,
+    LOAD_GAME_DATA,
     NEW_TRIAL,
-    RESTORE_SAVED_GAME_INFO,
-    START_GAME,
     START_LEVEL,
     SUBMIT_TRIAL,
     UPDATE_LEVELS_HISTORY,
 } from '../actions/game_actions'
 import {OperationCategory} from "../models/operations/Category";
-import {Level} from "../models/level/Level";
 
-const levelsConfigurationFile = require('../../assets/levels.json');
-
-export const LEVEL_SELECTION = 'LEVEL_SELECTION';
+export const LOADING = 'LOADING';
 export const PLAYING = 'PLAYING';
 export const LEVEL_FINISHED = 'LEVEL_FINISHED';
 
@@ -22,9 +18,7 @@ const ERASE_KEY_CODE = -1;
 const ENTER_KEY_CODE = 20;
 
 const initialState = {
-    state: LEVEL_SELECTION,
-    numLevels: undefined,
-    levels: undefined,
+    state: LOADING,
     currentLevel: undefined,
     currentTrial: undefined,
     lastAnswerData: undefined,
@@ -38,22 +32,6 @@ const MAX_NUMBER_OF_DIGITS = 8;
 const TOTAL_TRIALS_PER_LEVEL = 20;
 
 export const MAX_HINTS_PER_LEVEL = 3;
-
-function obtainLevels() {
-    let levels = {};
-    Object.entries(levelsConfigurationFile).forEach(([levelNumber, levelInfo]) => {
-        let levelCategories = [];
-        let levelCategoriesProbability = [];
-        Object.entries(levelInfo['probabilityPerCategories']).forEach(([categoryName, probability]) => {
-            if (probability !== 0) {
-                levelCategories.push(new OperationCategory(categoryName));
-                levelCategoriesProbability.push(probability);
-            }
-        });
-        levels[levelNumber] = new Level(levelNumber, levelCategories, levelCategoriesProbability, levelInfo['probabilityThatOperationIsHidden']);
-    });
-    return levels;
-}
 
 function appendNewUserInput(currentInput, newInput) {
     if (!currentInput) {
@@ -206,20 +184,12 @@ function addStatsFromNewTrials(previousStats, newTrials) {
 
 export function gameReducer(state = initialState, action) {
     switch (action.type) {
-        case START_GAME:
-            const levels = obtainLevels();
-            return {
-                ...state,
-                levels: levels,
-                numLevels: Object.keys(levels).length,
-            };
-
-        case RESTORE_SAVED_GAME_INFO:
+        case LOAD_GAME_DATA:
             return {
                 ...state,
                 playedLevelsStats: action.playedLevelsStats,
                 playedLevelsHistory: action.playedLevelsHistory,
-                stats: action.stats,
+                stats: action.stats
             };
 
         case NEW_TRIAL:

@@ -1,4 +1,5 @@
 import {pressIfPresent} from "../utils";
+import {INTERMEDIATE} from "../../src/models/practice/PracticeMode";
 
 export class MoravecPlayer {
     constructor(engineHelper) {
@@ -22,7 +23,7 @@ export class MoravecPlayer {
     }
 
     async selectAPracticeLevel() {
-        await this._engineHelper.press('PracticeModeOption.1x1.medio');
+        await this._engineHelper.press(`PracticeModeOption.1x1.${INTERMEDIATE}`);
     }
 
     async pressANumberSequence(numberSequence) {
