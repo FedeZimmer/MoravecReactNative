@@ -182,6 +182,32 @@ function addStatsFromNewTrials(previousStats, newTrials) {
     });
 }
 
+function updateLevelStatsIfBetterRecord(playedLevelStats, newLevelData) {
+    let aBetterRecord = true;
+
+    const previousStats = playedLevelStats[newLevelData.number];
+    if (previousStats !== undefined) {
+        const moreStars = newLevelData.stars > previousStats.stars;
+        const sameStars = newLevelData.stars === previousStats.stars;
+        const timeImproved = newLevelData.totalTrialsTime < previousStats.totalTrialsTime;
+
+        aBetterRecord = moreStars || (sameStars && timeImproved);
+    }
+
+    if (aBetterRecord) {
+        return {
+            ...playedLevelStats,
+            [newLevelData.number]: {
+                stars: newLevelData.stars,
+                totalTrialsTime: newLevelData.totalTrialsTime,
+                levelCompleted: newLevelData.levelCompleted,
+            }
+        };
+    } else {
+        return playedLevelStats;
+    }
+}
+
 export function gameReducer(state = initialState, action) {
     switch (action.type) {
         case LOAD_GAME_DATA:
@@ -318,14 +344,7 @@ export function gameReducer(state = initialState, action) {
         case UPDATE_LEVELS_HISTORY:
             return {
                 ...state,
-                playedLevelsStats: {
-                    ...state.playedLevelsStats,
-                    [state.currentLevel.number]: {
-                        stars: state.currentLevel.stars,
-                        totalTrialsTime: state.currentLevel.totalTrialsTime,
-                        levelCompleted: state.currentLevel.levelCompleted,
-                    },
-                },
+                playedLevelsStats: updateLevelStatsIfBetterRecord(state.playedLevelsStats, state.currentLevel),
                 playedLevelsHistory: state.playedLevelsHistory.concat(state.currentLevel),
                 stats: addStatsFromNewTrials(state.stats, state.currentLevel.trials),
             };
