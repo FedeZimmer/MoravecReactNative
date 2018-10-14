@@ -14,32 +14,46 @@ export let UserAnswerFeedback = class extends React.Component {
             opacityValue: new Animated.Value(0),
             isShown: false,
         };
+        this.fadeoutAnimation = null;
     }
 
     componentDidUpdate(prevProps) {
         const newAnswerSubmitted = prevProps.lastAnswerData !== this.props.lastAnswerData;
         if (newAnswerSubmitted) {
-            this.setState({isShown: true});
             this.fadeoutBar();
         }
     }
 
     fadeoutBar() {
+        this.stopAnimationIfActive();
+
         this.setState({
             opacityValue: new Animated.Value(1),
+            isShown: true
         }, () => {
-            const fadeoutAnimation = Animated.timing(
-                this.state.opacityValue,
-                {
-                    delay: 1500,
-                    toValue: 0,
-                    duration: 500,
-                }
-            );
-            fadeoutAnimation.start(() => {
-                this.setState({isShown: false});
-            });
+            this.startAnimation();
         });
+    }
+
+    startAnimation() {
+        this.fadeoutAnimation = Animated.timing(
+            this.state.opacityValue,
+            {
+                delay: 1500,
+                toValue: 0,
+                duration: 500,
+            }
+        );
+
+        this.fadeoutAnimation.start(() => {
+            this.setState({isShown: false});
+        });
+    }
+
+    stopAnimationIfActive() {
+        if (this.fadeoutAnimation !== null) {
+            this.fadeoutAnimation.stop();
+        }
     }
 
     render() {
