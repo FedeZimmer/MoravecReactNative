@@ -15,7 +15,7 @@ export class Tutorial extends React.Component {
                 <View style={TUTORIAL_STYLES.division}>
                 </View>
                 <VideoPlayer videoId={this.props.videoId}/>
-                {this.props.showExamples()}
+                {this.props.children}
             </ScrollView>
         );
     }

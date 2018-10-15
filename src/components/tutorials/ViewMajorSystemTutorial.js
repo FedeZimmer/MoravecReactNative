@@ -11,24 +11,6 @@ export class ViewMajorSystemTutorial extends React.Component {
         header: null
     };
 
-    constructor(props) {
-        super(props);
-
-        this.showExamples = this.showExamples.bind(this);
-    }
-
-    showExamples() {
-        return (
-            <View style={TUTORIAL_STYLES.exampleContainer}>
-                <Text style={TUTORIAL_STYLES.exampleTitle}>{I18n.t('tutorial.majorSystem.table').toUpperCase()}</Text>
-                <Image source={Images.majorSystemExample} style={TUTORIAL_STYLES.image}/>
-                <Text style={TUTORIAL_STYLES.explanation}>
-                    {I18n.t('tutorial.majorSystem.sentence')}
-                </Text>
-            </View>
-        )
-    }
-
     videoId() {
         if (I18n.currentLocale().startsWith('es')) {
             return "Fv0Si7UJHKw";
@@ -41,8 +23,16 @@ export class ViewMajorSystemTutorial extends React.Component {
         return (
             <Tutorial title={I18n.t('tutorial.majorSystem.sectionTitle')}
                       headerTitle={I18n.t('tutorial.majorSystem.headerTitle').toUpperCase()}
-                      videoId={this.videoId()}
-                      showExamples={this.showExamples} />
+                      videoId={this.videoId()}>
+                <View style={TUTORIAL_STYLES.exampleContainer}>
+                    <Text
+                        style={TUTORIAL_STYLES.exampleTitle}>{I18n.t('tutorial.majorSystem.table').toUpperCase()}</Text>
+                    <Image source={Images.majorSystemExample} style={TUTORIAL_STYLES.image}/>
+                    <Text style={TUTORIAL_STYLES.explanation}>
+                        {I18n.t('tutorial.majorSystem.sentence')}
+                    </Text>
+                </View>
+            </Tutorial>
         );
     }
 }

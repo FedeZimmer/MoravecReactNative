@@ -11,32 +11,6 @@ export class ViewMultiplicationTutorial extends React.Component {
         header: null
     };
 
-    constructor(props) {
-        super(props);
-
-        this.showExamples = this.showExamples.bind(this);
-    }
-
-    showExamples() {
-        return (
-            <View style={TUTORIAL_STYLES.exampleContainer}>
-                <Text style={TUTORIAL_STYLES.exampleTitle}>{I18n.t('tutorial.common.examples').toUpperCase()}</Text>
-                <Image source={Images.multiplicationExample1} style={TUTORIAL_STYLES.image}/>
-                <Text style={TUTORIAL_STYLES.explanation}>
-                    {I18n.t('tutorial.multiplication.firstSentence')}
-                </Text>
-                <Image source={Images.multiplicationExample2} style={TUTORIAL_STYLES.image}/>
-                <Text style={TUTORIAL_STYLES.explanation}>
-                    {I18n.t('tutorial.multiplication.secondSentence')}
-                </Text>
-                <Image source={Images.multiplicationExample3} style={TUTORIAL_STYLES.image}/>
-                <Text style={TUTORIAL_STYLES.explanation}>
-                    {I18n.t('tutorial.multiplication.thirdSentence')}
-                </Text>
-            </View>
-        )
-    }
-
     videoId() {
         if (I18n.currentLocale().startsWith('es')) {
             return "mwa-zblNdR4";
@@ -49,8 +23,29 @@ export class ViewMultiplicationTutorial extends React.Component {
         return (
             <Tutorial title={I18n.t('tutorial.multiplication.sectionTitle')}
                       headerTitle={I18n.t('tutorial.multiplication.headerTitle').toUpperCase()}
-                      videoId={this.videoId()}
-                      showExamples={this.showExamples} />
+                      videoId={this.videoId()}>
+                <View style={TUTORIAL_STYLES.exampleContainer}>
+                    <Text style={TUTORIAL_STYLES.exampleTitle}>{I18n.t('tutorial.common.examples').toUpperCase()}</Text>
+                    <View style={TUTORIAL_STYLES.imageContainer}>
+                        <Image source={Images.multiplicationExample1} style={TUTORIAL_STYLES.image}/>
+                    </View>
+                    <Text style={TUTORIAL_STYLES.explanation}>
+                        {I18n.t('tutorial.multiplication.firstSentence')}
+                    </Text>
+                    <View style={TUTORIAL_STYLES.imageContainer}>
+                        <Image source={Images.multiplicationExample2} style={TUTORIAL_STYLES.image}/>
+                    </View>
+                    <Text style={TUTORIAL_STYLES.explanation}>
+                        {I18n.t('tutorial.multiplication.secondSentence')}
+                    </Text>
+                    <View style={TUTORIAL_STYLES.imageContainer}>
+                        <Image source={Images.multiplicationExample3} style={TUTORIAL_STYLES.image}/>
+                    </View>
+                    <Text style={TUTORIAL_STYLES.explanation}>
+                        {I18n.t('tutorial.multiplication.thirdSentence')}
+                    </Text>
+                </View>
+            </Tutorial>
         );
     }
 }
