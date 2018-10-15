@@ -25,9 +25,11 @@ import {gameSpec} from "./specs/game/game_spec";
 import {practiceSpec} from "./specs/practice_spec";
 import {operationHintsSpec} from "./specs/game/hints_spec";
 import {statsReducer} from "./src/reducers/stats_reducer";
+import {levelSelectionReducer} from "./src/reducers/level_selection_reducer";
 
 const rootReducer = combineReducers({
     personalInfo: personalInfoReducer,
+    levels: levelSelectionReducer,
     game: gameReducer,
     practice: practiceReducer,
     stats: statsReducer

@@ -12,7 +12,7 @@ export class AndroidV1Data {
 
     async getLevelsCompleted() {
         const levelCompletedArcadeString = await this._getValue("Levels_Completed_Arcade");
-        return this._integerFrom(levelCompletedArcadeString) || 1;
+        return this._integerFrom(levelCompletedArcadeString) || 0;
     }
 
     async getLevelsStars() {

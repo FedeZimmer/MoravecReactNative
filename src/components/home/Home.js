@@ -24,7 +24,7 @@ export class Home extends React.Component {
     }
 
     handlePlayButton() {
-        this.props.navigation.navigate('Play');
+        this.props.navigation.navigate('LevelSelection');
     }
 
     handlePracticeButton() {

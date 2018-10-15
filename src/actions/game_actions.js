@@ -1,15 +1,14 @@
-import {ApiClient} from "../api_client/ApiClient";
 import {emptyStats, LEVEL_FINISHED} from "../reducers/game_reducer";
 import {AppDataStorage} from "../storage/AppDataStorage";
+import {sendUnsentTrials} from "../send_data";
 
-export const START_GAME = 'START_GAME';
+export const LOAD_GAME_DATA = 'LOAD_GAME_DATA';
 export const CALCULATOR_TYPE_INPUT = 'CALCULATOR_TYPE_INPUT';
 export const CALCULATOR_ERASE_INPUT = 'CALCULATOR_ERASE_INPUT';
 export const ASK_FOR_HINT = 'ASK_FOR_HINT';
 export const NEW_TRIAL = 'NEW_TRIAL';
 export const SUBMIT_TRIAL = 'SUBMIT_TRIAL';
 export const START_LEVEL = 'START_LEVEL';
-export const RESTORE_SAVED_GAME_INFO = 'RESTORE_SAVED_GAME_INFO';
 export const UPDATE_LEVELS_HISTORY = 'UPDATE_LEVELS_HISTORY';
 
 
@@ -35,7 +34,8 @@ function createRandomOperationForLevel(level) {
 function newTrial() {
     return (dispatch, getState) => {
         const gameState = getState().game;
-        const currentLevel = gameState.levels[gameState.currentLevel.number];
+        const levelsState = getState().levels;
+        const currentLevel = levelsState.levels[gameState.currentLevel.number];
         dispatch({
             type: NEW_TRIAL,
             operation: createRandomOperationForLevel(currentLevel),
@@ -44,9 +44,20 @@ function newTrial() {
     }
 }
 
-export function startGame() {
-    return {
-        type: START_GAME,
+export function loadGameData() {
+    return (dispatch, getState) => {
+        const playedLevelsStats = getState().levels.playedLevelsStats;
+        const playedLevelsHistory = AppDataStorage.fetch('playedLevelsHistory');
+        const stats = AppDataStorage.fetch('stats');
+
+        Promise.all([playedLevelsHistory, stats]).then(promiseValues => {
+            dispatch({
+                type: LOAD_GAME_DATA,
+                playedLevelsStats: playedLevelsStats,
+                playedLevelsHistory: promiseValues[0] || [],
+                stats: promiseValues[1] || emptyStats(),
+            });
+        });
     }
 }
 
@@ -88,7 +99,8 @@ export function submitTrial() {
 
 export function startLevel(levelNumber) {
     return (dispatch, getState) => {
-        const currentLevel = getState().game.levels[levelNumber];
+        const levelsState = getState().levels;
+        const currentLevel = levelsState.levels[levelNumber];
         dispatch({
             type: START_LEVEL,
             levelNumber: levelNumber,
@@ -116,63 +128,4 @@ function saveGameInfoOnDevice() {
         });
         AppDataStorage.save('stats', gameState.stats);
     }
-}
-
-export function getSavedGameInfoFromDevice() {
-    return (dispatch) => {
-        const playedLevelsStats = AppDataStorage.fetch('playedLevelsStats');
-        const playedLevelsHistory = AppDataStorage.fetch('playedLevelsHistory');
-        const stats = AppDataStorage.fetch('stats');
-
-        Promise.all([playedLevelsStats, playedLevelsHistory, stats]).then(promiseValues => {
-            dispatch({
-                type: RESTORE_SAVED_GAME_INFO,
-                playedLevelsStats: promiseValues[0] || {},
-                playedLevelsHistory: promiseValues[1] || [],
-                stats: promiseValues[2] || emptyStats(),
-            });
-        });
-    }
-}
-
-function sendUnsentTrials() {
-    AppDataStorage.fetch('playedLevelsHistory').then((playedLevelsHistory) => {
-        const allUnsentTrials = getAllUnsentTrials(playedLevelsHistory);
-
-        const totalTrials = playedLevelsHistory.reduce((accum, level) => accum + level.trials.length, 0);
-
-        const totalTrialsSentBefore = totalTrials - allUnsentTrials.length;
-
-        new ApiClient().sendTrials(allUnsentTrials, totalTrialsSentBefore, 'Arcade').then(() => {
-            console.log("--DEBUG-- API: POST /api/v2/trials successful!");
-
-            const markedHistory = markAllTrialsAsSentOnDevice(playedLevelsHistory);
-
-            AppDataStorage.save('playedLevelsHistory', markedHistory);
-        });
-    });
-}
-
-function getAllUnsentTrials(levels) {
-    return levels.map((level) => {
-        return level.trials.filter((trial) => {
-            return !trial.hasOwnProperty('sentToBackend') || !trial['sentToBackend'];
-        });
-    }).reduce(function (allUnsentTrails, unsentTrailsOfLevel) {
-        return allUnsentTrails.concat(unsentTrailsOfLevel);
-    });
-}
-
-function markAllTrialsAsSentOnDevice(playedLevelsHistory) {
-    return playedLevelsHistory.map((level) => {
-        return {
-            ...level,
-            trials: level.trials.map((trial) => {
-                return {
-                    ...trial,
-                    sentToBackend: true,
-                }
-            }),
-        };
-    });
 }

@@ -1,9 +1,11 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {PERSONAL_INFO_FORM, TERMS_AND_CONDITIONS} from "../reducers/personal_info_reducer";
-import {agreeTerms, savePersonalInfo} from "../actions/personal_info_actions";
+import {agreeTerms} from "../actions/personal_info_actions";
 import {TermsAndConditions} from "../components/personalInfo/TermsAndConditions";
 import {PersonalInfoForm} from "../components/personalInfo/PersonalInfoForm";
+import {AppDataStorage} from "../storage/AppDataStorage";
+import {sendPersonalInfo} from "../send_data";
 
 const mapStateToProps = (state) => {
     return {
@@ -16,9 +18,6 @@ const mapDispatchToProps = dispatch => {
         actions: {
             agreeTerms: () => {
                 dispatch(agreeTerms())
-            },
-            savePersonalInfo: (personalInfo, afterSaveCallback) => {
-                dispatch(savePersonalInfo(personalInfo, afterSaveCallback))
             },
         }
     }
@@ -35,16 +34,20 @@ class PersonalInfo extends Component {
         super(props);
 
         this.onSubmit = this.onSubmit.bind(this);
-        this.goToHome = this.goToHome.bind(this);
     }
 
     onSubmit(personalInfo) {
-        this.props.actions.savePersonalInfo(personalInfo, this.goToHome);
+        personalInfo['sentToBackend'] = false;
+        AppDataStorage.save('personalInfo', personalInfo).then(() => {
+            sendPersonalInfo(personalInfo).then(() => {
+                this.goToHome();
+            });
+        });
     };
 
     goToHome() {
         this.props.navigation.navigate('Home');
-    };
+    }
 
     render() {
         if (this.props.state === TERMS_AND_CONDITIONS) {

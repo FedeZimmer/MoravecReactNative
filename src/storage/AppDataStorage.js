@@ -16,4 +16,12 @@ export class AppDataStorage {
             });
         });
     }
+
+    static exists(key) {
+        return new Promise((resolve) => {
+            AsyncStorage.getItem(`@moravec:${key}`).then((value) => {
+                return resolve(value !== null);
+            })
+        });
+    }
 }
