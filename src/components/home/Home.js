@@ -28,7 +28,7 @@ export class Home extends React.Component {
     }
 
     handlePracticeButton() {
-        this.props.navigation.navigate('Practice');
+        this.props.navigation.navigate('PracticeModeSelection');
     }
 
     handleTutorialButton() {

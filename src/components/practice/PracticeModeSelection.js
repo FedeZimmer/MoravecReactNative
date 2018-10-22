@@ -10,13 +10,18 @@ import {INITIAL, ADVANCED, INTERMEDIATE} from "../../models/practice/PracticeMod
 import {OperationCategory} from "../../models/operations/Category";
 
 export let PracticeModeSelection = class extends React.Component {
+    static navigationOptions = {
+        title: 'Practice',
+        header: null
+    };
+
     constructor(props) {
         super(props);
         this.handlePracticeModeSelected = this.handlePracticeModeSelected.bind(this);
     }
 
     handlePracticeModeSelected(category, difficulty) {
-        this.props.onSelectPracticeMode(category, difficulty);
+        this.props.navigation.navigate('Practice', {category: category, difficulty: difficulty});
     }
 
     render() {

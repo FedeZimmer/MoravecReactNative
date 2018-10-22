@@ -1,53 +1,44 @@
 import {PracticeMode} from "../models/practice/PracticeMode";
 import {AppDataStorage} from "../storage/AppDataStorage";
-import {ApiClient} from "../api_client/ApiClient";
+import {sendUnsentPracticeTrials} from "../send_data";
+import {createRandomOperationFor} from "./common";
 
-export const START_PRACTICE = 'START_PRACTICE';
+export const LOAD_PRACTICE_DATA = 'LOAD_PRACTICE_DATA';
 export const START_PRACTICE_MODE = 'START_PRACTICE_MODE';
 export const NEW_TRIAL_PRACTICE = 'NEW_TRIAL_PRACTICE';
 export const CALCULATOR_TYPE_INPUT_PRACTICE = 'CALCULATOR_TYPE_INPUT_PRACTICE';
 export const CALCULATOR_ERASE_INPUT_PRACTICE = 'CALCULATOR_ERASE_INPUT_PRACTICE';
 export const SUBMIT_TRIAL_PRACTICE = 'SUBMIT_TRIAL_PRACTICE';
 
-function createRandomOperationForPracticeMode(practiceMode) {
-    let operation = practiceMode.createRandomOperation();
-
-    return {
-        opType: operation.category(),
-        operator: operation.operatorHumanRepresentation(),
-        operand1: operation.leftOperand().value(),
-        operand2: operation.rightOperand().value(),
-        operation: operation.operationHumanRepresentation(),
-        correctResult: operation.result(),
-        maxSolveTime: operation.maxSolveTime(),
-        hint: operation.hint(),
-    }
-}
-
-export function startPractice() {
-    return {
-        type: START_PRACTICE,
+export function loadPracticeData() {
+    return (dispatch) => {
+        AppDataStorage.fetch('trialsHistory').then(trialsHistory => {
+            dispatch({
+                type: LOAD_PRACTICE_DATA,
+                trialsHistory: trialsHistory || [],
+            });
+        });
     }
 }
 
 export function startPracticeMode(category, difficulty) {
-    return (dispatch, getState) => {
+    return (dispatch) => {
         const practiceMode = new PracticeMode(category, difficulty);
         dispatch({
             type: START_PRACTICE_MODE,
             practiceMode: practiceMode,
-            operation: createRandomOperationForPracticeMode(practiceMode),
+            operation: createRandomOperationFor(practiceMode),
             startTime: new Date().getTime()
-        })
+        });
     }
 }
 
-function newTrial() {
+function newTrialForPractice() {
     return (dispatch, getState) => {
-        const practiceMode = getState().practice.currentPracticeMode;
+        const practiceMode = getState().practice.practiceMode;
         dispatch({
             type: NEW_TRIAL_PRACTICE,
-            operation: createRandomOperationForPracticeMode(practiceMode),
+            operation: createRandomOperationFor(practiceMode),
             startTime: new Date().getTime(),
         });
     }
@@ -68,57 +59,24 @@ export function eraseInput() {
     }
 }
 
-export function submitTrial() {
-    return (dispatch, getState) => {
+export function submitTrialAndContinue() {
+    return (dispatch) => {
         dispatch({
             type: SUBMIT_TRIAL_PRACTICE,
             submitTime: new Date().getTime(),
         });
 
         dispatch(savePracticeInfoOnDevice());
-        dispatch(newTrial());
+        dispatch(newTrialForPractice());
     }
 }
 
 function savePracticeInfoOnDevice() {
     return (dispatch, getState) => {
         const practiceState = getState().practice;
-        AppDataStorage.save('practiceHistory', practiceState.practiceHistory).then(() => {
-            sendUnsentTrials();
+        AppDataStorage.save('trialsHistory', practiceState.trialsHistory).then(() => {
+            sendUnsentPracticeTrials();
         });
     }
-}
-
-function sendUnsentTrials() {
-    AppDataStorage.fetch('practiceHistory').then((practiceHistory) => {
-        const allUnsentTrials = getAllUnsentTrials(practiceHistory);
-
-        const totalTrials = practiceHistory.trials.length;
-
-        const totalTrialsSentBefore = totalTrials - allUnsentTrials.length;
-
-        new ApiClient().sendTrials(allUnsentTrials, totalTrialsSentBefore, 'Practice').then(() => {
-            console.log("--DEBUG-- API: POST /api/v2/trials successful!");
-
-            const markedHistory = markAllTrialsAsSentOnDevice(practiceHistory);
-
-            AppDataStorage.save('practiceHistory', markedHistory);
-        });
-    });
-}
-
-function getAllUnsentTrials(practice) {
-    return practice.trials.filter((trial) => {
-        return !trial.hasOwnProperty('sentToBackend') || !trial['sentToBackend'];
-    });
-}
-
-function markAllTrialsAsSentOnDevice(practiceHistory) {
-    return practiceHistory.trials.map((trial) => {
-        return {
-            ...trial,
-            sentToBackend: true,
-        };
-    });
 }
 

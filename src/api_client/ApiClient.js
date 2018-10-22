@@ -24,6 +24,8 @@ export class ApiClient {
     }
 
     sendTrials(trialsToSend, lastTrialNumberSent, gameType) {
+        console.log("--DEBUG-- API: POST /api/v2/trials successful!");
+
         let trialNumber = lastTrialNumberSent;
 
         const trialsInfoToSend = trialsToSend.map((trial) => {
@@ -36,7 +38,7 @@ export class ApiClient {
                 App_Language: I18n.locale,
                 Trial_Number: trialNumber,
                 Game_Type: gameType,
-                Level: trial.levelNumber,
+                Level: trial.levelNumber ? trial.levelNumber : -1,
                 Operation_Type: trial.operation.opType,
                 Operand_1: trial.operation.operand1,
                 Operator: trial.operation.operator,
@@ -52,8 +54,8 @@ export class ApiClient {
                 Start_Date: moment(trial.startTime).toArray(),
                 End_Date: moment(trial.submitTime).toArray(),
                 Erase: trial.hasErased ? 1 : 0,
-                Hide_Question: 0, // mock
-                Hints_Available: trial.hintsCurrentlyAvailable,
+                Hide_Question: trial.operation.shouldBeHidden ? 1 : 0,
+                Hints_Available: trial.hintsCurrentlyAvailable ? 1 : 0,
                 Hint_Shown: trial.hintShown ? 1 : 0,
                 Session_Trial: trial.trialNumber,
                 Session_Correct: trial.totalCorrectUntilNow,

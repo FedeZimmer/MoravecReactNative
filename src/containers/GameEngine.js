@@ -1,6 +1,13 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {askForHint, eraseInput, loadGameData, startLevel, submitTrial, typeInput} from "../actions/game_actions";
+import {
+    askForHint,
+    eraseInput,
+    loadGameData,
+    startLevel,
+    submitTrialAndContinue,
+    typeInput
+} from "../actions/game_actions";
 import {LevelFinished} from "../components/game/LevelFinished";
 import {Game} from "../components/game/Game";
 import {LEVEL_FINISHED, LOADING, PLAYING} from "../reducers/game_reducer";
@@ -12,6 +19,7 @@ const mapStateToProps = (state) => {
         state: state.game.state,
         playedLevelsStats: state.game.playedLevelsStats,
         currentLevel: state.game.currentLevel,
+        sessionInfo: state.game.sessionInfo,
         currentTrial: state.game.currentTrial,
         lastAnswerData: state.game.lastAnswerData,
     }
@@ -33,7 +41,7 @@ const mapDispatchToProps = dispatch => {
                 dispatch(eraseInput())
             },
             submitTrial: () => {
-                dispatch(submitTrial())
+                dispatch(submitTrialAndContinue())
             },
             askForHint: () => {
                 dispatch(askForHint())
@@ -99,6 +107,7 @@ class GameEngine extends Component {
         if (this.props.state === PLAYING) {
             return <Game state={this.props.state}
                          currentLevel={this.props.currentLevel}
+                         sessionInfo={this.props.sessionInfo}
                          currentTrial={this.props.currentTrial}
                          lastAnswerData={this.props.lastAnswerData}
                          onEraseInput={this.props.actions.eraseInput}
@@ -108,6 +117,7 @@ class GameEngine extends Component {
             />
         } else if (this.props.state === LEVEL_FINISHED) {
             return <LevelFinished finishedLevel={this.props.currentLevel}
+                                  sessionInfo={this.props.sessionInfo}
                                   onReplayLevel={this.replayCurrentLevel}
                                   onPlayNextLevel={this.playNextLevel}
                                   onHomeButtonPressed={this.goToHome}/>

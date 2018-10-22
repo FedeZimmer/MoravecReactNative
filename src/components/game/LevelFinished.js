@@ -47,7 +47,7 @@ export class LevelFinished extends React.Component {
                                             bigStarSize={50}/>
                         <Text style={LEVEL_FINISHED_STYLES.header.results}>
                             {I18n.t('game.levelFinished.correctAnswers', {
-                                correctAnswers: this.props.finishedLevel.totalCorrect,
+                                correctAnswers: this.props.sessionInfo.totalCorrect,
                                 totalTrials: this.props.finishedLevel.totalTrials })
                             }
                         </Text>

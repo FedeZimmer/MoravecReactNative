@@ -14,6 +14,7 @@ import {ViewToSquare3Tutorial} from "./components/tutorials/ViewToSquare3Tutoria
 import {ViewToSquare4Tutorial} from "./components/tutorials/ViewToSquare4Tutorial";
 import {OperationStatsScreen} from "./components/statistics/OperationStatsScreen";
 import LevelSelectionContainer from "./containers/LevelSelectionContainer";
+import {PracticeModeSelection} from "./components/practice/PracticeModeSelection";
 
 
 export const PersonalInfoStack = createStackNavigator(
@@ -30,6 +31,7 @@ export const HomeStack = createStackNavigator(
         Home: {screen: Home},
         LevelSelection: {screen: LevelSelectionContainer},
         Play: {screen: GameEngine},
+        PracticeModeSelection: {screen: PracticeModeSelection},
         Practice: {screen: Practice},
         TutorialsList: {screen: TutorialsList},
         ViewAdditionTutorial: {screen: ViewAdditionTutorial},
