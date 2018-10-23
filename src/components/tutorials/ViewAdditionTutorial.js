@@ -11,28 +11,6 @@ export class ViewAdditionTutorial extends React.Component {
         header: null
     };
 
-    constructor(props) {
-        super(props);
-
-        this.showExamples = this.showExamples.bind(this);
-    }
-
-    showExamples() {
-        return (
-            <View style={TUTORIAL_STYLES.exampleContainer}>
-                <Text style={TUTORIAL_STYLES.exampleTitle}>{I18n.t('tutorial.common.examples').toUpperCase()}</Text>
-                <Image source={Images.additionExample1} style={TUTORIAL_STYLES.image}/>
-                <Text style={TUTORIAL_STYLES.explanation}>
-                    {I18n.t('tutorial.addition.firstSentence')}
-                </Text>
-                <Image source={Images.additionExample2} style={TUTORIAL_STYLES.image}/>
-                <Text style={TUTORIAL_STYLES.explanation}>
-                    {I18n.t('tutorial.addition.secondSentence')}
-                </Text>
-            </View>
-        )
-    }
-
     videoId() {
         if (I18n.currentLocale().startsWith('es')) {
             return "Ies8X7VxGKs";
@@ -45,8 +23,24 @@ export class ViewAdditionTutorial extends React.Component {
         return (
             <Tutorial title={I18n.t('tutorial.addition.sectionTitle')}
                       headerTitle={I18n.t('tutorial.addition.headerTitle').toUpperCase()}
-                      videoId={this.videoId()}
-                      showExamples={this.showExamples}/>
+                      videoId={this.videoId()}>
+
+                <View style={TUTORIAL_STYLES.exampleContainer}>
+                    <Text style={TUTORIAL_STYLES.exampleTitle}>{I18n.t('tutorial.common.examples').toUpperCase()}</Text>
+                    <View style={TUTORIAL_STYLES.imageContainer}>
+                        <Image source={Images.additionExample1} style={TUTORIAL_STYLES.image}/>
+                    </View>
+                    <Text style={TUTORIAL_STYLES.explanation}>
+                        {I18n.t('tutorial.addition.firstSentence')}
+                    </Text>
+                    <View style={TUTORIAL_STYLES.imageContainer}>
+                        <Image source={Images.additionExample2} style={TUTORIAL_STYLES.image}/>
+                    </View>
+                    <Text style={TUTORIAL_STYLES.explanation}>
+                        {I18n.t('tutorial.addition.secondSentence')}
+                    </Text>
+                </View>
+            </Tutorial>
         );
     }
 }

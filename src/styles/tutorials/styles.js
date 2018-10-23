@@ -6,10 +6,10 @@ const windowWidth = getWindowWidth();
 
 export const TUTORIAL_STYLES = {
     tutorial: {
-        flex: 5,
+        flex: 1,
         flexDirection: "column",
-        paddingLeft: windowHeight * 0.03,
-        paddingRight: windowHeight * 0.03,
+        paddingLeft: windowWidth * 0.03,
+        paddingRight: windowWidth * 0.03,
         paddingBottom: windowHeight * 0.03,
         backgroundColor: lightGrayColor
     },
@@ -29,7 +29,7 @@ export const TUTORIAL_STYLES = {
         height: windowHeight * 0.008
     },
     exampleContainer: {
-        flex: 3,
+        flex: 1,
         flexDirection: "column",
         backgroundColor: whiteColor,
         marginTop: 10,
@@ -44,9 +44,13 @@ export const TUTORIAL_STYLES = {
         fontSize: 20,
         color: greenColor
     },
+    imageContainer: {
+        flex: 1,
+        alignItems: "flex-end",
+    },
     image: {
-        resizeMode: 'contain',
-        width: windowWidth * 0.9,
+        resizeMode: 'stretch',  // 'contain' also works but makes a lot of top/bottom margin due to resize
+        maxWidth: "100%",
         marginTop: 20,
         marginBottom: 20
     },
