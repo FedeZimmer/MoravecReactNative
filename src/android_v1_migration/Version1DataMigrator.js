@@ -19,6 +19,10 @@ export class Version1DataMigrator {
         this._androidV1Data = new AndroidV1Data(sharedPreferences, deviceInfoClass);
     }
 
+    async getRawDataForDebugging() {
+        return this._androidV1Data.getRaw();
+    }
+
     async migrateAll() {
         await this.migratePersonalDataSentStatus();
         await this.migratePlayedLevelsStats();
@@ -50,7 +54,6 @@ export class Version1DataMigrator {
     }
 
     async getPlayedLevelsStats() {
-        const levelsCompleted = await this._androidV1Data.getLevelsCompleted();
         const starsPerLevel = await this._androidV1Data.getLevelsStars();
         const trialsTimePerLevel = await this._androidV1Data.getLevelsTotalTimes();
 
@@ -58,7 +61,7 @@ export class Version1DataMigrator {
             return {};
         }
 
-        return this._buildPlayedLevelsStats(levelsCompleted, trialsTimePerLevel, starsPerLevel);
+        return this._buildPlayedLevelsStats(trialsTimePerLevel, starsPerLevel);
     }
 
     async getStatsPerOperation() {
@@ -73,7 +76,7 @@ export class Version1DataMigrator {
 
     // private - build data
 
-    _buildPlayedLevelsStats(levelsCompleted, trialsTimePerLevel, starsPerLevel) {
+    _buildPlayedLevelsStats(trialsTimePerLevel, starsPerLevel) {
         let levelData = {};
 
         const trialsTimePerPlayedLevel = trialsTimePerLevel.filter((time) => time > 0);
@@ -83,7 +86,7 @@ export class Version1DataMigrator {
             levelData[numLevel] = {
                 stars: starsPerLevel[index],
                 totalTrialsTime: trialsTime,
-                levelCompleted: numLevel <= levelsCompleted,
+                levelCompleted: starsPerLevel[index] > 0,
             }
         });
 
