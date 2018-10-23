@@ -21,7 +21,7 @@ export let Game = class extends React.Component {
     _renderHeader() {
         if (this.props.state === PLAYING) {
             return <GameHeader startTime={this.props.currentTrial.startTime}
-                               currentTrialNumber={this.props.currentLevel.currentTrialNumber}
+                               currentTrialNumber={this.props.sessionInfo.currentTrialNumber}
                                totalTrials={this.props.currentLevel.totalTrials}
                                lastAnswerData={this.props.lastAnswerData}
                                countdownBarShowTime={this.props.currentTrial.operation.maxSolveTime}

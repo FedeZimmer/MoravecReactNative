@@ -5,7 +5,6 @@ import {LevelSelection} from "../components/level_selection/LevelSelection";
 
 const mapStateToProps = (state) => {
     return {
-        levels: state.levels.levels,
         numLevels: state.levels.numLevels,
         playedLevelsStats: state.levels.playedLevelsStats,
     }

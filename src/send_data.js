@@ -11,48 +11,45 @@ export function sendPersonalInfo(personalInfo) {
     });
 }
 
-export function sendUnsentTrials() {
-    AppDataStorage.fetch('playedLevelsHistory').then((playedLevelsHistory) => {
-        const allUnsentTrials = getAllUnsentTrials(playedLevelsHistory);
+const ARCADE_GAME_TYPE = 'Arcade';
+const PRACTICE_GAME_TYPE = 'Practice';
 
-        const totalTrials = playedLevelsHistory.reduce((accum, level) => accum + level.trials.length, 0);
+export function sendUnsentGameTrials() {
+    sendUnsentTrials(ARCADE_GAME_TYPE)
+}
+
+export function sendUnsentPracticeTrials() {
+    sendUnsentTrials(PRACTICE_GAME_TYPE)
+}
+
+function sendUnsentTrials(gameType) {
+    AppDataStorage.fetch('trialsHistory').then((trialsHistory) => {
+        const allUnsentTrials = filterUnsentTrials(trialsHistory);
+
+        const totalTrials = trialsHistory.length;
 
         const totalTrialsSentBefore = totalTrials - allUnsentTrials.length;
 
-        sendTrials(allUnsentTrials, totalTrialsSentBefore, playedLevelsHistory);
+        sendTrials(allUnsentTrials, totalTrialsSentBefore, trialsHistory, gameType);
     });
 }
 
-function getAllUnsentTrials(levels) {
-    return levels.map((level) => {
-        return level.trials.filter((trial) => {
-            return !trial.hasOwnProperty('sentToBackend') || !trial['sentToBackend'];
-        });
-    }).reduce(function (allUnsentTrails, unsentTrailsOfLevel) {
-        return allUnsentTrails.concat(unsentTrailsOfLevel);
+function filterUnsentTrials(trials) {
+    return trials.filter((trial) => !trial.hasOwnProperty('sentToBackend') || !trial['sentToBackend']);
+}
+
+function sendTrials(allUnsentTrials, totalTrialsSentBefore, trialsHistory, gameType) {
+    new ApiClient().sendTrials(allUnsentTrials, totalTrialsSentBefore, gameType).then(() => {
+        const markedHistory = markTrialsAsSent(trialsHistory);
+        AppDataStorage.save('trialsHistory', markedHistory);
     });
 }
 
-function sendTrials(allUnsentTrials, totalTrialsSentBefore, playedLevelsHistory) {
-    new ApiClient().sendTrials(allUnsentTrials, totalTrialsSentBefore).then(() => {
-        console.log("--DEBUG-- API: POST /api/v2/trials successful!");
-
-        const markedHistory = markAllTrialsAsSentOnDevice(playedLevelsHistory);
-
-        AppDataStorage.save('playedLevelsHistory', markedHistory);
-    });
-}
-
-function markAllTrialsAsSentOnDevice(playedLevelsHistory) {
-    return playedLevelsHistory.map((level) => {
+function markTrialsAsSent(trials) {
+    return trials.map((trial) => {
         return {
-            ...level,
-            trials: level.trials.map((trial) => {
-                return {
-                    ...trial,
-                    sentToBackend: true,
-                }
-            }),
+            ...trial,
+            sentToBackend: true,
         };
     });
 }

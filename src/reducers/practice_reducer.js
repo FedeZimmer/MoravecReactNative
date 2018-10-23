@@ -1,97 +1,100 @@
 import {
-    START_PRACTICE, START_PRACTICE_MODE, NEW_TRIAL_PRACTICE, CALCULATOR_TYPE_INPUT_PRACTICE,
-    CALCULATOR_ERASE_INPUT_PRACTICE, SUBMIT_TRIAL_PRACTICE
+    CALCULATOR_ERASE_INPUT_PRACTICE,
+    CALCULATOR_TYPE_INPUT_PRACTICE,
+    LOAD_PRACTICE_DATA,
+    NEW_TRIAL_PRACTICE,
+    START_PRACTICE_MODE,
+    SUBMIT_TRIAL_PRACTICE,
 } from '../actions/practice_actions'
+import {
+    hasExceededMaxSolveTime, initilizeSessionInfo,
+    isAnswerCorrect,
+    updatedLastAnswerData,
+    updatedSessionInfoAfterTrialSubmit,
+    updatedTrialAfterErase,
+    updatedTrialAfterNewInput,
+    updatedTrialAfterSubmit,
+    updateTotalCorrect
+} from "./calculator_logic";
 
-export const PRACTICE_MODE_SELECTION = 'PRACTICE_MODE_SELECTION';
+export const LOADING = 'LOADING';
 export const PRACTICING = 'PRACTICING';
 
 const initialState = {
-    state: PRACTICE_MODE_SELECTION,
-    currentPracticeMode: undefined,
+    state: LOADING,
+    practiceMode: undefined,
     currentTrial: undefined,
     lastAnswerData: undefined,
+    trialsHistory: undefined
 };
 
-const MAX_NUMBER_OF_DIGITS = 8;
-
-function newTrialData(operation, startTime) {
+function newTrialForPractice(operation, startTime) {
     return {
+        levelNumber: null,
         currentUserInput: null,
         operation: operation,
         startTime: startTime,
+        keysPressed: [],
+        responseTimes: [],
+        hasErased: false,
+        timeExceeded: false,
         hintShown: operation.hint.hasHint(),
+        hintsCurrentlyAvailable: operation.hint.hasHint(),
     }
-}
-
-function appendNewUserInput(currentInput, newInput) {
-    if (!currentInput) {
-        return newInput;
-    }
-
-    const exceedsMaxNumberOfDigits = currentInput.toString().length >= MAX_NUMBER_OF_DIGITS;
-    if (exceedsMaxNumberOfDigits) {
-        return currentInput;
-    } else {
-        return Number('' + currentInput + newInput);
-    }
-}
-
-function removeLastNumberEntered(currentInput) {
-    return Number(String(currentInput).slice(0, -1));
-}
-
-function isAnswerCorrect(correctResult, currentUserInput) {
-    return correctResult === currentUserInput;
 }
 
 export function practiceReducer(state = initialState, action) {
     switch (action.type) {
-        case START_PRACTICE:
+        case LOAD_PRACTICE_DATA:
             return {
-                ...initialState,
+                ...state,
+                trialsHistory: action.trialsHistory
             };
+
         case START_PRACTICE_MODE:
             return {
                 ...state,
                 state: PRACTICING,
-                currentPracticeMode: action.practiceMode,
-                currentTrial: newTrialData(action.operation, action.startTime)
+                practiceMode: action.practiceMode,
+                currentTrial: newTrialForPractice(action.operation, action.startTime),
+                sessionInfo: initilizeSessionInfo(),
             };
+
         case NEW_TRIAL_PRACTICE:
             return {
                 ...state,
-                currentTrial: newTrialData(action.operation, action.startTime)
+                currentTrial: newTrialForPractice(action.operation, action.startTime)
             };
 
         case CALCULATOR_TYPE_INPUT_PRACTICE:
             return {
                 ...state,
-                currentTrial: {
-                    ...state.currentTrial,
-                    currentUserInput: appendNewUserInput(state.currentTrial.currentUserInput, action.newUserInput),
-                }
+                currentTrial: updatedTrialAfterNewInput(state.currentTrial, action.newUserInput, action.inputTime)
             };
 
         case CALCULATOR_ERASE_INPUT_PRACTICE:
             return {
                 ...state,
-                currentTrial: {
-                    ...state.currentTrial,
-                    currentUserInput: removeLastNumberEntered(state.currentTrial.currentUserInput),
-                }
+                currentTrial: updatedTrialAfterErase(state.currentTrial, action.inputTime)
             };
 
         case SUBMIT_TRIAL_PRACTICE:
             const isCorrect = isAnswerCorrect(state.currentTrial.operation.correctResult, state.currentTrial.currentUserInput);
 
+            const exceededMaxSolveTime = hasExceededMaxSolveTime(state.currentTrial.startTime, action.submitTime,
+                state.currentTrial.operation.maxSolveTime);
+
+            const currentTrialAfterSubmit = updatedTrialAfterSubmit(state.currentTrial, action.submitTime, isCorrect,
+                exceededMaxSolveTime, state.sessionInfo);
+
+            const totalCorrect = updateTotalCorrect(isCorrect, state.sessionInfo.totalCorrect);
+
             return {
                 ...state,
-                lastAnswerData: {
-                    userInput: state.currentTrial.currentUserInput,
-                    correctResult: state.currentTrial.operation.correctResult,
-                    isCorrect: isCorrect,
-                }
+                sessionInfo: updatedSessionInfoAfterTrialSubmit(state.sessionInfo, isCorrect, exceededMaxSolveTime,
+                    totalCorrect),
+                lastAnswerData: updatedLastAnswerData(state.currentTrial, isCorrect, exceededMaxSolveTime),
+                trialsHistory: state.trialsHistory.concat(currentTrialAfterSubmit),
             };
 
         default:

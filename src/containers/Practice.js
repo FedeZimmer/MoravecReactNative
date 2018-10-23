@@ -1,9 +1,17 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {PRACTICE_MODE_SELECTION, PRACTICING} from "../reducers/practice_reducer";
-import {eraseInput, startPractice, startPracticeMode, submitTrial, typeInput} from "../actions/practice_actions";
-import {PracticeModeSelection} from "../components/practice/PracticeModeSelection";
+import {PRACTICING} from "../reducers/practice_reducer";
+import {
+    eraseInput,
+    loadPracticeData,
+    startPracticeMode,
+    submitTrialAndContinue,
+    typeInput
+} from "../actions/practice_actions";
 import {Game} from "../components/game/Game";
+import {LOADING} from "../reducers/game_reducer";
+import {Spinner} from "native-base";
+import {spinnerColor} from "../styles/main/styles";
 
 const mapStateToProps = (state) => {
     return {
@@ -16,8 +24,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = dispatch => {
     return {
         actions: {
-            startPractice: () => {
-                dispatch(startPractice())
+            loadPracticeData: () => {
+                dispatch(loadPracticeData())
             },
             startPracticeMode: (category, difficulty) => {
                 dispatch(startPracticeMode(category, difficulty))
@@ -29,7 +37,7 @@ const mapDispatchToProps = dispatch => {
                 dispatch(eraseInput())
             },
             submitTrial: () => {
-                dispatch(submitTrial())
+                dispatch(submitTrialAndContinue())
             },
         }
     }
@@ -44,11 +52,13 @@ class Practice extends Component {
     constructor(props) {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.userEnteredResult = this.userEnteredResult.bind(this);
     }
 
-    componentWillMount() {
-        this.props.actions.startPractice();
+    componentDidMount() {
+        this.props.actions.loadPracticeData();
+        const navigationsParams = this.props.navigation.state.params;
+        this.props.actions.startPracticeMode(navigationsParams.category,
+            navigationsParams.difficulty);
     }
 
     handleSubmit() {
@@ -62,9 +72,11 @@ class Practice extends Component {
     }
 
     render() {
-        if (this.props.state === PRACTICE_MODE_SELECTION) {
-            return <PracticeModeSelection onSelectPracticeMode={this.props.actions.startPracticeMode}/>
-        } else if (this.props.state === PRACTICING) {
+        if (this.props.state === LOADING) {
+            return <Spinner color={spinnerColor}/>
+        }
+
+        if (this.props.state === PRACTICING) {
             return <Game state={PRACTICING}
                          currentTrial={this.props.currentTrial}
                          lastAnswerData={this.props.lastAnswerData}

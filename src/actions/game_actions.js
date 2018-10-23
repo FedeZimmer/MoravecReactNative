@@ -1,6 +1,7 @@
 import {emptyStats, LEVEL_FINISHED} from "../reducers/game_reducer";
 import {AppDataStorage} from "../storage/AppDataStorage";
-import {sendUnsentTrials} from "../send_data";
+import {sendUnsentGameTrials} from "../send_data";
+import {createRandomOperationFor} from "./common";
 
 export const LOAD_GAME_DATA = 'LOAD_GAME_DATA';
 export const CALCULATOR_TYPE_INPUT = 'CALCULATOR_TYPE_INPUT';
@@ -12,33 +13,14 @@ export const START_LEVEL = 'START_LEVEL';
 export const UPDATE_LEVELS_HISTORY = 'UPDATE_LEVELS_HISTORY';
 
 
-function createRandomOperationForLevel(level) {
-    let operation = level.createRandomOperation();
-
-    // TODO
-    // This mapping seems unnecessary. We could remove it and pass the
-    // Operation object through the components instead.
-    return {
-        opType: operation.category(),
-        operator: operation.operatorHumanRepresentation(),
-        operand1: operation.leftOperand().value(),
-        operand2: operation.rightOperand().value(),
-        operation: operation.operationHumanRepresentation(),
-        correctResult: operation.result(),
-        maxSolveTime: operation.maxSolveTime(),
-        hint: operation.hint(),
-        shouldBeHidden: operation.shouldBeHidden()
-    }
-}
-
-function newTrial() {
+function newTrialForGame() {
     return (dispatch, getState) => {
         const gameState = getState().game;
         const levelsState = getState().levels;
         const currentLevel = levelsState.levels[gameState.currentLevel.number];
         dispatch({
             type: NEW_TRIAL,
-            operation: createRandomOperationForLevel(currentLevel),
+            operation: createRandomOperationFor(currentLevel),
             startTime: new Date().getTime(),
         });
     }
@@ -47,14 +29,14 @@ function newTrial() {
 export function loadGameData() {
     return (dispatch, getState) => {
         const playedLevelsStats = getState().levels.playedLevelsStats;
-        const playedLevelsHistory = AppDataStorage.fetch('playedLevelsHistory');
+        const trialsHistory = AppDataStorage.fetch('trialsHistory');
         const stats = AppDataStorage.fetch('stats');
 
-        Promise.all([playedLevelsHistory, stats]).then(promiseValues => {
+        Promise.all([trialsHistory, stats]).then(promiseValues => {
             dispatch({
                 type: LOAD_GAME_DATA,
                 playedLevelsStats: playedLevelsStats,
-                playedLevelsHistory: promiseValues[0] || [],
+                trialsHistory: promiseValues[0] || [],
                 stats: promiseValues[1] || emptyStats(),
             });
         });
@@ -82,7 +64,7 @@ export function askForHint() {
     }
 }
 
-export function submitTrial() {
+export function submitTrialAndContinue() {
     return (dispatch, getState) => {
         dispatch({
             type: SUBMIT_TRIAL,
@@ -92,7 +74,7 @@ export function submitTrial() {
         if (getState().game.state === LEVEL_FINISHED) {
             dispatch(updateLevelsHistory());
         } else {
-            dispatch(newTrial());
+            dispatch(newTrialForGame());
         }
     }
 }
@@ -104,7 +86,7 @@ export function startLevel(levelNumber) {
         dispatch({
             type: START_LEVEL,
             levelNumber: levelNumber,
-            operation: createRandomOperationForLevel(currentLevel),
+            operation: createRandomOperationFor(currentLevel),
             startTime: new Date().getTime()
         })
     }
@@ -123,8 +105,8 @@ function saveGameInfoOnDevice() {
     return (dispatch, getState) => {
         const gameState = getState().game;
         AppDataStorage.save('playedLevelsStats', gameState.playedLevelsStats);
-        AppDataStorage.save('playedLevelsHistory', gameState.playedLevelsHistory).then(() => {
-            sendUnsentTrials();
+        AppDataStorage.save('trialsHistory', gameState.trialsHistory).then(() => {
+            sendUnsentGameTrials();
         });
         AppDataStorage.save('stats', gameState.stats);
     }
