@@ -1,15 +1,18 @@
 import {
-    ASK_FOR_HINT, CALCULATOR_ERASE_INPUT,
+    ASK_FOR_HINT,
+    CALCULATOR_ERASE_INPUT,
     CALCULATOR_TYPE_INPUT,
     LOAD_GAME_DATA,
     NEW_TRIAL,
-    START_LEVEL, SUBMIT_TRIAL,
+    START_LEVEL,
+    SUBMIT_TRIAL,
     UPDATE_LEVELS_HISTORY,
 } from '../actions/game_actions'
 import {OperationCategory} from "../models/operations/Category";
 import {
     calculateTotalTrialTime,
-    hasExceededMaxSolveTime, initilizeSessionInfo,
+    hasExceededMaxSolveTime,
+    initilizeSessionInfo,
     isAnswerCorrect,
     updatedLastAnswerData,
     updatedSessionInfoAfterTrialSubmit,
@@ -34,13 +37,9 @@ const initialState = {
     stats: emptyStats()
 };
 
-const TOTAL_TRIALS_PER_LEVEL = 20;
+export const TOTAL_TRIALS_PER_LEVEL = 20;
 
 export const MAX_HINTS_PER_LEVEL = 3;
-
-function calculateEfficacy(totalCorrect, totalTrials) {
-    return (totalCorrect / totalTrials) * 100;
-}
 
 function calculateTotalLevelTime(totalTimeUntilNow, currentTrialStartTime, currentTrialSubmitTime) {
     return totalTimeUntilNow + calculateTotalTrialTime(currentTrialStartTime, currentTrialSubmitTime);
@@ -238,7 +237,6 @@ export function gameReducer(state = initialState, action) {
                     totalTrialsTime: calculateTotalLevelTime(state.currentLevel.totalTrialsTime,
                         state.currentTrial.startTime,
                         action.submitTime),
-                    efficacy: calculateEfficacy(totalCorrect, state.currentLevel.totalTrials),
                     levelCompleted: levelCompleted,
                 },
                 sessionInfo: updatedSessionInfoAfterTrialSubmit(state.sessionInfo, isCorrect, exceededMaxSolveTime,
