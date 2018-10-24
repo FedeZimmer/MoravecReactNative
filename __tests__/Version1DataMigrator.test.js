@@ -46,7 +46,7 @@ test('can get played levels stats correctly from SharedPreferences (never played
 test('can get played levels stats correctly from SharedPreferences after playing 1st level (and not passing it)', async () => {
     const sharedPreferences = new FakedSharedPreferences();
     await sharedPreferences.setMultiple({
-        "Arcade_Stats": "1,0,0,0,",
+        "Arcade_Stats": "0,0,0,0,",
         "Arcade_Times": "38059,0,0,0,",
     });
 
@@ -57,8 +57,28 @@ test('can get played levels stats correctly from SharedPreferences after playing
     expect(levelData).toEqual({
         1: {
             totalTrialsTime: 38059,
-            stars: 1,
+            stars: 0,
             levelCompleted: false
+        },
+    });
+});
+
+test('can get played levels stats correctly from SharedPreferences after completing 1st level', async () => {
+    const sharedPreferences = new FakedSharedPreferences();
+    await sharedPreferences.setMultiple({
+        "Arcade_Stats": "3,0,0,0,0,",
+        "Arcade_Times": "38059,0,0,0,0,",
+    });
+
+    const dataMigrator = new Version1DataMigrator(sharedPreferences, mockedDeviceInfoClass());
+
+    const levelData = await dataMigrator.getPlayedLevelsStats();
+
+    expect(levelData).toEqual({
+        1: {
+            totalTrialsTime: 38059,
+            stars: 3,
+            levelCompleted: true
         },
     });
 });
@@ -67,9 +87,8 @@ test('can get played levels stats correctly from SharedPreferences after playing
 test('can get played levels stats correctly from SharedPreferences after completing 1st level and not the 2nd', async () => {
     const sharedPreferences = new FakedSharedPreferences();
     await sharedPreferences.setMultiple({
-        "Arcade_Stats": "3,1,0,0,0,",
+        "Arcade_Stats": "3,0,0,0,0,",
         "Arcade_Times": "38059,28780,0,0,0,",
-        "Levels_Completed_Arcade": "1"
     });
 
     const dataMigrator = new Version1DataMigrator(sharedPreferences, mockedDeviceInfoClass());
@@ -84,7 +103,7 @@ test('can get played levels stats correctly from SharedPreferences after complet
         },
         2: {
             totalTrialsTime: 28780,
-            stars: 1,
+            stars: 0,
             levelCompleted: false
         },
     });
@@ -95,7 +114,6 @@ test('can get played levels stats correctly from SharedPreferences after complet
     await sharedPreferences.setMultiple({
         "Arcade_Stats": "3,2,0,0,0,",
         "Arcade_Times": "38059,28780,0,0,0,",
-        "Levels_Completed_Arcade": "2"
     });
 
     const dataMigrator = new Version1DataMigrator(sharedPreferences, mockedDeviceInfoClass());

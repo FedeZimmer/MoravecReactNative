@@ -5,14 +5,14 @@ export class AndroidV1Data {
         this._dictData = null;
     }
 
+    async getRaw() {
+        await this._readData();
+        return this._dictData;
+    }
+
     async wasPersonalDataSent() {
         const askString = await this._getValue("Ask");
         return askString === "2";
-    }
-
-    async getLevelsCompleted() {
-        const levelCompletedArcadeString = await this._getValue("Levels_Completed_Arcade");
-        return this._integerFrom(levelCompletedArcadeString) || 0;
     }
 
     async getLevelsStars() {
