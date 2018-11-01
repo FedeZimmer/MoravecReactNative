@@ -18,3 +18,18 @@ On secrets.js, add a constant with name 'YOUTUBE_API_KEY' that contains the api 
 by adding the following line:
 
     export const YOUTUBE_API_KEY = "paste_key_here";
+
+## Build a new production release for Android
+
+Copy APK signature config (gradle.properties and .keystore file) into android/app.
+
+Build with:
+
+    cd android
+    ENVFILE=.env.production ./gradlew assembleRelease
+    
+Build and install release:
+
+    cd android
+    ENVFILE=.env.production ./gradlew installRelease
+

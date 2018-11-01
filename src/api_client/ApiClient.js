@@ -19,12 +19,16 @@ export class ApiClient {
         return fetch(ApiClient.baseUrl() + url, fetchOptions).then((response) => {
             return response.json();
         }, (error) => {
-            console.error('Ocurrió un error al conectar servidor ' + ApiClient.baseUrl());
+            if (Config.ENV === 'development') {
+                console.error('Ocurrió un error al conectar servidor ' + ApiClient.baseUrl());
+            }
         });
     }
 
     sendTrials(trialsToSend, lastTrialNumberSent, gameType) {
-        console.log("--DEBUG-- API: POST /api/v2/trials successful!");
+        if (Config.ENV === 'development') {
+            console.log("--DEBUG-- API: POST /api/v2/trials successful!");
+        }
 
         let trialNumber = lastTrialNumberSent;
 
