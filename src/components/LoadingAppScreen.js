@@ -5,6 +5,8 @@ import {MAIN_STYLES, spinnerColor} from "../styles/main/styles";
 import {Version1DataMigrator} from "../android_v1_migration/Version1DataMigrator";
 import {AppDataStorage} from "../storage/AppDataStorage";
 import {sendPersonalInfo} from "../send_data";
+import SplashScreen from 'react-native-splash-screen'
+
 
 // Hiding StatusBar for all screens
 StatusBar.setHidden(true);
@@ -16,6 +18,8 @@ export class LoadingAppScreen extends React.Component {
     };
 
     componentDidMount() {
+        SplashScreen.hide();
+
         this._migrateV1DataIfNeeded().then(() => {
             this._wasPersonalInfoCompletedBefore().then((wasCompletedBefore) => {
                 if (!wasCompletedBefore) {
