@@ -19,10 +19,10 @@ export const TUTORIAL_STYLES = {
         justifyContent: "center"
     },
     title: {
-        fontSize: 40,
+        fontSize: 36,
         fontFamily: "GothamBold",
         color: greenColor,
-        marginLeft: 30
+        marginLeft: 20
     },
     division: {
         backgroundColor: greenColor,
@@ -49,13 +49,13 @@ export const TUTORIAL_STYLES = {
         alignItems: "flex-end",
     },
     image: {
-        resizeMode: 'stretch',  // 'contain' also works but makes a lot of top/bottom margin due to resize
+        resizeMode: 'contain',
         maxWidth: "100%",
         marginTop: 20,
         marginBottom: 20
     },
     explanation: {
-        fontFamily: "GothamMedium",
+        fontFamily: "GothamBook",
         fontSize: 15,
         color: grayColor,
         lineHeight: 25,
@@ -88,7 +88,7 @@ export const LIST_STYLES = {
     },
     tutorialName: {
         fontSize: 25,
-        fontFamily: "GothamMedium",
+        fontFamily: "GothamBook",
         color: grayColor
     },
     icon: {
