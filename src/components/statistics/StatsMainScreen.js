@@ -36,15 +36,21 @@ export let StatsMainScreen = class extends React.Component {
             return (
                 <View>
                     <View style={CATEGORIES_LIST_STYLES.header}>
-                        <Text key={0} style={CATEGORIES_LIST_STYLES.leftTextHeader}>
-                            {I18n.t('stats.statsSelection.header.category')}
-                        </Text>
-                        <Text key={1} style={CATEGORIES_LIST_STYLES.centerTextHeader}>
-                            {I18n.t('stats.statsSelection.header.averageTime')}
-                        </Text>
-                        <Text key={2} style={CATEGORIES_LIST_STYLES.rightTextHeader}>
-                            {I18n.t('stats.statsSelection.header.effectiveness')}
-                        </Text>
+                        <View style={CATEGORIES_LIST_STYLES.leftTextHeaderContainer}>
+                            <Text key={0} style={CATEGORIES_LIST_STYLES.leftTextHeader}>
+                                {I18n.t('stats.statsSelection.header.category')}
+                            </Text>
+                        </View>
+                        <View style={CATEGORIES_LIST_STYLES.centerTextHeaderContainer}>
+                            <Text key={1} style={CATEGORIES_LIST_STYLES.centerTextHeader}>
+                                {I18n.t('stats.statsSelection.header.averageTime')}
+                            </Text>
+                        </View>
+                        <View style={CATEGORIES_LIST_STYLES.rightTextHeaderContainer}>
+                            <Text key={2} style={CATEGORIES_LIST_STYLES.rightTextHeader}>
+                                {I18n.t('stats.statsSelection.header.effectiveness')}
+                            </Text>
+                        </View>
                     </View>
                     <View style={CATEGORIES_LIST_STYLES.list}>
                         {this.renderOperationsStats()}
