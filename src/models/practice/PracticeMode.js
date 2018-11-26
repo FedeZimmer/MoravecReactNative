@@ -1,9 +1,8 @@
 import {OperationFactory} from "../operations/OperationFactory";
-import I18n from "../../../i18n/i18n";
 
-export const INITIAL = I18n.t('practice.practiceModeSelection.difficulties.initial');
-export const INTERMEDIATE = I18n.t('practice.practiceModeSelection.difficulties.intermediate');
-export const ADVANCED = I18n.t('practice.practiceModeSelection.difficulties.advanced');
+export const INITIAL = 'INITIAL';
+export const INTERMEDIATE = 'INTERMEDIATE';
+export const ADVANCED = 'ADVANCED';
 
 
 export class PracticeMode {
@@ -17,7 +16,6 @@ export class PracticeMode {
         }
 
         this._category = category;
-        this._difficulty = difficulty;
     }
 
     createRandomOperation() {
