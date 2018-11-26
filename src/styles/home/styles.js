@@ -21,7 +21,7 @@ export const HOME_STYLES = {
         marginTop: windowHeight * 0.17,
     },
     appName: {
-        fontFamily: 'GothamUltra',
+        fontFamily: 'GothamBlack',
         color: '#152939',
         fontSize: 50,
         textAlign: 'center',
@@ -104,14 +104,11 @@ export const HOME_STYLES = {
         marginBottom: windowHeight * 0.04
     },
     logoFooter: {
-        width: windowWidth * 0.25,
-        height: windowHeight * 0.1,
-        resizeMode: 'contain',
-    },
-    logoEryx: {
         width: windowWidth * 0.20,
-        height: windowHeight * 0.09,
-        marginTop: 5,
+        height: windowHeight * 0.08,
+        marginTop: 10,
+        marginLeft: 3,
+        marginRight: 3,
         resizeMode: 'contain',
     },
     home: {

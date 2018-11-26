@@ -1,5 +1,5 @@
 import React from "react";
-import {Image, Text, View} from "react-native";
+import {Image, Text, View, Linking} from "react-native";
 import {Button} from "native-base";
 import I18n from "../../../i18n/i18n";
 import {HOME_STYLES} from "../../styles/home/styles";
@@ -69,9 +69,15 @@ export class Home extends React.Component {
                     </View>
                 </View>
                 <View style={HOME_STYLES.footerContainer}>
-                    <Image source={Images.logoLni} style={HOME_STYLES.logoFooter}/>
-                    <Image source={Images.logoEryx} style={HOME_STYLES.logoEryx}/>
-                    <Image source={Images.logoEglc} style={HOME_STYLES.logoFooter}/>
+                    <TouchableWithoutFeedback>
+                        <Image source={Images.logoLni} style={HOME_STYLES.logoFooter}/>
+                    </TouchableWithoutFeedback>
+                    <TouchableWithoutFeedback onPress={() => Linking.openURL('https://elgatoylacaja.com.ar')}>
+                        <Image source={Images.logoEglc} style={HOME_STYLES.logoFooter}/>
+                    </TouchableWithoutFeedback>
+                    <TouchableWithoutFeedback onPress={() => Linking.openURL('https://eryx.co')}>
+                        <Image source={Images.logoEryx} style={HOME_STYLES.logoFooter}/>
+                    </TouchableWithoutFeedback>
                 </View>
             </View>
         );
