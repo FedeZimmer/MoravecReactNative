@@ -4,7 +4,8 @@ import {darkGrayColor, greenColor, lightGrayColor, pinkColor} from "../../../glo
 export const HEADER_STYLES = {
     headerGame: {
         flex: 2,
-        flexDirection: 'column'
+        flexDirection: 'column',
+        backgroundColor: lightGrayColor,
     },
     gameInfo: {
         flex: 3,
@@ -22,35 +23,35 @@ export const HEADER_STYLES = {
         flexGrow: 0.7
     },
     timeContainer: {
-        marginLeft: 20,
+        flex: 1,
+        paddingLeft: 10
     },
     time: {
         color: pinkColor,
         fontSize: 23,
-        fontFamily: "GothamMedium"
+        fontFamily: "GothamBook"
     },
     hintsNumber: {
         color: darkGrayColor,
-        fontSize: 25,
-        fontFamily: "GothamMedium"
+        fontSize: 23,
+        fontFamily: "GothamBook"
     },
     hintsText: {
         color: darkGrayColor,
-        fontSize: 20,
-        fontFamily: "GothamMedium"
+        fontSize: 23,
+        fontFamily: "GothamBook"
     },
     hintsContainer: {
         flex: 1,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center'
     },
     remainingTrialsContainer: {
-        marginRight: 20
+        flex: 1,
+        alignItems: "flex-end",
+        paddingRight: 10
     },
     remainingTrials: {
-        fontFamily: "GothamMedium",
+        fontFamily: "GothamBook",
         color: greenColor,
-        fontSize: 25,
+        fontSize: 23,
     },
 };

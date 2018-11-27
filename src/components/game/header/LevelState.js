@@ -14,7 +14,7 @@ export let LevelState = class extends React.Component {
         return (
             <View style={HEADER_STYLES.remainingTrialsContainer}>
                 <Text style={HEADER_STYLES.remainingTrials}>
-                    {this.props.currentTrialNumber} / {this.props.totalTrials}
+                    {this.props.currentTrialNumber}/{this.props.totalTrials}
                 </Text>
             </View>
         )

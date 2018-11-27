@@ -185,17 +185,17 @@ export const LEVEL_SELECTION_STYLES = {
         paddingRight: 20,
     },
     alreadyPlayedLevelNumber: {
-        fontSize: 23,
+        fontSize: 30,
         color: grayColor,
         textAlign: 'right',
-        fontWeight: 'bold',
+        fontFamily: 'GothamBook',
         width: 50,
     },
     levelNumber: {
-        fontSize: 23,
+        fontSize: 30,
         color: whiteColor,
         textAlign: 'right',
-        fontWeight: 'bold',
+        fontFamily: 'GothamBook',
         width: 50,
     },
     levelResultContainer: {

@@ -14,8 +14,10 @@ export let Hints = class extends React.Component {
     render() {
         return (
             <TouchableOpacity onPress={this.props.onPress} style={HEADER_STYLES.hintsContainer}>
-                <Text style={HEADER_STYLES.hintsText}>{I18n.t('game.header.availableHints')}: </Text>
-                <Text style={HEADER_STYLES.hintsNumber}>{this.hintsText()}</Text>
+                <Text style={HEADER_STYLES.hintsText}>
+                    {I18n.t('game.header.availableHints')}: {this.hintsText()}
+                </Text>
+
             </TouchableOpacity>
         )
     }

@@ -32,7 +32,7 @@ export const OPERATION_STYLES = {
         marginLeft: 30,
     },
     operationText: {
-        fontFamily: 'GothamLight',
+        fontFamily: 'GothamBook',
         color: darkGrayColor,
     },
 };
