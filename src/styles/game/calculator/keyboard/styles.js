@@ -1,5 +1,5 @@
 import {grayColor, greenColor, superLightGrayColor, whiteColor} from "../../../global";
-import {getWindowHeight} from "../../../../utils/get_window_info";
+import {getWindowHeight, getWindowWidth} from "../../../../utils/get_window_info";
 
 export const INPUT_STYLES = {
     submitButton: {
@@ -14,11 +14,11 @@ export const INPUT_STYLES = {
         borderLeftColor: superLightGrayColor,
         borderRightWidth: 1,
         borderRightColor: superLightGrayColor,
+        alignItems: "center",
     },
-    submitButtonText: {
-        fontSize: 40,
-        textAlign: 'center',
-        color: whiteColor,
+    submitButtonImage: {
+        width: getWindowWidth() * 0.15,
+        height: getWindowHeight() * 0.09,
     },
     eraseButton: {
         flex: 1,
@@ -34,7 +34,7 @@ export const INPUT_STYLES = {
         borderRightColor: superLightGrayColor,
     },
     eraseButtonText: {
-        fontSize: 40,
+        fontSize: 32,
         textAlign: 'center',
         color: grayColor,
     },

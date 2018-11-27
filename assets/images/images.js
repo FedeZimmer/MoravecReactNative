@@ -4,6 +4,7 @@ const images = {
     logoLni: require("./logoLni.png"),
     logoEryx: require("./logoEryx.png"),
     logoEglc: require("./logoEglc.png"),
+    calculatorEnter: require("./calculatorEnter.png"),
     additionExample1: require("./additionExample1.png"),
     additionExample2: require("./additionExample2.png"),
     majorSystemExample: require("./majorSystemExample.png"),
