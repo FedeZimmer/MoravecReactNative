@@ -1,94 +1,119 @@
-import {lightGrayColor, whiteColor, superLightGrayColor, grayColor, greenColor, pinkColor, darkGrayColor} from "../global";
+import {lightGrayColor, whiteColor, superLightGrayColor, grayColor, greenColor, pinkColor} from "../global";
 import {getWindowHeight, getWindowWidth} from "../../utils/get_window_info";
 
 const windowHeight = getWindowHeight();
+const windowWidth = getWindowWidth();
 
 export const CATEGORIES_LIST_STYLES = {
     header: {
         flex: 3,
         flexDirection: "row",
         backgroundColor: whiteColor,
-        justifyContent: "space-between",
+        justifyContent: "space-around",
         borderBottomWidth: 4,
         borderBottomColor: superLightGrayColor,
         height: 30,
         alignItems: "center"
     },
+    leftTextHeaderContainer: {
+        flex: 1,
+        alignContent: "flex-start",
+        flexGrow: 1,
+        paddingLeft: 10
+    },
     leftTextHeader: {
-        marginLeft: 10,
         fontSize: 15,
-        color: darkGrayColor,
-        fontFamily: "GothamMedium"
+        color: grayColor,
+        fontFamily: "GothamBook",
+    },
+    centerTextHeaderContainer: {
+        flex: 1,
+        alignContent: "flex-start",
+        flexGrow: 1.5
     },
     centerTextHeader: {
         fontSize: 15,
-        color: darkGrayColor,
-        fontFamily: "GothamMedium"
+        color: grayColor,
+        fontFamily: "GothamBook",
+    },
+    rightTextHeaderContainer: {
+        flex: 1,
+        alignContent: "flex-start",
+        flexGrow: 1
     },
     rightTextHeader: {
-        marginRight: 20,
         fontSize: 15,
-        color: darkGrayColor,
-        fontFamily: "GothamMedium"
+        color: grayColor,
+        fontFamily: "GothamBook",
     },
     list: {
         flex: 1,
         backgroundColor: lightGrayColor,
     },
     availableItem: {
+        flex: 3,
+        flexDirection: "row",
+        justifyContent: "space-around",
+        alignItems: "center",
         backgroundColor: whiteColor,
         height: windowHeight * 0.1,
         borderBottomWidth: 2,
         borderBottomColor: superLightGrayColor,
     },
     unavailableItem: {
+        flex: 2,
+        flexDirection: "row",
+        justifyContent: "space-around",
+        alignItems: "center",
         backgroundColor: "#C9CDD6",
         height: windowHeight * 0.1,
         borderBottomWidth: 2,
         borderBottomColor: superLightGrayColor,
     },
-    availableItemContainer: {
-        flex: 3,
-        flexDirection: "row",
-        justifyContent: 'space-between',
-        alignItems: "center",
-        paddingRight: 20,
-    },
-    unavailableItemContainer: {
-        flex: 2,
-        flexDirection: "row",
-        justifyContent: 'space-between',
-        alignItems: "center",
+    categoryNameContainer: {
+        flex: 1,
+        alignContent: "flex-start",
+        flexGrow: 1,
+        paddingLeft: 10,
     },
     availableItemCategoryName: {
-        fontFamily: 'GothamLight',
+        fontFamily: 'GothamBook',
         fontSize: 25,
         color: grayColor,
-        textAlign: 'right',
-        width: 70
+        textAlign: 'left',
     },
     unavailableItemCategoryName: {
-        fontFamily: 'GothamLight',
+        fontFamily: 'GothamBook',
         fontSize: 25,
         color: whiteColor,
-        textAlign: 'right',
-        width: 70
+    },
+    averageTimeContainer: {
+        flex: 1,
+        alignContent: "flex-start",
+        flexGrow: 1.5
     },
     averageTime: {
-        fontFamily: 'GothamLight',
-        fontSize: 20,
+        fontFamily: 'GothamBook',
+        fontSize: 25,
         color: greenColor,
     },
+    effectivenessContainer: {
+        flex: 1,
+        alignContent: "flex-start",
+        flexGrow: 1
+    },
     effectiveness: {
-        fontFamily: 'GothamMedium',
+        fontFamily: 'GothamBook',
         fontSize: 25,
         color: pinkColor,
     },
     playMoreLevelsContainer: {
-        paddingRight: 20,
+        flex: 1,
+        alignContent: "flex-start",
+        flexGrow: 2
     },
     playMoreLevelsText: {
-        fontFamily: 'GothamMedium',
+        fontFamily: 'GothamBook',
         fontSize: 18,
         color: whiteColor,
     }
@@ -99,38 +124,39 @@ export const CHART_STYLES = {
         backgroundColor: whiteColor,
     },
     container: {
-        flex: 4,
+        flex: 2,
         flexDirection: "column",
-        alignItems: "center",
-        alignContent: "center",
-        paddingTop: 30,
-        paddingBottom: 30
+        paddingBottom: 60
+    },
+    categoryNameContainer: {
+        paddingTop: 20,
+        alignItems: "center"
     },
     categoryName: {
         fontSize: 25,
         color: grayColor,
-        fontFamily: "GothamLight"
+        fontFamily: "GothamBook"
     },
     verticalLabelContainer: {
         position: "absolute",
-        left: getWindowWidth() * 0.65,
-        top: getWindowHeight() * 0.4
+        left: windowWidth * 0.65,
+        top: windowHeight * 0.5
     },
     horizontalLabelContainer: {
         position: "absolute",
-        top: getWindowHeight() * 0.75,
-        left: getWindowWidth() * 0.4,
+        top: windowHeight * 0.82,
+        left: windowWidth * 0.35,
     },
     verticalLabel: {
         transform: [{rotate: '270deg'}],
         fontSize: 18,
         color: grayColor,
-        fontFamily: "GothamMedium"
+        fontFamily: "GothamBook"
     },
     horizontalLabel: {
         fontSize: 18,
         color: grayColor,
-        fontFamily: "GothamMedium"
+        fontFamily: "GothamBook"
     },
     crossAxis: {
         axis: {stroke: "#D8DCDF"},
@@ -167,5 +193,6 @@ export const CHART_STYLES = {
             fill: whiteColor
         }
     },
-    chartHeight: getWindowHeight() * 0.65
+    chartHeight: windowHeight * 0.65,
+    chartWidth: windowWidth * 0.95
 };

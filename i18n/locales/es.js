@@ -189,12 +189,12 @@ export default {
             header: {
                 category: "Operación",
                 averageTime: "Tiempo promedio",
-                effectiveness: "Eficacia"
+                effectiveness: "Correctas"
             },
             unavailableStats: "Aún no hay datos",
         },
         chart: {
-            horizontalAxisLabel: "Intentos",
+            horizontalAxisLabel: "Cuentas",
             verticalAxisLabel: "Tiempo de respuesta (seg)",
         }
     }

@@ -40,19 +40,13 @@ export let OperationStatsScreen = class extends React.Component {
             <Content style={CHART_STYLES.content}>
                 <MoravecHeader title={I18n.t('stats.headerTitle').toUpperCase()}/>
                 <View style={CHART_STYLES.container}>
-                    <View>
+                    <View style={CHART_STYLES.categoryNameContainer}>
                         <Text style={CHART_STYLES.categoryName}>
                             {applyLetterSpacing(this.categoryName(), 1)}
                         </Text>
                     </View>
-                    <View style={CHART_STYLES.verticalLabelContainer}>
-                        <Text style={CHART_STYLES.verticalLabel}>{I18n.t('stats.chart.verticalAxisLabel')}</Text>
-                    </View>
-                    <View style={CHART_STYLES.horizontalLabelContainer}>
-                        <Text style={CHART_STYLES.horizontalLabel}>{I18n.t('stats.chart.horizontalAxisLabel')}</Text>
-                    </View>
                     <View>
-                        <VictoryChart height={CHART_STYLES.chartHeight}>
+                        <VictoryChart height={CHART_STYLES.chartHeight} width={CHART_STYLES.chartWidth}>
                             <VictoryAxis crossAxis style={CHART_STYLES.crossAxis}
                                          tickFormat={(value) => Math.round(value)}/>
                             <VictoryAxis dependentAxis crossAxis style={CHART_STYLES.dependentAxis}/>
@@ -60,6 +54,12 @@ export let OperationStatsScreen = class extends React.Component {
                             <VictoryScatter style={CHART_STYLES.scatterPlot} size={5} data={this.getChartData()}/>
                         </VictoryChart>
                     </View>
+                </View>
+                <View style={CHART_STYLES.verticalLabelContainer}>
+                    <Text style={CHART_STYLES.verticalLabel}>{I18n.t('stats.chart.verticalAxisLabel')}</Text>
+                </View>
+                <View style={CHART_STYLES.horizontalLabelContainer}>
+                    <Text style={CHART_STYLES.horizontalLabel}>{I18n.t('stats.chart.horizontalAxisLabel')}</Text>
                 </View>
             </Content>
         )

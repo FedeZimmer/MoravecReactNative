@@ -1,6 +1,13 @@
-import {lightGrayColor, whiteColor, superLightGrayColor, greenColor, grayColor} from "../global";
-import {getWindowHeight} from "../../utils/get_window_info";
-import {getWindowWidth} from "../../utils/get_window_info";
+import {
+    advancedLevelColor,
+    grayColor,
+    greenColor,
+    intermediateLevelColor,
+    lightGrayColor,
+    superLightGrayColor,
+    whiteColor
+} from "../global";
+import {getWindowHeight, getWindowWidth} from "../../utils/get_window_info";
 
 const windowHeight = getWindowHeight();
 const windowWidth = getWindowWidth();
@@ -25,6 +32,7 @@ export const PRACTICE_MODE_SELECTION_STYLES = {
     option: {
         height: windowHeight * 0.15,
         width: windowWidth * 0.33,
+        paddingTop: 4,
         backgroundColor: whiteColor,
         justifyContent: 'center',
         alignItems: 'center',
@@ -44,7 +52,16 @@ export const PRACTICE_MODE_SELECTION_STYLES = {
         color: grayColor,
         letterSpacing: 2,
     },
-    difficult: {
+    difficultyInitial: {
         color: greenColor,
-    }
+        fontFamily: 'GothamBook',
+    },
+    difficultyIntermediate: {
+        color: intermediateLevelColor,
+        fontFamily: 'GothamBook',
+    },
+    difficultyAdvanced: {
+        color: advancedLevelColor,
+        fontFamily: 'GothamBook',
+    },
 };
