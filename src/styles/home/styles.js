@@ -40,6 +40,7 @@ export const HOME_STYLES = {
         justifyContent: "center",
         borderRadius: 0,
         marginBottom: 8,
+        elevation: 0,
     },
     playButtonText: {
         fontFamily: 'GothamBold',
@@ -58,6 +59,7 @@ export const HOME_STYLES = {
         borderRadius: 0,
         marginRight: 4,
         justifyContent: "center",
+        elevation: 0,
     },
     practiceButtonText: {
         fontFamily: 'GothamBold',
@@ -72,6 +74,7 @@ export const HOME_STYLES = {
         borderRadius: 0,
         marginLeft: 4,
         justifyContent: "center",
+        elevation: 0,
     },
     tutorialButtonText: {
         fontFamily: 'GothamBold',
