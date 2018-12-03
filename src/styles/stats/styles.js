@@ -139,7 +139,7 @@ export const CHART_STYLES = {
     },
     verticalLabelContainer: {
         position: "absolute",
-        left: windowWidth * 0.65,
+        left: windowWidth * 0.60,
         top: windowHeight * 0.5
     },
     horizontalLabelContainer: {
