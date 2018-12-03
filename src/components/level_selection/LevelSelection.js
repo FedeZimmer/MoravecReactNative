@@ -8,6 +8,7 @@ import {PlayLevelButton} from "./PlayLevelButton";
 import {makeItTestable} from "../../utils/testable_hoc";
 import {MoravecHeader} from "../common/Header";
 import Config from "react-native-config";
+import {NavigationEvents} from "react-navigation";
 
 export let LevelSelection = class extends React.Component {
     constructor(props) {
@@ -85,6 +86,7 @@ export let LevelSelection = class extends React.Component {
     render() {
         return (
             <View>
+                <NavigationEvents onDidFocus={this.props.onLoading}/>
                 <MoravecHeader title={I18n.t('game.headerTitle').toUpperCase()}/>
                 {this.renderLevelsList()}
             </View>
