@@ -18,10 +18,6 @@ export class ApiClient {
 
         return fetch(ApiClient.baseUrl() + url, fetchOptions).then((response) => {
             return response.json();
-        }, (error) => {
-            if (Config.ENV === 'development') {
-                console.error('Ocurrió un error al conectar servidor ' + ApiClient.baseUrl());
-            }
         });
     }
 

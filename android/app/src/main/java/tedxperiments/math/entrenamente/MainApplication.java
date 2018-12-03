@@ -3,6 +3,7 @@ package tedxperiments.math.entrenamente;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.bugsnag.BugsnagReactNative;
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
 import com.inprogress.reactnativeyoutube.ReactNativeYouTube;
 import com.horcrux.svg.SvgPackage;
@@ -32,6 +33,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
             new MainReactPackage(),
+            BugsnagReactNative.getPackage(),
             new SplashScreenReactPackage(),
             new ReactNativeYouTube(),
             new SvgPackage(),

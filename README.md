@@ -23,6 +23,8 @@ by adding the following line:
 
 Copy APK signature config (gradle.properties and .keystore file) into android/app.
 
+Change app version accordingly.
+
 Build with:
 
     cd android
@@ -33,3 +35,5 @@ Build and install release:
     cd android
     ENVFILE=.env.production ./gradlew installRelease
 
+Finally, generate the release sourcemaps and upload them to Bugsnag. 
+Docs: https://docs.bugsnag.com/platforms/react-native/showing-full-stacktraces/#uploading-source-maps

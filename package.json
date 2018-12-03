@@ -1,12 +1,13 @@
 {
   "name": "Moravec",
-  "version": "0.0.1",
+  "version": "2.0.0",
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest"
   },
   "dependencies": {
+    "bugsnag-react-native": "^2.12.5",
     "mathjs": "^3.18.1",
     "moment": "^2.20.1",
     "moment-duration-format": "^2.2.1",
@@ -36,6 +37,7 @@
     "babel-jest": "21.2.0",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react-native": "4.0.0",
+    "bugsnag-sourcemaps": "^1.0.4",
     "cavy": "^0.5.0",
     "jest": "21.2.1",
     "react-devtools": "^3.1.0",

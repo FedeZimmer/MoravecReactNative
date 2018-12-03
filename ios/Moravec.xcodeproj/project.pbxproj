@@ -87,6 +87,9 @@
 		3C45E7FA66FB43C48C5A63B1 /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = E40A8201C71B4321918EBB7D /* OFL.txt */; };
 		03E8CB4A437A429FAF4FDA54 /* YTPlayerView-iframe-player.html in Resources */ = {isa = PBXBuildFile; fileRef = 96940123157F4EC5A5BA8A00 /* YTPlayerView-iframe-player.html */; };
 		E2B693557B8848009633686C /* libSplashScreen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A9177E4A647B4C48AA59F84A /* libSplashScreen.a */; };
+		1522D93920A247989CBB3538 /* libBugsnagReactNative.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D133BFEE8DA48DDBAC49278 /* libBugsnagReactNative.a */; };
+		FF30E9734B38480182070BAA /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 614408442874485E9C0D9F00 /* libz.tbd */; };
+		9D6C82FD5A7E4CAFB65E0E3D /* libRNDefaultPreference.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C7C36B797CF43C2A373DC94 /* libRNDefaultPreference.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -501,6 +504,11 @@
 		96940123157F4EC5A5BA8A00 /* YTPlayerView-iframe-player.html */ = {isa = PBXFileReference; name = "YTPlayerView-iframe-player.html"; path = "../node_modules/react-native-youtube/assets/YTPlayerView-iframe-player.html"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		0076FD73412442E4BF9D1E02 /* SplashScreen.xcodeproj */ = {isa = PBXFileReference; name = "SplashScreen.xcodeproj"; path = "../node_modules/react-native-splash-screen/ios/SplashScreen.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		A9177E4A647B4C48AA59F84A /* libSplashScreen.a */ = {isa = PBXFileReference; name = "libSplashScreen.a"; path = "libSplashScreen.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		1FDBECDBB7834362812ABF89 /* BugsnagReactNative.xcodeproj */ = {isa = PBXFileReference; name = "BugsnagReactNative.xcodeproj"; path = "../node_modules/bugsnag-react-native/cocoa/BugsnagReactNative.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		6D133BFEE8DA48DDBAC49278 /* libBugsnagReactNative.a */ = {isa = PBXFileReference; name = "libBugsnagReactNative.a"; path = "libBugsnagReactNative.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		614408442874485E9C0D9F00 /* libz.tbd */ = {isa = PBXFileReference; name = "libz.tbd"; path = "usr/lib/libz.tbd"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = sourcecode.text-based-dylib-definition; explicitFileType = undefined; includeInIndex = 0; };
+		1A24AC51E171486DB5A2E707 /* RNDefaultPreference.xcodeproj */ = {isa = PBXFileReference; name = "RNDefaultPreference.xcodeproj"; path = "../node_modules/react-native-default-preference/ios/RNDefaultPreference.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		0C7C36B797CF43C2A373DC94 /* libRNDefaultPreference.a */ = {isa = PBXFileReference; name = "libRNDefaultPreference.a"; path = "libRNDefaultPreference.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -537,6 +545,9 @@
 				41723E99088A4CE8A4F7B239 /* libRNSVG.a in Frameworks */,
 				A25C7CFD239543D6B722D75B /* libRCTYouTube.a in Frameworks */,
 				E2B693557B8848009633686C /* libSplashScreen.a in Frameworks */,
+				1522D93920A247989CBB3538 /* libBugsnagReactNative.a in Frameworks */,
+				FF30E9734B38480182070BAA /* libz.tbd in Frameworks */,
+				9D6C82FD5A7E4CAFB65E0E3D /* libRNDefaultPreference.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -770,6 +781,8 @@
 				9B1E5FB111984132B619A1EB /* RNSVG.xcodeproj */,
 				4D0E7430547D4DC389B85812 /* RCTYouTube.xcodeproj */,
 				0076FD73412442E4BF9D1E02 /* SplashScreen.xcodeproj */,
+				1FDBECDBB7834362812ABF89 /* BugsnagReactNative.xcodeproj */,
+				1A24AC51E171486DB5A2E707 /* RNDefaultPreference.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -792,6 +805,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				083F834B3809469690F48BA4 /* Resources */,
 				B048049320196067002D9DBD /* Recovered References */,
+				8A51B5744F6747308749A939 /* Frameworks */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -884,6 +898,15 @@
 			);
 			name = Products;
 			sourceTree = "<group>";
+		};
+		8A51B5744F6747308749A939 /* Frameworks */ = {
+			isa = "PBXGroup";
+			children = (
+				614408442874485E9C0D9F00 /* libz.tbd */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+			path = "";
 		};
 /* End PBXGroup section */
 
@@ -1585,6 +1608,8 @@
 					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-youtube/**",
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
+					"$(SRCROOT)/../node_modules/bugsnag-react-native/cocoa/**",
+					"$(SRCROOT)/../node_modules/react-native-default-preference/ios",
 				);
 				INFOPLIST_FILE = MoravecTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1615,6 +1640,8 @@
 					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-youtube/**",
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
+					"$(SRCROOT)/../node_modules/bugsnag-react-native/cocoa/**",
+					"$(SRCROOT)/../node_modules/react-native-default-preference/ios",
 				);
 				INFOPLIST_FILE = MoravecTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1648,6 +1675,8 @@
 					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-youtube/**",
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
+					"$(SRCROOT)/../node_modules/bugsnag-react-native/cocoa/**",
+					"$(SRCROOT)/../node_modules/react-native-default-preference/ios",
 				);
 				INFOPLIST_FILE = Moravec/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1682,6 +1711,8 @@
 					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-youtube/**",
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
+					"$(SRCROOT)/../node_modules/bugsnag-react-native/cocoa/**",
+					"$(SRCROOT)/../node_modules/react-native-default-preference/ios",
 				);
 				INFOPLIST_FILE = Moravec/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1720,6 +1751,8 @@
 					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-youtube/**",
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
+					"$(SRCROOT)/../node_modules/bugsnag-react-native/cocoa/**",
+					"$(SRCROOT)/../node_modules/react-native-default-preference/ios",
 				);
 				INFOPLIST_FILE = "Moravec-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1758,6 +1791,8 @@
 					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-youtube/**",
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
+					"$(SRCROOT)/../node_modules/bugsnag-react-native/cocoa/**",
+					"$(SRCROOT)/../node_modules/react-native-default-preference/ios",
 				);
 				INFOPLIST_FILE = "Moravec-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
