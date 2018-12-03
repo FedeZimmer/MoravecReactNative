@@ -1,17 +1,14 @@
 import React from "react";
 import {Text, View} from "react-native";
-import {Content} from "native-base";
 import {makeItTestable} from "../../utils/testable_hoc";
 import {MoravecHeader} from "../common/Header";
 import I18n from "../../../i18n/i18n";
-import {VictoryChart, VictoryLine, VictoryScatter, VictoryAxis} from "victory-native";
+import {VictoryAxis, VictoryChart, VictoryLine, VictoryScatter} from "victory-native";
 import {applyLetterSpacing} from "../../styles/global";
 import {CHART_STYLES} from "../../styles/stats/styles";
 import {OperationCategory} from "../../models/operations/Category";
 
 export let OperationStatsScreen = class extends React.Component {
-    static navigationOptions = {header: null};
-
     constructor(props) {
         super(props);
     }
@@ -37,7 +34,7 @@ export let OperationStatsScreen = class extends React.Component {
 
     render() {
         return (
-            <Content style={CHART_STYLES.content}>
+            <View style={CHART_STYLES.content}>
                 <MoravecHeader title={I18n.t('stats.headerTitle').toUpperCase()}/>
                 <View style={CHART_STYLES.container}>
                     <View style={CHART_STYLES.categoryNameContainer}>
@@ -61,7 +58,7 @@ export let OperationStatsScreen = class extends React.Component {
                 <View style={CHART_STYLES.horizontalLabelContainer}>
                     <Text style={CHART_STYLES.horizontalLabel}>{I18n.t('stats.chart.horizontalAxisLabel')}</Text>
                 </View>
-            </Content>
+            </View>
         )
     }
 };

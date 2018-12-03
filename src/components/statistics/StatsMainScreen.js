@@ -1,6 +1,6 @@
 import React from "react";
 import {Text, View} from "react-native";
-import {Content, Spinner} from "native-base";
+import {Spinner} from "native-base";
 import {makeItTestable} from "../../utils/testable_hoc";
 import {MoravecHeader} from "../common/Header";
 import I18n from "../../../i18n/i18n";
@@ -36,21 +36,15 @@ export let StatsMainScreen = class extends React.Component {
             return (
                 <View>
                     <View style={CATEGORIES_LIST_STYLES.header}>
-                        <View style={CATEGORIES_LIST_STYLES.leftTextHeaderContainer}>
-                            <Text key={0} style={CATEGORIES_LIST_STYLES.leftTextHeader}>
-                                {I18n.t('stats.statsSelection.header.category')}
-                            </Text>
-                        </View>
-                        <View style={CATEGORIES_LIST_STYLES.centerTextHeaderContainer}>
-                            <Text key={1} style={CATEGORIES_LIST_STYLES.centerTextHeader}>
-                                {I18n.t('stats.statsSelection.header.averageTime')}
-                            </Text>
-                        </View>
-                        <View style={CATEGORIES_LIST_STYLES.rightTextHeaderContainer}>
-                            <Text key={2} style={CATEGORIES_LIST_STYLES.rightTextHeader}>
-                                {I18n.t('stats.statsSelection.header.effectiveness')}
-                            </Text>
-                        </View>
+                        <Text key={0} style={CATEGORIES_LIST_STYLES.textHeader}>
+                            {I18n.t('stats.statsSelection.header.category')}
+                        </Text>
+                        <Text key={1} style={CATEGORIES_LIST_STYLES.textHeader}>
+                            {I18n.t('stats.statsSelection.header.averageTime')}
+                        </Text>
+                        <Text key={2} style={CATEGORIES_LIST_STYLES.textHeader}>
+                            {I18n.t('stats.statsSelection.header.effectiveness')}
+                        </Text>
                     </View>
                     <View style={CATEGORIES_LIST_STYLES.list}>
                         {this.renderOperationsStats()}
@@ -64,10 +58,10 @@ export let StatsMainScreen = class extends React.Component {
 
     render() {
         return (
-            <Content>
+            <View>
                 <MoravecHeader title={I18n.t('stats.headerTitle').toUpperCase()}/>
                 {this.renderContent()}
-            </Content>
+            </View>
         )
     }
 };

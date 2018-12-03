@@ -6,11 +6,6 @@ import Images from "../../../assets/images/images";
 import {TUTORIAL_STYLES} from "../../styles/tutorials/styles";
 
 export class ViewMajorSystemTutorial extends React.Component {
-    static navigationOptions = {
-        title: 'Tutorial',
-        header: null
-    };
-
     videoId() {
         if (I18n.currentLocale().startsWith('es')) {
             return "Fv0Si7UJHKw";

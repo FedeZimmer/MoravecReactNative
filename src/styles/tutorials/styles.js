@@ -71,7 +71,6 @@ export const TUTORIAL_STYLES = {
 
 export const LIST_STYLES = {
     list: {
-        flex: 1,
         backgroundColor: lightGrayColor,
     },
     item: {
@@ -79,7 +78,6 @@ export const LIST_STYLES = {
         height: windowHeight * 0.1,
         borderBottomWidth: 4,
         borderBottomColor: superLightGrayColor,
-        flex: 2,
         flexDirection: "row",
         justifyContent: 'space-between',
         alignItems: "center",

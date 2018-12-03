@@ -6,11 +6,6 @@ import Images from "../../../assets/images/images";
 import {TUTORIAL_STYLES} from "../../styles/tutorials/styles";
 
 export class ViewToSquare2Tutorial extends React.Component {
-    static navigationOptions = {
-        title: 'Tutorial',
-        header: null
-    };
-
     videoId() {
         if (I18n.currentLocale().startsWith('es')) {
             return "_CUWlWjFreM";

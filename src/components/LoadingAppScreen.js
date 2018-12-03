@@ -12,11 +12,6 @@ import SplashScreen from 'react-native-splash-screen'
 StatusBar.setHidden(true);
 
 export class LoadingAppScreen extends React.Component {
-    static navigationOptions = {
-        title: 'LoadingAppScreen',
-        header: null
-    };
-
     componentDidMount() {
         SplashScreen.hide();
 

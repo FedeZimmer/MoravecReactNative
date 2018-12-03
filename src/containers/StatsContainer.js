@@ -4,8 +4,6 @@ import {StatsMainScreen} from "../components/statistics/StatsMainScreen";
 import {fetchOperationCategoryStats} from "../actions/stats_actions";
 
 class StatsContainer extends React.Component {
-    static navigationOptions = {header: null};
-
     constructor(props) {
         super(props);
         this.handleShowOperationStats = this.handleShowOperationStats.bind(this);

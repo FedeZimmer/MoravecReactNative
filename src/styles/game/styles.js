@@ -162,8 +162,8 @@ export const LEVEL_FINISHED_STYLES = {
 
 export const LEVEL_SELECTION_STYLES = {
     list: {
-        flex: 1,
         backgroundColor: lightGrayColor,
+        height: getWindowHeight() * 0.85,
     },
     alreadyPlayedItem: {
         backgroundColor: whiteColor,
@@ -178,7 +178,7 @@ export const LEVEL_SELECTION_STYLES = {
         borderBottomColor: superLightGrayColor,
     },
     listItemContainer: {
-        flex: 2,
+        flex: 1,
         flexDirection: "row",
         justifyContent: 'space-between',
         alignItems: "center",

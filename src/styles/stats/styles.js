@@ -6,7 +6,6 @@ const windowWidth = getWindowWidth();
 
 export const CATEGORIES_LIST_STYLES = {
     header: {
-        flex: 3,
         flexDirection: "row",
         backgroundColor: whiteColor,
         justifyContent: "space-around",
@@ -15,43 +14,15 @@ export const CATEGORIES_LIST_STYLES = {
         height: 30,
         alignItems: "center"
     },
-    leftTextHeaderContainer: {
-        flex: 1,
-        alignContent: "flex-start",
-        flexGrow: 1,
-        paddingLeft: 10
-    },
-    leftTextHeader: {
-        fontSize: 15,
-        color: grayColor,
-        fontFamily: "GothamBook",
-    },
-    centerTextHeaderContainer: {
-        flex: 1,
-        alignContent: "flex-start",
-        flexGrow: 1.5
-    },
-    centerTextHeader: {
-        fontSize: 15,
-        color: grayColor,
-        fontFamily: "GothamBook",
-    },
-    rightTextHeaderContainer: {
-        flex: 1,
-        alignContent: "flex-start",
-        flexGrow: 1
-    },
-    rightTextHeader: {
+    textHeader: {
         fontSize: 15,
         color: grayColor,
         fontFamily: "GothamBook",
     },
     list: {
-        flex: 1,
         backgroundColor: lightGrayColor,
     },
     availableItem: {
-        flex: 3,
         flexDirection: "row",
         justifyContent: "space-around",
         alignItems: "center",
@@ -61,7 +32,6 @@ export const CATEGORIES_LIST_STYLES = {
         borderBottomColor: superLightGrayColor,
     },
     unavailableItem: {
-        flex: 2,
         flexDirection: "row",
         justifyContent: "space-around",
         alignItems: "center",
@@ -124,8 +94,6 @@ export const CHART_STYLES = {
         backgroundColor: whiteColor,
     },
     container: {
-        flex: 2,
-        flexDirection: "column",
         paddingBottom: 60
     },
     categoryNameContainer: {

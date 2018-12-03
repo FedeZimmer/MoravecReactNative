@@ -13,9 +13,10 @@ const windowHeight = getWindowHeight();
 const windowWidth = getWindowWidth();
 
 export const PRACTICE_MODE_SELECTION_STYLES = {
+    content: {
+        height: getWindowHeight() * 0.85,
+    },
     container: {
-        flex: 7,
-        flexDirection: 'column',
         justifyContent: 'space-between',
         backgroundColor: lightGrayColor,
         borderStyle: 'solid',
@@ -25,7 +26,6 @@ export const PRACTICE_MODE_SELECTION_STYLES = {
         borderRightColor: superLightGrayColor,
     },
     row: {
-        flex: 3,
         flexDirection: 'row',
         justifyContent: 'space-between',
     },

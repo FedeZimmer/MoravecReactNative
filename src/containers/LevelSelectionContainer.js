@@ -24,11 +24,6 @@ const mapDispatchToProps = dispatch => {
 };
 
 class LevelSelectionContainer extends Component {
-    static navigationOptions = {
-        title: 'Levels',
-        header: null
-    };
-
     constructor(props) {
         super(props);
 
