@@ -6,11 +6,6 @@ import I18n from "../../../i18n/i18n";
 import {TUTORIAL_STYLES} from "../../styles/tutorials/styles";
 
 export class ViewToSquare3Tutorial extends React.Component {
-    static navigationOptions = {
-        title: 'Tutorial',
-        header: null
-    };
-
     videoId() {
         if (I18n.currentLocale().startsWith('es')) {
             return "VHsTlMzN76g";

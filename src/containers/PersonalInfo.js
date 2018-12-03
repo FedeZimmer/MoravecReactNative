@@ -24,12 +24,6 @@ const mapDispatchToProps = dispatch => {
 };
 
 class PersonalInfo extends Component {
-    static navigationOptions = {
-        title: 'PersonalInfo',
-        header: null,
-        gesturesEnabled: false,
-    };
-
     constructor(props) {
         super(props);
 

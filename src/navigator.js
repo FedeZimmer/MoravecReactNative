@@ -23,6 +23,10 @@ export const PersonalInfoStack = createStackNavigator(
     },
     {
         initialRouteName: 'PersonalInfoContainer',
+        navigationOptions: {
+            gesturesEnabled: false,
+            header: null
+        }
     }
 );
 
@@ -48,8 +52,9 @@ export const HomeStack = createStackNavigator(
         headerMode: 'screen',
         navigationOptions: {
             gestureResponseDistance: {
-                horizontal: 150
-            }
+                horizontal: 150,
+            },
+            header: null
         }
     }
 );
@@ -62,5 +67,8 @@ export const Navigator = createSwitchNavigator(
     },
     {
         initialRouteName: 'LoadingAppScreen',
+        navigationOptions: {
+            header: null
+        }
     }
 );

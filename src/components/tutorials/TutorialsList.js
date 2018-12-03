@@ -1,20 +1,15 @@
 import React from "react";
-import {Text, View, TouchableOpacity} from "react-native";
-import {Content, Icon} from "native-base";
+import {Text, TouchableOpacity, View} from "react-native";
+import {Icon} from "native-base";
 import {MoravecHeader} from "../common/Header";
 import I18n from "../../../i18n/i18n";
 import {LIST_STYLES} from "../../styles/tutorials/styles";
 
 export class TutorialsList extends React.Component {
-    static navigationOptions = {
-        title: 'Tutoriales',
-        header: null
-    };
-
     render() {
         const {navigate} = this.props.navigation;
         return (
-            <Content>
+            <View>
                 <MoravecHeader title='TUTORIAL'/>
                 <View style={LIST_STYLES.list}>
                     <TouchableOpacity style={LIST_STYLES.item} onPress={() => navigate('ViewAdditionTutorial')}>
@@ -44,7 +39,7 @@ export class TutorialsList extends React.Component {
                         <Icon style={LIST_STYLES.icon} name="ios-arrow-forward"/>
                     </TouchableOpacity>
                 </View>
-            </Content>
+            </View>
         );
     }
 }

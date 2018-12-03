@@ -1,6 +1,6 @@
 import React from "react";
-import {View} from "react-native";
-import {Content, Spinner} from "native-base";
+import {ScrollView, View} from "react-native";
+import {Spinner} from "native-base";
 import {LEVEL_SELECTION_STYLES} from "../../styles/game/styles"
 import {spinnerColor} from "../../styles/main/styles";
 import I18n from "../../../i18n/i18n";
@@ -61,7 +61,7 @@ export let LevelSelection = class extends React.Component {
             if (Config.UNLOCK_ALL_LEVELS === 'on') {
                 const allLevels = Array.from(Array(this.props.numLevels), (_, x) => x + 1);
                 return (
-                    <View style={LEVEL_SELECTION_STYLES.list}>
+                    <ScrollView style={LEVEL_SELECTION_STYLES.list}>
                         {allLevels.map((levelNumber) => (
                             <PlayLevelButton key={levelNumber} levelCompleted={true}
                                              onPress={() => this.handleLevelSelected(parseInt(levelNumber))}
@@ -69,14 +69,14 @@ export let LevelSelection = class extends React.Component {
                                              stars={0}
                             />
                         ))}
-                    </View>
+                    </ScrollView>
                 )
             } else {
                 return (
-                    <View style={LEVEL_SELECTION_STYLES.list}>
+                    <ScrollView style={LEVEL_SELECTION_STYLES.list}>
                         {this.renderPreviouslyCompletedLevels()}
                         {this.renderNewLevelToPlay()}
-                    </View>
+                    </ScrollView>
                 )
             }
         }
@@ -84,10 +84,10 @@ export let LevelSelection = class extends React.Component {
 
     render() {
         return (
-            <Content>
+            <View>
                 <MoravecHeader title={I18n.t('game.headerTitle').toUpperCase()}/>
                 {this.renderLevelsList()}
-            </Content>
+            </View>
         )
     }
 };

@@ -51,11 +51,6 @@ const mapDispatchToProps = dispatch => {
 };
 
 class GameEngine extends Component {
-    static navigationOptions = {
-        title: 'Game',
-        header: null
-    };
-
     constructor(props) {
         super(props);
 

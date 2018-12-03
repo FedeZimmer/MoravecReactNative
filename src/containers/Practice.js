@@ -44,11 +44,6 @@ const mapDispatchToProps = dispatch => {
 };
 
 class Practice extends Component {
-    static navigationOptions = {
-        title: 'Practice',
-        header: null
-    };
-
     constructor(props) {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);

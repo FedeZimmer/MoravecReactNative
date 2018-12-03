@@ -10,8 +10,6 @@ import {TouchableWithoutFeedback} from "react-native";
 
 export class Home extends React.Component {
     static navigationOptions = {
-        title: 'Home',
-        header: null,
         gesturesEnabled: false,
     };
 
