@@ -1,5 +1,5 @@
 import * as React from "react";
-import {Text, View, Animated} from "react-native";
+import {Animated, Text} from "react-native";
 import {makeItTestable} from "../../utils/testable_hoc";
 import {HINT_CARD_STYLES} from "../../styles/common/styles";
 

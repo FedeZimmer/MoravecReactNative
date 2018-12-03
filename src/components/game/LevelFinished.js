@@ -32,7 +32,7 @@ export class LevelFinished extends React.Component {
 
     renderLevelCompleted() {
         return (
-            <View >
+            <View>
                 <View style={[LEVEL_FINISHED_STYLES.background, {backgroundColor: greenColor}]}/>
                 <View style={LEVEL_FINISHED_STYLES.content}>
                     <View style={LEVEL_FINISHED_STYLES.header.container}>
