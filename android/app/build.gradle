@@ -148,6 +148,7 @@ android {
 }
 
 dependencies {
+    compile project(':bugsnag-react-native')
     compile project(':react-native-splash-screen')
     compile project(':react-native-youtube')
     compile project(':react-native-svg')
