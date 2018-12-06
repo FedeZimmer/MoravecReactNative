@@ -42,16 +42,17 @@ export const LEVEL_FINISHED_STYLES = {
             textAlign: 'center',
         },
         levelNumber: {
-            fontSize: 40,
+            fontSize: 35,
             color: darkGrayColor,
-            fontFamily: "GothamLight",
+            fontFamily: "GothamBook",
             textAlign: 'center',
-            marginTop: windowHeight * 0.08
+            marginTop: windowHeight * 0.04,
+            marginBottom: windowHeight * 0.01
         },
         results: {
-            fontSize: 18,
+            fontSize: 20,
             color: grayColor,
-            fontFamily: "GothamMedium",
+            fontFamily: "GothamBook",
             textAlign: 'center',
             marginTop: windowHeight * 0.04,
             width: windowWidth * 0.5

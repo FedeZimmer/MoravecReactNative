@@ -100,7 +100,10 @@ export default {
         },
         levelFinished: {
             levelNumber: "Level",
-            levelCompletedMessage: "Congratulations. Stage clear.",
+            levelCompletedMessage: {
+                first: "Congratulations.",
+                second: "Stage clear."
+            },
             retryMessage: "Try again",
             correctAnswers: "You answered {{correctAnswers}}/{{totalTrials}} problems correctly",
             mainMenuButton: "Main menu",
