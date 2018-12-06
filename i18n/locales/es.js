@@ -99,9 +99,12 @@ export default {
         },
         levelFinished: {
             levelNumber: "Nivel",
-            levelCompletedMessage: "Felicitaciones. Nivel completado.",
+            levelCompletedMessage: {
+                first: "Felicitaciones.",
+                second: "Nivel {{levelNumber}} completado."
+            },
             retryMessage: "Vuelva a intentarlo",
-            correctAnswers: "Has respondido {{correctAnswers}}/{{totalTrials}} correctamente",
+            correctAnswers: "Respondiste bien {{correctAnswers}} de {{totalTrials}} operaciones.",
             mainMenuButton: "Menú principal",
         }
     },

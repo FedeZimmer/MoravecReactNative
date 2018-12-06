@@ -37,14 +37,18 @@ export class LevelFinished extends React.Component {
                 <View style={LEVEL_FINISHED_STYLES.content}>
                     <View style={LEVEL_FINISHED_STYLES.header.container}>
                         <Text style={LEVEL_FINISHED_STYLES.header.message}>
-                            {I18n.t('game.levelFinished.levelCompletedMessage')}
+                            {I18n.t('game.levelFinished.levelCompletedMessage.first')}
+                        </Text>
+                        <Text style={LEVEL_FINISHED_STYLES.header.message}>
+                            {I18n.t('game.levelFinished.levelCompletedMessage.second',
+                                {levelNumber: this.props.finishedLevel.number})}
                         </Text>
                         <Text style={LEVEL_FINISHED_STYLES.header.levelNumber}>
                             {I18n.t('game.levelFinished.levelNumber')} {this.props.finishedLevel.number}
                         </Text>
                         <LevelEfficacyStars stars={this.props.finishedLevel.stars}
-                                            smallStarSize={40}
-                                            bigStarSize={50}/>
+                                            smallStarSize={70}
+                                            bigStarSize={80}/>
                         <Text style={LEVEL_FINISHED_STYLES.header.results}>
                             {I18n.t('game.levelFinished.correctAnswers', {
                                 correctAnswers: this.props.sessionInfo.totalCorrect,

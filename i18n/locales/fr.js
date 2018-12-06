@@ -101,7 +101,10 @@ export default {
         },
         levelFinished: {
             levelNumber: "Niveau",
-            levelCompletedMessage: "Félicitations. Niveau terminé.",
+            levelCompletedMessage: {
+                first: "Félicitations.",
+                second: "Niveau terminé."
+            },
             retryMessage: "Essayez à nouveau",
             correctAnswers: "Vous avez réussi {{correctAnswers}}/{{totalTrials}} calculs",
             mainMenuButton: "Menu principal",
