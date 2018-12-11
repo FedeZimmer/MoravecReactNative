@@ -19,21 +19,58 @@ by adding the following line:
 
     export const YOUTUBE_API_KEY = "paste_key_here";
 
-## Build a new production release for Android
+## Releasing a new version
+
+### 0. First time setup: Android APK signature config
 
 Copy APK signature config (gradle.properties and .keystore file) into android/app.
 
-Change app version accordingly.
+### 1. Run all tests and make sure they pass
+
+Run Unit tests with:
+
+    jest
+
+Run integration tests on Android with:
+
+    ENVFILE=.env.test react-native run-android
+
+Run integration tests on iOS with:
+
+    ENVFILE=.env.test react-native run-ios
+    
+Make sure all tests pass before proceeding.
+
+### 2. Update version number and commit
+
+- Change `version` string in `package.json`.
+- Change `android:versionName` and `android:versionCode` (increase by 1) in 
+`android/app/source/main/AndroidManifiest.xml`
+- Change `CFBundleShortVersionString` and `CFBundleVersion` (increase by 1) in `ios/Moravec/Info.plist`
+- Commit the changes on master and push
+
+### 3. Deploy sourcemaps
+
+Run 
+
+    ./deploy_sourcemaps [VERSION_NUMBER]
+     
+on the terminal, replacing [VERSION_NUMBER] accordingly.
+
+### 4a. Build a new production release for Android
 
 Build with:
 
     cd android
     ENVFILE=.env.production ./gradlew assembleRelease
     
-Build and install release:
+Optional - Build AND install release:
 
     cd android
     ENVFILE=.env.production ./gradlew installRelease
+        
+### 4b. Build a new production release for iOS
 
-Finally, generate the release sourcemaps and upload them to Bugsnag. 
-Docs: https://docs.bugsnag.com/platforms/react-native/showing-full-stacktraces/#uploading-source-maps
+Build the release using XCode.
+
+### 5. Upload to Play Store and App Store
