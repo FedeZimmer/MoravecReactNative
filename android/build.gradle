@@ -24,3 +24,20 @@ allprojects {
         maven { url 'https://maven.google.com' }
     }
 }
+
+// FIXME
+// This is a patch due to Gradle 2.3+ being removed unexpectedly from Jcenter.
+// Google statement on this issue: https://issuetracker.google.com/issues/120759347#comment27
+// Package issue: https://github.com/oblador/react-native-vector-icons/issues/605
+// The right solution is to upgrade the package react-native-vector-icons together with the
+// toolchain to use a newer gradle (3.1+).
+subprojects {
+    if (project.name.contains('react-native-vector-icons')) {
+        buildscript {
+            repositories {
+                jcenter()
+                maven { url "https://dl.bintray.com/android/android-tools/" }
+            }
+        }
+    }
+}
