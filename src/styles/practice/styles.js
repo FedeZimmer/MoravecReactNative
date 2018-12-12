@@ -14,7 +14,12 @@ const windowWidth = getWindowWidth();
 
 export const PRACTICE_MODE_SELECTION_STYLES = {
     content: {
-        height: getWindowHeight() * 0.85,
+        ios: {
+            height: getWindowHeight() * 0.9,
+        },
+        android: {
+            height: getWindowHeight() * 0.86,
+        }
     },
     container: {
         justifyContent: 'space-between',
@@ -54,14 +59,14 @@ export const PRACTICE_MODE_SELECTION_STYLES = {
     },
     difficultyInitial: {
         color: greenColor,
-        fontFamily: 'GothamBook',
+        fontFamily: 'Gotham-Book',
     },
     difficultyIntermediate: {
         color: intermediateLevelColor,
-        fontFamily: 'GothamBook',
+        fontFamily: 'Gotham-Book',
     },
     difficultyAdvanced: {
         color: advancedLevelColor,
-        fontFamily: 'GothamBook',
+        fontFamily: 'Gotham-Book',
     },
 };

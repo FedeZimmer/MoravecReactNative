@@ -55,7 +55,7 @@ export const TUTORIAL_STYLES = {
         marginBottom: 20
     },
     explanation: {
-        fontFamily: "GothamBook",
+        fontFamily: "Gotham-Book",
         fontSize: 15,
         color: grayColor,
         lineHeight: 25,
@@ -86,7 +86,7 @@ export const LIST_STYLES = {
     },
     tutorialName: {
         fontSize: 25,
-        fontFamily: "GothamBook",
+        fontFamily: "Gotham-Book",
         color: grayColor
     },
     icon: {

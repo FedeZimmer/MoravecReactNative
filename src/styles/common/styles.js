@@ -56,7 +56,7 @@ export const HINT_CARD_STYLES = {
     hintText: {
         color: greenColor,
         textAlign: "center",
-        fontFamily: "GothamBook",
+        fontFamily: "Gotham-Book",
         fontSize: 17
     }
 };

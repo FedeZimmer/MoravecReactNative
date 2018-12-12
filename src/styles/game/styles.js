@@ -44,7 +44,7 @@ export const LEVEL_FINISHED_STYLES = {
         levelNumber: {
             fontSize: 35,
             color: darkGrayColor,
-            fontFamily: "GothamBook",
+            fontFamily: "Gotham-Book",
             textAlign: 'center',
             marginTop: windowHeight * 0.04,
             marginBottom: windowHeight * 0.01
@@ -52,7 +52,7 @@ export const LEVEL_FINISHED_STYLES = {
         results: {
             fontSize: 20,
             color: grayColor,
-            fontFamily: "GothamBook",
+            fontFamily: "Gotham-Book",
             textAlign: 'center',
             marginTop: windowHeight * 0.04,
             width: windowWidth * 0.5
@@ -163,8 +163,14 @@ export const LEVEL_FINISHED_STYLES = {
 
 export const LEVEL_SELECTION_STYLES = {
     list: {
-        backgroundColor: lightGrayColor,
-        height: getWindowHeight() * 0.85,
+        ios: {
+            backgroundColor: lightGrayColor,
+            height: getWindowHeight() * 0.9,
+        },
+        android: {
+            backgroundColor: lightGrayColor,
+            height: getWindowHeight() * 0.86,
+        }
     },
     alreadyPlayedItem: {
         backgroundColor: whiteColor,
@@ -189,14 +195,14 @@ export const LEVEL_SELECTION_STYLES = {
         fontSize: 30,
         color: grayColor,
         textAlign: 'right',
-        fontFamily: 'GothamBook',
+        fontFamily: 'Gotham-Book',
         width: 50,
     },
     levelNumber: {
         fontSize: 30,
         color: whiteColor,
         textAlign: 'right',
-        fontFamily: 'GothamBook',
+        fontFamily: 'Gotham-Book',
         width: 50,
     },
     levelResultContainer: {
