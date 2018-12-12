@@ -163,8 +163,14 @@ export const LEVEL_FINISHED_STYLES = {
 
 export const LEVEL_SELECTION_STYLES = {
     list: {
-        backgroundColor: lightGrayColor,
-        height: getWindowHeight() * 0.9,
+        ios: {
+            backgroundColor: lightGrayColor,
+            height: getWindowHeight() * 0.9,
+        },
+        android: {
+            backgroundColor: lightGrayColor,
+            height: getWindowHeight() * 0.86,
+        }
     },
     alreadyPlayedItem: {
         backgroundColor: whiteColor,

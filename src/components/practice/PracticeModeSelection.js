@@ -1,5 +1,5 @@
 import React from "react";
-import {ScrollView, View} from "react-native";
+import {ScrollView, View, Platform} from "react-native";
 import {PracticeModeOption} from "./PracticeModeOption";
 import I18n from "../../../i18n/i18n";
 import {PRACTICE_MODE_SELECTION_STYLES} from "../../styles/practice/styles";
@@ -23,7 +23,7 @@ export let PracticeModeSelection = class extends React.Component {
             <View>
                 <MoravecHeader title={I18n.t('practice.headerTitle').toUpperCase()}/>
                 <ScrollView contentContainerStyle={PRACTICE_MODE_SELECTION_STYLES.container}
-                            style={PRACTICE_MODE_SELECTION_STYLES.content}>
+                            style={PRACTICE_MODE_SELECTION_STYLES.content[Platform.OS]}>
                     <View style={PRACTICE_MODE_SELECTION_STYLES.row}>
                         <PracticeModeOption category={new OperationCategory("1d+1d")} difficulty={INITIAL}
                                             handleSelect={this.handlePracticeModeSelected}/>

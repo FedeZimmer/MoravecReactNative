@@ -14,7 +14,12 @@ const windowWidth = getWindowWidth();
 
 export const PRACTICE_MODE_SELECTION_STYLES = {
     content: {
-        height: getWindowHeight() * 0.90,
+        ios: {
+            height: getWindowHeight() * 0.9,
+        },
+        android: {
+            height: getWindowHeight() * 0.86,
+        }
     },
     container: {
         justifyContent: 'space-between',
