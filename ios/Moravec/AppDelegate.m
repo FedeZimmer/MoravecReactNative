@@ -11,7 +11,7 @@
 
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
-#import "RNSplashScreen.h"
+#import "SplashScreen.h"
 
 @implementation AppDelegate
 
@@ -20,6 +20,16 @@
   NSURL *jsCodeLocation;
 
   jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
+
+  for (NSString* family in [UIFont familyNames])
+  {
+      NSLog(@"%@", family);
+
+      for (NSString* name in [UIFont fontNamesForFamilyName: family])
+      {
+          NSLog(@"  %@", name);
+      }
+  }
 
   RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
                                                       moduleName:@"Moravec"
@@ -32,7 +42,7 @@
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
-  [RNSplashScreen show];
+  [SplashScreen show];
   return YES;
 }
 

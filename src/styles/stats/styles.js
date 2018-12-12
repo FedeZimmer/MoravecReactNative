@@ -17,7 +17,7 @@ export const CATEGORIES_LIST_STYLES = {
     textHeader: {
         fontSize: 15,
         color: grayColor,
-        fontFamily: "GothamBook",
+        fontFamily: "Gotham-Book",
     },
     list: {
         backgroundColor: lightGrayColor,
@@ -47,13 +47,13 @@ export const CATEGORIES_LIST_STYLES = {
         paddingLeft: 10,
     },
     availableItemCategoryName: {
-        fontFamily: 'GothamBook',
+        fontFamily: 'Gotham-Book',
         fontSize: 25,
         color: grayColor,
         textAlign: 'left',
     },
     unavailableItemCategoryName: {
-        fontFamily: 'GothamBook',
+        fontFamily: 'Gotham-Book',
         fontSize: 25,
         color: whiteColor,
     },
@@ -63,7 +63,7 @@ export const CATEGORIES_LIST_STYLES = {
         flexGrow: 1.5
     },
     averageTime: {
-        fontFamily: 'GothamBook',
+        fontFamily: 'Gotham-Book',
         fontSize: 25,
         color: greenColor,
     },
@@ -73,7 +73,7 @@ export const CATEGORIES_LIST_STYLES = {
         flexGrow: 1
     },
     effectiveness: {
-        fontFamily: 'GothamBook',
+        fontFamily: 'Gotham-Book',
         fontSize: 25,
         color: pinkColor,
     },
@@ -83,7 +83,7 @@ export const CATEGORIES_LIST_STYLES = {
         flexGrow: 2
     },
     playMoreLevelsText: {
-        fontFamily: 'GothamBook',
+        fontFamily: 'Gotham-Book',
         fontSize: 18,
         color: whiteColor,
     }
@@ -103,7 +103,7 @@ export const CHART_STYLES = {
     categoryName: {
         fontSize: 25,
         color: grayColor,
-        fontFamily: "GothamBook"
+        fontFamily: "Gotham-Book"
     },
     verticalLabelContainer: {
         position: "absolute",
@@ -119,12 +119,12 @@ export const CHART_STYLES = {
         transform: [{rotate: '270deg'}],
         fontSize: 18,
         color: grayColor,
-        fontFamily: "GothamBook"
+        fontFamily: "Gotham-Book"
     },
     horizontalLabel: {
         fontSize: 18,
         color: grayColor,
-        fontFamily: "GothamBook"
+        fontFamily: "Gotham-Book"
     },
     crossAxis: {
         axis: {stroke: "#D8DCDF"},
