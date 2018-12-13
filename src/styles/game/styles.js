@@ -46,7 +46,7 @@ export const LEVEL_FINISHED_STYLES = {
             color: darkGrayColor,
             fontFamily: "Gotham-Book",
             textAlign: 'center',
-            marginTop: windowHeight * 0.04,
+            marginTop: windowHeight * 0.03,
             marginBottom: windowHeight * 0.01
         },
         results: {
@@ -62,8 +62,7 @@ export const LEVEL_FINISHED_STYLES = {
             color: darkGrayColor,
             fontFamily: "GothamLight",
             textAlign: 'center',
-            marginTop: windowHeight * 0.08,
-            width: windowWidth * 0.5
+            marginTop: windowHeight * 0.11,
         }
     },
     options: {
