@@ -54,7 +54,7 @@ export const FEEDBACK_STYLES = {
         color: whiteColor,
         fontSize: 20,
         textAlign: 'center',
-        fontFamily: 'GothamMedium',
+        fontFamily: 'Gotham-Medium',
     },
     feedbackCorrectBox: {
         backgroundColor: greenColor,
@@ -63,6 +63,6 @@ export const FEEDBACK_STYLES = {
         color: whiteColor,
         fontSize: 20,
         textAlign: 'center',
-        fontFamily: 'GothamMedium',
+        fontFamily: 'Gotham-Medium',
     },
 };
