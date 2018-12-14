@@ -45,7 +45,9 @@ Make sure all tests pass before proceeding.
 
 - Change `version` string in `package.json`.
 - Change `android:versionName` and `android:versionCode` (increase by 1) in 
-`android/app/source/main/AndroidManifiest.xml`
+`android/app/src/main/AndroidManifiest.xml`
+- Change `versionName` and `versionCode` (increase by 1) in 
+`android/app/build.gradle`
 - Change `CFBundleShortVersionString` and `CFBundleVersion` (increase by 1) in `ios/Moravec/Info.plist`
 - Commit the changes on master and push
 
