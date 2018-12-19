@@ -104,7 +104,10 @@ export default {
                 first: "Congratulations.",
                 second: "Stage clear."
             },
-            retryMessage: "Try again",
+            retryMessage: {
+                first: "Level {{levelNumber}} not completed.",
+                second: "Try again"
+            },
             correctAnswers: "You answered {{correctAnswers}}/{{totalTrials}} problems correctly",
             mainMenuButton: "Main menu",
         }

@@ -103,7 +103,10 @@ export default {
                 first: "Felicitaciones.",
                 second: "Nivel {{levelNumber}} completado."
             },
-            retryMessage: "Vuelva a intentarlo",
+            retryMessage: {
+                first: "Nivel {{levelNumber}} no superado.",
+                second: "Volvé a intentarlo"
+            },
             correctAnswers: "Respondiste bien {{correctAnswers}} de {{totalTrials}} operaciones.",
             mainMenuButton: "Menú principal",
         }

@@ -77,10 +77,11 @@ export class LevelFinished extends React.Component {
                 <View style={LEVEL_FINISHED_STYLES.content}>
                     <View style={LEVEL_FINISHED_STYLES.header.container}>
                         <Text style={LEVEL_FINISHED_STYLES.header.message}>
-                            Nivel {this.props.finishedLevel.number} no superado.
+                            {I18n.t('game.levelFinished.retryMessage.first',
+                                {levelNumber: this.props.finishedLevel.number})}
                         </Text>
                         <Text style={LEVEL_FINISHED_STYLES.header.tryAgain}>
-                            Volvé a intentarlo
+                            {I18n.t('game.levelFinished.retryMessage.second')}
                         </Text>
                     </View>
                     <View style={LEVEL_FINISHED_STYLES.options}>

@@ -105,7 +105,10 @@ export default {
                 first: "Félicitations.",
                 second: "Niveau terminé."
             },
-            retryMessage: "Essayez à nouveau",
+            retryMessage: {
+                first: "Niveau {{levelNumber}} non terminé.",
+                second: "Essayez à nouveau"
+            },
             correctAnswers: "Vous avez réussi {{correctAnswers}}/{{totalTrials}} calculs",
             mainMenuButton: "Menu principal",
         }

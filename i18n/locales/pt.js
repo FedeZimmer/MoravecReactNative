@@ -104,7 +104,10 @@ export default {
                 first: "Parabéns.",
                 second: "Nível completado."
             },
-            retryMessage: "Volte a tenta-lo",
+            retryMessage: {
+                first: "Nível {{levelNumber}} não concluído.",
+                second: "Volte a tenta-lo"
+            },
             correctAnswers: "Você respondeu {{correctAnswers}}/{{totalTrials}} corretamente",
             mainMenuButton: "Menu principal",
         }
