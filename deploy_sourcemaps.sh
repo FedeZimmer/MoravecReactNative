@@ -26,12 +26,12 @@ echo "----> Done!"
 
 echo "----> Uploading iOS sourcemaps to Bugsnag..."
 
-bugsnag-sourcemaps upload --api-key 679da4947e65c72a8ce121acc5b5a832 --app-version ${APP_VERSION} --minified-file sourcemaps/ios-release.bundle --source-map sourcemaps/ios-release.bundle.map --minified-url main.jsbundle
+bugsnag-sourcemaps upload --api-key 679da4947e65c72a8ce121acc5b5a832 --app-version ${APP_VERSION} --minified-file sourcemaps/ios-release.bundle --source-map sourcemaps/ios-release.bundle.map --minified-url main.jsbundle -o
 
 echo "----> Done!"
 
 echo "----> Uploading Android sourcemaps to Bugsnag..."
 
-bugsnag-sourcemaps upload --api-key 679da4947e65c72a8ce121acc5b5a832 --app-version ${APP_VERSION} --minified-file sourcemaps/android-release.bundle --source-map sourcemaps/android-release.bundle.map --minified-url index.android.bundle
+bugsnag-sourcemaps upload --api-key 679da4947e65c72a8ce121acc5b5a832 --app-version ${APP_VERSION} --minified-file sourcemaps/android-release.bundle --source-map sourcemaps/android-release.bundle.map --minified-url index.android.bundle -o
 
 echo "----> Done!"
