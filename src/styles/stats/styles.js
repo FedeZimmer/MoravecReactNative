@@ -132,7 +132,7 @@ export const CHART_STYLES = {
         ticks: {stroke: "none"},
         tickLabels: {
             fontSize: 15,
-            fontFamily: "Gotham-Medium"
+            fontFamily: "GothamMedium"
         }
     },
     dependentAxis: {
@@ -144,7 +144,7 @@ export const CHART_STYLES = {
         ticks: {stroke: "none"},
         tickLabels: {
             fontSize: 15,
-            fontFamily: "Gotham-Medium"
+            fontFamily: "GothamMedium"
         }
     },
     lineChart: {

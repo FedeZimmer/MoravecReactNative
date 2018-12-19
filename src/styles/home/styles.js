@@ -21,7 +21,7 @@ export const HOME_STYLES = {
         marginTop: windowHeight * 0.17,
     },
     appName: {
-        fontFamily: 'Gotham-Black',
+        fontFamily: 'GothamBlack',
         color: '#152939',
         fontSize: 50,
         textAlign: 'center',
@@ -43,7 +43,7 @@ export const HOME_STYLES = {
         elevation: 0,
     },
     playButtonText: {
-        fontFamily: 'Gotham-Bold',
+        fontFamily: 'GothamBold',
         color: whiteColor,
         fontSize: 16,
         textAlign: 'center',
@@ -62,7 +62,7 @@ export const HOME_STYLES = {
         elevation: 0,
     },
     practiceButtonText: {
-        fontFamily: 'Gotham-Bold',
+        fontFamily: 'GothamBold',
         color: whiteColor,
         fontSize: 16,
         textAlign: 'center',
@@ -77,7 +77,7 @@ export const HOME_STYLES = {
         elevation: 0,
     },
     tutorialButtonText: {
-        fontFamily: 'Gotham-Bold',
+        fontFamily: 'GothamBold',
         color: whiteColor,
         fontSize: 16,
         textAlign: 'center',
@@ -95,7 +95,7 @@ export const HOME_STYLES = {
         marginTop: 10
     },
     statsButtonText: {
-        fontFamily: 'Gotham-Bold',
+        fontFamily: 'GothamBold',
         color: grayColor,
         fontSize: 16,
         textAlign: 'center',
