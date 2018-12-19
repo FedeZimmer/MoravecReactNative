@@ -24,7 +24,7 @@ export const HEADER_STYLES = {
     },
     timeContainer: {
         flex: 1,
-        paddingLeft: 10
+        paddingLeft: 5
     },
     time: {
         color: pinkColor,
@@ -33,12 +33,12 @@ export const HEADER_STYLES = {
     },
     hintsNumber: {
         color: darkGrayColor,
-        fontSize: 22,
+        fontSize: 20,
         fontFamily: "Gotham-Book"
     },
     hintsText: {
         color: darkGrayColor,
-        fontSize: 22,
+        fontSize: 20,
         fontFamily: "Gotham-Book"
     },
     hintsContainer: {
@@ -47,7 +47,7 @@ export const HEADER_STYLES = {
     remainingTrialsContainer: {
         flex: 1,
         alignItems: "flex-end",
-        paddingRight: 10
+        paddingRight: 5
     },
     remainingTrials: {
         fontFamily: "Gotham-Book",
