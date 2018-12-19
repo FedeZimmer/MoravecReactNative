@@ -28,17 +28,17 @@ export const HEADER_STYLES = {
     },
     time: {
         color: pinkColor,
-        fontSize: 23,
+        fontSize: 22,
         fontFamily: "Gotham-Book"
     },
     hintsNumber: {
         color: darkGrayColor,
-        fontSize: 23,
+        fontSize: 22,
         fontFamily: "Gotham-Book"
     },
     hintsText: {
         color: darkGrayColor,
-        fontSize: 23,
+        fontSize: 22,
         fontFamily: "Gotham-Book"
     },
     hintsContainer: {
@@ -52,6 +52,6 @@ export const HEADER_STYLES = {
     remainingTrials: {
         fontFamily: "Gotham-Book",
         color: greenColor,
-        fontSize: 23,
+        fontSize: 22,
     },
 };

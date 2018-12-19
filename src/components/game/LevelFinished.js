@@ -47,8 +47,8 @@ export class LevelFinished extends React.Component {
                             {I18n.t('game.levelFinished.levelNumber')} {this.props.finishedLevel.number}
                         </Text>
                         <LevelEfficacyStars stars={this.props.finishedLevel.stars}
-                                            smallStarSize={70}
-                                            bigStarSize={80}/>
+                                            smallStarSize={65}
+                                            bigStarSize={75}/>
                         <Text style={LEVEL_FINISHED_STYLES.header.results}>
                             {I18n.t('game.levelFinished.correctAnswers', {
                                 correctAnswers: this.props.sessionInfo.totalCorrect,
