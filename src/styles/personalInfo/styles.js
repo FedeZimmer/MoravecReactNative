@@ -27,7 +27,7 @@ export const TYC_STYLES = {
         marginTop: getWindowHeight() * 0.12,
     },
     text: {
-        fontFamily: 'Gotham-Medium',
+        fontFamily: 'GothamMedium',
         color: grayColor,
         fontSize: 16,
         lineHeight: 30,
@@ -51,7 +51,7 @@ export const TYC_STYLES = {
         borderRadius: 0,
     },
     agreeButtonText: {
-        fontFamily: 'Gotham-Bold',
+        fontFamily: 'GothamBold',
         color: whiteColor,
         fontSize: 15,
         textAlign: 'center',
@@ -72,7 +72,7 @@ export const PERSONAL_INFO_FORM_STYLES = {
         marginBottom: 30,
     },
     mainText: {
-        fontFamily: 'Gotham-Bold',
+        fontFamily: 'GothamBold',
         color: darkGrayColor,
         fontSize: 14,
         lineHeight: 30,
@@ -82,14 +82,14 @@ export const PERSONAL_INFO_FORM_STYLES = {
         marginBottom: 20,
     },
     inputLabel: {
-        fontFamily: 'Gotham-Bold',
+        fontFamily: 'GothamBold',
         color: darkGrayColor,
         fontSize: 17,
         marginBottom: 10,
     },
     textInput: {
         ios: {
-            fontFamily: 'Gotham-Medium',
+            fontFamily: 'GothamMedium',
             fontSize: 16,
             color: grayColor,
             borderBottomWidth: 2,
@@ -97,20 +97,20 @@ export const PERSONAL_INFO_FORM_STYLES = {
             height: 30,
         },
         android: {
-            fontFamily: 'Gotham-Medium',
+            fontFamily: 'GothamMedium',
             fontSize: 16,
             color: grayColor,
             height: 40,
         }
     },
     inputSubLabel: {
-        fontFamily: 'Gotham-Bold',
+        fontFamily: 'GothamBold',
         color: darkGrayColor,
         fontSize: 16,
         marginBottom: 5,
     },
     placeholder: {
-        fontFamily: 'Gotham-Bold',
+        fontFamily: 'GothamBold',
         color: grayColor,
         fontSize: 14,
     },
@@ -123,7 +123,7 @@ export const PERSONAL_INFO_FORM_STYLES = {
         marginTop: 10,
     },
     submitButtonText: {
-        fontFamily: 'Gotham-Bold',
+        fontFamily: 'GothamBold',
         color: whiteColor,
         fontSize: 15,
         textAlign: 'center',
@@ -145,7 +145,7 @@ export const RADIO_SET_STYLES = {
         marginBottom: 8
     },
     radioOptionLabel: {
-        fontFamily: 'Gotham-Bold',
+        fontFamily: 'GothamBold',
         color: grayColor,
         fontSize: 14,
     }

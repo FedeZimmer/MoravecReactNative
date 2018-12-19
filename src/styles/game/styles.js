@@ -37,7 +37,7 @@ export const LEVEL_FINISHED_STYLES = {
         },
         message: {
             fontSize: 18,
-            fontFamily: "Gotham-Medium",
+            fontFamily: "GothamMedium",
             color: darkGrayColor,
             textAlign: 'center',
         },
@@ -60,7 +60,7 @@ export const LEVEL_FINISHED_STYLES = {
         tryAgain: {
             fontSize: 40,
             color: darkGrayColor,
-            fontFamily: "Gotham-Light",
+            fontFamily: "GothamLight",
             textAlign: 'center',
             marginTop: windowHeight * 0.11,
         }
@@ -138,7 +138,7 @@ export const LEVEL_FINISHED_STYLES = {
         elevation: 0,
     },
     mainPageButtonText: {
-        fontFamily: 'Gotham-Bold',
+        fontFamily: 'GothamBold',
         color: grayColor,
         fontSize: 15,
         textAlign: 'center',
@@ -212,12 +212,12 @@ export const LEVEL_SELECTION_STYLES = {
         marginLeft: 60
     },
     levelTime: {
-        fontFamily: 'Gotham-Medium',
+        fontFamily: 'GothamMedium',
         fontSize: 17,
         color: greenColor,
     },
     playText: {
-        fontFamily: 'Gotham-Medium',
+        fontFamily: 'GothamMedium',
         fontSize: 23,
         color: whiteColor,
     },
