@@ -53,7 +53,7 @@ export const PRACTICE_MODE_SELECTION_STYLES = {
     },
     operationCategoryName: {
         fontSize: 25,
-        fontFamily: 'GothamMedium',
+        fontFamily: 'Gotham-Medium',
         color: grayColor,
         letterSpacing: 2,
     },

@@ -35,7 +35,7 @@ export const HEADER_STYLES = {
     },
     title: {
         color: greenColor,
-        fontFamily: 'GothamBold',
+        fontFamily: 'Gotham-Bold',
         fontSize: 20
     },
 };

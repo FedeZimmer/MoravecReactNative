@@ -20,7 +20,7 @@ export const TUTORIAL_STYLES = {
     },
     title: {
         fontSize: 36,
-        fontFamily: "GothamBold",
+        fontFamily: "Gotham-Bold",
         color: greenColor,
         marginLeft: 20
     },
@@ -40,7 +40,7 @@ export const TUTORIAL_STYLES = {
         paddingBottom: 30
     },
     exampleTitle: {
-        fontFamily: 'GothamMedium',
+        fontFamily: 'Gotham-Medium',
         fontSize: 20,
         color: greenColor
     },
@@ -63,7 +63,7 @@ export const TUTORIAL_STYLES = {
     },
     boldText: {
         fontSize: 15,
-        fontFamily: "GothamBold",
+        fontFamily: "Gotham-Bold",
         color: grayColor,
         lineHeight: 25,
     }

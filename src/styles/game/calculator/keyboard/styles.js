@@ -53,7 +53,7 @@ export const INPUT_STYLES = {
         borderRightColor: superLightGrayColor,
     },
     inputButtonText: {
-        fontFamily: 'GothamMedium',
+        fontFamily: 'Gotham-Medium',
         fontSize: 27,
         textAlign: 'center',
         color: grayColor,
