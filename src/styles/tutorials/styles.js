@@ -103,11 +103,6 @@ export const VIDEO_PLAYER_STYLES = {
         bottom: 120,
         left: windowWidth * 0.45
     },
-    video: {
-        height: 240,
-        width: "100%",
-        margin: 0,
-    },
     videoContainer: {
         flex: 1,
         padding: 0,
