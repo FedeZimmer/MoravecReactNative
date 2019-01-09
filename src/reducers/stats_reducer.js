@@ -9,7 +9,7 @@ function effectiveness(corrrectTrialsTimes, totalTrials) {
 }
 
 function averageTime(trialsTime) {
-    const totalTime = trialsTime.reduce((accumTime, trialTime) => accumTime + trialTime);
+    const totalTime = trialsTime.reduce((accumTime, trialTime) => accumTime + trialTime, 0);
     const totalTrials = trialsTime.length;
 
     return totalTime / totalTrials;
@@ -20,10 +20,10 @@ export function statsReducer(state = initialState, action) {
         case CALCULATE_STATS:
             const stats = action.stats;
             const operationCategoryStats = stats.map((operationStats) => {
-                const totalTrialsForCategory = operationStats.correctTrialsTimes.length +
-                    operationStats.incorrectTrialsTimes.length;
+                const numCorrectTrials = operationStats.correctTrialsTimes.length;
+                const totalTrialsForCategory = numCorrectTrials + operationStats.incorrectTrialsTimes.length;
 
-                if (totalTrialsForCategory > 0) {
+                if (numCorrectTrials > 0) {
                     return {
                         categoryCodename: operationStats.categoryCodename,
                         effectiveness: effectiveness(operationStats.correctTrialsTimes, totalTrialsForCategory),

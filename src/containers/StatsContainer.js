@@ -10,8 +10,11 @@ class StatsContainer extends React.Component {
     }
 
     handleShowOperationStats(operationCategoryCodename, responseTimes) {
-        this.props.navigation.navigate('OperationStatsScreen',
-            {categoryCodename: operationCategoryCodename, responseTimes: responseTimes});
+        const atLeastOneDataToShowInTheGraph = responseTimes.length > 0;
+        if (atLeastOneDataToShowInTheGraph) {
+            this.props.navigation.navigate('OperationStatsScreen',
+                {categoryCodename: operationCategoryCodename, responseTimes: responseTimes});
+        }
     }
 
     componentDidMount() {
