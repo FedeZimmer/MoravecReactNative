@@ -50,7 +50,7 @@ export const LEVEL_FINISHED_STYLES = {
             marginBottom: windowHeight * 0.01
         },
         results: {
-            fontSize: 20,
+            fontSize: 16,
             color: grayColor,
             fontFamily: "Gotham-Book",
             textAlign: 'center',
