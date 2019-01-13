@@ -1,5 +1,7 @@
 # Moravec
 
+Requirements: Node 10.15 LTS, Java 8.
+
 ## Running integration tests
 
 Just set ENVFILE var to '.env.test' before running the app.
