@@ -1,5 +1,11 @@
 # Moravec
 
+THIS REPO IS NOT USED ANYMORE.
+
+Please checkout https://github.com/elgatoylacaja/moravec-native for the latest version!
+
+---------
+
 Requirements: Node 10.15 LTS, Java 8.
 
 ## Running integration tests
